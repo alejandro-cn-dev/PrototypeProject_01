@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Sistema Web de gestion de inventario | v4.1',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,13 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Sistema de Gestion de Inventario</b>LTE',
+    //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'img/logo.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'System Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -538,4 +539,6 @@ return [
     */
 
     'livewire' => false,
+
+    'ADMINLTE_CHANGE_LANGUAGE_ENDPOINT' => 'es'
 ];
