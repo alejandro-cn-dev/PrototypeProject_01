@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<form action="/categorias" method="POST">
+<form action="categorias" method="POST">
     @csrf
     <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre" name="nombre" type="text"
             class="form-control" tabindex="1" /></div>

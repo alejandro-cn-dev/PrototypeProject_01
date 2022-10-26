@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('detalle');
             $table->string('estado');
             $table->string('sufijo_categoria');
+            $table->boolean('isEnable')->default(1);
             $table->timestamps();
         });
     }
