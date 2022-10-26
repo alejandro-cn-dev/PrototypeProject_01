@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Sistema de Gestion de Inventario</b>LTE',
+    'logo' => '<b>Gestion de Inventario</b>',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img' => 'img/logo.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
@@ -85,10 +85,10 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
+            'path' => 'img/logo.jpg',
+            'alt' => 'System Logo',
             'class' => '',
             'width' => 50,
             'height' => 50,
@@ -110,7 +110,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/logo.jpg',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -131,7 +131,7 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
@@ -295,7 +295,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -313,77 +313,65 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Gestion de inventario',
+            'icon'    => 'fas fa-fw fa-list-alt',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Gestion de productos',
+                    'url'  => 'productos',
+                    'icon'    => 'fas fa-fw fa-box',
+                ],                
+                [
+                    'text' => 'Gestion de entradas',
+                    'icon'    => 'fas fa-fw fa-arrow-down',
+                    'url'  => 'entradas',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Gestion de salidas',
+                    'icon'    => 'fas fa-fw fa-arrow-up',
+                    'url'  => 'salidas',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Gestion de categorias',
+                    'icon'    => 'fas fa-fw fa-bolt',
+                    'url'  => 'categorias',
+                ],
+                [
+                    'text' => 'Gestion de marcas',
+                    'icon'    => 'fas fa-fw fa-filter',
+                    'url'  => 'marcas',
+                ],
+                [
+                    'text' => 'Gestion de almacenes',
+                    'icon'    => 'fas fa-fw fa-store',
+                    'url'  => 'almacens',
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'        => 'Gestion de personal',
+            'url'         => 'empleados',
+            'icon'    => 'fas fa-fw fa-users'
+        ],
+        
+        [
+            'text'        => 'Generacion de reportes',
+            'url'         => 'reportes/index',
+            'icon'    => 'fas fa-fw fa-file-excel'
+        ],
+        ['header' => 'Configuracion de la cuenta'],
+        [
+            'text' => 'Perfil de usuario',
+            'url'  => 'user/profile',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text' => 'Cambiar contraseña',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-lock',
         ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+       
     ],
 
     /*
