@@ -24,6 +24,12 @@ Route::resource('empleados','App\Http\Controllers\EmpleadoController');
 Route::resource('entradas','App\Http\Controllers\EntradaController');
 Route::resource('salidas','App\Http\Controllers\SalidaController');
 Route::resource('categorias','App\Http\Controllers\CategoriaController');
+/*Route::get('categorias/index',[CategoriaController::class, 'index'])->middleware('auth')->name('categorias');
+Route::get('categorias/create/{id}',[CategoriaController::class, 'create'])->middleware('auth')->name('categorias.create');
+Route::post('categorias/store',[CategoriaController::class, 'store'])->middleware('auth')->name('categorias.store');
+Route::get('categorias/edit/{id}',[CategoriaController::class, 'edit'])->middleware('auth')->name('categorias.edit');
+Route::put('categorias/update/{id}',[CategoriaController::class, 'update'])->middleware('auth')->name('categorias.update');*/
+
 Route::resource('marcas','App\Http\Controllers\MarcaController');
 Route::resource('almacens','App\Http\Controllers\AlmacenController');
 Route::resource('home','App\Http\Controllers\HomeController');

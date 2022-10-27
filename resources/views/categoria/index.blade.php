@@ -14,7 +14,6 @@
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Detalle</th>
-            <th scope="col">Estado</th>
             <th scope="col">Sufijo Categoria</th>
         </tr>
     </thead>
@@ -24,7 +23,6 @@
             <td>{{$categoria->id}}</td>
             <td>{{$categoria->nombre}}</td>
             <td>{{$categoria->detalle}}</td>
-            <td>{{$categoria->estado}}</td>
             <td>{{$categoria->sufijo_categoria}}</td>
             <td>
                 <form action="{{route('categorias.destroy',$categoria->id)}}" method="POST">
