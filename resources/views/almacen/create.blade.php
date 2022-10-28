@@ -23,21 +23,8 @@
         </select>
         <!--<input id="tipo" name="tipo" type="date" class="form-control" tabindex="2" />-->
     </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Estado</label>
-        <select id="estado" name="estado" class="form-control" tabindex="3">
-            <option value="default" selected>Elegir estado...</option>
-            <option value="Disponible">Habilitado</option>
-            <option value="No disponible">No habilitado</option>
-        </select>
-        <!--<input id="id_producto" name="id_producto" type="number" class="form-control" tabindex="3" />-->
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Sufijo almacen</label>
-        <input id="sufijo_almacen" name="sufijo_almacen" type="text" class="form-control" tabindex="4" />
-    </div>    
-    <a href="/entradas" class="btn btn-secondary" tabindex="6">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="7">Guardar</button>
+    <a href="/entradas" class="btn btn-secondary" tabindex="3">Cancelar</a>
+    <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
 </form>
 @stop
 

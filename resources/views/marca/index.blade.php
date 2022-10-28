@@ -13,7 +13,8 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Detalle</th>
-            <th scope="col">Estado</th>
+            <th scope="col">Sufijo Marca</th>
+            <th scope="col">Opciones</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +22,7 @@
         <tr>
             <td>{{$marca->id}}</td>
             <td>{{$marca->detalle}}</td>
-            <td>{{$marca->estado}}</td>
+            <td>{{$marca->sufijo_marca}}</td>
             <td>
                 <form action="{{route('marcas.destroy',$marca->id)}}" method="POST">
                     <a href="/marcas/{{$marca->id}}/edit " class="btn btn-info">Editar</a>

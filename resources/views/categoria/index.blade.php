@@ -15,6 +15,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Detalle</th>
             <th scope="col">Sufijo Categoria</th>
+            <th scope="col">Opciones</th>
         </tr>
     </thead>
     <tbody>

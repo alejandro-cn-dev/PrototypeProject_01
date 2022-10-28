@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rol extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    protected $fillable = [
+        'detalle'
+    ];
 }

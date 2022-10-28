@@ -13,7 +13,8 @@ class AlmacenController extends Controller
 
     public function index()
     {
-        $almacenes = Almacen::all();
+        //$almacenes = Almacen::all();
+        $almacenes = Almacenes::where('isEnable','=',1)->get();
         return view('almacen.index')->with('almacenes',$almacenes);
     }
 
@@ -36,10 +37,11 @@ class AlmacenController extends Controller
     public function store(Request $request)
     {
         $almacenes = new Almacen();
-        $almacenes->nombre = $request->get('nombre');
+        $nombre = $request->get('nombre');
+        $almacenes->nombre = $nombre;
         $almacenes->tipo = $request->get('tipo');
-        $almacenes->estado = $request->get('estado');
-        $almacenes->sufijo_almacen = $request->get('sufijo_almacen');
+        $almacenes->matricula = auth()->user()->matricula;
+        $almacenes->sufijo_almacen = strtoupper(substr($nombre,0,2));
         $almacenes->save();
 
         return redirect('/almacens');
@@ -78,10 +80,10 @@ class AlmacenController extends Controller
     public function update(Request $request, $id)
     {
         $almacen = Almacen::find($id);
-        $almacen->nombre = $request->get('nombre');
+        $nombre = $request->get('nombre');
+        $almacen->nombre = $nombre;
         $almacen->tipo = $request->get('tipo');
-        $almacen->estado = $request->get('estado');
-        $almacen->sufijo_almacen = $request->get('sufijo_almacen');
+        $almacen->sufijo_almacen = strtoupper(substr($nombre,0,2));
 
         $almacen->save();
 
@@ -96,8 +98,10 @@ class AlmacenController extends Controller
      */
     public function destroy($id)
     {
-        $almacen = Almacen::find($id);
-        $almacen->delete();
+        $almacen = Almacen::find($id);        
+        $almacen->isEnable = false;
+        $almacen->save();
+        //$almacen->delete();
         return redirect('/almacens');
     }
 }

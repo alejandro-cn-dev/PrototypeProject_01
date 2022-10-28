@@ -24,22 +24,9 @@
             <option value="almacen_pequenio">Almacen pequeño</option>
         </select>
         <!--<input id="tipo" name="tipo" type="date" class="form-control" tabindex="2" />-->
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Estado</label>        
-        <select id="estado" name="estado" class="form-control" selected="selected" value="{{$almacen->estado}}">
-            <option value="default" selected>Elegir estado...</option>
-            <option value="Disponible">Disponible</option>
-            <option value="No disponible">No disponible</option>
-        </select>
-        <!--<input id="id_producto" name="id_producto" type="number" class="form-control" tabindex="3" />-->
     </div>    
-    <div class="mb-3">
-        <label for="" class="form-label">Sufijo almacen</label>
-        <input id="sufijo_almacen" name="sufijo_almacen" type="text" class="form-control" value="{{$almacen->sufijo_almacen}}" />
-    </div>    
-    <a href="/almacens" class="btn btn-secondary" tabindex="5">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="6">Guardar</button>
+    <a href="/almacens" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 @stop
 

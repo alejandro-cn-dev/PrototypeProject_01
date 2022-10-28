@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('nombre');
             $table->unsignedBigInteger('id_user');
             $table->string('telefono');
-            $table->string('matricula');
+            $table->string('matricula')->nullable()->unique();
             $table->unsignedBigInteger('id_rol');
-            $table->string('estado');                        
+            $table->boolean('isEnable')->default(1);                        
             $table->foreign('id_rol')->references('id')->on('rols');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();

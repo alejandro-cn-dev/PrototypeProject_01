@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('tipo');
-            $table->string('estado');
             $table->string('sufijo_almacen');
+            $table->boolean('isEnable')->default(1);
+            $table->string('matricula');
             $table->timestamps();
+            $table->foreign('matricula')->references('matricula')->on('empleados')->onDelete('cascade');
         });
     }
 

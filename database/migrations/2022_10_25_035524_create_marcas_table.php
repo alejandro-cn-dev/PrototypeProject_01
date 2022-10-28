@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('marcas', function (Blueprint $table) {
             $table->id();
             $table->string('detalle');
-            $table->string('estado');
             $table->string('sufijo_marca');
+            $table->boolean('isEnable')->default(1);
+            $table->string('matricula');
             $table->timestamps();
+            $table->foreign('matricula')->references('matricula')->on('empleados')->onDelete('cascade');
         });
     }
 

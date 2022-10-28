@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->nullable();
-            $table->string('matricula')->nullable()->unique();
+            //$table->string('matricula')->nullable()->unique();
+            $table->boolean('isEnable')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

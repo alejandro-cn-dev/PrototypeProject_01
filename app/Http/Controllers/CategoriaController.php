@@ -18,7 +18,8 @@ class CategoriaController extends Controller
 
     public function index()
     {
-        $categorias = Categoria::all();
+        //$categorias = Categoria::all();
+        $categorias = Categoria::where('isEnable','=',1)->get();
         return view('categoria.index')->with('categorias',$categorias);
     }
 
@@ -44,7 +45,6 @@ class CategoriaController extends Controller
         $nombre = $request->get('nombre');
         $categorias->nombre = $nombre;
         $categorias->detalle = $request->get('detalle');
-        $categorias->sufijo_categoria = $request->get('sufijo_categoria');   
         $categorias->matricula = auth()->user()->matricula;
         $categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
 
@@ -85,8 +85,10 @@ class CategoriaController extends Controller
     public function update(Request $request, $id)
     {
         $categoria = Categoria::find($id);
-        $categoria->nombre = $request->get('nombre');
+        $nombre = $request->get('nombre');
+        $categoria->nombre = $nombre;
         $categoria->detalle = $request->get('detalle');
+        $categoria->sufijo_categoria = strtoupper(substr($nombre,0,2));
 
         $categoria->save();
         return redirect('/categorias');
@@ -101,7 +103,9 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         $categoria = Categoria::find($id);
-        $categoria->delete();
-        return redirect('/categoria');
+        $categoria->isEnable = false;
+        $categoria->save();
+        //$categoria->delete();
+        return redirect('/categorias');
     }
 }
