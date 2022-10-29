@@ -18,13 +18,17 @@ return new class extends Migration
             $table->string('ap_paterno');
             $table->string('ap_materno');
             $table->string('nombre');
-            $table->unsignedBigInteger('id_user');
+            $table->string('ci');
+            $table->string('expedido');
+            //$table->unsignedBigInteger('id_user');
             $table->string('telefono');
             $table->string('matricula')->nullable()->unique();
             $table->unsignedBigInteger('id_rol');
+            $table->string('email')->nullable();
             $table->boolean('isEnable')->default(1);                        
             $table->foreign('id_rol')->references('id')->on('rols');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('email')->references('email')->on('users');
+            //$table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }

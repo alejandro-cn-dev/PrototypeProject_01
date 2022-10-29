@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Almacen;
+use App\Models\Empleado;
 
 class AlmacenController extends Controller
 {
@@ -14,7 +15,7 @@ class AlmacenController extends Controller
     public function index()
     {
         //$almacenes = Almacen::all();
-        $almacenes = Almacenes::where('isEnable','=',1)->get();
+        $almacenes = Almacen::where('isEnable','=',1)->get();
         return view('almacen.index')->with('almacenes',$almacenes);
     }
 
@@ -37,10 +38,14 @@ class AlmacenController extends Controller
     public function store(Request $request)
     {
         $almacenes = new Almacen();
+        $email = auth()->user()->email;
+        //$id = auth()->user()->id;
+        $empleado = Empleado::where('email','=',$email)->first();
         $nombre = $request->get('nombre');
         $almacenes->nombre = $nombre;
         $almacenes->tipo = $request->get('tipo');
-        $almacenes->matricula = auth()->user()->matricula;
+        //$almacenes->matricula = auth()->user()->matricula;
+        $almacenes->matricula=$empleado->matricula;
         $almacenes->sufijo_almacen = strtoupper(substr($nombre,0,2));
         $almacenes->save();
 

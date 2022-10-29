@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('detalle');
             $table->string('sufijo_categoria');
             $table->boolean('isEnable')->default(1);
-            $table->string('matricula');
+            $table->string('matricula')->nullable();
             $table->timestamps();
             $table->foreign('matricula')->references('matricula')->on('empleados')->onDelete('cascade');
         });

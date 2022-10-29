@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Marca;
+use App\Models\Empleado;
 
 class MarcaController extends Controller
 {
@@ -42,9 +43,13 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         $marcas = new Marca();
+        $email = auth()->user()->email;
+        //$id = auth()->user()->id;
+        $empleado = Empleado::where('email','=',$email)->first();
         $detalle = $request->get('detalle');
         $marcas->detalle = $detalle;
-        $marcas->matricula = auth()->user()->matricula;        
+        //$marcas->matricula = auth()->user()->matricula;        
+        $marcas->matricula = $empleado->matricula;
         $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
 
         $marcas->save();

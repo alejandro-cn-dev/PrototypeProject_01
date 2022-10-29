@@ -28,20 +28,20 @@
         <input id="telefono" name="telefono" type="text" class="form-control" value="{{$empleado->telefono}}" />
     </div>
     <div class="mb-3">
-        <label for="" class="form-label">Matricula</label>
-        <input id="matricula" name="matricula" type="text" class="form-control" value="{{$empleado->matricula}}" />
+        <label for="" class="form-label">CI</label>
+        <input id="ci" name="ci" type="text" class="form-control" value="{{$empleado->ci}}" />
     </div>
     <div class="mb-3">
-        <label for="" class="form-label">Usuario</label>
-        <input id="id_user" name="id_user" type="text" class="form-control" value="{{$empleado->id_user}}" />
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Estado</label>
-        <input id="estado" name="estado" type="text" class="form-control" value="{{$empleado->estado}}" />
+        <label for="" class="form-label">EXP</label>
+        <input id="expedido" name="expedido" type="text" class="form-control" value="{{$empleado->expedido}}" />
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Rol</label>
-        <input id="id_rol" name="id_rol" type="number" class="form-control" value="{{$empleado->id_rol}}" />
+        <select id="id_rol" name="id_rol" class="form-control" tabindex="8">
+            <option value="0" selected>Elegir rol...</option>
+            <option value="1">Administrador</option>
+            <option value="2">Encargado</option>
+        </select>
     </div>
     <a href="/empleados" class="btn btn-secondary" tabindex="5">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="6">Guardar</button>

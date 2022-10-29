@@ -22,37 +22,37 @@
         <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" />
     </div>
     <div class="mb-3">
+        <label for="" class="form-label">CI</label>
+        <input id="ci" name="ci" type="text" class="form-control" tabindex="4" />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">EXP</label>
+        <input id="expedido" name="expedido" type="text" class="form-control" tabindex="5" />
+    </div>
+    <div class="mb-3">
         <label for="" class="form-label">Telefono</label>
-        <input id="telefono" name="telefono" type="text" class="form-control" tabindex="4" />
+        <input id="telefono" name="telefono" type="text" class="form-control" tabindex="6" />
     </div>
     <div class="mb-3">
-        <label for="" class="form-label">Matricula</label>
-        <input id="matricula" name="matricula" type="text" class="form-control" tabindex="5" />
+        <label for="" class="form-label">Email</label>
+        <input id="email" name="telefono" type="text" class="form-control" tabindex="7" />
     </div>
-    <div class="mb-3">
+    <!--REVISAR LA CREACION DEL USUARIO ANTES Y NO COLOCAR ESTE CAMPO MANUALMENTE-->
+    <!--<div class="mb-3">
         <label for="" class="form-label">Usuario</label>
-        <input id="id_user" name="id_user" type="text" class="form-control" tabindex="7" />
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Estado</label>
-        <select id="estado" name="estado" class="form-control" tabindex="8">
-            <option value="default" selected>Elegir estado...</option>
-            <option value="Habilitado">Habilitado</option>
-            <option value="Deshabilitado">Deshabilitado</option>
-        </select>
-        <!--<input id="estado" name="estado" type="text" class="form-control" tabindex="6" />-->
-    </div>
+        <input id="id_user" name="id_user" type="text" class="form-control" tabindex="8" />
+    </div>    -->
     <div class="mb-3">
         <label for="" class="form-label">Rol</label>
-        <select id="id_rol" name="id_rol" class="form-control" tabindex="9">
+        <select id="id_rol" name="id_rol" class="form-control" tabindex="8">
             <option value="0" selected>Elegir rol...</option>
             <option value="1">Administrador</option>
             <option value="2">Encargado</option>
         </select>
         <!--<input id="rol" name="rol" type="number" class="form-control" tabindex="7" />-->
     </div>
-    <a href="/empleados" class="btn btn-secondary" tabindex="10">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="11">Guardar</button>
+    <a href="/empleados" class="btn btn-secondary" tabindex="9">Cancelar</a>
+    <button type="submit" class="btn btn-primary" tabindex="10">Guardar</button>
 </form>
 @stop
 

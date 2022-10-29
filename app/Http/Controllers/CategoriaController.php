@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\Empleado;
 
 class CategoriaController extends Controller
 {
@@ -42,10 +43,14 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $categorias = new Categoria();
+        $email = auth()->user()->email;
+        //$id = auth()->user()->id;
+        $empleado = Empleado::where('email','=',$email)->first();
         $nombre = $request->get('nombre');
         $categorias->nombre = $nombre;
         $categorias->detalle = $request->get('detalle');
-        $categorias->matricula = auth()->user()->matricula;
+        //$categorias->matricula = auth()->user()->matricula;
+        $categorias->matricula = $empleado->matricula;
         $categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
 
         $categorias->save();
