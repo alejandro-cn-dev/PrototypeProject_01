@@ -106,10 +106,13 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        $roles = Rol::where('id_rol','=',$id_rol)->first();
+        $id_rol = $request->get('id_rol');
+        $roles = Rol::where('id','=',$id_rol)->first();
 
-        $usuario = new User();
-        $usuario->email = $email = $request->get('email');
+        $email = $request->get('email');
+        //$usuario = User::where('email','=',$email)->get();
+        $usuario = User::find($email);
+        //$usuario->email = $email;
         $usuario->name = $nombre = $request->get('nombre');
         $usuario->password = $request->get('password');
         $usuario->role = $roles->detalle;

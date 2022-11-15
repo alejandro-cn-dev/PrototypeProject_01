@@ -50,9 +50,14 @@
         <label for="" class="form-label">Telefono</label>
         <input id="telefono" name="telefono" type="text" class="form-control" value="{{$empleado->telefono}}" />
     </div>
+    <!--CAMPO QUE FUNCIONA COMO LLAVE FORANEA-->
     <div class="mb-3">
         <label for="" class="form-label">Email</label>
-        <input id="email" name="email" type="text" class="form-control" value="{{$empleado->email}}" />
+        <input id="email" name="email" type="text" disabled class="form-control" value="{{$empleado->email}}" />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Contraseña</label>
+        <input id="password" name="password" type="password" class="form-control" value="" />
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Rol</label>
