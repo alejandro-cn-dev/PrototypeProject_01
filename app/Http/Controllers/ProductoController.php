@@ -23,11 +23,12 @@ class ProductoController extends Controller
     {
         //$productos = Producto::all();
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
-        ->join('almacens','productos.id_almacen','=','almacens.id')
+        //->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
         ->select('productos.id','productos.item_producto','productos.descripcion','productos.color',
         'categorias.nombre as id_categoria',
-        'almacens.nombre as id_almacen','marcas.detalle as id_marca','productos.estado')->get();
+        //'almacens.nombre as id_almacen',
+        'marcas.detalle as id_marca','productos.estado')->get();
 
         return view('producto.index')->with('productos',$productos);
     }

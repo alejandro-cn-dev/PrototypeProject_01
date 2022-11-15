@@ -12,6 +12,10 @@
     @csrf
     @method('PUT')
     <div class="mb-3">
+        <label for="" class="form-label">Matricula</label>
+        <input id="matricula" name="matricula" type="text" disabled class="form-control" value="{{$empleado->matricula}}" />
+    </div>
+    <div class="mb-3">
         <label for="" class="form-label">Apellido Paterno</label>
         <input id="ap_paterno" name="ap_paterno" type="text" class="form-control" value="{{$empleado->ap_paterno}}" />
     </div>
@@ -24,16 +28,31 @@
         <input id="nombre" name="nombre" type="text" class="form-control" value="{{$empleado->nombre}}" />
     </div>
     <div class="mb-3">
-        <label for="" class="form-label">Telefono</label>
-        <input id="telefono" name="telefono" type="text" class="form-control" value="{{$empleado->telefono}}" />
-    </div>
-    <div class="mb-3">
         <label for="" class="form-label">CI</label>
         <input id="ci" name="ci" type="text" class="form-control" value="{{$empleado->ci}}" />
     </div>
     <div class="mb-3">
         <label for="" class="form-label">EXP</label>
-        <input id="expedido" name="expedido" type="text" class="form-control" value="{{$empleado->expedido}}" />
+        <select id="expedido" name="expedido" class="form-control" tabindex="5">
+            <option value="0" selected>Expedido en...</option>
+            <option value="BE">Beni</option>
+            <option value="CB">Cochabamba</option>
+            <option value="CH">Chuquisaca</option>
+            <option value="LP">La Paz</option>
+            <option value="OR">Oruro</option>
+            <option value="PA">Pando</option>
+            <option value="PO">Potosi</option>
+            <option value="SZ">Santa Cruz</option>
+            <option value="TA">Tarija</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Telefono</label>
+        <input id="telefono" name="telefono" type="text" class="form-control" value="{{$empleado->telefono}}" />
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Email</label>
+        <input id="email" name="email" type="text" class="form-control" value="{{$empleado->email}}" />
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Rol</label>

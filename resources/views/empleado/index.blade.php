@@ -18,6 +18,7 @@
             <th scope="col">CI</th>
             <th scope="col">Matricula</th>
             <th scope="col">Telefono</th>
+            <th scope="col">Email</th>
             <th scope="col">Rol</th>
             <th scope="col">Opciones</th>
         </tr>
@@ -32,7 +33,8 @@
                 <td>{{$empleado->ci}} {{$empleado->expedido}}</td>
                 <td>{{$empleado->matricula}}</td>
                 <td>{{$empleado->telefono}}</td>
-                <td>{{$empleado->id_rol}}</td>
+                <td>{{$empleado->email}}</td>
+                <td>{{$empleado->detalle}}</td>
                 <td>
                     <form action="{{route('empleados.destroy',$empleado->id)}}" method="POST">
                         <a href="/empleados/{{$empleado->id}}/edit " class="btn btn-info">Editar</a>
