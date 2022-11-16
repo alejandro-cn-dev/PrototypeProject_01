@@ -23,7 +23,8 @@ class EmpleadoController extends Controller
         //$empleados = Empleado::all();
         //recuperar el detalle de rol
         $empleados = Empleado::join('rols','empleados.id_rol','rols.id')
-        ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','empleados.email','rols.detalle')
+        ->join('users','empleados.id_user','users.id')
+        ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','users.email','rols.detalle')
         ->where('empleados.isEnable','=',1)->get();
 
         //$empleados = Empleado::where('isEnable','=',1)->get();
@@ -66,9 +67,10 @@ class EmpleadoController extends Controller
         $empleados->expedido = $exp = $request->get('expedido');
         $empleados->telefono = $request->get('telefono');
         //$empleados->matricula = $request->get('matricula');
+        $empleados->id_user = $usuario->id;
         $empleados->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
         $empleados->id_rol = $id_rol;
-        $empleados->email = $email;
+        //$empleados->email = $email;
         $empleados->save();
 
         return redirect('/empleados');
@@ -107,15 +109,22 @@ class EmpleadoController extends Controller
     public function update(Request $request, $id)
     {   
         $id_rol = $request->get('id_rol');
+        $id_user = $request->get('id_user');
         $roles = Rol::where('id','=',$id_rol)->first();
 
         $email = $request->get('email');
-        //$usuario = User::where('email','=',$email)->get();
-        $usuario = User::find($email);
+        //$usuario = User::where('email','=',$email)->first();
+        //$usuario = User::find('email',$email);
         //$usuario->email = $email;
-        $usuario->name = $nombre = $request->get('nombre');
-        $usuario->password = $request->get('password');
-        $usuario->role = $roles->detalle;
+        //$usuario->name = $nombre = $request->get('nombre');
+        //$usuario->password = $request->get('password');
+        //$usuario->role = $roles->detalle;
+        $nombre = $request->get('nombre');
+        $pass = $request->get('password');
+        //$usuario = User::where('email',$email)->update(['name' => $nombre]);        
+        //$usuario->save();
+        $usuario = User::find($id_user);
+        $usuario->name = $nombre;
         $usuario->save();
 
         $empleado = Empleado::find($id);
@@ -125,11 +134,12 @@ class EmpleadoController extends Controller
         $empleado->ci = $ci = $request->get('ci');
         $empleado->expedido = $exp = $request->get('expedido');
         $empleado->telefono = $request->get('telefono');
+        $empleado->id_user = $usuario->id;
         //$empleado->matricula = $request->get('matricula');
-        $empleados->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+        $empleado->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
         $empleado->id_rol = $request->get('id_rol');
-        $empleados->email = $email;
-        $empleados->save();
+        //$empleado->email = $email;
+        $empleado->save();
         
         return redirect('/empleados');
     }

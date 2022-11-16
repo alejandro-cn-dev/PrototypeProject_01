@@ -12,6 +12,9 @@
     @csrf
     @method('PUT')
     <div class="mb-3">
+        <input id="id_user" name="id_user" type="text" hidden class="form-control" value="{{$empleado->id_user}}" />
+    </div>
+    <div class="mb-3">
         <label for="" class="form-label">Matricula</label>
         <input id="matricula" name="matricula" type="text" disabled class="form-control" value="{{$empleado->matricula}}" />
     </div>

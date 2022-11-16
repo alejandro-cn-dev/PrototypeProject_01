@@ -22,7 +22,7 @@ class EmpleadoFactory extends Factory
             'nombre' => 'Demo',
             'ci' => '00000000',
             'expedido' => 'XX',
-            //'id_user' => '1',
+            'id_user' => '1',
             'telefono' => '0000000',
             'matricula' => 'DDD00000000XX',
             'id_rol' => '1',  

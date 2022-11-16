@@ -30,10 +30,10 @@ class DatabaseSeeder extends Seeder
             'nombre' => 'Demo',
             'ci' => '0000000',
             'expedido' => 'XX',
-            //'id_user' => '1',
+            'id_user' => '1',
             'telefono' => '000000',
             'matricula' => 'DDD0000000XX',
-            'email' => 'demo@demo.com',
+            //'email' => 'demo@demo.com',
             'id_rol' => '1',            
         ]);
     }
