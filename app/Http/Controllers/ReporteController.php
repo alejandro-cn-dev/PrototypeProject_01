@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Marca;
-use App\Models\Empleado;
 
-class MarcaController extends Controller
+class ReporteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +14,10 @@ class MarcaController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-
+    
     public function index()
     {
-        //$marcas = Marca::all();
-        $marcas = Marca::where('isEnable','=',1)->get();
-        return view('marca.index')->with('marcas',$marcas);
+        return view('reporte.index');
     }
 
     /**
@@ -31,7 +27,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        return view('marca.create');
+        //
     }
 
     /**
@@ -42,19 +38,7 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        $marcas = new Marca();
-        $id_user = auth()->user()->id;
-        //$id = auth()->user()->id;
-        $empleado = Empleado::where('id_user','=',$id_user)->first();
-        $detalle = $request->get('detalle');
-        $marcas->detalle = $detalle;
-        //$marcas->matricula = auth()->user()->matricula;        
-        $marcas->matricula = $empleado->matricula;
-        $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
-
-        $marcas->save();
-
-        return redirect('/marcas');
+        //
     }
 
     /**
@@ -76,8 +60,7 @@ class MarcaController extends Controller
      */
     public function edit($id)
     {
-        $marca = Marca::find($id);     
-        return view('marca.edit')->with('marca',$marca);
+        //
     }
 
     /**
@@ -89,13 +72,7 @@ class MarcaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $marcas = Marca::find($id);
-        $detalle = $request->get('detalle');
-        $marcas->detalle = $detalle;
-        $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
-        $marcas->save();
-
-        return redirect('/marcas');
+        //
     }
 
     /**
@@ -106,10 +83,6 @@ class MarcaController extends Controller
      */
     public function destroy($id)
     {
-        $marca = Marca::find($id);
-        //$marca->delete();
-        $marca->isEnable = false;
-        $marca->save();
-        return redirect('/marcas');
+        //
     }
 }

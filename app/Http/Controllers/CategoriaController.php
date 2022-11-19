@@ -43,9 +43,9 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $categorias = new Categoria();
-        $email = auth()->user()->email;
+        $id_user = auth()->user()->id;
         //$id = auth()->user()->id;
-        $empleado = Empleado::where('email','=',$email)->first();
+        $empleado = Empleado::where('id_user','=',$id_user)->first();
         $nombre = $request->get('nombre');
         $categorias->nombre = $nombre;
         $categorias->detalle = $request->get('detalle');

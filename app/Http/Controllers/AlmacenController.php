@@ -38,9 +38,9 @@ class AlmacenController extends Controller
     public function store(Request $request)
     {
         $almacenes = new Almacen();
-        $email = auth()->user()->email;
+        $id_user = auth()->user()->id;
         //$id = auth()->user()->id;
-        $empleado = Empleado::where('email','=',$email)->first();
+        $empleado = Empleado::where('id_user','=',$id_user)->first();
         $nombre = $request->get('nombre');
         $almacenes->nombre = $nombre;
         $almacenes->tipo = $request->get('tipo');

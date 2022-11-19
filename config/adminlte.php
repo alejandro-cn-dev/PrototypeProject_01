@@ -357,7 +357,7 @@ return [
         
         [
             'text'        => 'Generacion de reportes',
-            'url'         => 'reportes/index',
+            'url'         => 'reportes',
             'icon'    => 'fas fa-fw fa-file-excel'
         ],
         ['header' => 'Configuracion de la cuenta'],

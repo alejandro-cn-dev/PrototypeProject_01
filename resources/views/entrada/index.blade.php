@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+<img src="img/inventarios_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
 <a href="entradas/create" class="btn btn-primary">CREAR</a>
 <table id="entradas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
     <thead>
