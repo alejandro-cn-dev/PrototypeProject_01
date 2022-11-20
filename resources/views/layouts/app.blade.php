@@ -12,7 +12,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset('favicons/favicon32x32.jpg') }}"/>
+    <link rel="shortcut icon" sizes="32x32" href="{{ asset('favicons/favicon32x32.jpg') }}"/>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>

@@ -14,9 +14,11 @@ class InventarioController extends Controller
      */
     public function index()
     {
-        //
+        $entradas = Inventario::where('tipo','=','E');
+        return view('entrada.index')->with('entradas',$entradas);
+        //$salidas = Inventario::where('tipo','=','S');
+        //return view('salida.index');
     }
-
     /**
      * Show the form for creating a new resource.
      *

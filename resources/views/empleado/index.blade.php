@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de empleados')
+@section('title', 'Sistema de gestion')
 
 @section('content_header')
     <h1>Listado de empleados</h1>

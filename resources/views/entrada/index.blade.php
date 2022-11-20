@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'CRUD con laravel 9')
+@section('title', 'Sistema de gestion')
 
 @section('content_header')
     <h1>Listado de registros de Entradas</h1>

@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Sistema Web de gestion de inventario | v4.1',
+    'title' => 'Sistema Web de gestion de inventario | v4.2',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -31,7 +31,7 @@ return [
     */
 
     'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------

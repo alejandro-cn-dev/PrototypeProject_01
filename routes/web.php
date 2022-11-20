@@ -21,6 +21,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::resource('productos','App\Http\Controllers\ProductoController');
 Route::resource('empleados','App\Http\Controllers\EmpleadoController');
+//Route::get('/entradas',[App\Http\Controllers\InventarioController::class, 'indexEntradas'])->name('entradas');
+//Route::get('/salidas',[App\Http\Controllers\InventarioController::class, 'indexSalidas'])->name('salidas');
 Route::resource('entradas','App\Http\Controllers\InventarioController');
 Route::resource('salidas','App\Http\Controllers\InventarioController');
 Route::resource('categorias','App\Http\Controllers\CategoriaController');

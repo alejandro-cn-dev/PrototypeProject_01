@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('inventarios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_cabecera');
+            $table->string('tipo');
             $table->unsignedBigInteger('id_producto');
-            $table->string('unidad_compra');
-            $table->decimal('precio_compra');
-            $table->string('unidad_venta');
-            $table->decimal('precio_venta');
+            $table->string('unidad_compra')->nullable();
+            $table->decimal('precio_compra')->nullable();
+            $table->string('unidad_venta')->nullable();
+            $table->decimal('precio_venta')->nullable();
             $table->string('margen_utilidad');
             $table->date('fecha');
             $table->integer('cantidad');

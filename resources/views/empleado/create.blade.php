@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Sistema de venta')
+@section('title', 'Sistema de gestion')
 
 @section('content_header')
-    <h1>Crear Empleado</h1>
+    <h1>Registrar Empleado</h1>
 @stop
 
 @section('content')
@@ -21,37 +21,43 @@
         <label for="" class="form-label">Nombre</label>
         <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" />
     </div>
-    <div class="mb-3">
-        <label for="" class="form-label">CI</label>
-        <input id="ci" name="ci" type="text" class="form-control" tabindex="4" />
+    <div class="row g-2">
+        <div class="col-md-6">
+            <label for="" class="form-label">CI</label>
+            <input id="ci" name="ci" type="text" class="form-control" tabindex="4" />
+        </div>
+        <div class="col-md-6">
+            <label for="" class="form-label">EXP</label>
+            <select id="expedido" name="expedido" class="form-control" tabindex="5">
+                <option value="0" selected>Expedido en...</option>
+                <option value="BE">Beni</option>
+                <option value="CB">Cochabamba</option>
+                <option value="CH">Chuquisaca</option>
+                <option value="LP">La Paz</option>
+                <option value="OR">Oruro</option>
+                <option value="PA">Pando</option>
+                <option value="PO">Potosi</option>
+                <option value="SZ">Santa Cruz</option>
+                <option value="TA">Tarija</option>
+            </select>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="" class="form-label">EXP</label>
-        <select id="expedido" name="expedido" class="form-control" tabindex="5">
-            <option value="0" selected>Expedido en...</option>
-            <option value="BE">Beni</option>
-            <option value="CB">Cochabamba</option>
-            <option value="CH">Chuquisaca</option>
-            <option value="LP">La Paz</option>
-            <option value="OR">Oruro</option>
-            <option value="PA">Pando</option>
-            <option value="PO">Potosi</option>
-            <option value="SZ">Santa Cruz</option>
-            <option value="TA">Tarija</option>
-        </select>
-    </div>
+    
     <div class="mb-3">
         <label for="" class="form-label">Telefono</label>
         <input id="telefono" name="telefono" type="number" class="form-control" tabindex="6" />
     </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Email</label>
-        <input id="email" name="email" type="text" class="form-control" tabindex="7" />
+    <div class="row g-2 border border-dark p-2">
+        <div class="col-md-6">
+            <label for="" class="form-label">Email</label>
+            <input id="email" name="email" type="text" class="form-control" tabindex="7" />
+        </div>
+        <div class="col-md-6">
+            <label for="" class="form-label">Contraseña</label>
+            <input id="password" name="password" type="password" class="form-control" tabindex="8" />
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Contraseña</label>
-        <input id="password" name="password" type="password" class="form-control" tabindex="8" />
-    </div>
+    
     <!--REVISAR LA CREACION DEL USUARIO ANTES Y NO COLOCAR ESTE CAMPO MANUALMENTE-->
     <!--<div class="mb-3">
         <label for="" class="form-label">Usuario</label>
