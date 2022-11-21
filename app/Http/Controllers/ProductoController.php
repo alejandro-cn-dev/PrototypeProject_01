@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Almacen;
 use App\Models\Marca;
+use App\Models\Empleado;
 
 class ProductoController extends Controller
 {
@@ -28,7 +29,8 @@ class ProductoController extends Controller
         ->select('productos.id','productos.item_producto','productos.descripcion','productos.color',
         'categorias.nombre as id_categoria',
         //'almacens.nombre as id_almacen',
-        'marcas.detalle as id_marca','productos.estado')->get();
+        'marcas.detalle as id_marca')
+        ->where('producto.isEnable','=',1)->get();
 
         return view('producto.index')->with('productos',$productos);
     }
@@ -58,15 +60,35 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $productos = new Producto();
-        $productos->item_producto = $request->get('item_producto');
+        $id_user = auth()->user()->id;
+        $empleado = Empleado::where('id_user','=',$id_user)->first();
+
+        $productos = new Producto();                        
         $productos->descripcion = $request->get('descripcion');
         $productos->color = $request->get('color');
-        $productos->id_categoria = $request->get('id_categoria');
         $productos->id_almacen = $request->get('id_almacen');
-        $productos->id_marca = $request->get('id_marca');
-        $productos->id_empleado = $request->get('id_empleado');
-        $productos->estado = $request->get('estado');
+        $productos->id_categoria = $id_categoria = $request->get('id_categoria');
+        $categoria = Categoria::where('id','=',$id_categoria);
+        $productos->id_marca = $id_marca = $request->get('id_marca');
+        $marca = Marca::where('id_marca'.'=',$id_marca);
+        $productos->matricula = $empleado->matricula;
+        $prefijo_matricula = strtoupper(substr($marca->detalle,0,2)).'-'.strtoupper(substr($categoria->nombre,0,2));
+        $last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortDesc()->first();
+        $str_num = '001';
+        if(count($last_id) > 0){
+            $matricula_anterior = strtoupper(substr($last_id->matricula,7,9)) ;
+            $num_item = (int)$matricula_anterior;
+            $num_item = $num_item + 1;
+            
+            if(strlen($num_item)<10){
+                $str_num = '00'.$num_item;
+            }
+            if(strlen($num_item)<100){
+                $str_num = '0'.$num_item;
+            }
+        }
+        
+        $productos->item_producto = $prefijo_matricula.$str_num;
 
         $productos->save();
 
@@ -92,8 +114,15 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
+        $categorias = Categoria::select('id','nombre')->get();
+        $marcas = Marca::select('id','detalle')->get();
+        $almacenes = Almacen::select('id','nombre')->get();
         $producto = Producto::find($id);
-        return view('producto.edit')->with('producto',$producto);
+        return view('producto.edit')
+        ->with('categorias',$categorias)
+        ->with('marcas',$marcas)
+        ->with('almacenes',$almacenes)
+        ->with('producto',$producto);
     }
 
     /**
@@ -106,13 +135,11 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         $producto = Producto::find($id);
-        $producto->item_producto = $request->get('item_producto');
         $producto->descripcion = $request->get('descripcion');
         $producto->color = $request->get('color');
         $producto->id_categoria = $request->get('id_categoria');
         $producto->id_almacen = $request->get('id_almacen');
         $producto->id_marca = $request->get('id_marca');
-        $producto->estado = $request->get('estado');
 
         $producto->save();
 
@@ -128,7 +155,9 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::find($id);
-        $producto->delete();
+        $producto->isEnable = false;
+        $producto->save();
+        //$producto->delete();
         return redirect('/productos');
     }
 }

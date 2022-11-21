@@ -17,9 +17,8 @@
             <th scope="col">Descripcion</th>
             <th scope="col">Color</th>
             <th scope="col">Categoria</th>
-            <th scope="col">Almacen</th>
+            <th scope="col">Ubicacion</th>
             <th scope="col">Marca</th>
-            <th scope="col">Estado</th>
         </tr>
     </thead>
     <tbody>
@@ -32,7 +31,6 @@
                 <td>{{$producto->id_categoria}}</td>
                 <td>{{$producto->id_almacen}}</td>
                 <td>{{$producto->id_marca}}</td>
-                <td>{{$producto->estado}}</td>
                 <td>
                     <form action="{{route('productos.destroy',$producto->id)}}" method="POST">
                         <a href="/productos/{{$producto->id}}/edit " class="btn btn-info">Editar</a>
