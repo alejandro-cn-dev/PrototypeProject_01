@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Inventario;
+use App\Models\Cabecera;
 
-class InventarioController extends Controller
+class SalidaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,10 @@ class InventarioController extends Controller
      */
     public function index()
     {
-        $entradas = Inventario::where('tipo','=','E');
-        return view('entrada.index')->with('entradas',$entradas);
-        //$salidas = Inventario::where('tipo','=','S');
-        //return view('salida.index');
+        $salidas = Cabecera::where('tipo','=','S')->get();
+        return view('salida.index')->with('salidas',$salidas);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +25,7 @@ class InventarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('salida.create');
     }
 
     /**
@@ -59,7 +58,8 @@ class InventarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $salidas = Cabecera::find($id);
+        return view('salida.edit')->with('salidas',$salidas);
     }
 
     /**

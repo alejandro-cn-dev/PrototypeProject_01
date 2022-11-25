@@ -23,8 +23,8 @@ Route::resource('productos','App\Http\Controllers\ProductoController');
 Route::resource('empleados','App\Http\Controllers\EmpleadoController');
 //Route::get('/entradas',[App\Http\Controllers\InventarioController::class, 'indexEntradas'])->name('entradas');
 //Route::get('/salidas',[App\Http\Controllers\InventarioController::class, 'indexSalidas'])->name('salidas');
-Route::resource('entradas','App\Http\Controllers\InventarioController');
-Route::resource('salidas','App\Http\Controllers\InventarioController');
+Route::resource('entradas','App\Http\Controllers\EntradaController');
+Route::resource('salidas','App\Http\Controllers\SalidaController');
 Route::resource('categorias','App\Http\Controllers\CategoriaController');
 Route::resource('reportes','App\Http\Controllers\ReporteController');
 

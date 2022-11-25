@@ -24,13 +24,13 @@ class ProductoController extends Controller
     {
         //$productos = Producto::all();
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
-        //->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
         ->select('productos.id','productos.item_producto','productos.descripcion','productos.color',
         'categorias.nombre as id_categoria',
-        //'almacens.nombre as id_almacen',
+        'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
-        ->where('producto.isEnable','=',1)->get();
+        ->where('productos.isEnable','=',1)->get();
 
         return view('producto.index')->with('productos',$productos);
     }
@@ -65,12 +65,16 @@ class ProductoController extends Controller
 
         $productos = new Producto();                        
         $productos->descripcion = $request->get('descripcion');
-        $productos->color = $request->get('color');
+        $color = $request->get('color');
+        if(empty($color)){
+            $color = 'Sin color';
+        }
+        $productos->color = $color;
         $productos->id_almacen = $request->get('id_almacen');
         $productos->id_categoria = $id_categoria = $request->get('id_categoria');
         $categoria = Categoria::where('id','=',$id_categoria);
         $productos->id_marca = $id_marca = $request->get('id_marca');
-        $marca = Marca::where('id_marca'.'=',$id_marca);
+        $marca = Marca::where('id'.'=',$id_marca);
         $productos->matricula = $empleado->matricula;
         $prefijo_matricula = strtoupper(substr($marca->detalle,0,2)).'-'.strtoupper(substr($categoria->nombre,0,2));
         $last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortDesc()->first();

@@ -7,44 +7,44 @@
 @stop
 
 @section('content')
-<img src="img/inventarios_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
-<a href="salidas/create" class="btn btn-primary">CREAR</a>
-<table id="salidas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nro Factura</th>
-            <th scope="col">NIT/Razon social</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Importe</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($salidas as $salida)
-        <tr>
-            <td>{{$salida->id}}</td>
-            <td>{{$salida->num_factura}}</td>
-            <td>{{$salida->nit_razon_social}}</td>
-            <td>{{$salida->id_producto}}</td>
-            <td>{{$salida->cantidad}}</td>
-            <td>{{$salida->importe}}</td>
-            <td>{{$salida->id_usuario}}</td>
-            <td>{{$salida->estado}}</td>
-            <td>
-                <form action="{{route('salidas.destroy',$salida->id)}}" method="POST">
-                    <a href="/salidas/{{$salida->id}}/edit " class="btn btn-info">Editar</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Borrar</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo empleados">
+<div class="shadow-none p-3 mb-5 bg-white rounded">
+    <a href="salidas/create" class="btn btn-primary">CREAR</a>
+    <div class="table-responsive">
+        <table id="salidas" class="table table-bordered mt-4" style="width: 100%;">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nro Factura</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Importe</th>
+                    <th scope="col">Fecha de emision</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($salidas as $salida)
+                <tr>
+                    <td>{{$salida->id}}</td>
+                    <td>{{$salida->numeración}}</td>
+                    <td>{{$salida->nombre}}</td>
+                    <td>{{$salida->monto_total}}</td>
+                    <td>{{$salida->fecha_emision}}</td>
+                    <td>
+                        <form action="{{route('salidas.destroy',$salida->id)}}" method="POST">
+                            <a href="/salidas/{{$salida->id}}/detalle " class="btn btn-success">Ver</a>
+                            <a href="/salidas/{{$salida->id}}/edit " class="btn btn-info">Editar</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Anular</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>    
+</div>
 @stop
 
 @section('css')

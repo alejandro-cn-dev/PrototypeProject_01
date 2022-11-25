@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('inventarios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_cabecera');
-            $table->string('tipo');
             $table->unsignedBigInteger('id_producto');
             $table->string('unidad_compra')->nullable();
             $table->decimal('precio_compra')->nullable();
