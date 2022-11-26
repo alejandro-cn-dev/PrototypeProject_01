@@ -313,7 +313,7 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'    => 'Gestion de inventario',
+            'text'    => 'Gestion del negocio',
             'icon'    => 'fas fa-fw fa-list-alt',
             'submenu' => [
                 [
@@ -321,16 +321,6 @@ return [
                     'url'  => 'productos',
                     'icon'    => 'fas fa-fw fa-box',
                 ],                
-                [
-                    'text' => 'Gestion de entradas',
-                    'icon'    => 'fas fa-fw fa-arrow-down',
-                    'url'  => 'entradas',
-                ],
-                [
-                    'text' => 'Gestion de salidas',
-                    'icon'    => 'fas fa-fw fa-arrow-up',
-                    'url'  => 'salidas',
-                ],
                 [
                     'text' => 'Gestion de categorias',
                     'icon'    => 'fas fa-fw fa-bolt',
@@ -348,7 +338,22 @@ return [
                 ],
             ],
         ],
-        
+        [
+            'text'    => 'Gestion de inventario',
+            'icon'    => 'fas fa-fw fa-list-alt',
+            'submenu' => [             
+                [
+                    'text' => 'Gestion de entradas',
+                    'icon'    => 'fas fa-fw fa-arrow-down',
+                    'url'  => 'entradas',
+                ],
+                [
+                    'text' => 'Gestion de salidas',
+                    'icon'    => 'fas fa-fw fa-arrow-up',
+                    'url'  => 'salidas',
+                ],
+            ],
+        ],
         [
             'text'        => 'Gestion de personal',
             'url'         => 'empleados',

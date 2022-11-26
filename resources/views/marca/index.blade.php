@@ -8,34 +8,38 @@
 
 @section('content')
 <img src="img/marcas_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
-<a href="marcas/create" class="btn btn-primary">CREAR</a>
-<table id="marcas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Detalle</th>
-            <th scope="col">Sufijo Marca</th>
-            <th scope="col">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($marcas as $marca)
-        <tr>
-            <td>{{$marca->id}}</td>
-            <td>{{$marca->detalle}}</td>
-            <td>{{$marca->sufijo_marca}}</td>
-            <td>
-                <form action="{{route('marcas.destroy',$marca->id)}}" method="POST">
-                    <a href="/marcas/{{$marca->id}}/edit " class="btn btn-info">Editar</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Anular</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<div class="hadow-none p-3 bg-white rounded">
+    <a href="marcas/create" class="btn btn-primary">CREAR</a>
+    <div class="table-responsive">
+        <table id="marcas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col">Sufijo Marca</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($marcas as $marca)
+                <tr>
+                    <td>{{$marca->id}}</td>
+                    <td>{{$marca->detalle}}</td>
+                    <td>{{$marca->sufijo_marca}}</td>
+                    <td>
+                        <form action="{{route('marcas.destroy',$marca->id)}}" method="POST">
+                            <a href="/marcas/{{$marca->id}}/edit " class="btn btn-info">Editar</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Anular</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 @stop
 
 @section('css')

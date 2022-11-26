@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cabeceras', function (Blueprint $table) {
             $table->id();
             $table->string('denominacion');
-            $table->string('numeración')->nullable();
+            $table->string('numeracion')->nullable();
             $table->string('num_autorizacion')->nullable();
             $table->string('nombre');
             $table->string('nit_ci')->nullable();

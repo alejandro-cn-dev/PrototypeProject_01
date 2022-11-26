@@ -3,15 +3,15 @@
 @section('title', 'Listado de salidas')
 
 @section('content_header')
-<h1>Listado de salidas</h1>
+    <h1>Listado de registros de salidas</h1>
 @stop
 
 @section('content')
-<img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo empleados">
-<div class="shadow-none p-3 mb-5 bg-white rounded">
+<img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
+<div class="shadow-none p-3 bg-white rounded">
     <a href="salidas/create" class="btn btn-primary">CREAR</a>
     <div class="table-responsive">
-        <table id="salidas" class="table table-bordered mt-4" style="width: 100%;">
+        <table id="salidas" class="table table-striped table-bordered mt-4">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
