@@ -25,6 +25,7 @@ Route::resource('empleados','App\Http\Controllers\EmpleadoController');
 //Route::get('/salidas',[App\Http\Controllers\InventarioController::class, 'indexSalidas'])->name('salidas');
 Route::resource('entradas','App\Http\Controllers\EntradaController');
 Route::resource('salidas','App\Http\Controllers\SalidaController');
+Route::get('salidas/detalle/{id}',[SalidaController::class,'detalle'])->middleware('auth')->name('salidas.detalle');
 Route::resource('categorias','App\Http\Controllers\CategoriaController');
 Route::resource('reportes','App\Http\Controllers\ReporteController');
 

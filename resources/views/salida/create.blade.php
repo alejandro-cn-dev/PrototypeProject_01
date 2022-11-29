@@ -23,46 +23,83 @@
         </div>
         <div class="mb-3"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
                 type="text" class="form-control" tabindex="2" /></div>
-        <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
-        name="nombre" type="text" class="form-control" tabindex="3" /></div>
+        <div class="mb-3"><label for="" class="form-label"">Nombre</label><input id="nombre"
+        name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
         <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
-                name="nit_razon_social" type="text" class="form-control" tabindex="3" /></div>
+                name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>
         <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="id_usuario" name="id_usuario"
-                type="text" class="form-control" tabindex="7" /></div>
-        <table id="salidas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
-        <thead class="table-dark">
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Unidad compra</th>
-                <th scope="col">Unidad venta</th>
-                <th scope="col">Precio compra</th>
-                <th scope="col">Precio venta</th>
-                <th scope="col">Margen Util.</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Opciones</th>
-                </tr>
-        </thead>
-        <tbody>
-                @foreach ($salidas as $salida)
-                <tr>
-                <td>{{$salida[0]}}</td>
-                <td>{{$salida[1]}}</td>
-                <td>{{$salida[2]}}</td>
-                <td>{{$salida[3]}}</td>
-                <td>{{$salida[4]}}</td>
-                <td>{{$salida[5]}}</td>
-                <td>{{$salida[6]}}</td>
-                <td>
-                        <button class="btn btn-danger">Quitar</button>
-                </td>
-                </tr>
-                @endforeach
-        </tbody>
-        </table>
+                type="date" class="form-control" tabindex="7" /></div>
+        <div class="border p-3">
+                <button class="btn btn-primary" id="addProducto" data-toggle="modal" data-target="#agregarProductol">Agregar producto</button>
+                <table id="salidas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+                <thead class="table-dark">
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Unidad compra</th>
+                        <th scope="col">Unidad venta</th>
+                        <th scope="col">Precio compra</th>
+                        <th scope="col">Precio venta</th>
+                        <th scope="col">Margen Util.</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Opciones</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        @foreach ($salidas as $salida)
+                        <tr>
+                        <td>{{$salida[0]}}</td>
+                        <td>{{$salida[1]}}</td>
+                        <td>{{$salida[2]}}</td>
+                        <td>{{$salida[3]}}</td>
+                        <td>{{$salida[4]}}</td>
+                        <td>{{$salida[5]}}</td>
+                        <td>{{$salida[6]}}</td>
+                        <td>
+                                <button class="btn btn-danger">Quitar</button>
+                        </td>
+                        </tr>
+                        @endforeach
+                </tbody>
+                </table>
+        </div>        
 
         <a href="/salidas" class="btn btn-secondary" tabindex="9">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="10">Guardar</button>
         </form>
+        <!-- FORMULARIO INSERTAR PRODUCTO -->
+        <form enctype="multipart/form-data" class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                @csrf
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nuevo Documento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="title">Titulo</label>
+                                <input type="text" class="form-control" id="title" name="title">
+    
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Archivo</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+                              </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" value="1" checked class="form-check-input" id="exampleCheck1" name="state">
+                                <label class="form-check-label" for="exampleCheck1">Activo</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="btn-register">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--FIN FORMULARIO INSERTAR PRODUCTO-->
 </div>
 @stop
 
@@ -71,4 +108,11 @@
 @stop
 
 @section('js')
+<script>
+        $(document).ready(function() {
+                $('#addProducto').click(function(event) {
+                        var formData = new FormData(document.getElementById("agregarProducto"));        
+                });
+        });
+</script>
 @stop

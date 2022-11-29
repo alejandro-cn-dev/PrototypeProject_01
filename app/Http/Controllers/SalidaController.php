@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cabecera;
+use App\Models\Inventario;
 
 class SalidaController extends Controller
 {
@@ -25,6 +26,7 @@ class SalidaController extends Controller
      */
     public function create()
     {
+        $salidas = Cabecera::where('tipo','=','S')->get();
         return view('salida.create');
     }
 
@@ -83,5 +85,12 @@ class SalidaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //Funciones propias
+    public function detalle($id){
+        $salidas = Inventario::where('id_cabecera','=',$id)->get();
+        $cabecera = Cabecera::find($id);
+        return view('salida.detalle')->with('cabecera',$cabecera)->with('salidas',$salidas);
     }
 }
