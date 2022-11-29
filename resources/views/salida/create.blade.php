@@ -30,7 +30,8 @@
         <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="id_usuario" name="id_usuario"
                 type="date" class="form-control" tabindex="7" /></div>
         <div class="border p-3">
-                <button class="btn btn-primary" id="addProducto" data-toggle="modal" data-target="#agregarProductol">Agregar producto</button>
+                <!-- <button class="btn btn-primary" id="addProducto" data-toggle="modal" data-target="#agregarProductol">Agregar producto</button> -->
+                <a class="btn btn-primary" id="addProducto">Agregar producto</a>
                 <table id="salidas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
                 <thead class="table-dark">
                         <tr>
@@ -44,8 +45,8 @@
                         <th scope="col">Opciones</th>
                         </tr>
                 </thead>
-                <tbody>
-                        @foreach ($salidas as $salida)
+                <tbody id="contenido">
+                        <!-- @foreach ($salidas as $salida)
                         <tr>
                         <td>{{$salida[0]}}</td>
                         <td>{{$salida[1]}}</td>
@@ -58,7 +59,7 @@
                                 <button class="btn btn-danger">Quitar</button>
                         </td>
                         </tr>
-                        @endforeach
+                        @endforeach -->
                 </tbody>
                 </table>
         </div>        
@@ -108,11 +109,90 @@
 @stop
 
 @section('js')
-<script>
-        $(document).ready(function() {
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script>        
+        $(document).ready(function() {                
                 $('#addProducto').click(function(event) {
-                        var formData = new FormData(document.getElementById("agregarProducto"));        
+                        let filas = ["1","METROS","METROS","3.90","4.90","2%","40"];
+                        // var formData = new FormData(document.getElementById("agregarProducto"));        
+
+                        actualizar_tabla(filas);
+                        //agregarFila();
+                        
+                        // Llama a addRow() con el ID de la tabla
+                        //addRow('salidas',$fila);
                 });
         });
+        function actualizar_tabla(filas){
+                tabla = document.getElementById("salidas");
+                var tr = document.createElement("tr");                
+                // for(i=0;i<filas.lenght;i++){
+                //         var td = document.createElement("td");                
+                //         var texto = document.createTextNode(filas[i]);
+                //         td.appendChild(texto);                        
+                //         tr.appendChild(td);
+                //         //$td = $td + "<tr><td>"+$filas[i]+"</td></tr>";
+                // }
+
+                filas.forEach(function(fila, index) {
+                        var td = document.createElement("td");                
+                        var celda = document.createTextNode(fila);
+                        td.appendChild(celda); 
+                        tr.appendChild(td);
+                });
+
+                // var td = document.createElement("td");                
+                // var texto = document.createTextNode(filas[0]);
+                // td.appendChild(texto);   
+                // tr.appendChild(td);
+
+                // var td = document.createElement("td");                
+                // var texto = document.createTextNode(filas[1]);
+                // td.appendChild(texto); 
+                // tr.appendChild(td);
+                var td = document.createElement("td");
+                var boton = document.createElement("button");
+                boton.class="btn btn-danger";
+                boton.innerHTML= "Anular";
+                td.appendChild(boton);
+                tr.appendChild(td);
+                tabla.appendChild(tr);
+        }
+        function agregarFila() {
+
+                var contendor  = $("#contenido").html();
+                var nuevaFila   = '<tr>';
+                nuevaFila   = '<td>"el contenido de la celda"</td>';
+                nuevaFila  += '<td>"el contenido de la celda"</td>';
+                nuevaFila  += '<td>"el contenido de la celda"</td>';
+                nuevaFila  += '<td>"el contenido de la celda"</td>';
+                nuevaFila  += '<td>"el contenido de la celda"</td>';
+                nuevaFila  += '<td>"el contenido de la celda"</td>';
+                nuevaFila  += '<td>"el contenido de la celda"</td>';
+                nuevaFila   = '</tr>';
+
+                ('entro poner el tabla2222');
+                $("#contenido").html(contendor+nuevaFila);
+
+        }
+        function addRow(tableID,fila) {
+                // Obtiene una referencia a la tabla
+                var tableRef = document.getElementById(tableID);
+
+                // Inserta una fila en la tabla, en el índice 0
+                var newRow   = tableRef.insertRow(1);
+
+                // Inserta una celda en la fila, en el índice 0
+                var newCell  = newRow.insertCell(0);
+                for(var i=0;i<fila.lenght;i++){
+                        // Añade un nodo de texto a la celda
+                        var newText  = document.createTextNode(fila[i]);
+                        newCell.appendChild(newText);
+                        var newCell  = newRow.insertCell(i);
+                }
+        }
+
 </script>
 @stop
