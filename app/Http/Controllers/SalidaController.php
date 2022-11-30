@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cabecera;
 use App\Models\Inventario;
+use App\Models\Producto;
 
 class SalidaController extends Controller
 {
@@ -26,8 +27,8 @@ class SalidaController extends Controller
      */
     public function create()
     {
-        $salidas = Cabecera::where('tipo','=','S')->get();
-        return view('salida.create');
+        $productos = Producto::all();
+        return view('salida.create')->with('productos',$productos);
     }
 
     /**

@@ -12,17 +12,20 @@
 <div class="shadow-none p-3 bg-white rounded">
         <form action="/salidas" method="POST">
         @csrf
-        <div class="mb-3">
-                <label for="" class="form-label">Denominación</label>
-                <select id="denominacion" name="denominacion" class="form-control" tabindex="2">
-                        <option selected>Elegir almacen...</option>
-                        <option value="recibo">Recibo</option>
-                        <option value="factura">Factura</option>
-                        <option value="nota de venta">Nota de venta</option>
-                </select>
+        <div class="row g-2 mb-3">
+                <div class="col-md-4">
+                        <label for="" class="form-label">Denominación</label>
+                        <select id="denominacion" name="denominacion" class="form-control" tabindex="2">
+                                <option selected>Elegir almacen...</option>
+                                <option value="recibo">Recibo</option>
+                                <option value="factura">Factura</option>
+                                <option value="nota de venta">Nota de venta</option>
+                        </select>
+                </div>
+                <div class="col-md-8"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
+                        type="text" class="form-control" tabindex="2" /></div>
         </div>
-        <div class="mb-3"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
-                type="text" class="form-control" tabindex="2" /></div>
+        
         <div class="mb-3"><label for="" class="form-label"">Nombre</label><input id="nombre"
         name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
         <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
@@ -30,12 +33,14 @@
         <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="id_usuario" name="id_usuario"
                 type="date" class="form-control" tabindex="7" /></div>
         <div class="border p-3">
-                <!-- <button class="btn btn-primary" id="addProducto" data-toggle="modal" data-target="#agregarProductol">Agregar producto</button> -->
-                <a class="btn btn-primary" id="addProducto">Agregar producto</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert_form">Agregar producto</button>
+                <button type="button" class="btn btn-danger">Limpiar tabla</button>
+                {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
                 <table id="salidas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
                 <thead class="table-dark">
                         <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Producto</th>
                         <th scope="col">Unidad compra</th>
                         <th scope="col">Unidad venta</th>
                         <th scope="col">Precio compra</th>
@@ -45,22 +50,7 @@
                         <th scope="col">Opciones</th>
                         </tr>
                 </thead>
-                <tbody id="contenido">
-                        <!-- @foreach ($salidas as $salida)
-                        <tr>
-                        <td>{{$salida[0]}}</td>
-                        <td>{{$salida[1]}}</td>
-                        <td>{{$salida[2]}}</td>
-                        <td>{{$salida[3]}}</td>
-                        <td>{{$salida[4]}}</td>
-                        <td>{{$salida[5]}}</td>
-                        <td>{{$salida[6]}}</td>
-                        <td>
-                                <button class="btn btn-danger">Quitar</button>
-                        </td>
-                        </tr>
-                        @endforeach -->
-                </tbody>
+                <tbody id="contenido"></tbody>
                 </table>
         </div>        
 
@@ -68,39 +58,71 @@
         <button type="submit" class="btn btn-primary" tabindex="10">Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
-        <form enctype="multipart/form-data" class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                @csrf
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Nuevo Documento</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="title">Titulo</label>
-                                <input type="text" class="form-control" id="title" name="title">
-    
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlFile1">Archivo</label>
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
-                              </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" value="1" checked class="form-check-input" id="exampleCheck1" name="state">
-                                <label class="form-check-label" for="exampleCheck1">Activo</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" id="btn-register">Guardar</button>
-                        </div>
+        <div class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Agregar producto</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                                <div class="col-md-6 form-group">
+                                        <label for="unidad_compra" class="form-label">Unidad compra</label>
+                                        <input type="text" name="unidad_compra" id="unidad_compra" class="form-control">
+                                </div>   
+                                <div class="col-md-6 form-group">
+                                        <label for="unidad_venta" class="form-label">Unidad venta</label>
+                                        <input type="text" name="unidad_venta" id="unidad_venta" class="form-control">
+                                </div>   
+                        </div>
+                        <div class="row g-2">
+                                <div class="col-md-6 form-group">
+                                        <label for="precio_compra" class="form-label">Precio compra</label>
+                                        <input type="number" name="precio_compra" id="precio_compra" class="form-control">
+                                </div>   
+                                <div class="col-md-6 form-group">
+                                        <label for="precio_venta" class="form-label">Precio venta</label>
+                                        <input type="number" name="precio_venta" id="precio_venta" class="form-control">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                                <label for="unidad_compra" class="form-label">Producto</label>
+                                <input class="form-control" list="productList" value="" id="producto" placeholder="Presione para buscar..">
+                                <datalist id="productList">
+                                        @foreach($productos as $producto)
+                                                {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
+                                                <option value="{{$producto->descripcion}}">{{$producto->id}}</option>
+                                        @endforeach
+                                </datalist>
+                                {{-- <select class="form-control" name="producto" id="producto">
+                                        <option value="0">Elija un producto...</option>
+                                        @foreach($productos as $producto)
+                                                <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option>
+                                        @endforeach
+                                </select>                                 --}}
+                        </div>       
+                        <div class="row g-2">
+                                <div class="col-md-6 form-group">
+                                        <label for="unidad_compra" class="form-label">Margen de utilidad</label>
+                                        <input type="number" name="margen" id="margen" class="form-control">
+                                </div>   
+                                <div class="col-md-6 form-group">
+                                        <label for="unidad_compra" class="form-label">Cantidad</label>
+                                        <input type="number" name="cantidad" id="cantidad" class="form-control">
+                                </div>  
+                        </div>              
+                    </div>
+                    <div class="modal-footer">
+                      <button id="guardarProducto" type="button" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()">Guardar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
                 </div>
-            </form>
-            <!--FIN FORMULARIO INSERTAR PRODUCTO-->
+              </div>
+        <!--FIN FORMULARIO INSERTAR PRODUCTO-->
 </div>
 @stop
 
@@ -112,87 +134,93 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script>        
-        $(document).ready(function() {                
-                $('#addProducto').click(function(event) {
-                        let filas = ["1","METROS","METROS","3.90","4.90","2%","40"];
-                        // var formData = new FormData(document.getElementById("agregarProducto"));        
+<script>     
+        var auto_id = 1;
+        var campos = ['id','producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad','opciones'];
+        var input_name = ['producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad'];
+        // $(document).ready(function() {                
+        //         $('#addProducto').click(function(event) {
+        //                 let filas = ["1","METROS","METROS","3.90","4.90","2%","40"];
+        //                 // var formData = new FormData(document.getElementById("agregarProducto"));        
 
-                        actualizar_tabla(filas);
-                        //agregarFila();
+        //                 actualizar_tabla(filas);
+        //                 //agregarFila();
                         
-                        // Llama a addRow() con el ID de la tabla
-                        //addRow('salidas',$fila);
-                });
-        });
+        //                 // Llama a addRow() con el ID de la tabla
+        //                 //addRow('salidas',$fila);
+        //         });
+        // });
         function actualizar_tabla(filas){
-                tabla = document.getElementById("salidas");
+                tbody = document.getElementById("contenido");
                 var tr = document.createElement("tr");                
-                // for(i=0;i<filas.lenght;i++){
-                //         var td = document.createElement("td");                
-                //         var texto = document.createTextNode(filas[i]);
-                //         td.appendChild(texto);                        
-                //         tr.appendChild(td);
-                //         //$td = $td + "<tr><td>"+$filas[i]+"</td></tr>";
-                // }
 
-                filas.forEach(function(fila, index) {
+                filas.forEach(function(fila) {
                         var td = document.createElement("td");                
                         var celda = document.createTextNode(fila);
                         td.appendChild(celda); 
                         tr.appendChild(td);
                 });
 
-                // var td = document.createElement("td");                
-                // var texto = document.createTextNode(filas[0]);
-                // td.appendChild(texto);   
-                // tr.appendChild(td);
-
-                // var td = document.createElement("td");                
-                // var texto = document.createTextNode(filas[1]);
-                // td.appendChild(texto); 
-                // tr.appendChild(td);
                 var td = document.createElement("td");
                 var boton = document.createElement("button");
-                boton.class="btn btn-danger";
-                boton.innerHTML= "Anular";
+                boton.className = "btn btn-danger";
+                boton.innerHTML = "Anular";                
                 td.appendChild(boton);
                 tr.appendChild(td);
-                tabla.appendChild(tr);
+                tbody.appendChild(tr);
         }
-        function agregarFila() {
-
-                var contendor  = $("#contenido").html();
-                var nuevaFila   = '<tr>';
-                nuevaFila   = '<td>"el contenido de la celda"</td>';
-                nuevaFila  += '<td>"el contenido de la celda"</td>';
-                nuevaFila  += '<td>"el contenido de la celda"</td>';
-                nuevaFila  += '<td>"el contenido de la celda"</td>';
-                nuevaFila  += '<td>"el contenido de la celda"</td>';
-                nuevaFila  += '<td>"el contenido de la celda"</td>';
-                nuevaFila  += '<td>"el contenido de la celda"</td>';
-                nuevaFila   = '</tr>';
-
-                ('entro poner el tabla2222');
-                $("#contenido").html(contendor+nuevaFila);
-
+        function actualizar_fila(){
+                tbody = document.getElementById("contenido");
+                var tr = document.createElement("tr");  
+                campos.forEach(function(campo){
+                        var td = document.createElement("td");                        
+                        var valor;
+                        var celda;
+                        switch(campo){
+                                case "id":                                        
+                                        celda = document.createTextNode(auto_id);
+                                        auto_id = auto_id + 1;
+                                        break;
+                                case "opciones":                                        
+                                        var boton = document.createElement("button");
+                                        boton.className= "btn btn-danger";
+                                        boton.innerHTML= "Anular";
+                                        boton.type= "button";
+                                        // boton.onclick = function(){
+                                        //         eliminar_fila(auto_id-1);
+                                        // };
+                                        boton.addEventListener("click", function () {
+                                                //eliminar_fila(0);
+                                                $(this).closest('tr').remove();
+                                        });
+                                        // boton.addEventListener('click', function handleClick(event) {
+                                        //         eliminar_fila(auto_id-1);
+                                        // });
+                                        celda = boton;
+                                        break;
+                                default:
+                                        valor = $("#"+campo+"").val();
+                                        celda = document.createTextNode(valor);
+                        }            
+                        td.appendChild(celda); 
+                        tr.appendChild(td);
+                });                
+                
+                tbody.appendChild(tr);
+                vaciarCampos();
         }
-        function addRow(tableID,fila) {
-                // Obtiene una referencia a la tabla
-                var tableRef = document.getElementById(tableID);
-
-                // Inserta una fila en la tabla, en el índice 0
-                var newRow   = tableRef.insertRow(1);
-
-                // Inserta una celda en la fila, en el índice 0
-                var newCell  = newRow.insertCell(0);
-                for(var i=0;i<fila.lenght;i++){
-                        // Añade un nodo de texto a la celda
-                        var newText  = document.createTextNode(fila[i]);
-                        newCell.appendChild(newText);
-                        var newCell  = newRow.insertCell(i);
-                }
+        function vaciarCampos(){
+                input_name.forEach(function(campo){
+                        document.getElementById(campo).value = "";
+                });
         }
+        function eliminar_fila(i){
+                document.getElementById("contenido").deleteRow(i);
+        }        
+</script>
+@stop
+@section('js.functions')
+<script>
 
 </script>
 @stop
