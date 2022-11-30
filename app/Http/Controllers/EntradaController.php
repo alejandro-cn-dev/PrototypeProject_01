@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cabecera;
+use App\Models\Inventario;
+use App\Models\Producto;
 
 class EntradaController extends Controller
 {
@@ -25,7 +27,8 @@ class EntradaController extends Controller
      */
     public function create()
     {
-        //
+        $productos = Producto::where('isEnable','=',1)->get();
+        return view('entrada.create')->with('productos',$productos);
     }
 
     /**

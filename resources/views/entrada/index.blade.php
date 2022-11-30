@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Sistema de gestion')
+@section('title', 'Listado de entradas')
 
 @section('content_header')
     <h1>Listado de registros de Entradas</h1>

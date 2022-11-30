@@ -27,7 +27,7 @@ class SalidaController extends Controller
      */
     public function create()
     {
-        $productos = Producto::all();
+        $productos = Producto::where('isEnable','=',1)->get();
         return view('salida.create')->with('productos',$productos);
     }
 

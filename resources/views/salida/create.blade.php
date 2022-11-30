@@ -34,9 +34,9 @@
                 type="date" class="form-control" tabindex="7" /></div>
         <div class="border p-3">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert_form">Agregar producto</button>
-                <button type="button" class="btn btn-danger">Limpiar tabla</button>
+                <button type="button" class="btn btn-danger" onclick="limpiar_tabla()">Limpiar tabla</button>
                 {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
-                <table id="salidas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+                <table id="salidas" class="table table-striped table-bordered mt-4" style="width: 100%;">
                 <thead class="table-dark">
                         <tr>
                         <th scope="col">#</th>
@@ -216,7 +216,10 @@
         }
         function eliminar_fila(i){
                 document.getElementById("contenido").deleteRow(i);
-        }        
+        }      
+        function limpiar_tabla(){
+                $('#contenido tr').detach();
+        }  
 </script>
 @stop
 @section('js.functions')
