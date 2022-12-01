@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SalidaController;
+use App\Http\Controllers\EntradaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,7 @@ Route::resource('empleados','App\Http\Controllers\EmpleadoController');
 //Route::get('/entradas',[App\Http\Controllers\InventarioController::class, 'indexEntradas'])->name('entradas');
 //Route::get('/salidas',[App\Http\Controllers\InventarioController::class, 'indexSalidas'])->name('salidas');
 Route::resource('entradas','App\Http\Controllers\EntradaController');
+Route::get('entradas/detalle/{id}',[EntradaController::class,'detalle'])->middleware('auth')->name('entradas.detalle');
 Route::resource('salidas','App\Http\Controllers\SalidaController');
 Route::get('salidas/detalle/{id}',[SalidaController::class,'detalle'])->middleware('auth')->name('salidas.detalle');
 Route::resource('categorias','App\Http\Controllers\CategoriaController');

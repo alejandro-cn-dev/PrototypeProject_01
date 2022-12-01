@@ -222,8 +222,3 @@
         }  
 </script>
 @stop
-@section('js.functions')
-<script>
-
-</script>
-@stop

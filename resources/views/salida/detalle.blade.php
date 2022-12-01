@@ -1,35 +1,73 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de salidas')
+@section('title', 'Detalle de salidas')
 
 @section('content_header')
-    <h1>Listado de registros de salidas</h1>
+    <h1>Detalle de Salidas</h1>
 @stop
 
 @section('content')
 <img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
 <div class="shadow-none p-3 bg-white rounded">
-    <a href="salidas/create" class="btn btn-primary">CREAR</a>
+    <form action="/productos" method="POST">
+        @csrf
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">Denominación:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->denominacion}}</p>
+        </div>
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">Numeración:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->numeracion}}</p>            
+        </div>
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">Número de autorización:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->num_autorizacion}}</p>                        
+        </div>
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">Nombre:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->nombre}}</p>                        
+        </div>
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">NIT/CI:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->nit_ci}}</p>                        
+        </div>
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">Fecha de emision:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->fecha_emision}}</p>                        
+        </div>
+        <div class="mb-3">
+            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}}</p>                        
+        </div>
+    </form>
+
     <div class="table-responsive">
-        <table id="salidas" class="table table-striped table-bordered mt-4">
+        <table id="detalle" class="table table-striped table-bordered mt-4">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nro Factura</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Importe</th>
-                    <th scope="col">Fecha de emision</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Unidad compra</th>
+                    <th scope="col">Unidad venta</th>
+                    <th scope="col">Precio compra</th>
+                    <th scope="col">Precio venta</th>
+                    <th scope="col">Margen utilidad</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Cantidad</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($salidas as $salida)
                 <tr>
                     <td>{{$salida->id}}</td>
-                    <td>{{$salida->numeración}}</td>
-                    <td>{{$salida->nombre}}</td>
-                    <td>{{$salida->monto_total}}</td>
-                    <td>{{$salida->fecha_emision}}</td>
+                    <td>
+                        {{$salida->id_producto}}
+                        {{-- @forEach($productos as $producto)
+                            @if({{$salida->id_producto}} == {{$producto->id}})
+                                {{$producto->descripcion}}
+                            @endif
+                        @endforeach                         --}}
+                    </td>
+                    <td>{{$salida->unidad_compra}}</td>
+                    <td>{{$salida->unidad_venta}}</td>
+                    <td>{{$salida->precio_compra}}</td>
+                    <td>{{$salida->precio_venta}}</td>
+                    <td>{{$salida->margen_utilidad}}</td>
+                    <td>{{$salida->fecha}}</td>
+                    <td>{{$salida->cantidad}}</td>
                     <td>
                         <form action="{{route('salidas.destroy',$salida->id)}}" method="POST">
                             <a href="/salidas/{{$salida->id}}/detalle " class="btn btn-success">Ver</a>

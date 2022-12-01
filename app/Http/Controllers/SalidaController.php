@@ -92,6 +92,7 @@ class SalidaController extends Controller
     public function detalle($id){
         $salidas = Inventario::where('id_cabecera','=',$id)->get();
         $cabecera = Cabecera::find($id);
-        return view('salida.detalle')->with('cabecera',$cabecera)->with('salidas',$salidas);
+        $productos = Producto::all();
+        return view('salida.detalle')->with('cabecera',$cabecera)->with('salidas',$salidas)->with('productos',$productos);
     }
 }

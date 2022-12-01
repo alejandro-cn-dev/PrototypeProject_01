@@ -9,7 +9,7 @@
 @section('content')
 <img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
 <div class="shadow-none p-3 bg-white rounded">
-    <a href="salidas/create" class="btn btn-primary">CREAR</a>
+    <a href="salidas/create" class="btn btn-primary mb-3">CREAR</a>
     <div class="table-responsive">
         <table id="salidas" class="table table-striped table-bordered mt-4">
             <thead class="table-dark">
@@ -26,13 +26,13 @@
                 @foreach ($salidas as $salida)
                 <tr>
                     <td>{{$salida->id}}</td>
-                    <td>{{$salida->numeración}}</td>
+                    <td>{{$salida->numeracion}}</td>
                     <td>{{$salida->nombre}}</td>
                     <td>{{$salida->monto_total}}</td>
                     <td>{{$salida->fecha_emision}}</td>
                     <td>
                         <form action="{{route('salidas.destroy',$salida->id)}}" method="POST">
-                            <a href="/salidas/{{$salida->id}}/detalle " class="btn btn-success">Ver</a>
+                            <a href="/salidas/detalle/{{$salida->id}} " class="btn btn-success">Ver</a>
                             <a href="/salidas/{{$salida->id}}/edit " class="btn btn-info">Editar</a>
                             @csrf
                             @method('DELETE')
