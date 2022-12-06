@@ -53,8 +53,8 @@
             </div>   
         </div>
         <div class="p-3">
-            <a href="/productos" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/productos" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-save"></i> Guardar</button>
         </div>
     </form>
 </div>

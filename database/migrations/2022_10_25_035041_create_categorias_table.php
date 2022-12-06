@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('detalle');
+            $table->string('detalle')->nullable();
             $table->string('sufijo_categoria');
             $table->boolean('isEnable')->default(1);
             $table->string('matricula')->nullable();

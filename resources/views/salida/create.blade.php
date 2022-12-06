@@ -26,7 +26,7 @@
                         type="text" class="form-control" tabindex="2" /></div>
         </div>
         
-        <div class="mb-3"><label for="" class="form-label"">Nombre</label><input id="nombre"
+        <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
         name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
         <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
                 name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>

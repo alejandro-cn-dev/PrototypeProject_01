@@ -9,7 +9,10 @@
 @section('content')
 <img src="img/marcas_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
 <div class="hadow-none p-3 bg-white rounded">
-    <a href="marcas/create" class="btn btn-primary">CREAR</a>
+    <div class="bg-transparent">
+        <a href="marcas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Marca</a>    
+        <a href="marcas/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>    
+    </div>  
     <div class="table-responsive">
         <table id="marcas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -28,10 +31,10 @@
                     <td>{{$marca->sufijo_marca}}</td>
                     <td>
                         <form action="{{route('marcas.destroy',$marca->id)}}" method="POST">
-                            <a href="/marcas/{{$marca->id}}/edit " class="btn btn-info">Editar</a>
+                            <a href="/marcas/{{$marca->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Anular</button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
                         </form>
                     </td>
                 </tr>

@@ -7,37 +7,42 @@
 @stop
 
 @section('content')
-<img src="img/almacen_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
-<a href="almacens/create" class="btn btn-primary">CREAR</a>
-<table id="almacenes" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Sufijo Almacen</th>
-            <th scope="col">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($almacenes as $almacen)
+<img src="img/almacen_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo almacenes">
+<div class="shadow-none p-3 bg-white rounded">
+    <div class="bg-transparent">
+        <a href="almacens/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacen</a>    
+        <a href="almacens/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Almacenes</a>    
+    </div>  
+    <table id="almacenes" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+        <thead class="table-dark">
             <tr>
-                <td>{{$almacen->id}}</td>
-                <td>{{$almacen->nombre}}</td>
-                <td>{{$almacen->tipo}}</td>
-                <td>{{$almacen->sufijo_almacen}}</td>
-                <td>
-                    <form action="{{route('almacens.destroy',$almacen->id)}}" method="POST">
-                        <a href="/almacens/{{$almacen->id}}/edit " class="btn btn-info">Editar</a>
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Anular</button>
-                    </form>
-                </td>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Sufijo Almacen</th>
+                <th scope="col">Opciones</th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach ($almacenes as $almacen)
+                <tr>
+                    <td>{{$almacen->id}}</td>
+                    <td>{{$almacen->nombre}}</td>
+                    <td>{{$almacen->tipo}}</td>
+                    <td>{{$almacen->sufijo_almacen}}</td>
+                    <td>
+                        <form action="{{route('almacens.destroy',$almacen->id)}}" method="POST">
+                            <a href="/almacens/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @stop
 
 @section('css')
@@ -46,12 +51,12 @@
 @stop
 
 @section('js')
-<script src="{{URL::asset('jquery-3.5.1.js')}}"></script>
-<script src="{{URL::asset('jquery.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('dataTables.bootstrap5.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
-    $(document).ready( function () {
-        $('#almacenes').DataTable();
-    } );
+$(document).ready(function() {
+    $('#almacenes').DataTable();
+});
 </script>
 @stop

@@ -7,15 +7,17 @@
 @stop
 
 @section('content')
-<form action="/marcas" method="POST">
-    @csrf
-    <div class="mb-3">
-        <label for="" class="form-label">Detalle</label>
-        <input id="detalle" name="detalle" type="text" class="form-control" tabindex="1" />
-    </div>
-    <a href="/marcas" class="btn btn-secondary" tabindex="2">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="3">Guardar</button>
-</form>
+<div class="shadow-none p-3 bg-white rounded">
+    <form action="/marcas" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label for="" class="form-label">Detalle</label>
+            <input id="detalle" name="detalle" type="text" class="form-control" tabindex="1" />
+        </div>
+        <a href="/marcas" class="btn btn-secondary" tabindex="2"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
+        <button type="submit" class="btn btn-primary" tabindex="3"><i class="fas fa-fw fa-save"></i> Guardar</button>
+    </form>
+</div>
 @stop
 
 @section('css')

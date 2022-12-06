@@ -323,12 +323,12 @@ return [
                 ],                
                 [
                     'text' => 'Categorias',
-                    'icon'    => 'fas fa-fw fa-bolt',
+                    'icon'    => 'fas fa-fw fa-tags',
                     'url'  => 'categorias',
                 ],
                 [
                     'text' => 'Marcas',
-                    'icon'    => 'fas fa-fw fa-filter',
+                    'icon'    => 'fas fa-fw fa-trademark',
                     'url'  => 'marcas',
                 ],
                 [

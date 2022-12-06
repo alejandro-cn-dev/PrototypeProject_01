@@ -7,17 +7,18 @@
 @stop
 
 @section('content')
-    
-<form action="/marcas/{{$marca->id}}" method="POST">
-    @csrf
-    @method('PUT')
-    <div class="mb-3">
-        <label for="" class="form-label">Detalle</label>
-        <input id="detalle" name="detalle" type="text" class="form-control" value="{{$marca->detalle}}" />
-    </div>
-    <a href="/marcas" class="btn btn-secondary">Cancelar</a>
-    <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
+<div class="shadow-none p-3 bg-white rounded">    
+    <form action="/marcas/{{$marca->id}}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label for="" class="form-label">Detalle</label>
+            <input id="detalle" name="detalle" type="text" class="form-control" value="{{$marca->detalle}}" />
+        </div>
+        <a href="/marcas" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-save"></i>Guardar</button>
+    </form>
+</div>
 @stop
 
 @section('css')
