@@ -3,11 +3,11 @@
 @section('title', 'Detalle de salidas')
 
 @section('content_header')
-    <h1>Detalle de Salidas</h1>
+    <h1>Detalle de Venta N° {{$cabecera->id}} - {{$cabecera->nombre}} - {{$cabecera->fecha_emision}}</h1>
 @stop
 
 @section('content')
-<img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
+<img src="{{ asset('img/inventarios_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
 <div class="shadow-none p-3 bg-white rounded">
     <form action="/productos" method="POST">
         @csrf
@@ -47,20 +47,21 @@
                     <th scope="col">Margen utilidad</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Cantidad</th>
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($salidas as $salida)
                 <tr>
                     <td>{{$salida->id}}</td>
-                    <td>
-                        {{$salida->id_producto}}
-                        {{-- @forEach($productos as $producto)
-                            @if({{$salida->id_producto}} == {{$producto->id}})
+                        {{-- {{$salida->id_producto}} --}}
+                        @forEach($productos as $producto)
+                            @if($salida->id_producto == $producto->id)
+                            <td>
                                 {{$producto->descripcion}}
+                            </td>                                
                             @endif
-                        @endforeach                         --}}
-                    </td>
+                        @endforeach                        
                     <td>{{$salida->unidad_compra}}</td>
                     <td>{{$salida->unidad_venta}}</td>
                     <td>{{$salida->precio_compra}}</td>

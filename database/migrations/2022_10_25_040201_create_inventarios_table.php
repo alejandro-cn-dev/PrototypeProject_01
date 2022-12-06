@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('precio_compra')->nullable();
             $table->string('unidad_venta')->nullable();
             $table->decimal('precio_venta')->nullable();
-            $table->string('margen_utilidad');
+            $table->decimal('margen_utilidad');
             $table->date('fecha');
             $table->integer('cantidad');
             $table->foreign('id_producto')->references('id')->on('productos');

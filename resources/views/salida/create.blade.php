@@ -36,22 +36,24 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert_form">Agregar producto</button>
                 <button type="button" class="btn btn-danger" onclick="limpiar_tabla()">Limpiar tabla</button>
                 {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
-                <table id="salidas" class="table table-striped table-bordered mt-4" style="width: 100%;">
-                <thead class="table-dark">
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Unidad compra</th>
-                        <th scope="col">Unidad venta</th>
-                        <th scope="col">Precio compra</th>
-                        <th scope="col">Precio venta</th>
-                        <th scope="col">Margen Util.</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Opciones</th>
-                        </tr>
-                </thead>
-                <tbody id="contenido"></tbody>
-                </table>
+                <div class="table-responsive">
+                        <table id="salidas" class="table table-striped table-bordered mt-4" style="width: 100%;">
+                                <thead class="table-dark">
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Unidad compra</th>
+                                        <th scope="col">Unidad venta</th>
+                                        <th scope="col">Precio compra</th>
+                                        <th scope="col">Precio venta</th>
+                                        <th scope="col">Margen Util.</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Opciones</th>
+                                        </tr>
+                                </thead>
+                                <tbody id="contenido"></tbody>
+                                </table>
+                </div>                
         </div>        
 
         <a href="/salidas" class="btn btn-secondary" tabindex="9">Cancelar</a>

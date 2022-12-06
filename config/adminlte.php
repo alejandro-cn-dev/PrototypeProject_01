@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Sistema Web de gestion de inventario | v4.2',
+    'title' => 'Sistema Web | Isaac Tamayo | v4.3',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Gestion de Inventario</b>',
+    'logo' => '<b>Asoc. Isaac Tamayo</b>',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img' => 'img/logo.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
@@ -111,10 +111,10 @@ return [
         'enabled' => true,
         'img' => [
             'path' => 'img/logo.jpg',
-            'alt' => 'AdminLTE Preloader Image',
+            'alt' => 'Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
@@ -313,42 +313,42 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'    => 'Gestion del negocio',
+            'text'    => 'Gestion de Inventario',
             'icon'    => 'fas fa-fw fa-list-alt',
             'submenu' => [
                 [
-                    'text' => 'Gestion de productos',
+                    'text' => 'Inventario',
                     'url'  => 'productos',
                     'icon'    => 'fas fa-fw fa-box',
                 ],                
                 [
-                    'text' => 'Gestion de categorias',
+                    'text' => 'Categorias',
                     'icon'    => 'fas fa-fw fa-bolt',
                     'url'  => 'categorias',
                 ],
                 [
-                    'text' => 'Gestion de marcas',
+                    'text' => 'Marcas',
                     'icon'    => 'fas fa-fw fa-filter',
                     'url'  => 'marcas',
                 ],
                 [
-                    'text' => 'Gestion de almacenes',
+                    'text' => 'Almacenes',
                     'icon'    => 'fas fa-fw fa-store',
                     'url'  => 'almacens',
                 ],
             ],
         ],
         [
-            'text'    => 'Gestion de inventario',
+            'text'    => 'Gestion de Compras y Ventas',
             'icon'    => 'fas fa-fw fa-list-alt',
             'submenu' => [             
                 [
-                    'text' => 'Gestion de entradas',
+                    'text' => 'Gestion de compras',
                     'icon'    => 'fas fa-fw fa-arrow-down',
                     'url'  => 'entradas',
                 ],
                 [
-                    'text' => 'Gestion de salidas',
+                    'text' => 'Gestion de ventas',
                     'icon'    => 'fas fa-fw fa-arrow-up',
                     'url'  => 'salidas',
                 ],

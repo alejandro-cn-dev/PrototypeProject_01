@@ -9,7 +9,10 @@
 @section('content')
 <img src="img/productos_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo productos">
 <div class="shadow-none p-3 bg-white rounded">
-    <a href="productos/create" class="btn btn-primary">CREAR</a>
+    <div class="bg-transparent">
+        <a href="productos/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Producto</a>    
+        <a href="#" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Inventario</a>    
+    </div>      
     <div class="table-responsive">
         <table id="productos" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -36,10 +39,10 @@
                         <td>{{$producto->id_marca}}</td>
                         <td>
                             <form action="{{route('productos.destroy',$producto->id)}}" method="POST">
-                                <a href="/productos/{{$producto->id}}/edit " class="btn btn-info">Editar</a>
+                                <a href="/productos/{{$producto->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-eraser"></i> Editar</a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Anular</button>
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
                             </form>
                         </td>
                     </tr>

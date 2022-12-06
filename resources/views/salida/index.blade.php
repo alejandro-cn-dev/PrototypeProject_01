@@ -9,7 +9,10 @@
 @section('content')
 <img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
 <div class="shadow-none p-3 bg-white rounded">
-    <a href="salidas/create" class="btn btn-primary mb-3">CREAR</a>
+    <div class="bg-transparent">
+        <a href="salidas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Venta</a>    
+        <a href="#" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Ventas</a>    
+    </div>    
     <div class="table-responsive">
         <table id="salidas" class="table table-striped table-bordered mt-4">
             <thead class="table-dark">
@@ -32,11 +35,11 @@
                     <td>{{$salida->fecha_emision}}</td>
                     <td>
                         <form action="{{route('salidas.destroy',$salida->id)}}" method="POST">
-                            <a href="/salidas/detalle/{{$salida->id}} " class="btn btn-success">Ver</a>
-                            <a href="/salidas/{{$salida->id}}/edit " class="btn btn-info">Editar</a>
+                            <a href="/salidas/detalle/{{$salida->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                            <a href="/salidas/{{$salida->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-eraser"></i> Editar</a>
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Anular</button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
                         </form>
                     </td>
                 </tr>
