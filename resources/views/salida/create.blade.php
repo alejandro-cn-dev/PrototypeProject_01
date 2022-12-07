@@ -9,8 +9,11 @@
 @php($salidas = [])
 
 @section('content')
-<div class="shadow-none p-3 bg-white rounded">
+<div class="shadow-none p-3 bg-white rounded">        
         <form action="/salidas" method="POST">
+        <div class="text-right">
+                <a href="/salidas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+        </div>
         @csrf
         <div class="row g-2 mb-3">
                 <div class="col-md-4">
@@ -33,8 +36,8 @@
         <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="id_usuario" name="id_usuario"
                 type="date" class="form-control" tabindex="7" /></div>
         <div class="border p-3">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert_form">Agregar producto</button>
-                <button type="button" class="btn btn-danger" onclick="limpiar_tabla()">Limpiar tabla</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
+                <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
                 {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
                 <div class="table-responsive">
                         <table id="salidas" class="table table-striped table-bordered mt-4" style="width: 100%;">
@@ -56,8 +59,8 @@
                 </div>                
         </div>        
 
-        <a href="/salidas" class="btn btn-secondary" tabindex="9">Cancelar</a>
-        <button type="submit" class="btn btn-primary" tabindex="10">Guardar</button>
+        <a href="/salidas" class="btn btn-secondary" tabindex="9"><i class="fas fa-fw fa-times"></i> Cancelar</a>
+        <button type="submit" class="btn btn-primary" tabindex="10"><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
         <div class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,8 +121,8 @@
                         </div>              
                     </div>
                     <div class="modal-footer">
-                      <button id="guardarProducto" type="button" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()">Guardar</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button id="guardarProducto" type="button" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"><i class="fas fa-fw fa-save"></i> Guardar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Cerrar</button>
                     </div>
                   </div>
                 </div>
@@ -186,7 +189,7 @@
                                 case "opciones":                                        
                                         var boton = document.createElement("button");
                                         boton.className= "btn btn-danger";
-                                        boton.innerHTML= "Anular";
+                                        boton.innerHTML= "<i class='fas fa-fw fa-times'></i> Anular";
                                         boton.type= "button";
                                         // boton.onclick = function(){
                                         //         eliminar_fila(auto_id-1);

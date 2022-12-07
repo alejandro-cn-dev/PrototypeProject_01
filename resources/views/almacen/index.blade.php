@@ -19,7 +19,6 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Tipo</th>
-                <th scope="col">Sufijo Almacen</th>
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
@@ -29,7 +28,6 @@
                     <td>{{$almacen->id}}</td>
                     <td>{{$almacen->nombre}}</td>
                     <td>{{$almacen->tipo}}</td>
-                    <td>{{$almacen->sufijo_almacen}}</td>
                     <td>
                         <form action="{{route('almacens.destroy',$almacen->id)}}" method="POST">
                             <a href="/almacens/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>

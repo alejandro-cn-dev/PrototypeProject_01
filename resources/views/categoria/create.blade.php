@@ -14,8 +14,8 @@
                         class="form-control" tabindex="1" /></div>
                 <div class="mb-3"><label for="" class="form-label">Detalle</label><input id="detalle" name="detalle" type="text"
                         class="form-control" tabindex="2" /></div>    
-                <a href="/categorias" class="btn btn-secondary" tabindex="3">Cancelar</a>
-                <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+                <a href="/categorias" class="btn btn-secondary" tabindex="3"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
+                <button type="submit" class="btn btn-primary" tabindex="4"><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
 </div>
 
