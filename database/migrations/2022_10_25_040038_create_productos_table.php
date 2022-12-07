@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('color',30)->nullable();
             //$table->unsignedBigInteger('id_empleado');
             $table->string('matricula');
+            
+            $table->string('unidad_compra')->nullable();
+            $table->string('unidad_venta')->nullable();
+            $table->integer('precio_compra')->nullable();
+            $tabla->integer('precio_venta')->nullable();            
+
             $table->unsignedBigInteger('id_categoria');
             $table->unsignedBigInteger('id_almacen');
             $table->unsignedBigInteger('id_marca');

@@ -52,6 +52,26 @@
                 </select>
             </div>   
         </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label for="" class="form-label">Unidad Compra</label>
+                <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" value="{{$producto->unidad_compra}}">
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Unidad Venta</label>
+                <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" value="{{$producto->unidad_venta}}">
+            </div>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label for="" class="form-label">Precio Compra</label>
+                <input type="text" class="form-control" id="precio_compra" name="precio_compra" value="{{$producto->precio_compra}}">
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Precio Venta</label>
+                <input type="text" class="form-control" id="precio_venta" name="precio_venta" value="{{$producto->precio_venta}}">
+            </div>
+        </div>
         <div class="p-3">
             <a href="/productos" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
             <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-save"></i> Guardar</button>

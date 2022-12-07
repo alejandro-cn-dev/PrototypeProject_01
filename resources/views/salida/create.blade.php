@@ -45,11 +45,13 @@
                                         <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Producto</th>
-                                        <th scope="col">Unidad compra</th>
+                                        {{-- <th scope="col">Unidad compra</th>
                                         <th scope="col">Unidad venta</th>
                                         <th scope="col">Precio compra</th>
                                         <th scope="col">Precio venta</th>
-                                        <th scope="col">Margen Util.</th>
+                                        <th scope="col">Margen Util.</th> --}}
+                                        <th scope="col">Unidad</th>
+                                        <th scope="col">Precio</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Opciones</th>
                                         </tr>
@@ -73,33 +75,13 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                        <div class="row g-2">
-                                <div class="col-md-6 form-group">
-                                        <label for="unidad_compra" class="form-label">Unidad compra</label>
-                                        <input type="text" name="unidad_compra" id="unidad_compra" class="form-control">
-                                </div>   
-                                <div class="col-md-6 form-group">
-                                        <label for="unidad_venta" class="form-label">Unidad venta</label>
-                                        <input type="text" name="unidad_venta" id="unidad_venta" class="form-control">
-                                </div>   
-                        </div>
-                        <div class="row g-2">
-                                <div class="col-md-6 form-group">
-                                        <label for="precio_compra" class="form-label">Precio compra</label>
-                                        <input type="number" name="precio_compra" id="precio_compra" class="form-control">
-                                </div>   
-                                <div class="col-md-6 form-group">
-                                        <label for="precio_venta" class="form-label">Precio venta</label>
-                                        <input type="number" name="precio_venta" id="precio_venta" class="form-control">
-                                </div>
-                        </div>
                         <div class="form-group">
                                 <label for="unidad_compra" class="form-label">Producto</label>
                                 <input class="form-control" list="productList" value="" id="producto" placeholder="Presione para buscar..">
                                 <datalist id="productList">
                                         @foreach($productos as $producto)
                                                 {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
-                                                <option value="{{$producto->descripcion}}">{{$producto->id}}</option>
+                                                <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad($producto->precio_venta,$producto->unidad_venta)">{{$producto->id}}</option>
                                         @endforeach
                                 </datalist>
                                 {{-- <select class="form-control" name="producto" id="producto">
@@ -108,17 +90,19 @@
                                                 <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option>
                                         @endforeach
                                 </select>                                 --}}
-                        </div>       
-                        <div class="row g-2">
-                                <div class="col-md-6 form-group">
-                                        <label for="unidad_compra" class="form-label">Margen de utilidad</label>
-                                        <input type="number" name="margen" id="margen" class="form-control">
-                                </div>   
-                                <div class="col-md-6 form-group">
-                                        <label for="unidad_compra" class="form-label">Cantidad</label>
-                                        <input type="number" name="cantidad" id="cantidad" class="form-control">
-                                </div>  
-                        </div>              
+                        </div>  
+                        <div class="form-group">
+                                <label for="unidad_venta" class="form-label">Unidad</label>
+                                <input type="text" name="unidad_venta" id="unidad_venta" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <label for="precio_venta" class="form-label">Precio</label>
+                                <input type="number" name="precio_venta" id="precio_venta" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <label for="unidad_compra" class="form-label">Cantidad</label>
+                                <input type="number" name="cantidad" id="cantidad" class="form-control">
+                        </div>  
                     </div>
                     <div class="modal-footer">
                       <button id="guardarProducto" type="button" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"><i class="fas fa-fw fa-save"></i> Guardar</button>
@@ -141,8 +125,10 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>     
         var auto_id = 1;
-        var campos = ['id','producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad','opciones'];
-        var input_name = ['producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad'];
+        //var campos = ['id','producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad','opciones'];
+        var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];
+        //var input_name = ['producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad'];
+        var input_name = ['producto','unidad_venta''precio_venta','cantidad'];
         // $(document).ready(function() {                
         //         $('#addProducto').click(function(event) {
         //                 let filas = ["1","METROS","METROS","3.90","4.90","2%","40"];
@@ -224,6 +210,10 @@
         }      
         function limpiar_tabla(){
                 $('#contenido tr').detach();
+        }
+        function cargar_precio_unidad(precio,unidad){
+                $('#precio_venta').val(precio);
+                $('#unidad_venta').val(unidad);
         }  
 </script>
 @stop

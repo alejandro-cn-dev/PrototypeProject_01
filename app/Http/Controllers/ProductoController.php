@@ -71,12 +71,18 @@ class ProductoController extends Controller
         }
         $productos->color = $color;
         $productos->id_almacen = $request->get('id_almacen');
+
+        $productos->precio_compra = $request->get('precio_compra');
+        $productos->precio_venta = $request->get('precio_venta');
+        $productos->unidad_compra = $request->get('unidad_compra');
+        $productos->unidad_venta = $request->get('unidad_venta');
+
         $productos->id_categoria = $id_categoria = $request->get('id_categoria');
         $categoria = Categoria::where('id','=',$id_categoria)->first();
         $productos->id_marca = $id_marca = $request->get('id_marca');
         $marca = Marca::where('id','=',$id_marca)->first();
         $productos->matricula = $empleado->matricula;
-        $prefijo_matricula = strtoupper(substr($marca->detalle,0,2)).'-'.strtoupper(substr($categoria->nombre,0,2));
+        $prefijo_matricula = strtoupper(substr($categoria->nombre,0,2)).'-'.strtoupper(substr($marca->detalle,0,2));
         //$last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortByDesc()->get();
         //$last_id = Producto::orderBy('id','DESC')->where('item_producto','LIKE',$prefijo_matricula.'%')->where('isEnable','=',1)->first();
         $grupo_productos = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->get();
@@ -153,6 +159,10 @@ class ProductoController extends Controller
         //$producto->id_categoria = $request->get('id_categoria');
         $producto->id_almacen = $request->get('id_almacen');
         //$producto->id_marca = $request->get('id_marca');
+        $producto->precio_compra = $request->get('precio_compra');
+        $producto->precio_venta = $request->get('precio_venta');
+        $producto->unidad_compra = $request->get('unidad_compra');
+        $producto->unidad_venta = $request->get('unidad_venta');
 
         $producto->save();
 

@@ -18,7 +18,7 @@
             <label for="" class="form-label">Color</label>
             <input id="color" name="color" type="text" class="form-control" tabindex="2" placeholder="Sin color"/>
         </div>
-        <div class="row g-3">
+        <div class="row g-3 mb-3">
             <div class="col-md-4">
                 <label for="" class="form-label">Categoria</label>
                 <select class="form-control" id="id_categoria" name="id_categoria" tabindex="3">
@@ -45,6 +45,26 @@
                         <option value="{{$marca->id}}">{{$marca->detalle}}</option>    
                     @endforeach
                 </select>                
+            </div>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label for="" class="form-label">Unidad Compra</label>
+                <input type="text" class="form-control" id="unidad_compra" name="unidad_compra">
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Unidad Venta</label>
+                <input type="text" class="form-control" id="unidad_venta" name="unidad_venta">
+            </div>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label for="" class="form-label">Precio Compra</label>
+                <input type="text" class="form-control" id="precio_compra" name="precio_compra">
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Precio Venta</label>
+                <input type="text" class="form-control" id="precio_venta" name="precio_venta">
             </div>
         </div>
         <div class="p-3">

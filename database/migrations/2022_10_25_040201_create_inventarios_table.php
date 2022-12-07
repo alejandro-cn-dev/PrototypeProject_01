@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_cabecera');
             $table->unsignedBigInteger('id_producto');
-            $table->string('unidad_compra')->nullable();
-            $table->decimal('precio_compra')->nullable();
-            $table->string('unidad_venta')->nullable();
-            $table->decimal('precio_venta')->nullable();
-            $table->decimal('margen_utilidad');
+            // $table->string('unidad_compra')->nullable();
+            // $table->decimal('precio_compra')->nullable();
+            // $table->string('unidad_venta')->nullable();
+            // $table->decimal('precio_venta')->nullable();
+            // $table->decimal('margen_utilidad');
             $table->date('fecha');
             $table->integer('cantidad');
             $table->foreign('id_producto')->references('id')->on('productos');
