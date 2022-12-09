@@ -3,7 +3,7 @@
 @section('title', 'Editar Almacen')
 
 @section('content_header')
-    <h1>Editar Registro de Almacen</h1>
+    <h1>Editar Registro de Almacén</h1>
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
                 <option value="default" @if(($almacen->tipo)==""){ selected } @endif>Elegir tipo...</option>
                 <option value="deposito" @if(($almacen->tipo)=="deposito"){ selected } @endif>Deposito</option>
                 <option value="tienda" @if(($almacen->tipo)=="tienda"){ selected } @endif>Tienda</option>
-                <option value="almacen_pequenio" @if(($almacen->tipo)=="almacen_pequenio"){ selected } @endif>Almacen pequeño</option>
+                <option value="almacen_pequenio" @if(($almacen->tipo)=="almacen_pequenio"){ selected } @endif>Almacén pequeño</option>
             </select>            
         </div>    
         <a href="/almacens" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>

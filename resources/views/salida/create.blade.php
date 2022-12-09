@@ -6,8 +6,6 @@
 <h1>Crear Registro de Salida</h1>
 @stop
 
-@php($salidas = [])
-
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">        
         <form action="/salidas" method="POST">
@@ -31,9 +29,11 @@
         
         <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
         name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
+        <div class="mb-3"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
+                name="num_autorizacion" type="text" class="form-control" tabindex="3" /></div>
         <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
-                name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>
-        <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="id_usuario" name="id_usuario"
+                name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>        
+        <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
                 type="date" class="form-control" tabindex="7" /></div>
         <div class="border p-3">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
@@ -65,7 +65,8 @@
         <button type="submit" class="btn btn-primary" tabindex="10"><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
-        <div class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form class="modal fade" action="{{ route('agregar_producto') }}" method="POST" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                @csrf
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -81,7 +82,7 @@
                                 <datalist id="productList">
                                         @foreach($productos as $producto)
                                                 {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
-                                                <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad($producto->precio_venta,$producto->unidad_venta)">{{$producto->id}}</option>
+                                                <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad({{$producto->precio_venta}},{{$producto->unidad_venta}})">{{$producto->id}}</option>
                                         @endforeach
                                 </datalist>
                                 {{-- <select class="form-control" name="producto" id="producto">
@@ -105,12 +106,13 @@
                         </div>  
                     </div>
                     <div class="modal-footer">
-                      <button id="guardarProducto" type="button" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"><i class="fas fa-fw fa-save"></i> Guardar</button>
+                      {{-- <button id="guardarProducto" type="submit" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"> <i class="fas fa-fw fa-save"></i> Guardar</button> --}}
+                      <button id="guardarProducto" type="submit" data-dismiss="modal" class="btn btn-primary" > <i class="fas fa-fw fa-save"></i> Guardar</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Cerrar</button>
                     </div>
                   </div>
                 </div>
-              </div>
+        </form>
         <!--FIN FORMULARIO INSERTAR PRODUCTO-->
 </div>
 @stop
@@ -128,7 +130,7 @@
         //var campos = ['id','producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad','opciones'];
         var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];
         //var input_name = ['producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad'];
-        var input_name = ['producto','unidad_venta''precio_venta','cantidad'];
+        var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
         // $(document).ready(function() {                
         //         $('#addProducto').click(function(event) {
         //                 let filas = ["1","METROS","METROS","3.90","4.90","2%","40"];
@@ -195,6 +197,7 @@
                         }            
                         td.appendChild(celda); 
                         tr.appendChild(td);
+                        
                 });                
                 
                 tbody.appendChild(tr);
@@ -215,5 +218,65 @@
                 $('#precio_venta').val(precio);
                 $('#unidad_venta').val(unidad);
         }  
+        // $(document).ready(function(){
+        //         $('#insert_form').on('submit',function(e){
+        // //$("#guardarProducto" ).click(function() {
+        //         e.preventDefault();
+        //         let producto = $('#producto').val();
+        //         let unidad_venta = $('#unidad_venta').val();
+        //         let precio_venta = $('#precio_venta').val();
+        //         let cantidad = $('#cantidad').val();
+
+        //         $.ajax({
+        //                 url: "{{ route('agregar_producto') }}",
+        //                 type: "POST",
+        //                 data: {
+        //                         _token: "{{ csrf_token() }}",
+        //                         producto: producto,
+        //                         unidad_venta: unidad_venta,
+        //                         precio_venta: precio_venta,
+        //                         cantidad: cantidad
+        //                 },
+        //                 success: function(response){
+        //                         alert(response);
+        //                         console.log(response);
+        //                 },
+        //                 error: function(response){
+        //                         //$('#nameErrorMsg').text(response.responseJSON.errors.name);
+        //                         console.log(response);
+        //                 }
+        //         // }).done(function(res){
+        //         //         msg = JSON.parse(res).response.msg
+        //         //         alert(msg);
+        //         // }).fail(function(res){
+        //         //         console.log(res)
+        //         });
+                
+        // });
+        // });
+        
+
+        // $("#guardarProducto" ).click(function() {
+        //     var formData = new FormData(document.getElementById("insert_form"));    
+        //     //var token = $('meta[name="csrf-token"]').attr('content');    
+        //     $.ajaxSetup({
+        //         headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });    
+        //     $.ajax({
+        //         url: "{{ route('agregar_producto') }}",
+        //         type: "post",
+        //         dataType: "html",
+        //         data: {'formData': formData},
+        //         processData: false,
+        //         contentType: false
+        //     }).done(function(res){
+        //         msg = JSON.parse(res).response.msg
+        //         alert(msg);
+        //     }).fail(function(res){
+        //         console.log(res)
+        //     });
+        // });
 </script>
 @stop

@@ -29,6 +29,7 @@ Route::resource('entradas','App\Http\Controllers\EntradaController');
 Route::get('entradas/detalle/{id}',[EntradaController::class,'detalle'])->middleware('auth')->name('entradas.detalle');
 Route::resource('salidas','App\Http\Controllers\SalidaController');
 Route::get('salidas/detalle/{id}',[SalidaController::class,'detalle'])->middleware('auth')->name('salidas.detalle');
+Route::post('salidas/agregar',[SalidaController::class,'agregar'])->middleware('auth')->name('agregar_producto');
 Route::resource('categorias','App\Http\Controllers\CategoriaController');
 Route::resource('reportes','App\Http\Controllers\ReporteController');
 

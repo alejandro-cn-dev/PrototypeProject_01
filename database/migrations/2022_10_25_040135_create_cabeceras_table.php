@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('denominacion');
             $table->string('numeracion')->nullable();
             $table->string('num_autorizacion')->nullable();
-            $table->string('nombre');
+            $table->string('nombre')->nullable();
             $table->string('nit_ci')->nullable();
             $table->date('fecha_emision');
             $table->string('tipo');

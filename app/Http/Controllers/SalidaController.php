@@ -8,7 +8,10 @@ use App\Models\Inventario;
 use App\Models\Producto;
 
 class SalidaController extends Controller
-{
+{    
+    protected $tabla_salidas = [];
+    protected $filas = 0;
+    protected $total = 0;
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +42,30 @@ class SalidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $salidas = Cabecera::all();
+        return view('salida.index')->with('salidas',$salidas)->with('prueba',$this->tabla_salidas);
+        $cabecera = new Cabecera();
+        $cabecera->denominacion = $request->get('denominacion');
+        $cabecera->numeracion = $request->get('numeracion');
+        $cabecera->num_autorizacion = $request->get('num_autorizacion');
+        $cabecera->nombre = $request->get('nombre');
+        $cabecera->nit_ci = $request->get('nit_razon_social');
+        $cabecera->fecha_emision = $request->get('fecha_emision');
+        $cabecera->tipo = 'S';
+        $cabecera->monto_total = $this->total;
+        $cabecera->save();
+        
+        foreach($this->tabla_salidas as $fila){
+            $salidas = new Inventario();
+            $salidas->id_cabecera = $cabecera->id;
+            $salidas->id_producto = 1;
+            $salidas->unidad = $fila->unidad;
+            $salidas->precio = $fila->precio;
+            $salidas->fecha = $request->get('fecha_emision');
+            $salidas->cantidad = $fila->cantidad;
+            $salidas->save();
+        }
+        //return redirect('/salidas');
     }
 
     /**
@@ -74,7 +100,14 @@ class SalidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cabecera = new Cabecera();
+        $cabecera->denominacion = $request->get('denominacion');
+        $cabecera->numeracion = $request->get('numeracion');
+        $cabecera->num_autorizacion = $request->get('num_autorizacion');
+        $cabecera->nombre = $request->get('nombre');
+        $cabecera->nit_ci = $request->get('nit_ci');
+        $cabecera->fecha_emision = $request->get('fecha_emision');
+        $cabecera->save();
     }
 
     /**
@@ -94,5 +127,45 @@ class SalidaController extends Controller
         $cabecera = Cabecera::find($id);
         $productos = Producto::all();
         return view('salida.detalle')->with('cabecera',$cabecera)->with('salidas',$salidas)->with('productos',$productos);
+    }
+    public function agregar(Request $request){
+        return redirect('/salidas');
+        // $request->validate([
+        //     'producto'          => 'required',
+        //     'unidad_venta'      => 'required',
+        //     'precio_venta'      => 'required',
+        //     'cantidad'          => 'required',
+        // ]);
+
+        $salida = new Inventario();
+        $producto = Producto::where('descripcion','=',$request->producto)->first();
+        $salida->id_producto = $producto->id;
+        $salida->unidad_venta = $request->unidad_venta;
+        $salida->precio_venta = $request->precio_venta;
+        $salida->cantidad = $request->cantidad;
+        $salida->save();
+        // $fila = $fila + 1;
+        // //$fila_actual = array($fila => array("id" => $fila, "producto" => $request->input('id_producto'), "unidad" => $request->input('unidad_venta'), "precio" => $request->input('precio_venta')));
+        // array_push($this->tabla_salidas,array(
+        //     "id" => $fila, 
+        //     "producto" => $request->producto, 
+        //     "unidad" => $request->unidad_venta, 
+        //     "precio" => $request->precio_venta, 
+        //     "cantidad" => $request->cantidad
+        //     // "producto" => $request->input('producto'), 
+        //     // "unidad" => $request->input('unidad_venta'), 
+        //     // "precio" => $request->input('precio_venta'), 
+        //     // "cantidad" => $request->input('cantidad')
+        // ));
+        //array_push($tabla_salidas,$fila_actual);
+    }
+    public function anular($id){
+        unset($tabla_salidas[$id-1]);
+    }
+    public function addValor($valor){
+        array_push($tabla_salidas,$valor);
+    }
+    public function deleteProducto($id){
+        unset($tabla_salidas[$id]);
     }
 }

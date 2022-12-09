@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Registro de almacen')
+@section('title', 'Registro de Almacén')
 
 @section('content_header')
-    <h1>Registro Almacen</h1>
+    <h1>Registro Almacén</h1>
 @stop
 
 @section('content')

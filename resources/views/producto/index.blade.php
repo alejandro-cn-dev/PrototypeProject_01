@@ -11,17 +11,16 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         <a href="productos/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Producto</a>    
-        <a href="#" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Inventario</a>    
+        <a href="productos/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Inventario</a>    
     </div>      
     <div class="table-responsive">
         <table id="productos" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">ITEM</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Color</th>
-                    <th scope="col">Categoria</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Opciones</th>
@@ -30,11 +29,10 @@
             <tbody>
                 @foreach ($productos as $producto)
                     <tr>
-                        <td>{{$producto->id}}</td>
+                        <td>{{$producto->id_categoria}}</td>
                         <td>{{$producto->item_producto}}</td>
                         <td>{{$producto->descripcion}}</td>
                         <td>{{$producto->color}}</td>
-                        <td>{{$producto->id_categoria}}</td>
                         <td>{{$producto->id_almacen}}</td>
                         <td>{{$producto->id_marca}}</td>
                         <td>

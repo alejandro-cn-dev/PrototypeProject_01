@@ -29,9 +29,9 @@
                 </select>                
             </div>
             <div class="col-md-4">
-                <label for="" class="form-label">Almacen</label>
+                <label for="" class="form-label">Almacén</label>
                 <select class="form-control" id="id_almacen" name="id_almacen" tabindex="4">
-                    <option selected>Elegir almacen...</option>
+                    <option selected>Elegir almacén...</option>
                     @foreach ($almacenes as $almacen)
                         <option value="{{$almacen->id}}">{{$almacen->nombre}}</option>    
                     @endforeach
@@ -53,18 +53,18 @@
                 <input type="text" class="form-control" id="unidad_compra" name="unidad_compra">
             </div>
             <div class="col-md-6">
+                <label for="" class="form-label">Precio Compra</label>
+                <input type="number" class="form-control" id="precio_compra" name="precio_compra">
+            </div>            
+        </div>
+        <div class="row g-2 mb-3">            
+            <div class="col-md-6">
                 <label for="" class="form-label">Unidad Venta</label>
                 <input type="text" class="form-control" id="unidad_venta" name="unidad_venta">
             </div>
-        </div>
-        <div class="row g-2 mb-3">
-            <div class="col-md-6">
-                <label for="" class="form-label">Precio Compra</label>
-                <input type="text" class="form-control" id="precio_compra" name="precio_compra">
-            </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Venta</label>
-                <input type="text" class="form-control" id="precio_venta" name="precio_venta">
+                <input type="number" class="form-control" id="precio_venta" name="precio_venta">
             </div>
         </div>
         <div class="p-3">

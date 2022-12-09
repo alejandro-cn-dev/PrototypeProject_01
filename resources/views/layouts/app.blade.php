@@ -14,6 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('favicons/favicon32x32.jpg') }}"/>
     <link rel="shortcut icon" sizes="32x32" href="{{ asset('favicons/favicon32x32.jpg') }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>

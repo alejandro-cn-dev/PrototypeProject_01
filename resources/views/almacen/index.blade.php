@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Sistema de gestion')
+@section('title', 'Listado de Almacenes')
 
 @section('content_header')
     <h1>Listado de registros de Almacenes</h1>
@@ -10,7 +10,7 @@
 <img src="img/almacen_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo almacenes">
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        <a href="almacens/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacen</a>    
+        <a href="almacens/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacén</a>    
         <a href="almacens/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Almacenes</a>    
     </div>  
     <table id="almacenes" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
