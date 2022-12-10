@@ -61,11 +61,11 @@
                 </div>                
         </div>        
 
-        <a href="/salidas" class="btn btn-secondary" tabindex="9"><i class="fas fa-fw fa-times"></i> Cancelar</a>
-        <button type="submit" class="btn btn-primary" tabindex="10"><i class="fas fa-fw fa-save"></i> Guardar</button>
+        <a href="/salidas" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
+        <button type="submit" name="btn1" class="btn btn-primary" ><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
-        <form class="modal fade" action="{{ route('agregar_producto') }}" method="POST" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="{{ route('agregar_producto') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 @csrf
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -107,7 +107,7 @@
                     </div>
                     <div class="modal-footer">
                       {{-- <button id="guardarProducto" type="submit" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"> <i class="fas fa-fw fa-save"></i> Guardar</button> --}}
-                      <button id="guardarProducto" type="submit" data-dismiss="modal" class="btn btn-primary" > <i class="fas fa-fw fa-save"></i> Guardar</button>
+                      <button id="guardarProducto" name="btn2" type="submit" data-dismiss="modal" class="btn btn-primary" > <i class="fas fa-fw fa-save"></i> Guardar</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Cerrar</button>
                     </div>
                   </div>
@@ -218,65 +218,7 @@
                 $('#precio_venta').val(precio);
                 $('#unidad_venta').val(unidad);
         }  
-        // $(document).ready(function(){
-        //         $('#insert_form').on('submit',function(e){
-        // //$("#guardarProducto" ).click(function() {
-        //         e.preventDefault();
-        //         let producto = $('#producto').val();
-        //         let unidad_venta = $('#unidad_venta').val();
-        //         let precio_venta = $('#precio_venta').val();
-        //         let cantidad = $('#cantidad').val();
-
-        //         $.ajax({
-        //                 url: "{{ route('agregar_producto') }}",
-        //                 type: "POST",
-        //                 data: {
-        //                         _token: "{{ csrf_token() }}",
-        //                         producto: producto,
-        //                         unidad_venta: unidad_venta,
-        //                         precio_venta: precio_venta,
-        //                         cantidad: cantidad
-        //                 },
-        //                 success: function(response){
-        //                         alert(response);
-        //                         console.log(response);
-        //                 },
-        //                 error: function(response){
-        //                         //$('#nameErrorMsg').text(response.responseJSON.errors.name);
-        //                         console.log(response);
-        //                 }
-        //         // }).done(function(res){
-        //         //         msg = JSON.parse(res).response.msg
-        //         //         alert(msg);
-        //         // }).fail(function(res){
-        //         //         console.log(res)
-        //         });
-                
-        // });
-        // });
         
 
-        // $("#guardarProducto" ).click(function() {
-        //     var formData = new FormData(document.getElementById("insert_form"));    
-        //     //var token = $('meta[name="csrf-token"]').attr('content');    
-        //     $.ajaxSetup({
-        //         headers: {
-        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        //     });    
-        //     $.ajax({
-        //         url: "{{ route('agregar_producto') }}",
-        //         type: "post",
-        //         dataType: "html",
-        //         data: {'formData': formData},
-        //         processData: false,
-        //         contentType: false
-        //     }).done(function(res){
-        //         msg = JSON.parse(res).response.msg
-        //         alert(msg);
-        //     }).fail(function(res){
-        //         console.log(res)
-        //     });
-        // });
 </script>
 @stop

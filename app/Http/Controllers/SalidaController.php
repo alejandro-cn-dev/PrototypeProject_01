@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cabecera;
 use App\Models\Inventario;
 use App\Models\Producto;
+use PDF;
 
 class SalidaController extends Controller
 {    
@@ -129,6 +130,7 @@ class SalidaController extends Controller
         return view('salida.detalle')->with('cabecera',$cabecera)->with('salidas',$salidas)->with('productos',$productos);
     }
     public function agregar(Request $request){
+        //return redirect('/salidas');
         return redirect('/salidas');
         // $request->validate([
         //     'producto'          => 'required',
@@ -167,5 +169,18 @@ class SalidaController extends Controller
     }
     public function deleteProducto($id){
         unset($tabla_salidas[$id]);
+    }
+    public function report(){
+        $salidas = Inventario::where('tipo','=','S')->get();
+        // $data = [
+        //     'title' => 'Welcome to System',
+        //     'date' => date('m/d/Y'),
+        //     'salidas' => $salidas
+        // ];
+        // $pdf = PDF::loadView('myPDF',$data);
+        // $pdf = app('dompdf.wrapper');
+        // $pdf->loadHTML('<h1>Test</h1>');
+        // return $pdf->download('examplePDF.pdf');
+        return PDF::loadView('/salidas',$salidas)->stream('archivo.pdf');
     }
 }
