@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('num_autorizacion')->nullable();
             $table->string('nombre')->nullable();
             $table->string('nit_ci')->nullable();
-            $table->date('fecha_emision');
+            $table->date('fecha_emision')->nullable();
             $table->string('tipo');
             $table->decimal('monto_total');
             $table->timestamps();

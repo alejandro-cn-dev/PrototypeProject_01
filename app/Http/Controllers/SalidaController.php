@@ -10,9 +10,15 @@ use PDF;
 
 class SalidaController extends Controller
 {    
-    protected $tabla_salidas = [];
-    protected $filas = 0;
-    protected $total = 0;
+    private $tabla_salidas = [];
+    private $fila = 0;
+    private $total = 0;
+
+    // public function __construct(){        
+    //     $this->tabla_salidas = [];
+    //     $this->fila = 0;
+    //     $this->total = 0;
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +50,7 @@ class SalidaController extends Controller
     public function store(Request $request)
     {
         $salidas = Cabecera::all();
-        return view('salida.index')->with('salidas',$salidas)->with('prueba',$this->tabla_salidas);
+        //return view('salida.index')->with('salidas',$salidas)->with('prueba',$this->tabla_salidas);
         $cabecera = new Cabecera();
         $cabecera->denominacion = $request->get('denominacion');
         $cabecera->numeracion = $request->get('numeracion');
@@ -131,44 +137,62 @@ class SalidaController extends Controller
     }
     public function agregar(Request $request){
         //return redirect('/salidas');
-        return redirect('/salidas');
+        //return redirect('/salidas');
         // $request->validate([
         //     'producto'          => 'required',
         //     'unidad_venta'      => 'required',
         //     'precio_venta'      => 'required',
         //     'cantidad'          => 'required',
         // ]);
+        $validator = \Validator::make($request->all(), [
+            'producto'          => 'required',
+            'unidad_venta'      => 'required',
+            'precio_venta'      => 'required',
+            'cantidad'          => 'required',
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+        $last_id_cabecera = Cabecera::latest('id')->first();
 
-        $salida = new Inventario();
-        $producto = Producto::where('descripcion','=',$request->producto)->first();
-        $salida->id_producto = $producto->id;
-        $salida->unidad_venta = $request->unidad_venta;
-        $salida->precio_venta = $request->precio_venta;
-        $salida->cantidad = $request->cantidad;
-        $salida->save();
-        // $fila = $fila + 1;
+        // $salida = new Inventario();
+        // $producto = Producto::where('descripcion','=',$request->producto)->first();        
+        // $salida->id_producto = $producto->id;
+        // $salida->id_cabecera = $last_id_cabecera->id;
+        // //$salida->id_producto = $request->producto;
+        // $salida->unidad = $request->unidad_venta;
+        // $salida->precio = $request->precio_venta;
+        // $salida->cantidad = $request->cantidad;
+        // $salida->fecha = '2022-12-07 03:58:19';
+        // $salida->save();
+
+        
+        $this->fila = $this->fila + 1;
         // //$fila_actual = array($fila => array("id" => $fila, "producto" => $request->input('id_producto'), "unidad" => $request->input('unidad_venta'), "precio" => $request->input('precio_venta')));
-        // array_push($this->tabla_salidas,array(
-        //     "id" => $fila, 
-        //     "producto" => $request->producto, 
-        //     "unidad" => $request->unidad_venta, 
-        //     "precio" => $request->precio_venta, 
-        //     "cantidad" => $request->cantidad
-        //     // "producto" => $request->input('producto'), 
-        //     // "unidad" => $request->input('unidad_venta'), 
-        //     // "precio" => $request->input('precio_venta'), 
-        //     // "cantidad" => $request->input('cantidad')
-        // ));
+        array_push($this->tabla_salidas,array(
+            "id" => $this->fila, 
+            "producto" => $request->producto, 
+            "unidad" => $request->unidad_venta, 
+            "precio" => $request->precio_venta, 
+            "cantidad" => $request->cantidad
+            // "producto" => $request->input('producto'), 
+            // "unidad" => $request->input('unidad_venta'), 
+            // "precio" => $request->input('precio_venta'), 
+            // "cantidad" => $request->input('cantidad')
+        ));
         //array_push($tabla_salidas,$fila_actual);
+        return response()->json(['success'=>'Data is successfully added']);
+        //return response()->json(['success'=>$this->tabla_salidas]);
     }
     public function anular($id){
-        unset($tabla_salidas[$id-1]);
+        unset($this->tabla_salidas[$id-1]);
     }
     public function addValor($valor){
-        array_push($tabla_salidas,$valor);
+        array_push($this->tabla_salidas,$valor);
     }
     public function deleteProducto($id){
-        unset($tabla_salidas[$id]);
+        unset($this->tabla_salidas[$id]);
     }
     public function report(){
         $salidas = Inventario::where('tipo','=','S')->get();
