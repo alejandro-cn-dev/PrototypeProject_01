@@ -48,30 +48,7 @@ class SalidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $salidas = Cabecera::all();
-        //return view('salida.index')->with('salidas',$salidas)->with('prueba',$this->tabla_salidas);
-        $cabecera = new Cabecera();
-        $cabecera->denominacion = $request->get('denominacion');
-        $cabecera->numeracion = $request->get('numeracion');
-        $cabecera->num_autorizacion = $request->get('num_autorizacion');
-        $cabecera->nombre = $request->get('nombre');
-        $cabecera->nit_ci = $request->get('nit_razon_social');
-        $cabecera->fecha_emision = $request->get('fecha_emision');
-        $cabecera->tipo = 'S';
-        $cabecera->monto_total = $this->total;
-        $cabecera->save();
-        
-        foreach($this->tabla_salidas as $fila){
-            $salidas = new Inventario();
-            $salidas->id_cabecera = $cabecera->id;
-            $salidas->id_producto = 1;
-            $salidas->unidad = $fila->unidad;
-            $salidas->precio = $fila->precio;
-            $salidas->fecha = $request->get('fecha_emision');
-            $salidas->cantidad = $fila->cantidad;
-            $salidas->save();
-        }
+    {        
         //return redirect('/salidas');
     }
 
@@ -206,5 +183,61 @@ class SalidaController extends Controller
         // $pdf->loadHTML('<h1>Test</h1>');
         // return $pdf->download('examplePDF.pdf');
         return PDF::loadView('/salidas',$salidas)->stream('archivo.pdf');
+    }
+    public function guardar(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'denominacion'          => 'required',
+            'numeracion'            => 'required',
+            //'nombre'                => 'required',
+            //'num_autorizacion'      => 'required',
+            'nit_razon_social'      => 'required',
+            'fecha_emision'         => 'required'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+        
+        //Proceso
+        $salidas = Cabecera::all();
+        //return view('salida.index')->with('salidas',$salidas)->with('prueba',$this->tabla_salidas);
+        $cabecera = new Cabecera();
+        $cabecera->denominacion = $request->denominacion;
+        $cabecera->numeracion = $request->numeracion;
+        $cabecera->num_autorizacion = $request->num_autorizacion;
+        $cabecera->nombre = $request->nombre;
+        $cabecera->nit_ci = $request->nit_razon_social;
+        $cabecera->fecha_emision = $request->fecha_emision;
+        $cabecera->tipo = 'S';
+        $cabecera->monto_total = $this->total;
+        $cabecera->save();
+        
+        $filas_tabla = json_decode($request->tabla);
+
+        foreach($filas_tabla as $fila){
+            // $salidas = new Inventario();
+            // $salidas->id_cabecera = $cabecera->id;
+            // $salidas->id_producto = 1;
+            // $salidas->unidad = $fila->unidad;
+            // $salidas->precio = $fila->precio;
+            // $salidas->fecha = $request->get('fecha_emision');
+            // $salidas->cantidad = $fila->cantidad;
+            // $salidas->save();
+
+            $salida = new Inventario();
+            $producto = Producto::where('descripcion','=',$fila->producto)->first();        
+            $salida->id_producto = $producto->id;
+            $salida->id_cabecera = $cabecera->id;
+            //$salida->id_producto = $request->producto;
+            $salida->unidad = $fila->unidad_venta;
+            $salida->precio = $fila->precio_venta;
+            $salida->fecha = $request->get('fecha_emision');
+            $salida->cantidad = $fila->cantidad;
+            $salida->save();
+        }
+
+
+        //return response()->json(['success'=>'Data is successfully added']);
+        return response()->json(['success'=>$filas_tabla]);
     }
 }

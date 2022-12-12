@@ -18,7 +18,7 @@
                         <div class="col-md-4">
                                 <label for="" class="form-label">Denominación</label>
                                 <select id="denominacion" name="denominacion" class="form-control" tabindex="2">
-                                        <option selected>Elegir almacen...</option>
+                                        <option value="" selected>Elegir almacen...</option>
                                         <option value="recibo">Recibo</option>
                                         <option value="factura">Factura</option>
                                         <option value="nota de venta">Nota de venta</option>
@@ -128,6 +128,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">     
+        var tabla_salidas = [];
         var auto_id = 1;
         //var campos = ['id','producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad','opciones'];
         var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];
@@ -185,7 +186,7 @@
                                         //         eliminar_fila(auto_id-1);
                                         // };
                                         boton.addEventListener("click", function () {
-                                                //eliminar_fila(0);
+                                                //eliminar_fila(auto_id);
                                                 $(this).closest('tr').remove();
                                         });
                                         // boton.addEventListener('click', function handleClick(event) {
@@ -211,7 +212,8 @@
                 });
         }
         function eliminar_fila(i){
-                document.getElementById("contenido").deleteRow(i);
+                //document.getElementById("contenido").deleteRow(i);
+                tabla_salidas.pop(auto_id-1);
         }      
         function limpiar_tabla(){
                 $('#contenido tr').detach();
@@ -221,10 +223,10 @@
                 $('#unidad_venta').val(unidad);
         }  
         
-        $(document).ready(function(){
-                let tabla_salidas = new Array();
+        $(document).ready(function(){                
                 $('#insert_form').on('submit',function(e){
                         //$("#guardarProducto" ).click(function() {
+                        let fila = new Array(); 
                         e.preventDefault();
                         let producto = $('#producto').val();
                         let unidad_venta = $('#unidad_venta').val();
@@ -254,11 +256,13 @@
                                                 $('#alert1').hide();
                                                 //$('#open').hide();
                                                 $('#insert_form').modal('hide');
-                                                actualizar_fila();
+                                                actualizar_fila();                                                
+                                                tabla_salidas.push({producto: $('#producto').val(), unidad_venta: $('#unidad_venta').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});
                                                 vaciarCampos();
                                         }
                                         //alert(result);
                                         console.log(result);
+
                                 },
                                 error: function(response){
                                         //$('#nameErrorMsg').text(response.responseJSON.errors.name);
@@ -274,7 +278,7 @@
                 
                 $('#insert_salida').on('submit',function(e){
                         //$("#guardarProducto" ).click(function() {
-                        //e.preventDefault();
+                        e.preventDefault();
                         let denominacion = $('#denominacion').val();
                         let numeracion = $('#numeracion').val();
                         let nombre = $('#nombre').val();
@@ -293,7 +297,7 @@
                                         num_autorizacion: num_autorizacion,
                                         nit_razon_social: nit_razon_social,
                                         fecha_emision: fecha_emision,
-                                        tabla: tabla_salidas
+                                        tabla: JSON.stringify(tabla_salidas)
                                 },
                                 success: function(result){
                                         if(result.errors){
@@ -309,7 +313,7 @@
                                                 //$('.alert-danger').hide();
                                                 $('#alert1').hide();
                                                 //$('#insert_form').modal('hide');
-                                                
+                                                location.href = "{{ route('salidas.index') }}"                                                
                                         }
                                         //alert(result);
                                         console.log(result);
