@@ -106,7 +106,7 @@ class EntradaController extends Controller
         $entrada = Inventario::where('id_cabecera','=',$id)->get();
         $cabecera = Cabecera::find($id);
         $productos = Producto::all();
-        return view('entrada.detalle')->with('cabecera',$cabecera)->with('entradas',$entrada)->with('productos',$productos);
+        return view('entrada.detalle_entrada')->with('cabecera',$cabecera)->with('entradas',$entrada)->with('productos',$productos);
     }
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [

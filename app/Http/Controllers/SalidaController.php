@@ -113,7 +113,7 @@ class SalidaController extends Controller
         $salidas = Inventario::where('id_cabecera','=',$id)->get();
         $cabecera = Cabecera::find($id);
         $productos = Producto::all();
-        return view('salida.detalle')->with('cabecera',$cabecera)->with('salidas',$salidas)->with('productos',$productos);
+        return view('salida.detalle_salida')->with('cabecera',$cabecera)->with('salidas',$salidas)->with('productos',$productos);
     }
     public function agregar(Request $request){
         //return redirect('/salidas');
@@ -176,16 +176,8 @@ class SalidaController extends Controller
     }
     public function report(){
         $salidas = Inventario::where('tipo','=','S')->get();
-        // $data = [
-        //     'title' => 'Welcome to System',
-        //     'date' => date('m/d/Y'),
-        //     'salidas' => $salidas
-        // ];
-        // $pdf = PDF::loadView('myPDF',$data);
-        // $pdf = app('dompdf.wrapper');
-        // $pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->download('examplePDF.pdf');
-        //return PDF::loadView('/salidas',$salidas)->stream('archivo.pdf');
+        $pdf = PDF::loadView('pdf_salida',compact($salidas));
+        return $pdf->download('salidas.pdf');
     }
     public function guardar(Request $request){
         $validator = \Validator::make($request->all(), [

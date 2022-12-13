@@ -18,7 +18,8 @@
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nro Factura</th>
+                    <th scope="col">Denominacion</th>
+                    <th scope="col">Nro</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Importe</th>
                     <th scope="col">Fecha de emision</th>
@@ -29,6 +30,7 @@
                 @foreach ($salidas as $salida)
                 <tr>
                     <td>{{$salida->id}}</td>
+                    <td>{{$salida->denominacion}}</td>
                     <td>{{$salida->numeracion}}</td>
                     <td>{{$salida->nombre}}</td>
                     <td>{{$salida->monto_total}}</td>
