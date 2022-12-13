@@ -46,11 +46,6 @@
                                                 <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>
-                                                {{-- <th scope="col">Unidad compra</th>
-                                                <th scope="col">Unidad venta</th>
-                                                <th scope="col">Precio compra</th>
-                                                <th scope="col">Precio venta</th>
-                                                <th scope="col">Margen Util.</th> --}}
                                                 <th scope="col">Unidad</th>
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Cantidad</th>
@@ -66,7 +61,7 @@
                 <button type="submit" name="btn1" class="btn btn-primary" ><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
-        <form method="POST" action="{{ route('agregar_producto') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="{{ route('agregar_producto_salida') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 @csrf
                 <div class="modal-dialog">
                   <div class="modal-content">                        
@@ -87,12 +82,6 @@
                                                 <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad({{$producto->precio_venta}},{{$producto->unidad_venta}})">{{$producto->id}}</option>
                                         @endforeach
                                 </datalist>
-                                {{-- <select class="form-control" name="producto" id="producto">
-                                        <option value="0">Elija un producto...</option>
-                                        @foreach($productos as $producto)
-                                                <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option>
-                                        @endforeach
-                                </select>                                 --}}
                         </div>  
                         <div class="form-group">
                                 <label for="unidad_venta" class="form-label">Unidad</label>
@@ -129,42 +118,10 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">     
         var tabla_salidas = [];
-        var auto_id = 1;
-        //var campos = ['id','producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad','opciones'];
-        var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];
-        //var input_name = ['producto','unidad_compra','unidad_venta','precio_compra','precio_venta','margen','cantidad'];
+        var auto_id = 1;        
+        var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];        
         var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
-        // $(document).ready(function() {                
-        //         $('#addProducto').click(function(event) {
-        //                 let filas = ["1","METROS","METROS","3.90","4.90","2%","40"];
-        //                 // var formData = new FormData(document.getElementById("agregarProducto"));        
-
-        //                 actualizar_tabla(filas);
-        //                 //agregarFila();
-                        
-        //                 // Llama a addRow() con el ID de la tabla
-        //                 //addRow('salidas',$fila);
-        //         });
-        // });
-        function actualizar_tabla(filas){
-                tbody = document.getElementById("contenido");
-                var tr = document.createElement("tr");                
-
-                filas.forEach(function(fila) {
-                        var td = document.createElement("td");                
-                        var celda = document.createTextNode(fila);
-                        td.appendChild(celda); 
-                        tr.appendChild(td);
-                });
-
-                var td = document.createElement("td");
-                var boton = document.createElement("button");
-                boton.className = "btn btn-danger";
-                boton.innerHTML = "Anular";                
-                td.appendChild(boton);
-                tr.appendChild(td);
-                tbody.appendChild(tr);
-        }
+        
         function actualizar_fila(){                
                 tbody = document.getElementById("contenido");
                 var tr = document.createElement("tr");  
@@ -233,7 +190,7 @@
                         let precio_venta = $('#precio_venta').val();
                         let cantidad = $('#cantidad').val();
                         $.ajax({
-                                url: "{{ route('agregar_producto') }}",
+                                url: "{{ route('agregar_producto_salida') }}",
                                 type: "POST",
                                 data: {
                                         _token: "{{ csrf_token() }}",
@@ -244,7 +201,7 @@
                                 },
                                 success: function(result){
                                         if(result.errors){
-                                                $('.alert-danger').html('');
+                                                $('#alert1').html('');
                                                 $.each(result.errors,function(key,value){
                                                         //$('.alert-danger').show();
                                                         $('#alert1').show();
@@ -277,7 +234,6 @@
                 });
                 
                 $('#insert_salida').on('submit',function(e){
-                        //$("#guardarProducto" ).click(function() {
                         e.preventDefault();
                         let denominacion = $('#denominacion').val();
                         let numeracion = $('#numeracion').val();

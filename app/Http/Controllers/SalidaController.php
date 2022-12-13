@@ -102,7 +102,10 @@ class SalidaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $salida = Cabecera::find($id);
+        $salida->isEnable = false;
+        $salida->save();
+        return redirect('/salidas');
     }
 
     //Funciones propias
@@ -181,8 +184,8 @@ class SalidaController extends Controller
         // $pdf = PDF::loadView('myPDF',$data);
         // $pdf = app('dompdf.wrapper');
         // $pdf->loadHTML('<h1>Test</h1>');
-        // return $pdf->download('examplePDF.pdf');
-        return PDF::loadView('/salidas',$salidas)->stream('archivo.pdf');
+        return $pdf->download('examplePDF.pdf');
+        //return PDF::loadView('/salidas',$salidas)->stream('archivo.pdf');
     }
     public function guardar(Request $request){
         $validator = \Validator::make($request->all(), [

@@ -9,7 +9,10 @@
 @section('content')
 <img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
 <div class="shadow-none p-3 bg-white rounded">
-    <a href="entradas/create" class="btn btn-primary mb-3">CREAR</a>
+    <div class="bg-transparent">
+        <a href="/entradas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Compra</a>    
+        <a href="/entradas/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Compras</a>    
+    </div>    
     <div class="table-responsive">
         <table id="entradas" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">

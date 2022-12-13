@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('fecha_emision')->nullable();
             $table->string('tipo');
             $table->decimal('monto_total');
+            $table->boolean('isEnable')->default(1);
             $table->timestamps();
         });
     }

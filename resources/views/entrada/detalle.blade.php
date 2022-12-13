@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalle de salidas')
+@section('title', 'Detalle de entradas')
 
 @section('content_header')
-    <h1>Detalle de Venta N° {{$cabecera->id}} - {{$cabecera->nombre}} - {{$cabecera->fecha_emision}}</h1>
+    <h1>Detalle de Compra N° {{$cabecera->id}} - {{$cabecera->nombre}} - {{$cabecera->fecha_emision}}</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <form action="" method="">
         <div class="text-right">
-            <a href="/salidas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+            <a href="/entradas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
         </div>
         @csrf
         <div class="mb-3">
@@ -53,24 +53,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($salidas as $salida)
+                @foreach ($entradas as $entrada)
                 <tr>
-                    <td>{{$salida->id}}</td>
+                    <td>{{$entrada->id}}</td>
                         {{-- {{$salida->id_producto}} --}}
                         @forEach($productos as $producto)
-                            @if($salida->id_producto == $producto->id)
+                            @if($entrada->id_producto == $producto->id)
                             <td>
                                 {{$producto->descripcion}}
                             </td>                                
                             @endif
                         @endforeach                        
-                    <td>{{$salida->unidad_compra}}</td>
-                    <td>{{$salida->unidad_venta}}</td>
-                    <td>{{$salida->precio_compra}}</td>
-                    <td>{{$salida->precio_venta}}</td>
-                    <td>{{$salida->margen_utilidad}}</td>
-                    <td>{{$salida->fecha}}</td>
-                    <td>{{$salida->cantidad}}</td>
+                    <td>{{$entrada->unidad_compra}}</td>
+                    <td>{{$entrada->unidad_venta}}</td>
+                    <td>{{$entrada->precio_compra}}</td>
+                    <td>{{$entrada->precio_venta}}</td>
+                    <td>{{$entrada->margen_utilidad}}</td>
+                    <td>{{$entrada->fecha}}</td>
+                    <td>{{$entrada->cantidad}}</td>
                 </tr>
                 @endforeach
             </tbody>
