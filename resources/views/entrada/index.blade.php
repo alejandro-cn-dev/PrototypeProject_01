@@ -35,7 +35,7 @@
                     <td>{{$entrada->fecha_emision}}</td>
                     <td>
                         <form action="{{route('entradas.destroy',$entrada->id)}}" method="POST">
-                            <a href="/entradas/{{$entrada->id}}/detalle " class="btn btn-success">Ver</a>
+                            <a href="/entradas/{{$entrada->id}}/detalle_entrada " class="btn btn-success">Ver</a>
                             <a href="/entradas/{{$entrada->id}}/edit " class="btn btn-info">Editar</a>
                             @csrf
                             @method('DELETE')

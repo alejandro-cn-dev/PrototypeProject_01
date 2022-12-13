@@ -37,8 +37,9 @@ class SalidaController extends Controller
      */
     public function create()
     {
-        $productos = Producto::where('isEnable','=',1)->get();
-        return view('salida.create')->with('productos',$productos);
+        $salidas = Cabecera::where('tipo','=','S')->get();
+        $pdf = PDF::loadView('salida/pdf_salida',compact('salidas'));
+        return $pdf->download('salidas.pdf');
     }
 
     /**
@@ -174,9 +175,9 @@ class SalidaController extends Controller
     public function deleteProducto($id){
         unset($this->tabla_salidas[$id]);
     }
-    public function report(){
-        $salidas = Inventario::where('tipo','=','S')->get();
-        $pdf = PDF::loadView('pdf_salida',compact($salidas));
+    public function reporte(){
+        $salidas = Cabecera::where('tipo','=','S')->get();
+        $pdf = PDF::loadView('salida/pdf_salida',compact('salidas'));
         return $pdf->download('salidas.pdf');
     }
     public function guardar(Request $request){

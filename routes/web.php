@@ -31,13 +31,13 @@ Route::resource('home','App\Http\Controllers\HomeController');
 Route::resource('inicio','App\Http\Controllers\IncioController');
 
 Route::resource('salidas','App\Http\Controllers\SalidaController');
-Route::get('salidas/detalle_salida/{id}',[SalidaController::class,'detalle'])->middleware('auth')->name('salidas.detalle');
+Route::get('salidas/detalle_salida/{id}',[SalidaController::class,'detalle'])->middleware('auth')->name('salidas.detalle_salida');
 Route::post('salidas/agregar',[SalidaController::class,'agregar'])->middleware('auth')->name('agregar_producto_salida');
 Route::post('salidas/guardar',[SalidaController::class,'guardar'])->middleware('auth')->name('guardar_salida');
-Route::get('salidas/report',[SalidaController::class,'report'])->middleware('auth');
+Route::get('salidas/reporte/{id}',[SalidaController::class,'reporte'])->middleware('auth')->name('generar_reporte_salidas');
 
 Route::resource('entradas','App\Http\Controllers\EntradaController');
-Route::get('entradas/detalle_entrada/{id}',[EntradaController::class,'detalle'])->middleware('auth')->name('entradas.detalle');
+Route::get('entradas/detalle_entrada/{id}',[EntradaController::class,'detalle'])->middleware('auth')->name('entradas.detalle_entrada');
 Route::post('entradas/agregar',[EntradaController::class,'agregar'])->middleware('auth')->name('agregar_producto_entrada');
 Route::post('entradas/guardar',[EntradaController::class,'guardar'])->middleware('auth')->name('guardar_entrada');
-Route::get('entradas/report',[EntradaController::class,'report'])->middleware('auth');
+//Route::get('entradas/reporte',[EntradaController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');
