@@ -79,7 +79,7 @@
                                 <datalist id="productList">
                                         @foreach($productos as $producto)
                                                 {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
-                                                <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad({{$producto->precio_venta}},{{$producto->unidad_venta}})">{{$producto->id}}</option>
+                                                <option value="{{$producto->descripcion}}">{{$producto->id}}</option>
                                         @endforeach
                                 </datalist>
                         </div>  
@@ -117,7 +117,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">     
-        var tabla_salidas = [];
+        var tabla_entradas = [];
         var auto_id = 1;        
         var campos = ['id','producto','unidad_compra','precio_compra','cantidad','opciones'];        
         var input_name = ['producto','unidad_compra','precio_compra','cantidad'];
@@ -164,7 +164,7 @@
         }
         function eliminar_fila(i){
                 //document.getElementById("contenido").deleteRow(i);
-                tabla_salidas.pop(auto_id-1);
+                tabla_entradas.pop(auto_id-1);
         }      
         function limpiar_tabla(){
                 $('#contenido tr').detach();
@@ -208,7 +208,7 @@
                                                 //$('#open').hide();
                                                 $('#insert_form').modal('hide');
                                                 actualizar_fila();                                                
-                                                tabla_salidas.push({producto: $('#producto').val(), unidad_venta: $('#unidad_venta').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});
+                                                tabla_entradas.push({producto: $('#producto').val(), unidad_compra: $('#unidad_compra').val(), precio_compra: $('#precio_compra').val(), cantidad: $('#cantidad').val()});
                                                 vaciarCampos();
                                         }
                                         //alert(result);
@@ -229,6 +229,7 @@
                 
                 //Del formulario para ingresar la cabecera
                 $('#insert_entrada').on('submit',function(e){
+                        if((tabla_entradas.length) > 0){
                         e.preventDefault();
                         let denominacion = $('#denominacion').val();
                         let numeracion = $('#numeracion').val();
@@ -248,7 +249,7 @@
                                         num_autorizacion: num_autorizacion,
                                         nit_razon_social: nit_razon_social,
                                         fecha_emision: fecha_emision,
-                                        tabla: JSON.stringify(tabla_salidas)
+                                        tabla: JSON.stringify(tabla_entradas)
                                 },
                                 success: function(result){
                                         if(result.errors){
@@ -274,6 +275,10 @@
                                         console.log(response);
                                 }
                         });
+                        }else{
+                                e.preventDefault();
+                                alert('Debe insertar algun producto al detalle');
+                        }  
                 });
         });
 

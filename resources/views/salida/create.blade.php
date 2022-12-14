@@ -75,7 +75,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                                 <label for="unidad_compra" class="form-label">Producto</label>
-                                <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar..">
+                                <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required>
                                 <datalist id="productList">
                                         @foreach($productos as $producto)
                                                 {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
@@ -85,15 +85,15 @@
                         </div>  
                         <div class="form-group">
                                 <label for="unidad_venta" class="form-label">Unidad</label>
-                                <input type="text" name="unidad_venta" id="unidad_venta" class="form-control">
+                                <input type="text" name="unidad_compra" id="unidad_compra" class="form-control" required>
                         </div>
                         <div class="form-group">
                                 <label for="precio_venta" class="form-label">Precio</label>
-                                <input type="number" name="precio_venta" id="precio_venta" class="form-control">
+                                <input type="number" name="precio_compra" id="precio_compra" class="form-control" required>
                         </div>
                         <div class="form-group">
                                 <label for="unidad_compra" class="form-label">Cantidad</label>
-                                <input type="number" name="cantidad" id="cantidad" class="form-control">
+                                <input type="number" name="cantidad" id="cantidad" class="form-control" required>
                         </div>  
                     </div>
                     <div class="modal-footer">
@@ -120,8 +120,8 @@
         var tabla_salidas = [];
         var auto_id = 1;        
         var total = 0.0;
-        var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];        
-        var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
+        var campos = ['id','producto','unidad_compra','precio_compra','cantidad','opciones'];        
+        var input_name = ['producto','unidad_compra','precio_compra','cantidad'];
         
         function actualizar_fila(){                
                 tbody = document.getElementById("contenido");
@@ -169,10 +169,6 @@
                         document.getElementById(campo).value = "";
                 });
         }
-        function eliminar_fila(i){
-                //document.getElementById("contenido").deleteRow(i);
-                tabla_salidas.pop(auto_id-1);
-        }      
         function limpiar_tabla(){
                 $('#contenido tr').detach();
         }
@@ -183,7 +179,6 @@
         
         $(document).ready(function(){                
                 $('#insert_form').on('submit',function(e){
-                        //$("#guardarProducto" ).click(function() {
                         let fila = new Array(); 
                         e.preventDefault();
                         let producto = $('#producto').val();
@@ -202,41 +197,29 @@
                                 },
                                 success: function(result){
                                         if(result.errors){
-                                                $('#alert1').html('');
+                                                $('#alert2').html('');
                                                 $.each(result.errors,function(key,value){
-                                                        //$('.alert-danger').show();
-                                                        $('#alert1').show();
-                                                        //$('.alert-danger').append('<li>'+value+'</li>');
-                                                        $('#alert1').append('<li>'+value+'</li>');
+                                                        $('#alert2').show();
+                                                        $('#alert2').append('<li>'+value+'</li>');
                                                 });                                        
                                         }else{
-                                                //$('.alert-danger').hide();
-                                                $('#alert1').hide();
-                                                //$('#open').hide();
+                                                $('#alert2').hide();
                                                 $('#insert_form').modal('hide');
                                                 actualizar_fila();                                                
-                                                tabla_salidas.push({producto: $('#producto').val(), unidad_venta: $('#unidad_venta').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});
-                                                //total = total + (precio_venta * cantidad);
+                                                tabla_salidas.push({producto: $('#producto').val(), unidad_venta: $('#unidad_venta').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});                                                
                                                 vaciarCampos();                                                
                                         }
-                                        //alert(result);
                                         console.log(result);
 
                                 },
                                 error: function(response){
-                                        //$('#nameErrorMsg').text(response.responseJSON.errors.name);
                                         console.log(response);
                                 }
-                        // }).done(function(res){
-                        //         msg = JSON.parse(res).response.msg
-                        //         alert(msg);
-                        // }).fail(function(res){
-                        //         console.log(res)
                         });
                 });
                 
                 $('#insert_salida').on('submit',function(e){
-                        if(tabla_salidas.lenght > 0){
+                        if((tabla_salidas.length) > 0){
                                 e.preventDefault();
                                 let denominacion = $('#denominacion').val();
                                 let numeracion = $('#numeracion').val();
@@ -283,6 +266,7 @@
                                         }
                                         });
                         }else{
+                                e.preventDefault();
                                 alert('Debe insertar algun producto al detalle');
                         }                        
                 });

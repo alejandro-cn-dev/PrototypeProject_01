@@ -16,8 +16,8 @@
           <label for="validationDefault01" class="form-label">Compras y Ventas</label>
           <select class="form-control" id="validationDefault01" required>
             <option selected value="">--TODOS--</option>
-            <option value="">--SOLO VENTAS--</option>
-            <option value="">--SOLO COMPRAS--</option>
+            <option value="1">--SOLO VENTAS--</option>
+            <option value="2">--SOLO COMPRAS--</option>
           </select>          
         </div>
         <div class="col-md-3">

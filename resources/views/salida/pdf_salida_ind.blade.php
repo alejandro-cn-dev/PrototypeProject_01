@@ -73,7 +73,14 @@
       @foreach($salidas as $salida)
       <tr>
         <th scope="row">{{$salida->id}}</th>
-        <td>{{$salida->id_producto}}</td>
+        {{-- {{$salida->id_producto}} --}}
+                        @forEach($productos as $producto)
+                            @if($salida->id_producto == $producto->id)
+                            <td>
+                                {{$producto->descripcion}}
+                            </td>                                
+                            @endif
+                        @endforeach    
         <td>{{$salida->unidad}}</td>
         <td align="right">{{$salida->cantidad}}</td>
         <td align="right">{{$salida->precio}}</td>

@@ -44,13 +44,9 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Unidad compra</th>
                     <th scope="col">Unidad venta</th>
-                    <th scope="col">Precio compra</th>
-                    <th scope="col">Precio venta</th>
-                    <th scope="col">Margen utilidad</th>
-                    <th scope="col">Fecha</th>
                     <th scope="col">Cantidad</th>
+                    <th scope="col">Precio venta</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,16 +61,19 @@
                             </td>                                
                             @endif
                         @endforeach                        
-                    <td>{{$salida->unidad_compra}}</td>
-                    <td>{{$salida->unidad_venta}}</td>
-                    <td>{{$salida->precio_compra}}</td>
-                    <td>{{$salida->precio_venta}}</td>
-                    <td>{{$salida->margen_utilidad}}</td>
-                    <td>{{$salida->fecha}}</td>
-                    <td>{{$salida->cantidad}}</td>
+                    <td>{{$salida->unidad}}</td>
+                    <td align="right">{{$salida->cantidad}}</td>
+                    <td align="right">{{$salida->precio}}</td>
                 </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td align="right">Total $</td>
+                    <td align="right">{{$cabecera->monto_total}}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>    
 </div>

@@ -19,7 +19,7 @@ class EntradaController extends Controller
      */
     public function index()
     {
-        $entradas = Cabecera::where('tipo','=','E');
+        $entradas = Cabecera::where('tipo','=','E')->get();
         return view('entrada.index')->with('entradas',$entradas);
     }
 
@@ -143,19 +143,16 @@ class EntradaController extends Controller
         unset($this->tabla_salidas[$id]);
     }
     public function report(){
-        $salidas = Inventario::where('tipo','=','S')->get();
-        // $data = [
-        //     'title' => 'Welcome to System',
-        //     'date' => date('m/d/Y'),
-        //     'salidas' => $salidas
-        // ];
-        // $pdf = PDF::loadView('myPDF',$data);
-        // $pdf = app('dompdf.wrapper');
-        // $pdf->loadHTML('<h1>Test</h1>');
-        // return $pdf->download('examplePDF.pdf');
-        return PDF::loadView('/salidas',$salidas)->stream('archivo.pdf');
+        $entradas = Cabecera::where('tipo','=','E')->where('isEnable','=',1)->get();
+        $total = Cabecera::sum('monto_total');
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('entrada/pdf_entrada',compact('entradas','total','fecha'));
+        return $pdf->download('entradas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('entrada/pdf_entrada',compact('entradas','total','fecha'));
     }
     public function guardar(Request $request){
+        $total = 0;
         $validator = \Validator::make($request->all(), [
             'denominacion'          => 'required',
             'numeracion'            => 'required',
@@ -168,14 +165,23 @@ class EntradaController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
+        //Sumar total
+        $filas_tabla = json_decode($request->tabla);
         
-        //Proceso       
-        
+        foreach($filas_tabla as $fila){
+            $total = $total + (($fila->precio_compra)*($fila->cantidad));
+        }
+
+        //Proceso
         $cabecera = new Cabecera();
         $cabecera->denominacion = $request->denominacion;
         $cabecera->numeracion = $request->numeracion;
         $cabecera->num_autorizacion = $request->num_autorizacion;
-        $cabecera->nombre = $request->nombre;
+        $nombre = $request->nombre;
+        if(empty($nombre)){
+            $nombre = "(Sin nombre)";
+        }
+        $cabecera->nombre = $nombre;
         $cabecera->nit_ci = $request->nit_razon_social;
         $cabecera->fecha_emision = $request->fecha_emision;
         $cabecera->tipo = 'E';
@@ -184,12 +190,10 @@ class EntradaController extends Controller
         
         $filas_tabla = json_decode($request->tabla);
 
-        foreach($filas_tabla as $fila){
-            
+        foreach($filas_tabla as $fila){            
             $entrada = new Inventario();
             $producto = Producto::where('descripcion','=',$fila->producto)->first();        
-            //$entrada->id_producto = $producto->id;
-            $entrada->id_producto = 1;
+            $entrada->id_producto = $producto->id;
             $entrada->id_cabecera = $cabecera->id;
             $entrada->unidad = $fila->unidad_compra;
             $entrada->precio = $fila->precio_compra;
@@ -199,7 +203,7 @@ class EntradaController extends Controller
         }
 
 
-        //return response()->json(['success'=>'Data is successfully added']);
+        return response()->json(['success'=>'Data is successfully added']);
         return response()->json(['success'=>$filas_tabla]);
     }
 }
