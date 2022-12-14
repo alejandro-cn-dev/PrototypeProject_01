@@ -11,7 +11,7 @@
 <div class="hadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         <a href="marcas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Marca</a>    
-        <a href="marcas/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>    
+        <a href="{{route('generar_reporte_marca',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>    
     </div>  
     <div class="table-responsive">
         <table id="marcas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">

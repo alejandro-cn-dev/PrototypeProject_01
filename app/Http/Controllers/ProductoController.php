@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Models\Almacen;
 use App\Models\Marca;
 use App\Models\Empleado;
+use PDF;
 
 class ProductoController extends Controller
 {
@@ -182,5 +183,22 @@ class ProductoController extends Controller
         $producto->save();
         //$producto->delete();
         return redirect('/productos');
+    }
+
+    //Funciones propias
+    public function reporte(){
+        $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color',
+        'categorias.nombre as id_categoria',
+        'almacens.nombre as id_almacen',
+        'marcas.detalle as id_marca')
+        ->where('productos.isEnable','=',1)->get();
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('producto/pdf_producto',compact('productos','fecha'));
+        return $pdf->download('productos_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('producto/pdf_producto',compact('productos','fecha'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Almacen;
 use App\Models\Empleado;
+use PDF;
 
 class AlmacenController extends Controller
 {
@@ -108,5 +109,15 @@ class AlmacenController extends Controller
         $almacen->save();
         //$almacen->delete();
         return redirect('/almacens');
+    }
+
+    //Funciones propias
+    public function reporte(){
+        $almacens = Almacen::where('isEnable','=',1);
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('almacen/pdf_almacen',compact('almacens','fecha'));
+        return $pdf->download('almacens_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('almacen/pdf_almacen',compact('almacens','fecha'));
     }
 }

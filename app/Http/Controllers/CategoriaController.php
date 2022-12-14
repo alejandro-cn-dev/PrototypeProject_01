@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Empleado;
+use PDF;
 
 class CategoriaController extends Controller
 {
@@ -112,5 +113,15 @@ class CategoriaController extends Controller
         $categoria->save();
         //$categoria->delete();
         return redirect('/categorias');
+    }
+
+    //Funciones propias
+    public function reporte(){
+        $categorias = Categoria::where('isEnable','=',1);
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('categoria/pdf_categoria',compact('categorias','fecha'));
+        return $pdf->download('categorias_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('categoria/pdf_categoria',compact('categorias','fecha'));
     }
 }

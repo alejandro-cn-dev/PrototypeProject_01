@@ -8,46 +8,51 @@
 
 @section('content')
 <img src="img/empleados_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
-<a href="empleados/create" class="btn btn-primary">CREAR</a>
-<table id="empleados" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Apellido Paterno</th>
-            <th scope="col">Apellido Materno</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">CI</th>
-            <th scope="col">Matricula</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Email</th>
-            <th scope="col">Rol</th>
-            <th scope="col">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($empleados as $empleado)
+<div class="shadow-none p-3 bg-white rounded">
+    <div class="bg-transparent">
+        <a href="empleados/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Empleado</a>    
+        <a href="{{route('generar_reporte_empleado',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Categorias</a>    
+    </div>  
+    <table id="empleados" class="table table-striped table-bordered mt-4" style="width: 100%;">
+        <thead class="table-dark">
             <tr>
-                <td>{{$empleado->id}}</td>
-                <td>{{$empleado->ap_paterno}}</td>
-                <td>{{$empleado->ap_materno}}</td>
-                <td>{{$empleado->nombre}}</td>
-                <td>{{$empleado->ci}} {{$empleado->expedido}}</td>
-                <td>{{$empleado->matricula}}</td>
-                <td>{{$empleado->telefono}}</td>
-                <td>{{$empleado->email}}</td>
-                <td>{{$empleado->detalle}}</td>
-                <td>
-                    <form action="{{route('empleados.destroy',$empleado->id)}}" method="POST">
-                        <a href="/empleados/{{$empleado->id}}/edit " class="btn btn-info">Editar</a>
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Anular</button>
-                    </form>
-                </td>
+                <th scope="col">ID</th>
+                <th scope="col">Apellido Paterno</th>
+                <th scope="col">Apellido Materno</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">CI</th>
+                <th scope="col">Matricula</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Opciones</th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach ($empleados as $empleado)
+                <tr>
+                    <td>{{$empleado->id}}</td>
+                    <td>{{$empleado->ap_paterno}}</td>
+                    <td>{{$empleado->ap_materno}}</td>
+                    <td>{{$empleado->nombre}}</td>
+                    <td>{{$empleado->ci}} {{$empleado->expedido}}</td>
+                    <td>{{$empleado->matricula}}</td>
+                    <td>{{$empleado->telefono}}</td>
+                    <td>{{$empleado->email}}</td>
+                    <td>{{$empleado->detalle}}</td>
+                    <td>
+                        <form action="{{route('empleados.destroy',$empleado->id)}}" method="POST">
+                            <a href="/empleados/{{$empleado->id}}/edit " class="btn btn-info">Editar</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Anular</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @stop
 
 @section('css')

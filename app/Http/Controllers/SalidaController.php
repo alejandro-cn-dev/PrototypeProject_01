@@ -176,11 +176,25 @@ class SalidaController extends Controller
         unset($this->tabla_salidas[$id]);
     }
     public function reporte(){
-        $salidas = Cabecera::where('tipo','=','S')->get();
-        $pdf = PDF::loadView('salida/pdf_salida',compact('salidas'));
-        return $pdf->download('salidas.pdf');
+        $salidas = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->get();
+        $total = Cabecera::sum('monto_total');
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('salida/pdf_salida',compact('salidas','total','fecha'));
+        return $pdf->download('salidas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('salida/pdf_salida',compact('salidas','total','fecha'));
+    }
+    public function reporte_ind($id){
+        $cabecera = Cabecera::find($id);
+        $salidas = Inventario::where('id_cabecera','=',$id);
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('salida/pdf_salida_ind',compact('cabecera','salidas','fecha'));
+        return $pdf->download('salida_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('salida/pdf_salida',compact('salidas','total','fecha'));
     }
     public function guardar(Request $request){
+        $total = 0;
         $validator = \Validator::make($request->all(), [
             'denominacion'          => 'required',
             'numeracion'            => 'required',
@@ -193,7 +207,11 @@ class SalidaController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
-        
+        //Sumar total
+        foreach($filas_tabla as $fila){
+            $total = $total + (($fila->precio_venta)*($fila->cantidad));
+        }
+
         //Proceso
         $salidas = Cabecera::all();
         //return view('salida.index')->with('salidas',$salidas)->with('prueba',$this->tabla_salidas);
@@ -201,7 +219,11 @@ class SalidaController extends Controller
         $cabecera->denominacion = $request->denominacion;
         $cabecera->numeracion = $request->numeracion;
         $cabecera->num_autorizacion = $request->num_autorizacion;
-        $cabecera->nombre = $request->nombre;
+        $nombre = $request->nombre;
+        if(empty($nombre)){
+            $nombre = "(Sin nombre)";
+        }
+        $cabecera->nombre = $nombre;
         $cabecera->nit_ci = $request->nit_razon_social;
         $cabecera->fecha_emision = $request->fecha_emision;
         $cabecera->tipo = 'S';
@@ -211,15 +233,6 @@ class SalidaController extends Controller
         $filas_tabla = json_decode($request->tabla);
 
         foreach($filas_tabla as $fila){
-            // $salidas = new Inventario();
-            // $salidas->id_cabecera = $cabecera->id;
-            // $salidas->id_producto = 1;
-            // $salidas->unidad = $fila->unidad;
-            // $salidas->precio = $fila->precio;
-            // $salidas->fecha = $request->get('fecha_emision');
-            // $salidas->cantidad = $fila->cantidad;
-            // $salidas->save();
-
             $salida = new Inventario();
             $producto = Producto::where('descripcion','=',$fila->producto)->first();        
             $salida->id_producto = $producto->id;

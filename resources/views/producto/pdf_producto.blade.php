@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Salidas</title>
+<title>Listado de Productos</title>
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
@@ -44,43 +44,38 @@
 	      </td>
         <td align="right">
           <h3>Lugar y fecha:</h3>
-          <pre>{{$fecha}}</pre>
+          <pre>La Paz, {{$fecha}}</pre>
         </td>
     </tr>
 
   </table>
-  <h3 align="center">Listado de ventas</h3>
+  <h3 align="center">Listado de Productos</h3>
   <hr size="3" color="black" />
   <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
       <tr>
         <th>#</th>
-        <th>Denominacion</th>
-        <th>Numero</th>
-        <th>Nombre</th>
-        <th>Importe</th>
-        <th>Fecha emision</th>
+        <th>Categoria</th>
+        <th>ITEM</th>
+        <th>Descripción</th>
+        <th>Color</th>
+        <th>Ubicación</th>
+        <th>Marca</th>
       </tr>
     </thead>
     <tbody>
-      @foreach($salidas as $salida)
-      <tr>
-        <th scope="row">{{$salida->id}}</th>
-        <td>{{$salida->denominacion}}</td>
-        <td>{{$salida->numeracion}}</td>
-        <td>{{$salida->nombre}}</td>
-        <td align="right">{{$salida->monto_total}}</td>
-        <td>{{$salida->fecha_emision}}</td>
+      @foreach($productos as $producto)
+      <tr>        
+        <th scope="row">{{$producto->id}}</th>
+        <td>{{$producto->id_categoria}}</td>
+        <td>{{$producto->item_producto}}</td>
+        <td>{{$producto->descripcion}}</td>
+        <td>{{$producto->color}}</td>
+        <td>{{$producto->id_almacen}}</td>
+        <td>{{$producto->id_marca}}</td>
       </tr>
       @endforeach
     </tbody>  
-    <tfoot>
-      <tr>
-          <td colspan="3"></td>
-          <td class="total" align="right">Total $</td>
-          <td class="total" align="right" class="gray">{{$total}}</td>
-      </tr>
-  </tfoot>  
   </table>
 </body>
 </html>

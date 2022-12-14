@@ -119,6 +119,7 @@
 <script type="text/javascript">     
         var tabla_salidas = [];
         var auto_id = 1;        
+        var total = 0.0;
         var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];        
         var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
         
@@ -215,7 +216,8 @@
                                                 $('#insert_form').modal('hide');
                                                 actualizar_fila();                                                
                                                 tabla_salidas.push({producto: $('#producto').val(), unidad_venta: $('#unidad_venta').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});
-                                                vaciarCampos();
+                                                //total = total + (precio_venta * cantidad);
+                                                vaciarCampos();                                                
                                         }
                                         //alert(result);
                                         console.log(result);
@@ -234,51 +236,55 @@
                 });
                 
                 $('#insert_salida').on('submit',function(e){
-                        e.preventDefault();
-                        let denominacion = $('#denominacion').val();
-                        let numeracion = $('#numeracion').val();
-                        let nombre = $('#nombre').val();
-                        let num_autorizacion = $('#num_autorizacion').val();
-                        let nit_razon_social = $('#nit_razon_social').val();
-                        let fecha_emision = $('#fecha_emision').val();
+                        if(tabla_salidas.lenght > 0){
+                                e.preventDefault();
+                                let denominacion = $('#denominacion').val();
+                                let numeracion = $('#numeracion').val();
+                                let nombre = $('#nombre').val();
+                                let num_autorizacion = $('#num_autorizacion').val();
+                                let nit_razon_social = $('#nit_razon_social').val();
+                                let fecha_emision = $('#fecha_emision').val();
 
-                        $.ajax({
-                                url: "{{ route('guardar_salida') }}",
-                                type: "POST",
-                                data: {
-                                        _token: "{{ csrf_token() }}",
-                                        denominacion: denominacion,
-                                        numeracion: numeracion,
-                                        nombre: nombre,
-                                        num_autorizacion: num_autorizacion,
-                                        nit_razon_social: nit_razon_social,
-                                        fecha_emision: fecha_emision,
-                                        tabla: JSON.stringify(tabla_salidas)
-                                },
-                                success: function(result){
-                                        if(result.errors){
-                                                //$('.alert-danger').html('');
-                                                $('#alert1').html('');
-                                                $.each(result.errors,function(key,value){
-                                                        //$('.alert-danger').show();
-                                                        $('#alert1').show();
-                                                        //$('.alert-danger').append('<li>'+value+'</li>');
-                                                        $('#alert1').append('<li>'+value+'</li>');
-                                                });                                        
-                                        }else{
-                                                //$('.alert-danger').hide();
-                                                $('#alert1').hide();
-                                                //$('#insert_form').modal('hide');
-                                                location.href = "{{ route('salidas.index') }}"                                                
+                                $.ajax({
+                                        url: "{{ route('guardar_salida') }}",
+                                        type: "POST",
+                                        data: {
+                                                _token: "{{ csrf_token() }}",
+                                                denominacion: denominacion,
+                                                numeracion: numeracion,
+                                                nombre: nombre,
+                                                num_autorizacion: num_autorizacion,
+                                                nit_razon_social: nit_razon_social,
+                                                fecha_emision: fecha_emision,
+                                                tabla: JSON.stringify(tabla_salidas)
+                                        },
+                                        success: function(result){
+                                                if(result.errors){
+                                                        //$('.alert-danger').html('');
+                                                        $('#alert1').html('');
+                                                        $.each(result.errors,function(key,value){
+                                                                //$('.alert-danger').show();
+                                                                $('#alert1').show();
+                                                                //$('.alert-danger').append('<li>'+value+'</li>');
+                                                                $('#alert1').append('<li>'+value+'</li>');
+                                                        });                                        
+                                                }else{
+                                                        //$('.alert-danger').hide();
+                                                        $('#alert1').hide();
+                                                        //$('#insert_form').modal('hide');
+                                                        location.href = "{{ route('salidas.index') }}"                                                
+                                                }
+                                                //alert(result);
+                                                console.log(result);
+                                        },
+                                        error: function(response){
+                                                //$('#nameErrorMsg').text(response.responseJSON.errors.name);
+                                                console.log(response);
                                         }
-                                        //alert(result);
-                                        console.log(result);
-                                },
-                                error: function(response){
-                                        //$('#nameErrorMsg').text(response.responseJSON.errors.name);
-                                        console.log(response);
-                                }
-                        });
+                                        });
+                        }else{
+                                alert('Debe insertar algun producto al detalle');
+                        }                        
                 });
         });
 

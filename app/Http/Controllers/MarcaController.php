@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Marca;
 use App\Models\Empleado;
+use PDF;
 
 class MarcaController extends Controller
 {
@@ -111,5 +112,14 @@ class MarcaController extends Controller
         $marca->isEnable = false;
         $marca->save();
         return redirect('/marcas');
+    }
+    //Funciones propias
+    public function reporte(){
+        $marcas = Marca::where('isEnable','=',1);
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('marca/pdf_marca',compact('marcas','fecha'));
+        return $pdf->download('marcas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('marca/pdf_marca',compact('marcas','fecha'));
     }
 }

@@ -12,6 +12,7 @@
     <form action="" method="">
         <div class="text-right">
             <a href="/salidas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+            <a href="{{route('generar_reporte_salida_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
         </div>
         @csrf
         <div class="mb-3">

@@ -11,7 +11,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         <a href="productos/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Producto</a>    
-        <a href="productos/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Inventario</a>    
+        <a href="{{route('generar_reporte_producto',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Inventario</a>    
     </div>      
     <div class="table-responsive">
         <table id="productos" class="table table-striped table-bordered mt-4" style="width: 100%;">

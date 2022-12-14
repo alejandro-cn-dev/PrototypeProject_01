@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Empleado;
 use App\Models\User;
 use App\Models\Rol;
+use PDF;
 
 class EmpleadoController extends Controller
 {
@@ -157,5 +158,18 @@ class EmpleadoController extends Controller
         $empleado->save();
         //$empleado->delete();
         return redirect('/empleados');
+    }
+
+    //Funciones propias
+    public function reporte(){
+        $empleados = Empleado::join('rols','empleados.id_rol','rols.id')
+        ->join('users','empleados.id_user','users.id')
+        ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','users.email','rols.detalle')
+        ->where('empleados.isEnable','=',1)->get();
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'));
+        return $pdf->download('empleados_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('empleado/pdf_empleado',compact('empleados','fecha'));
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Salidas</title>
+<title>Detalle de Venta</title>
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
@@ -41,6 +41,14 @@
 
         <td align="left">
             <h2>Asociación Textil "Isaac Tamayo"</h2>
+            <pre>
+                <b>Denominación: </b> {{$cabecera->denominacion}}
+                <b>Nro. </b> {{$cabecera->numeracion}}
+                <b>Nombre: </b> {{$cabecera->nombre}}
+                <b>NIT/CI: </b>{{$cabecera->nit_ci}}
+                <b>Fecha de emisión: </b>{{$cabecera->fecha_emision}}
+                <b>Monto total: </b>{{$cabecera->monto_total}}
+            </pre>
 	      </td>
         <td align="right">
           <h3>Lugar y fecha:</h3>
@@ -49,28 +57,26 @@
     </tr>
 
   </table>
-  <h3 align="center">Listado de ventas</h3>
+  <h3 align="center">Detalle de venta</h3>
   <hr size="3" color="black" />
   <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
       <tr>
         <th>#</th>
-        <th>Denominacion</th>
-        <th>Numero</th>
-        <th>Nombre</th>
-        <th>Importe</th>
-        <th>Fecha emision</th>
+        <th>Producto</th>
+        <th>Unidad</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
       </tr>
     </thead>
     <tbody>
       @foreach($salidas as $salida)
       <tr>
         <th scope="row">{{$salida->id}}</th>
-        <td>{{$salida->denominacion}}</td>
-        <td>{{$salida->numeracion}}</td>
-        <td>{{$salida->nombre}}</td>
-        <td align="right">{{$salida->monto_total}}</td>
-        <td>{{$salida->fecha_emision}}</td>
+        <td>{{$salida->id_producto}}</td>
+        <td>{{$salida->unidad}}</td>
+        <td align="right">{{$salida->cantidad}}</td>
+        <td align="right">{{$salida->precio}}</td>
       </tr>
       @endforeach
     </tbody>  
@@ -78,7 +84,7 @@
       <tr>
           <td colspan="3"></td>
           <td class="total" align="right">Total $</td>
-          <td class="total" align="right" class="gray">{{$total}}</td>
+          <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>
   </tfoot>  
   </table>

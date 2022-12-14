@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Salidas</title>
+<title>Listado de empelados</title>
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
@@ -44,43 +44,42 @@
 	      </td>
         <td align="right">
           <h3>Lugar y fecha:</h3>
-          <pre>{{$fecha}}</pre>
+          <pre>La Paz, {{$fecha}}</pre>
         </td>
     </tr>
 
   </table>
-  <h3 align="center">Listado de ventas</h3>
+  <h3 align="center">Listado de Empleados</h3>
   <hr size="3" color="black" />
   <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
       <tr>
         <th>#</th>
-        <th>Denominacion</th>
-        <th>Numero</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
         <th>Nombre</th>
-        <th>Importe</th>
-        <th>Fecha emision</th>
+        <th>CI</th>
+        <th>Matricula</th>
+        <th>telefono</th>
+        <th>Email</th>
+        <th>Rol</th>
       </tr>
     </thead>
     <tbody>
-      @foreach($salidas as $salida)
+      @foreach($empleados as $empleado)
       <tr>
-        <th scope="row">{{$salida->id}}</th>
-        <td>{{$salida->denominacion}}</td>
-        <td>{{$salida->numeracion}}</td>
-        <td>{{$salida->nombre}}</td>
-        <td align="right">{{$salida->monto_total}}</td>
-        <td>{{$salida->fecha_emision}}</td>
+        <th scope="row">{{$empleado->id}}</th>
+        <td>{{$empleado->ap_paterno}}</td>
+        <td>{{$empleado->ap_materno}}</td>
+        <td>{{$empleado->nombre}}</td>
+        <td>{{$empleado->ci}}</td>
+        <td>{{$empleado->matricula}}</td>
+        <td>{{$empleado->telefono}}</td>
+        <td>{{$empleado->email}}</td>
+        <td>{{$empleado->detalle}}</td>
       </tr>
       @endforeach
     </tbody>  
-    <tfoot>
-      <tr>
-          <td colspan="3"></td>
-          <td class="total" align="right">Total $</td>
-          <td class="total" align="right" class="gray">{{$total}}</td>
-      </tr>
-  </tfoot>  
   </table>
 </body>
 </html>
