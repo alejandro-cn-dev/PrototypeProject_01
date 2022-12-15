@@ -360,11 +360,11 @@ return [
             'icon'    => 'fas fa-fw fa-users'
         ],
         
-        [
-            'text'        => 'Generacion de reportes',
-            'url'         => 'reportes',
-            'icon'    => 'fas fa-fw fa-file-excel'
-        ],
+        // [
+        //     'text'        => 'Generacion de reportes',
+        //     'url'         => 'reportes',
+        //     'icon'    => 'fas fa-fw fa-file-excel'
+        // ],
        
     ],
 

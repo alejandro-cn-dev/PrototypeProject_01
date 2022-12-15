@@ -115,7 +115,7 @@ class MarcaController extends Controller
     }
     //Funciones propias
     public function reporte(){
-        $marcas = Marca::where('isEnable','=',1);
+        $marcas = Marca::where('isEnable','=',1)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('marca/pdf_marca',compact('marcas','fecha'));

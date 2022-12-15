@@ -12,7 +12,7 @@
         @csrf
         <div class="mb-3">
             <label for="" class="form-label">Detalle</label>
-            <input id="detalle" name="detalle" type="text" class="form-control" tabindex="1" />
+            <input id="detalle" name="detalle" type="text" class="form-control" tabindex="1" required/>
         </div>
         <a href="/marcas" class="btn btn-secondary" tabindex="2"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="3"><i class="fas fa-fw fa-save"></i> Guardar</button>

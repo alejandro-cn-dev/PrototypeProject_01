@@ -58,8 +58,8 @@
         <th>Denominacion</th>
         <th>Numero</th>
         <th>Nombre</th>
-        <th>Importe</th>
         <th>Fecha emision</th>
+        <th>Importe</th>
       </tr>
     </thead>
     <tbody>
@@ -69,15 +69,15 @@
         <td>{{$entrada->denominacion}}</td>
         <td>{{$entrada->numeracion}}</td>
         <td>{{$entrada->nombre}}</td>
-        <td align="right">{{$entrada->monto_total}}</td>
         <td>{{$entrada->fecha_emision}}</td>
+        <td align="right">{{$entrada->monto_total}}</td>
       </tr>
       @endforeach
     </tbody>  
     <tfoot>
       <tr>
-          <td colspan="3"></td>
-          <td class="total" align="right">Total $</td>
+          <td colspan="4"></td>
+          <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$total}}</td>
       </tr>
   </tfoot>  

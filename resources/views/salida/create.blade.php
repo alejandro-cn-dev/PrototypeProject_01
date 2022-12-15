@@ -17,15 +17,15 @@
                 <div class="row g-2 mb-3">
                         <div class="col-md-4">
                                 <label for="" class="form-label">Denominación</label>
-                                <select id="denominacion" name="denominacion" class="form-control" onchange="cambiar_input(event)">
-                                        <option value="" selected>Elegir almacen...</option>
+                                <select id="denominacion" name="denominacion" class="form-control" onchange="cambiar_input(event)" required>
+                                        <option value="" selected>Elegir denominación...</option>
                                         <option value="recibo">Recibo</option>
                                         <option value="factura">Factura</option>
                                         <option value="nota de venta">Nota de venta</option>
                                 </select>
                         </div>
                         <div class="col-md-8"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
-                                type="text" class="form-control" tabindex="2" /></div>
+                                type="text" class="form-control" tabindex="2" required/></div>
                 </div>
                 
                 <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
@@ -35,7 +35,7 @@
                 <div class="mb-3" id="div_nit_razon_social" style="display:none"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
                         name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>        
                 <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
-                        type="date" class="form-control" tabindex="7" /></div>
+                        type="date" class="form-control" tabindex="7" required/></div>
                 <div class="border p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
@@ -120,8 +120,8 @@
         var tabla_salidas = [];
         var auto_id = 1;        
         var total = 0.0;
-        var campos = ['id','producto','unidad_compra','precio_compra','cantidad','opciones'];        
-        var input_name = ['producto','unidad_compra','precio_compra','cantidad'];
+        var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];        
+        var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
         
         function actualizar_fila(){                
                 tbody = document.getElementById("contenido");

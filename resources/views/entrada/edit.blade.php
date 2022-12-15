@@ -21,7 +21,7 @@
                     <select id="denominacion" name="denominacion" class="form-control" tabindex="2">
                         <option value="" selected>Elegir Denominacion...</option>
                         @foreach ($denominacion as $deno)
-                            <option @if(($deno["id"])==($entrada->denominacion)){ selected } @endif value="{{$deno["id"]}}">{{$deno["value"]}}</option>    
+                            <option @if(($deno["id"]) == ($entrada->denominacion)){ selected } @endif value="{{$deno["id"]}}">{{$deno["value"]}}</option>    
                         @endforeach
                     </select>
             </div>
@@ -32,9 +32,9 @@
             <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
             name="nombre" type="text" class="form-control" value="{{$entrada->nombre}}"/></div>
             <div class="mb-3"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
-                name="num_autorizacion" type="text" class="form-control" value="{{$entrada->nuum_autorizacion}}"/></div>
-            <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
-                name="nit_razon_social" type="text" class="form-control" value="{{$entrada->nit_ci}}"/></div>        
+                name="num_autorizacion" type="text" class="form-control" value="{{$entrada->num_autorizacion}}"/></div>
+            <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_ci"
+                name="nit_ci" type="text" class="form-control" value="{{$entrada->nit_ci}}"/></div>        
             <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
                 type="date" class="form-control" value="{{$entrada->fecha_emision}}" disabled/></div>
             <div class="p-3">

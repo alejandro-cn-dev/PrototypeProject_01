@@ -12,11 +12,11 @@
         @csrf
         <div class="mb-3">
             <label for="" class="form-label">Nombre</label>
-            <input id="nombre" name="nombre" type="text" class="form-control" tabindex="1" />
+            <input id="nombre" name="nombre" type="text" class="form-control" tabindex="1" required/>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Tipo</label>
-            <select id="tipo" name="tipo" class="form-control" tabindex="2">
+            <select id="tipo" name="tipo" class="form-control" tabindex="2" required>
                 <option value="default" selected>Elegir tipo...</option>
                 <option value="deposito">Deposito</option>
                 <option value="tienda">Tienda</option>

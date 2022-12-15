@@ -176,7 +176,7 @@ class EntradaController extends Controller
             'numeracion'            => 'required',
             //'nombre'                => 'required',
             //'num_autorizacion'      => 'required',
-            'nit_razon_social'      => 'required',
+            // 'nit_razon_social'      => 'required',
             'fecha_emision'         => 'required'
         ]);
         if ($validator->fails())
