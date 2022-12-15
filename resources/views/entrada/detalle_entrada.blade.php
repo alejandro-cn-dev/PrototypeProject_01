@@ -12,6 +12,7 @@
     <form action="" method="">
         <div class="text-right">
             <a href="/entradas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+            <a href="{{route('generar_reporte_entrada_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
         </div>
         @csrf
         <div class="mb-3">
@@ -43,13 +44,9 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Unidad compra</th>
-                    <th scope="col">Unidad venta</th>
-                    <th scope="col">Precio compra</th>
-                    <th scope="col">Precio venta</th>
-                    <th scope="col">Margen utilidad</th>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Unidad</th>
                     <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,13 +61,9 @@
                             </td>                                
                             @endif
                         @endforeach                        
-                    <td>{{$entrada->unidad_compra}}</td>
-                    <td>{{$entrada->unidad_venta}}</td>
-                    <td>{{$entrada->precio_compra}}</td>
-                    <td>{{$entrada->precio_venta}}</td>
-                    <td>{{$entrada->margen_utilidad}}</td>
-                    <td>{{$entrada->fecha}}</td>
+                    <td>{{$entrada->unidad}}</td>
                     <td>{{$entrada->cantidad}}</td>
+                    <td>{{$entrada->precio}}</td>
                 </tr>
                 @endforeach
             </tbody>

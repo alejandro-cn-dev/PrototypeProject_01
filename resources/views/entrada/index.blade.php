@@ -11,7 +11,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         <a href="/entradas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Compra</a>    
-        <a href="/entradas/report" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Compras</a>    
+        <a href="{{route('generar_reporte_entradas',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Compras</a>    
     </div>    
     <div class="table-responsive">
         <table id="entradas" class="table table-striped table-bordered mt-4" style="width: 100%;">
@@ -35,11 +35,11 @@
                     <td>{{$entrada->fecha_emision}}</td>
                     <td>
                         <form action="{{route('entradas.destroy',$entrada->id)}}" method="POST">
-                            <a href="/entradas/detalle_entrada/{{$entrada->id}} " class="btn btn-success">Ver</a>
-                            <a href="/entradas/{{$entrada->id}}/edit " class="btn btn-info">Editar</a>
+                            <a href="/entradas/detalle_entrada/{{$entrada->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                            <a href="/entradas/{{$entrada->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Anular</button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
                         </form>
                     </td>
                 </tr>

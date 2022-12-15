@@ -3,38 +3,63 @@
 @section('title', 'Editar Salida')
 
 @section('content_header')
-<h1>Editar Registro de Salida</h1>
+    <h1>Editar Registro N° {{$salida->id}} - {{$salida->nombre}} - {{$salida->fecha_emision}}</h1>
 @stop
 
 @section('content')
+<div class="shadow-none p-3 bg-white rounded">      
+    <form action="/salidas/{{$salida->id}}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="text-right">
+            <a href="/entradas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+        </div>
+        <div id="alert1" class="alert alert-danger" style="display:none"></div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-4">
+                <label for="" class="form-label">Denominación</label>
+                <select id="denominacion" name="denominacion" class="form-control" onchange="cambiar_input(event)">
+                    <option value="" selected>Elegir Denominacion...</option>
+                    @foreach ($denominacion as $deno)
+                        <option @if(($deno["id"])==($salida->denominacion)){ selected } @endif value="{{$deno["id"]}}">{{$deno["value"]}}</option>    
+                    @endforeach
+                </select>
+        </div>
+            <div class="col-md-8"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
+                    type="text" class="form-control" value="{{$salida->numeracion}}"/></div>
+            </div>
 
-<form action="/salidas/{{$salida->id}}" method="POST">
-    @csrf
-    @method('PUT')
-    <div class="mb-3"><label for="" class="form-label">ID</label><input id="id" name="id" type="text"
-            class="form-control" value="{{$salida->id}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">N° Factura</label><input id="num_factura" name="num_factura"
-            type="text" class="form-control" value="{{$salida->num_factura}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
-            name="nit_razon_social" type="text" class="form-control" value="{{$salida->nit_razon_social}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">Producto</label><input id="id_producto" name="id_producto"
-            type="text" class="form-control" value="{{$salida->id_producto}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">Cantidad</label><input id="cantidad" name="cantidad" type="text"
-            class="form-control" value="{{$salida->cantidad}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">Importe</label><input id="importe" name="importe" type="text"
-            class="form-control" value="{{$salida->importe}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">Usuario</label><input id="id_usuario" name="id_usuario"
-            type="text" class="form-control" value="{{$salida->id_usuario}}" /></div>
-    <div class="mb-3"><label for="" class="form-label">Estado</label><input id="estado" name="estado" type="text"
-            class="form-control" value="{{$salida->estado}}" /></div>
-    <a href="/salidas" class="btn btn-secondary" tabindex="5">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="6">Guardar</button>
-</form>
+            <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
+            name="nombre" type="text" class="form-control" value="{{$salida->nombre}}"/></div>
+            <div class="mb-3" id="div_num_autorizacion" style="display:none"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
+                name="num_autorizacion" type="text" class="form-control" value="{{$salida->nuum_autorizacion}}"/></div>
+            <div class="mb-3" id="div_nit_razon_social" style="display:none"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
+                name="nit_razon_social" type="text" class="form-control" value="{{$salida->nit_ci}}"/></div>        
+            <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
+                type="date" class="form-control" value="{{$salida->fecha_emision}}" disabled/></div>
+            <div class="p-3">
+                <a href="/entradas" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-save"></i> Guardar</button>
+            </div>
+    </form>
+</div>
 @stop
 
 @section('css')
-<link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
+<script>
+    function cambiar_input(e){
+                var valor = e.target.value;
+                if(valor == "factura"){
+                        document.getElementById('div_num_autorizacion').style.display = 'block';
+                        document.getElementById('div_nit_razon_social').style.display = 'block';
+                }else{
+                        document.getElementById('div_num_autorizacion').style.display = 'none';
+                        document.getElementById('div_nit_razon_social').style.display = 'none';
+                }
+        }
+</script>
 @stop

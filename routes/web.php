@@ -51,4 +51,7 @@ Route::resource('entradas','App\Http\Controllers\EntradaController');
 Route::get('entradas/detalle_entrada/{id}',[EntradaController::class,'detalle'])->middleware('auth')->name('entradas.detalle_entrada');
 Route::post('entradas/agregar',[EntradaController::class,'agregar'])->middleware('auth')->name('agregar_producto_entrada');
 Route::post('entradas/guardar',[EntradaController::class,'guardar'])->middleware('auth')->name('guardar_entrada');
+Route::get('entradas/reporte/{id}',[EntradaController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');
+Route::get('entradas/reporte_ind/{id}',[EntradaController::class,'reporte_ind'])->middleware('auth')->name('generar_reporte_entrada_ind');
+
 //Route::get('entradas/reporte',[EntradaController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');

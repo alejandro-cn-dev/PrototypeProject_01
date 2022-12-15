@@ -17,7 +17,7 @@
                 <div class="row g-2 mb-3">
                         <div class="col-md-4">
                                 <label for="" class="form-label">Denominación</label>
-                                <select id="denominacion" name="denominacion" class="form-control" tabindex="2">
+                                <select id="denominacion" name="denominacion" class="form-control" onchange="cambiar_input(event)">
                                         <option value="" selected>Elegir almacen...</option>
                                         <option value="recibo">Recibo</option>
                                         <option value="factura">Factura</option>
@@ -30,9 +30,9 @@
                 
                 <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
                 name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
-                <div class="mb-3"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
-                        name="num_autorizacion" type="text" class="form-control" tabindex="3" /></div>
-                <div class="mb-3"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
+                <div class="mb-3" id="div_num_autorizacion" style="display:none"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
+                        name="num_autorizacion" type="text" class="form-control" placeholder="(Sin Num. Autorizacion)" tabindex="3" /></div>
+                <div class="mb-3" id="div_nit_razon_social" style="display:none"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
                         name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>        
                 <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
                         type="date" class="form-control" tabindex="7" /></div>
@@ -85,11 +85,11 @@
                         </div>  
                         <div class="form-group">
                                 <label for="unidad_venta" class="form-label">Unidad</label>
-                                <input type="text" name="unidad_compra" id="unidad_compra" class="form-control" required>
+                                <input type="text" name="unidad_venta" id="unidad_venta" class="form-control" required>
                         </div>
                         <div class="form-group">
                                 <label for="precio_venta" class="form-label">Precio</label>
-                                <input type="number" name="precio_compra" id="precio_compra" class="form-control" required>
+                                <input type="number" name="precio_venta" id="precio_venta" class="form-control" required>
                         </div>
                         <div class="form-group">
                                 <label for="unidad_compra" class="form-label">Cantidad</label>
@@ -172,10 +172,16 @@
         function limpiar_tabla(){
                 $('#contenido tr').detach();
         }
-        function cargar_precio_unidad(precio,unidad){
-                $('#precio_venta').val(precio);
-                $('#unidad_venta').val(unidad);
-        }  
+        function cambiar_input(e){
+                var valor = e.target.value;
+                if(valor == "factura"){
+                        document.getElementById('div_num_autorizacion').style.display = 'block';
+                        document.getElementById('div_nit_razon_social').style.display = 'block';
+                }else{
+                        document.getElementById('div_num_autorizacion').style.display = 'none';
+                        document.getElementById('div_nit_razon_social').style.display = 'none';
+                }
+        }
         
         $(document).ready(function(){                
                 $('#insert_form').on('submit',function(e){
@@ -243,25 +249,18 @@
                                         },
                                         success: function(result){
                                                 if(result.errors){
-                                                        //$('.alert-danger').html('');
                                                         $('#alert1').html('');
-                                                        $.each(result.errors,function(key,value){
-                                                                //$('.alert-danger').show();
-                                                                $('#alert1').show();
-                                                                //$('.alert-danger').append('<li>'+value+'</li>');
+                                                        $.each(result.errors,function(key,value){                                                                
+                                                                $('#alert1').show();                                                                
                                                                 $('#alert1').append('<li>'+value+'</li>');
                                                         });                                        
-                                                }else{
-                                                        //$('.alert-danger').hide();
+                                                }else{                                                        
                                                         $('#alert1').hide();
-                                                        //$('#insert_form').modal('hide');
                                                         location.href = "{{ route('salidas.index') }}"                                                
                                                 }
-                                                //alert(result);
                                                 console.log(result);
                                         },
-                                        error: function(response){
-                                                //$('#nameErrorMsg').text(response.responseJSON.errors.name);
+                                        error: function(response){                                                
                                                 console.log(response);
                                         }
                                         });

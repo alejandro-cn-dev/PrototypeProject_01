@@ -26,7 +26,7 @@ class SalidaController extends Controller
      */
     public function index()
     {
-        $salidas = Cabecera::where('tipo','=','S')->get();
+        $salidas = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->get();
         return view('salida.index')->with('salidas',$salidas);
     }
 
@@ -73,7 +73,8 @@ class SalidaController extends Controller
     public function edit($id)
     {
         $salidas = Cabecera::find($id);
-        return view('salida.edit')->with('salidas',$salidas);
+        $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
+        return view('salida.edit')->with('salida',$salidas)->with('denominacion',$denominacion);
     }
 
     /**
@@ -81,11 +82,12 @@ class SalidaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Respons
+     * e
      */
     public function update(Request $request, $id)
     {
-        $cabecera = new Cabecera();
+        $cabecera = Cabecera::find($id);
         $cabecera->denominacion = $request->get('denominacion');
         $cabecera->numeracion = $request->get('numeracion');
         $cabecera->num_autorizacion = $request->get('num_autorizacion');
@@ -93,6 +95,8 @@ class SalidaController extends Controller
         $cabecera->nit_ci = $request->get('nit_ci');
         $cabecera->fecha_emision = $request->get('fecha_emision');
         $cabecera->save();
+
+        return redirect('/salidas');
     }
 
     /**
@@ -103,9 +107,13 @@ class SalidaController extends Controller
      */
     public function destroy($id)
     {
+        //Anulando cabecera
         $salida = Cabecera::find($id);
         $salida->isEnable = false;
         $salida->save();
+
+        //Anulando registros de venta
+        $affectedRows = Inventario::where("id_cabecera", $id)->update(["isEnable" => 0]);
         return redirect('/salidas');
     }
 
@@ -127,17 +135,10 @@ class SalidaController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
-        $last_id_cabecera = Cabecera::latest('id')->first();
         
-        $this->fila = $this->fila + 1;
-        // //$fila_actual = array($fila => array("id" => $fila, "producto" => $request->input('id_producto'), "unidad" => $request->input('unidad_venta'), "precio" => $request->input('precio_venta')));
-        array_push($this->tabla_salidas,array(
-            "id" => $this->fila, 
-            "producto" => $request->producto, 
-            "unidad" => $request->unidad_venta, 
-            "precio" => $request->precio_venta, 
-            "cantidad" => $request->cantidad
-        ));
+        //proceso control de stock
+
+
         return response()->json(['success'=>'Data is successfully added']);
         //return response()->json(['success'=>$this->tabla_salidas]);
     }
@@ -152,7 +153,7 @@ class SalidaController extends Controller
     }
     public function reporte(){
         $salidas = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->get();
-        $total = Cabecera::sum('monto_total');
+        $total = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->sum('monto_total');
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('salida/pdf_salida',compact('salidas','total','fecha'));
@@ -176,7 +177,7 @@ class SalidaController extends Controller
             'numeracion'            => 'required',
             //'nombre'                => 'required',
             //'num_autorizacion'      => 'required',
-            'nit_razon_social'      => 'required',
+            //'nit_razon_social'      => 'required',
             'fecha_emision'         => 'required'
         ]);
         if ($validator->fails())
@@ -194,13 +195,21 @@ class SalidaController extends Controller
         $cabecera = new Cabecera();
         $cabecera->denominacion = $request->denominacion;
         $cabecera->numeracion = $request->numeracion;
-        $cabecera->num_autorizacion = $request->num_autorizacion;
+        $num_autorizacion = $request->num_autorizacion;
+        if(empty($num_autorizacion)){
+            $num_autorizacion = "(Sin Nro Autorizacion)";
+        }
+        $cabecera->num_autorizacion = $num_autorizacion;
         $nombre = $request->nombre;
         if(empty($nombre)){
             $nombre = "(Sin nombre)";
         }
         $cabecera->nombre = $nombre;
-        $cabecera->nit_ci = $request->nit_razon_social;
+        $nit = $request->nit_razon_social;
+        if(empty($nit)){
+            $nit = "(Sin NIT/CI)";
+        }
+        $cabecera->nit_ci = $nit;
         $cabecera->fecha_emision = $request->fecha_emision;
         $cabecera->tipo = 'S';
         $cabecera->monto_total = $total;

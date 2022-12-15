@@ -36,7 +36,7 @@
             <div class="col-md-4">
                 <label for="" class="form-label">Almacen</label>            
                 <select class="form-control" id="id_almacen" name="id_almacen">
-                    <option selected>Elegir almacen...</option>
+                    <option value="" selected>Elegir almacen...</option>
                     @foreach ($almacenes as $almacen)
                         <option @if(($producto->id_almacen)==($almacen->id)){ selected } @endif value="{{$almacen->id}}">{{$almacen->nombre}}</option>    
                     @endforeach

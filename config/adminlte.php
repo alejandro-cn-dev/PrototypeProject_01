@@ -365,17 +365,6 @@ return [
             'url'         => 'reportes',
             'icon'    => 'fas fa-fw fa-file-excel'
         ],
-        ['header' => 'Configuracion de la cuenta'],
-        [
-            'text' => 'Perfil de usuario',
-            'url'  => 'user/profile',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Cambiar contraseña',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
        
     ],
 
