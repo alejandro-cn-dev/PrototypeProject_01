@@ -113,11 +113,11 @@ class AlmacenController extends Controller
 
     //Funciones propias
     public function reporte(){
-        $almacens = Almacen::where('isEnable','=',1);
+        $almacens = Almacen::where('isEnable','=',1)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('almacen/pdf_almacen',compact('almacens','fecha'));
-        return $pdf->download('almacens_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        return $pdf->download('almacenes_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('almacen/pdf_almacen',compact('almacens','fecha'));
     }
 }

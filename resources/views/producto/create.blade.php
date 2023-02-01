@@ -12,17 +12,17 @@
         @csrf
         <div class="mb-3">
             <label for="" class="form-label">Descripcion</label>
-            <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="1" />
+            <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="1" required/>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Color</label>
-            <input id="color" name="color" type="text" class="form-control" tabindex="2" placeholder="Sin color"/>
+            <input id="color" name="color" type="text" class="form-control" tabindex="2" placeholder="(Sin color)"/>
         </div>
         <div class="row g-3 mb-3">
             <div class="col-md-4">
                 <label for="" class="form-label">Categoria</label>
-                <select class="form-control" id="id_categoria" name="id_categoria" tabindex="3">
-                    <option selected>Elegir categoria...</option>
+                <select class="form-control" id="id_categoria" name="id_categoria" tabindex="3" required>
+                    <option value="" selected>Elegir categoria...</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>    
                     @endforeach
@@ -30,8 +30,8 @@
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Almacén</label>
-                <select class="form-control" id="id_almacen" name="id_almacen" tabindex="4">
-                    <option selected>Elegir almacén...</option>
+                <select class="form-control" id="id_almacen" name="id_almacen" tabindex="4" required>
+                    <option value="" selected>Elegir almacén...</option>
                     @foreach ($almacenes as $almacen)
                         <option value="{{$almacen->id}}">{{$almacen->nombre}}</option>    
                     @endforeach
@@ -39,8 +39,8 @@
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Marca</label>
-                <select class="form-control" id="id_marca" name="id_marca" tabindex="5">
-                    <option selected>Elegir marca...</option>
+                <select class="form-control" id="id_marca" name="id_marca" tabindex="5" required>
+                    <option value="" selected>Elegir marca...</option>
                     @foreach ($marcas as $marca)
                         <option value="{{$marca->id}}">{{$marca->detalle}}</option>    
                     @endforeach
@@ -50,23 +50,30 @@
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">Unidad Compra</label>
-                <input type="text" class="form-control" id="unidad_compra" name="unidad_compra">
+                <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" required>
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Compra</label>
-                <input type="number" class="form-control" id="precio_compra" name="precio_compra">
+                <div class="flex">
+                    <span class="currency">Bs.</span>
+                    <input id="precio_compra" name="precio_compra" type="number" maxlength="15" placeholder="0.0" required/>
+                </div>
             </div>            
         </div>
         <div class="row g-2 mb-3">            
             <div class="col-md-6">
                 <label for="" class="form-label">Unidad Venta</label>
-                <input type="text" class="form-control" id="unidad_venta" name="unidad_venta">
+                <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" required>
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Venta</label>
-                <input type="number" class="form-control" id="precio_venta" name="precio_venta">
+                <div class="flex">
+                    <span class="currency">Bs.</span>
+                    <input id="precio_venta" name="precio_venta" type="number" maxlength="15" placeholder="0.0" required/>
+                </div>                
             </div>
         </div>
+        
         <div class="p-3">
             <a href="/productos" class="btn btn-secondary" tabindex="6"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
             <button type="submit" class="btn btn-primary" tabindex="7"><i class="fas fa-fw fa-save"></i> Guardar</button>
@@ -77,6 +84,27 @@
 
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
+<style>
+    .flex {
+    display: flex;
+    justify-content: flex-start;
+    
+    }
+    .flex input {
+    max-width: 300px;
+    flex: 1 1 300px;
+    }
+    .flex .currency {
+    font-size: 15px;
+    padding: 0 10px 0 20px;
+    color: #999;
+    border: 2px solid #ccc;
+    border-right: 0;
+    line-height: 2.5;
+    border-radius: 7px 0 0 7px;
+    background: white;
+    }
+</style>
 @stop
 
 @section('js')

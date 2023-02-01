@@ -11,9 +11,9 @@
         <form action="/categorias" method="POST">
                 @csrf
                 <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre" name="nombre" type="text"
-                        class="form-control" tabindex="1" /></div>
+                        class="form-control" tabindex="1" required/></div>
                 <div class="mb-3"><label for="" class="form-label">Detalle</label><input id="detalle" name="detalle" type="text"
-                        class="form-control" tabindex="2" /></div>    
+                        class="form-control" tabindex="2" required/></div>    
                 <a href="/categorias" class="btn btn-secondary" tabindex="3"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
                 <button type="submit" class="btn btn-primary" tabindex="4"><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
