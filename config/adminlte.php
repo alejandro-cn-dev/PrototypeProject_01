@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Sistema Web | Isaac Tamayo | v4.3',
+    'title' => 'Sistema Web | Presitex | v5',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,9 +63,9 @@ return [
     |
     */
 
-    'logo' => '<b>Asoc. Isaac Tamayo</b>',
+    'logo' => '<b>Tienda Presitex</b>',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img' => 'img/logo.jpg',
+    'logo_img' => 'img/logo_p.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -87,7 +87,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'img/logo.jpg',
+            'path' => 'img/logo_p.png',
             'alt' => 'System Logo',
             'class' => '',
             'width' => 50,
@@ -110,7 +110,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'img/logo.jpg',
+            'path' => 'img/logo_p.png',
             'alt' => 'Preloader Image',
             'effect' => 'animation__shake',
             'width' => 100,
@@ -312,8 +312,30 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        
         [
-            'text'    => 'Gestion de Inventario',
+            'text'    => 'Gestion de Compras y Ventas',
+            'icon'    => 'fas fa-fw fa-list-alt',
+            'submenu' => [             
+                [
+                    'text' => 'Gestion de compras',
+                    'icon'    => 'fas fa-fw fa-arrow-down',
+                    'url'  => 'entradas',
+                ],
+                [
+                    'text' => 'Gestion de ventas',
+                    'icon'    => 'fas fa-fw fa-arrow-up',
+                    'url'  => 'salidas',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Gestion de Empleados',
+            'url'         => 'empleados',
+            'icon'    => 'fas fa-fw fa-users'
+        ],
+        [
+            'text'    => 'Gestion de Stock',
             'icon'    => 'fas fa-fw fa-list-alt',
             'submenu' => [
                 [
@@ -338,28 +360,6 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'Gestion de Compras y Ventas',
-            'icon'    => 'fas fa-fw fa-list-alt',
-            'submenu' => [             
-                [
-                    'text' => 'Gestion de compras',
-                    'icon'    => 'fas fa-fw fa-arrow-down',
-                    'url'  => 'entradas',
-                ],
-                [
-                    'text' => 'Gestion de ventas',
-                    'icon'    => 'fas fa-fw fa-arrow-up',
-                    'url'  => 'salidas',
-                ],
-            ],
-        ],
-        [
-            'text'        => 'Gestion de personal',
-            'url'         => 'empleados',
-            'icon'    => 'fas fa-fw fa-users'
-        ],
-        
         [
             'text'        => 'Generacion de reportes',
             'url'         => 'reportes',
