@@ -50,7 +50,13 @@
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">Unidad Compra</label>
-                <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" required>
+                {{-- <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" required> --}}
+                <select class="form-control" name="unidad_compra" id="unidad_compra" required>
+                    <option value="0">Seleccione unidad</option>
+                    <option value="caja">Caja</option>
+                    <option value="rollo">Rollo</option>
+                    <option value="otro">Otro</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Compra</label>
@@ -63,7 +69,13 @@
         <div class="row g-2 mb-3">            
             <div class="col-md-6">
                 <label for="" class="form-label">Unidad Venta</label>
-                <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" required>
+                {{-- <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" required> --}}
+                <select class="form-control" name="unidad_venta" id="unidad_venta" required>
+                    <option value="0">Seleccione unidad</option>
+                    <option value="unidad">Unidad</option>
+                    <option value="metro">Metro</option>
+                    <option value="otro">Otro</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Venta</label>

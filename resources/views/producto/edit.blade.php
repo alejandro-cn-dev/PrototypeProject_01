@@ -6,6 +6,11 @@
     <h1>Editar Registro de Producto</h1>
 @stop
 
+<?php
+    $unidad_compras = ['caja','rollo','otro'];
+    $unidad_ventas = ['unidad','metro','otro'];
+?>
+
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">
     <form action="/productos/{{$producto->id}}" method="POST">
@@ -55,11 +60,24 @@
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">Unidad Compra</label>
-                <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" value="{{$producto->unidad_compra}}">
+                {{-- <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" value="{{$producto->unidad_compra}}"> --}}
+                
+                <select class="form-control" name="unidad_compra" id="unidad_compra" required>
+                    <option value="0">Seleccione unidad</option>
+                    @foreach($unidad_compras as $compra)
+                        <option @if($compra == ($producto->unidad_compra)){ selected } @endif value="{{$compra}}">{{$compra}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Unidad Venta</label>
-                <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" value="{{$producto->unidad_venta}}">
+                {{-- <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" value="{{$producto->unidad_venta}}"> --}}
+                <select class="form-control" name="unidad_venta" id="unidad_venta" required>
+                    <option value="0">Seleccione unidad</option>
+                    <option value="unidad">Unidad</option>
+                    <option value="metro">Metro</option>
+                    <option value="otro">Otro</option>
+                </select>
             </div>
         </div>
         <div class="row g-2 mb-3">
