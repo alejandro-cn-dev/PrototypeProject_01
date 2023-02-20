@@ -40,7 +40,7 @@
         <td valign="top"><img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/></td>
 
         <td align="left">
-            <h2>Asociación Textil "Isaac Tamayo"</h2>
+            <h2>Tienda Textil "Presitex"</h2>
             <pre>
                 <b>Denominación: </b> {{$cabecera->denominacion}}
                 <b>Nro. </b> {{$cabecera->numeracion}}
@@ -52,7 +52,7 @@
 	      </td>
         <td align="right">
           <h3>Lugar y fecha:</h3>
-          <pre>{{$fecha}}</pre>
+          <pre>La Paz, {{$fecha}}</pre>
         </td>
     </tr>
 

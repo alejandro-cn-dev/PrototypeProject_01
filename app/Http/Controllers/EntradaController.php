@@ -161,13 +161,13 @@ class EntradaController extends Controller
     }
     public function reporte_ind($id){
         $cabecera = Cabecera::find($id);
-        $salidas = Inventario::where('id_cabecera','=',$id)->get();
+        $entradas = Inventario::where('id_cabecera','=',$id)->get();
         $productos = Producto::where('isEnable','=',1)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('salida/pdf_salida_ind',compact('cabecera','salidas','productos','fecha'));
-        return $pdf->download('salida_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
-        //return view('salida/pdf_salida',compact('salidas','total','fecha'));
+        $pdf = PDF::loadView('entrada/pdf_entrada_ind',compact('cabecera','entradas','productos','fecha'));
+        return $pdf->download('entrada_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('salida/pdf_salida',compact('entradas','total','fecha'));
     }
     public function guardar(Request $request){
         $total = 0;

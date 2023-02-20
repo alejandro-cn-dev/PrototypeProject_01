@@ -11,7 +11,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         <a href="empleados/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Empleado</a>    
-        <a href="{{route('generar_reporte_empleado',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Categorias</a>    
+        <a href="{{route('generar_reporte_empleado',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Empleados</a>    
     </div>  
     <table id="empleados" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
