@@ -53,7 +53,7 @@
                                                 </tr>
                                         </thead>
                                         <tbody id="contenido"></tbody>
-                                        </table>
+                                </table>
                         </div>                
                 </div>        
 
@@ -75,13 +75,18 @@
                     <div class="modal-body">
                         <div class="form-group">
                                 <label for="unidad_compra" class="form-label">Producto</label>
-                                <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required>
+                                {{-- <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required>
                                 <datalist id="productList">
-                                        @foreach($productos as $producto)
-                                                {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
+                                        @foreach($productos as $producto)                                                
                                                 <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad({{$producto->precio_venta}},{{$producto->unidad_venta}})">{{$producto->id}}</option>
                                         @endforeach
-                                </datalist>
+                                </datalist> --}}
+                                <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
+                                        <option value="0">Seleccione un producto...</option>
+                                        @foreach($productos as $producto)
+                                                <option value="{0,{{$producto->id}},{{$producto->precio_venta}},{{$producto->unidad_venta}}}">{{$producto->descripcion}}</option>
+                                        @endforeach
+                                </select>
                         </div>  
                         <div class="form-group">
                                 <label for="unidad_venta" class="form-label">Unidad</label>
@@ -123,6 +128,16 @@
         var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];        
         var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
         
+        function cargar_precio_unidad(){
+                let e = document.getElementById("producto");
+                let vector = e.value;
+                const valores = JSON.parse(vector);
+                let unidad = String(valores[3]);
+                let precio = valores[2];
+                $("#unidad_venta").val(unidad);
+                $("#precio_venta").val(precio);
+        }
+
         function actualizar_fila(){                
                 tbody = document.getElementById("contenido");
                 var tr = document.createElement("tr");  
