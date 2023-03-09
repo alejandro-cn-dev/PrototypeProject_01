@@ -84,7 +84,7 @@
                                 <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
                                         <option value="0">Seleccione un producto...</option>
                                         @foreach($productos as $producto)
-                                                <option value="{0,{{$producto->id}},{{$producto->precio_venta}},{{$producto->unidad_venta}}}">{{$producto->descripcion}}</option>
+                                                <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_venta}},"unidad":"{{$producto->unidad_venta}}","producto":"{{$producto->descripcion}}"}'>{{$producto->descripcion}}</option>
                                         @endforeach
                                 </select>
                         </div>  
@@ -125,20 +125,21 @@
         var tabla_salidas = [];
         var auto_id = 1;        
         var total = 0.0;
-        var campos = ['id','producto','unidad_venta','precio_venta','cantidad','opciones'];        
+        var campos = ['id','producto','unidad','precio','cantidad','opciones'];        
         var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
         
         function cargar_precio_unidad(){
                 let e = document.getElementById("producto");
                 let vector = e.value;
                 const valores = JSON.parse(vector);
-                let unidad = String(valores[3]);
-                let precio = valores[2];
+                let unidad = String(valores['unidad']);
+                let precio = valores['precio'];
                 $("#unidad_venta").val(unidad);
                 $("#precio_venta").val(precio);
         }
 
-        function actualizar_fila(){                
+        function actualizar_fila(){         
+                let valores = JSON.parse(document.getElementById("producto").value);    
                 tbody = document.getElementById("contenido");
                 var tr = document.createElement("tr");  
                 campos.forEach(function(campo){
@@ -167,9 +168,14 @@
                                         // });
                                         celda = boton;
                                         break;
+                                case "cantidad":
+                                        valor = $("#"+campo).val();
+                                        celda = document.createTextNode(valor);
+                                        break;
                                 default:
-                                        valor = $("#"+campo+"").val();
-                                        celda = document.createTextNode(valor);                                        
+                                        valor = valores[campo];
+                                        celda = document.createTextNode(valor);   
+                                        break;                                     
                         }            
                         td.appendChild(celda); 
                         tr.appendChild(td);
