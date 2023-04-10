@@ -27,7 +27,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->integer('cantidad');
             $table->boolean('isEnable')->default(1);
-            $table->foreign('id_producto')->references('id')->on('productos');
+            // $table->foreign('id_producto')->references('id')->on('productos');
             $table->foreign('id_cabecera')->references('id')->on('cabeceras');
             $table->timestamps();
         });
