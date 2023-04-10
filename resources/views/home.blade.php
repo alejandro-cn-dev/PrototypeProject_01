@@ -103,6 +103,7 @@
         </div>
         </div> --}}
         
+<!--   
         <div class="card" bis_skin_checked="1">
         <div class="card-header ui-sortable-handle" style="cursor: move;" bis_skin_checked="1">
         <h3 class="card-title">
@@ -118,8 +119,7 @@
         <li class="page-item"><a href="#" class="page-link">»</a></li>
         </ul>
         </div>
-        </div>
-        
+        </div>      
         <div class="card-body" bis_skin_checked="1">
          <ul class="todo-list ui-sortable" data-widget="todo-list">
         <li>
@@ -229,7 +229,7 @@
         <div class="card-footer clearfix" bis_skin_checked="1">
         <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
         </div>
-        </div>
+        </div> -->
         
         
 {{--     
