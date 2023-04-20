@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('venta_cabeceras', function (Blueprint $table) {
             $table->id();
-            $table->string('fecha');
+            $table->date('fecha_venta');
             $table->unsignedBigInteger('id_cliente');
             $table->decimal('monto_total');
+            $table->boolean('isEnable')->default(1);
             $table->foreign('id_cliente')->references('id')->on('clientes');
             $table->timestamps();
         });

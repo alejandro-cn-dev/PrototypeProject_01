@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('compra_cabeceras', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha_compra');
+            $table->unsignedBigInteger('id_proveedor');
+            $table->decimal('monto_total');
+            $table->boolean('isEnable')->default(1);
+            $table->foreign('id_proveedor')->references('id')->on('proveedors');
             $table->timestamps();
         });
     }

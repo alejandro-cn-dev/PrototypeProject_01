@@ -3,22 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cabecera;
-use App\Models\Inventario;
+use App\Models\Compra_cabecera;
+use App\Models\Compra_detalle;
 use App\Models\Producto;
 use PDF;
 
-class SalidaController extends Controller
-{    
+class CompraController extends Controller
+{
     private $tabla_salidas = [];
     private $fila = 0;
     private $total = 0;
-
-    // public function __construct(){        
-    //     $this->tabla_salidas = [];
-    //     $this->fila = 0;
-    //     $this->total = 0;
-    // }
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +20,8 @@ class SalidaController extends Controller
      */
     public function index()
     {
-        $salidas = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->get();
-        return view('salida.index')->with('salidas',$salidas);
+        $compras = Compra_cabecera::where('isEnable','=',1)->get();
+        return view('compra.index')->with('compras',$compras);
     }
 
     /**
@@ -37,9 +31,8 @@ class SalidaController extends Controller
      */
     public function create()
     {
-        $salidas = Cabecera::where('tipo','=','S')->get();
         $productos = Producto::where('isEnable','=',1)->get();
-        return view('salida.create')->with('salidas',$salidas)->with("productos",$productos);
+        return view('compra.create')->with('productos',$productos);
     }
 
     /**
@@ -49,8 +42,8 @@ class SalidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        //return redirect('/salidas');
+    {
+        //
     }
 
     /**
@@ -72,9 +65,9 @@ class SalidaController extends Controller
      */
     public function edit($id)
     {
-        $salidas = Cabecera::find($id);
+        $compras = Compra_cabecera::find($id);
         $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
-        return view('salida.edit')->with('salida',$salidas)->with('denominacion',$denominacion);
+        return view('compra.edit')->with('compra',$compras)->with('denominacion',$denominacion);
     }
 
     /**
@@ -82,21 +75,20 @@ class SalidaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Respons
-     * e
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $cabecera = Cabecera::find($id);
+        $cabecera = Compra_cabecera::find($id);
         $cabecera->denominacion = $request->get('denominacion');
         $cabecera->numeracion = $request->get('numeracion');
         $cabecera->num_autorizacion = $request->get('num_autorizacion');
         $cabecera->nombre = $request->get('nombre');
         $cabecera->nit_ci = $request->get('nit_ci');
-        $cabecera->fecha_emision = $request->get('fecha_emision');
+        //$cabecera->fecha_emision = $request->get('fecha_emision');
         $cabecera->save();
 
-        return redirect('/salidas');
+        return redirect('/compras');
     }
 
     /**
@@ -108,39 +100,46 @@ class SalidaController extends Controller
     public function destroy($id)
     {
         //Anulando cabecera
-        $salida = Cabecera::find($id);
-        $salida->isEnable = false;
-        $salida->save();
+        $entrada = Compra_cabecera::find($id);
+        $entrada->isEnable = false;
+        $entrada->save();
 
         //Anulando registros de venta
-        $affectedRows = Inventario::where("id_cabecera", $id)->update(["isEnable" => 0]);
-        return redirect('/salidas');
+        $affectedRows = Compra_detalle::where("id_cabecera", $id)->update(["isEnable" => 0]);
+        return redirect('/compras');
     }
 
     //Funciones propias
     public function detalle($id){
-        $salidas = Inventario::where('id_cabecera','=',$id)->get();
-        $cabecera = Cabecera::find($id);
+        $entrada = Compra_detalle::where('id_cabecera','=',$id)->get();
+        $cabecera = Compra_cabecera::find($id);
         $productos = Producto::all();
-        return view('salida.detalle_salida')->with('cabecera',$cabecera)->with('salidas',$salidas)->with('productos',$productos);
+        return view('compra.detalle_entrada')->with('cabecera',$cabecera)->with('compras',$entrada)->with('productos',$productos);
     }
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [
             'producto'          => 'required',
-            'unidad_venta'      => 'required',
-            'precio_venta'      => 'required',
+            'unidad_compra'      => 'required',
+            'precio_compra'      => 'required',
             'cantidad'          => 'required',
         ]);
         if ($validator->fails())
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
+        $last_id_cabecera = Compra_cabecera::latest('id')->first();
         
-        //proceso control de stock
-
-
-        return response()->json(['success'=>'Data is successfully added']);
-        //return response()->json(['success'=>$this->tabla_salidas]);
+        //$this->fila = $this->fila + 1;
+        
+        array_push($this->tabla_salidas,array(
+            //"id" => $this->fila, 
+            "producto" => $request->producto, 
+            "unidad" => $request->unidad_venta, 
+            "precio" => $request->precio_venta, 
+            "cantidad" => $request->cantidad            
+        ));
+        //return response()->json(['success'=>'Data is successfully added']);
+        return response()->json(['success'=>$this->tabla_salidas]);
     }
     public function anular($id){
         unset($this->tabla_salidas[$id-1]);
@@ -152,23 +151,23 @@ class SalidaController extends Controller
         unset($this->tabla_salidas[$id]);
     }
     public function reporte(){
-        $salidas = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->get();
-        $total = Cabecera::where('tipo','=','S')->where('isEnable','=',1)->sum('monto_total');
+        $compras = Compra_cabecera::where('isEnable','=',1)->get();
+        $total = Compra_cabecera::where('isEnable','=',1)->sum('monto_total');
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('salida/pdf_salida',compact('salidas','total','fecha'));
-        return $pdf->download('salidas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
-        //return view('salida/pdf_salida',compact('salidas','total','fecha'));
+        $pdf = PDF::loadView('compra/pdf_compra',compact('compras','total','fecha'));
+        return $pdf->download('compras_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('compra/pdf_entrada',compact('entradas','total','fecha'));
     }
     public function reporte_ind($id){
-        $cabecera = Cabecera::find($id);
-        $salidas = Inventario::where('id_cabecera','=',$id)->get();
+        $cabecera = Compra_cabecera::find($id);
+        $compras = Compra_detalle::where('id_cabecera','=',$id)->get();
         $productos = Producto::where('isEnable','=',1)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('salida/pdf_salida_ind',compact('cabecera','salidas','productos','fecha'));
-        return $pdf->download('salida_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
-        //return view('salida/pdf_salida',compact('salidas','total','fecha'));
+        $pdf = PDF::loadView('compra/pdf_compra_ind',compact('cabecera','entradas','productos','fecha'));
+        return $pdf->download('compra_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return view('salida/pdf_salida',compact('entradas','total','fecha'));
     }
     public function guardar(Request $request){
         $total = 0;
@@ -177,7 +176,7 @@ class SalidaController extends Controller
             'numeracion'            => 'required',
             //'nombre'                => 'required',
             //'num_autorizacion'      => 'required',
-            //'nit_razon_social'      => 'required',
+            // 'nit_razon_social'      => 'required',
             'fecha_emision'         => 'required'
         ]);
         if ($validator->fails())
@@ -188,7 +187,7 @@ class SalidaController extends Controller
         $filas_tabla = json_decode($request->tabla);
         
         foreach($filas_tabla as $fila){
-            $total = $total + (($fila->precio_venta)*($fila->cantidad));
+            $total = $total + (($fila->precio_compra)*($fila->cantidad));
         }
 
         //Proceso
@@ -210,25 +209,28 @@ class SalidaController extends Controller
             $nit = "(Sin NIT/CI)";
         }
         $cabecera->nit_ci = $nit;
+        $cabecera->nit_ci = $request->nit_razon_social;
         $cabecera->fecha_emision = $request->fecha_emision;
-        $cabecera->tipo = 'S';
+        $cabecera->tipo = 'E';
         $cabecera->monto_total = $total;
         $cabecera->save();
+        
+        $filas_tabla = json_decode($request->tabla);
 
-        foreach($filas_tabla as $fila){
-            $salida = new Inventario();
+        foreach($filas_tabla as $fila){            
+            $entrada = new Compra_detalle();
             $producto = Producto::where('descripcion','=',$fila->producto)->first();        
-            $salida->id_producto = $producto->id;
-            $salida->id_cabecera = $cabecera->id;
-            $salida->unidad = $fila->unidad_venta;
-            $salida->precio = $fila->precio_venta;
-            $salida->fecha = $request->get('fecha_emision');
-            $salida->cantidad = $fila->cantidad;
-            $salida->save();
+            $entrada->id_producto = $producto->id;
+            $entrada->id_cabecera = $cabecera->id;
+            $entrada->unidad = $fila->unidad_compra;
+            $entrada->precio = $fila->precio_compra;
+            $entrada->fecha = $request->get('fecha_emision');
+            $entrada->cantidad = $fila->cantidad;
+            $entrada->save();
         }
 
 
         return response()->json(['success'=>'Data is successfully added']);
-        //return response()->json(['success'=>$filas_tabla]);
+        return response()->json(['success'=>$filas_tabla]);
     }
 }

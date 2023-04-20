@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'demo',
             'email' => 'demo@demo.com',
-            'password' => '87654321',
+            'password' => 'demo_demo',
             'role' => 'admin'
         ]);
         \App\Models\Rol::factory()->count(2)->sequence(['detalle' => 'admin'],['detalle' => 'encargado'])

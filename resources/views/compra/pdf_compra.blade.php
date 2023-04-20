@@ -63,14 +63,14 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($entradas as $entrada)
+      @foreach($compras as $compra)
       <tr>
-        <th scope="row">{{$entrada->id}}</th>
-        <td>{{$entrada->denominacion}}</td>
-        <td>{{$entrada->numeracion}}</td>
-        <td>{{$entrada->nombre}}</td>
-        <td>{{$entrada->fecha_emision}}</td>
-        <td align="right">{{$entrada->monto_total}}</td>
+        <th scope="row">{{$compra->id}}</th>
+        <td>{{$compra->denominacion}}</td>
+        <td>{{$compra->numeracion}}</td>
+        <td>{{$compra->nombre}}</td>
+        <td>{{$compra->fecha_emision}}</td>
+        <td align="right">{{$compra->monto_total}}</td>
       </tr>
       @endforeach
     </tbody>  

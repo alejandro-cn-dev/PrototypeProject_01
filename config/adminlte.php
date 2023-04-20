@@ -320,12 +320,12 @@ return [
                 [
                     'text' => 'Gestion de compras',
                     'icon'    => 'fas fa-fw fa-arrow-down',
-                    'url'  => 'entradas',
+                    'url'  => 'compras',
                 ],
                 [
                     'text' => 'Gestion de ventas',
                     'icon'    => 'fas fa-fw fa-arrow-up',
-                    'url'  => 'salidas',
+                    'url'  => 'ventas',
                 ],
             ],
         ],

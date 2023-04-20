@@ -15,7 +15,15 @@ return new class extends Migration
     {
         Schema::create('compra_detalles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_compra');
+            $table->decimal('costo_unitario');
+            $table->decimal('precio_unitario');
+            $table->integer('cantidad');
+            $table->unsignedBigInteger('id_producto');
             $table->timestamps();
+            
+            $table->foreign('id_compra')->references('id')->on('compra_cabeceras');
+            $table->foreign('id_producto')->references('id')->on('productos');            
         });
     }
 

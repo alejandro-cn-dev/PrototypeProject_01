@@ -10,8 +10,8 @@
 <img src="img/inventarios_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo inventario">
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        <a href="/entradas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Compra</a>    
-        <a href="{{route('generar_reporte_entradas',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Compras</a>    
+        <a href="/compras/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Compra</a>    
+        <a href="{{route('generar_reporte_compras',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Compras</a>    
     </div>    
     <div class="table-responsive">
         <table id="entradas" class="table table-striped table-bordered mt-4" style="width: 100%;">
@@ -27,18 +27,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($entradas as $entrada)
+                @foreach ($compras as $compra)
                 <tr>
-                    <td>{{$entrada->id}}</td>
-                    <td>{{$entrada->denominacion}}</td>
-                    <td>{{$entrada->numeracion}}</td>
-                    <td>{{$entrada->nombre}}</td>
-                    <td>{{$entrada->monto_total}}</td>
-                    <td>{{$entrada->fecha_emision}}</td>
+                    <td>{{$compra->id}}</td>
+                    <td>{{$compra->denominacion}}</td>
+                    <td>{{$compra->numeracion}}</td>
+                    <td>{{$compra->nombre}}</td>
+                    <td>{{$compra->monto_total}}</td>
+                    <td>{{$compra->fecha_emision}}</td>
                     <td>
-                        <form action="{{route('entradas.destroy',$entrada->id)}}" method="POST">
-                            <a href="/entradas/detalle_entrada/{{$entrada->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
-                            <a href="/entradas/{{$entrada->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                        <form action="{{route('compras.destroy',$entrada->id)}}" method="POST">
+                            <a href="/compras/detalle_entrada/{{$entrada->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                            <a href="/compras/{{$entrada->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
