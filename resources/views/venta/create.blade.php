@@ -1,16 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Registro salida')
+@section('title', 'Registro venta')
 
 @section('content_header')
-<h1>Crear Registro de Salida</h1>
+<h1>Crear Registro de venta</h1>
 @stop
 
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">        
-        <form id="insert_salida" action="/salidas" method="POST">
+        <form id="insert_salida" action="/ventas" method="POST">
                 <div class="text-right">
-                        <a href="/salidas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+                        <a href="/ventas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
                 </div>
                 @csrf
                 <div id="alert1" class="alert alert-danger" style="display:none"></div>
@@ -57,11 +57,11 @@
                         </div>                
                 </div>        
 
-                <a href="/salidas" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
+                <a href="/ventas" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
                 <button type="submit" name="btn1" class="btn btn-primary" ><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
-        <form method="POST" action="{{ route('agregar_producto_salida') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="{{ route('agregar_producto_venta') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 @csrf
                 <div class="modal-dialog">
                   <div class="modal-content">                        
@@ -213,7 +213,7 @@
                         let precio_venta = $('#precio_venta').val();
                         let cantidad = $('#cantidad').val();
                         $.ajax({
-                                url: "{{ route('agregar_producto_salida') }}",
+                                url: "{{ route('agregar_producto_venta') }}",
                                 type: "POST",
                                 data: {
                                         _token: "{{ csrf_token() }}",
@@ -256,7 +256,7 @@
                                 let fecha_emision = $('#fecha_emision').val();
 
                                 $.ajax({
-                                        url: "{{ route('guardar_salida') }}",
+                                        url: "{{ route('guardar_venta') }}",
                                         type: "POST",
                                         data: {
                                                 _token: "{{ csrf_token() }}",
@@ -277,7 +277,7 @@
                                                         });                                        
                                                 }else{                                                        
                                                         $('#alert1').hide();
-                                                        location.href = "{{ route('salidas.index') }}"                                                
+                                                        location.href = "{{ route('ventas.index') }}"                                                
                                                 }
                                                 console.log(result);
                                         },

@@ -1,40 +1,33 @@
 @extends('adminlte::page')
 
-@section('title', 'Registro entrada')
+@section('title', 'Registro compra')
 
 @section('content_header')
-<h1>Crear Registro de Entrada</h1>
+<h1>Crear Registro de compra</h1>
 @stop
 
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">        
-        <form id="insert_entrada" action="/entradas" method="POST">
+        <form id="insert_entrada" action="/compras" method="POST">
                 <div class="text-right">
-                        <a href="/salidas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
+                        <a href="/compras" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
                 </div>
                 @csrf
                 <div id="alert1" class="alert alert-danger" style="display:none"></div>
-                <div class="row g-2 mb-3">
-                        <div class="col-md-4">
-                                <label for="" class="form-label">Denominación</label>
-                                <select id="denominacion" name="denominacion" class="form-control" onchange="cambiar_input(event)" required>
-                                        <option value="" selected>Elegir denominación...</option>
-                                        <option value="recibo">Recibo</option>
-                                        <option value="factura">Factura</option>
-                                        <option value="nota de venta">Nota de venta</option>
-                                </select>
-                        </div>
-                        <div class="col-md-8"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
-                                type="text" class="form-control" tabindex="2" required/></div>
+                <div class="mb-3"><label for="" class="form-label">Proveedor</label>
+                        {{-- <input id="nombre" name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /> --}}
+                        <select name="id_proveedor" id="id_proveedor" class="form-control" required>
+                                <option value="0">Seleccione un proveedor...</option>
+                                @foreach($proveedores as $proveedor)
+                                        <option value='{{$proveedor->id}}'>{{$proveedor->nombre}}</option>
+                                @endforeach
+                        </select>
                 </div>
-                
-                <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
-                name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
-                <div class="mb-3" id="div_num_autorizacion" style="display:none"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
-                        name="num_autorizacion" type="text" class="form-control" placeholder="(Sin Num. Autorizacion)" tabindex="3" /></div>
-                <div class="mb-3" id="div_nit_razon_social" style="display:none"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
-                        name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT/CI)" tabindex="3" /></div>        
-                <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
+                {{-- <div class="mb-3" id="div_num_autorizacion" style="display:none"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
+                        name="num_autorizacion" type="text" class="form-control" placeholder="(Sin Num. Autorizacion)" tabindex="3" /></div> --}}
+                {{-- <div class="mb-3" id="div_nit_razon_social" style="display:none"><label for="" class="form-label">NIT/CI</label><input id="nit_ci"
+                        name="nit_ci" type="text" class="form-control" placeholder="(Sin NIT/CI)" tabindex="3" /></div>         --}}
+                <div class="mb-3"><label for="" class="form-label">Fecha</label><input id="fecha_compra" name="fecha_compra"
                         type="date" class="form-control" tabindex="7" required/></div>
                 <div class="border p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
@@ -46,7 +39,7 @@
                                                 <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>
-                                                <th scope="col">Unidad</th>
+                                                <th scope="col">Costo</th>
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Cantidad</th>
                                                 <th scope="col">Opciones</th>
@@ -57,11 +50,11 @@
                         </div>                
                 </div>        
 
-                <a href="/entradas" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
+                <a href="/compras" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
                 <button type="submit" name="btn1" class="btn btn-primary" ><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
-        <form method="POST" action="{{ route('agregar_producto_entrada') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="POST" action="{{ route('agregar_producto_compra') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 @csrf
                 <div class="modal-dialog">
                   <div class="modal-content">                        
@@ -84,12 +77,12 @@
                                 </datalist>
                         </div>  
                         <div class="form-group">
-                                <label for="unidad_compra" class="form-label">Unidad</label>
-                                <input type="text" name="unidad_compra" id="unidad_compra" class="form-control" required>
+                                <label for="costo_unitario" class="form-label">Costo</label>
+                                <input type="text" name="costo_unitario" id="costo_unitario" class="form-control" required>
                         </div>
                         <div class="form-group">
-                                <label for="precio_compra" class="form-label">Precio</label>
-                                <input type="number" name="precio_compra" id="precio_compra" class="form-control" required>
+                                <label for="precio_unitario" class="form-label">Precio</label>
+                                <input type="number" name="precio_unitario" id="precio_unitario" class="form-control" required>
                         </div>
                         <div class="form-group">
                                 <label for="cantidad" class="form-label">Cantidad</label>
@@ -119,8 +112,8 @@
 <script type="text/javascript">     
         var tabla_entradas = [];
         var auto_id = 1;        
-        var campos = ['id','producto','unidad_compra','precio_compra','cantidad','opciones'];        
-        var input_name = ['producto','unidad_compra','precio_compra','cantidad'];
+        var campos = ['id','producto','costo_unitario','precio_unitario','cantidad','opciones'];        
+        var input_name = ['producto','costo_unitario','precio_unitario','cantidad'];
         
         function actualizar_fila(){                
                 tbody = document.getElementById("contenido");
@@ -172,10 +165,10 @@
         function cambiar_input(e){
                 var valor = e.target.value;
                 if(valor == "factura"){
-                        document.getElementById('div_num_autorizacion').style.display = 'block';
+                        //document.getElementById('div_num_autorizacion').style.display = 'block';
                         document.getElementById('div_nit_razon_social').style.display = 'block';
                 }else{
-                        document.getElementById('div_num_autorizacion').style.display = 'none';
+                        //document.getElementById('div_num_autorizacion').style.display = 'none';
                         document.getElementById('div_nit_razon_social').style.display = 'none';
                 }
         }
@@ -186,17 +179,17 @@
                         let fila = new Array(); 
                         e.preventDefault();
                         let producto = $('#producto').val();
-                        let unidad_compra = $('#unidad_compra').val();
-                        let precio_compra = $('#precio_compra').val();
+                        let costo_unitario = $('#costo_unitario').val();
+                        let precio_unitario = $('#precio_unitario').val();
                         let cantidad = $('#cantidad').val();
                         $.ajax({
-                                url: "{{ route('agregar_producto_entrada') }}",
+                                url: "{{ route('agregar_producto_compra') }}",
                                 type: "POST",
                                 data: {
                                         _token: "{{ csrf_token() }}",
                                         producto: producto,
-                                        unidad_compra: unidad_compra,
-                                        precio_compra: precio_compra,
+                                        costo_unitario: costo_unitario,
+                                        precio_unitario: precio_unitario,
                                         cantidad: cantidad
                                 },
                                 success: function(result){
@@ -210,7 +203,7 @@
                                                 $('#alert2').hide();
                                                 $('#insert_form').modal('hide');
                                                 actualizar_fila();                                                
-                                                tabla_entradas.push({producto: $('#producto').val(), unidad_compra: $('#unidad_compra').val(), precio_compra: $('#precio_compra').val(), cantidad: $('#cantidad').val()});
+                                                tabla_entradas.push({producto: $('#producto').val(), costo_unitario: $('#costo_unitario').val(), precio_unitario: $('#precio_unitario').val(), cantidad: $('#cantidad').val()});
                                                 vaciarCampos();
                                         }
                                         console.log(result);
@@ -234,7 +227,7 @@
                                 let fecha_emision = $('#fecha_emision').val();
 
                                 $.ajax({
-                                        url: "{{ route('guardar_entrada') }}",
+                                        url: "{{ route('guardar_compra') }}",
                                         type: "POST",
                                         data: {
                                                 _token: "{{ csrf_token() }}",
@@ -255,7 +248,7 @@
                                                         });                                        
                                                 }else{
                                                         $('#alert1').hide();
-                                                        location.href = "{{ route('entradas.index') }}"                                                
+                                                        location.href = "{{ route('compras.index') }}"                                                
                                                 }
                                                 console.log(result);
                                         },

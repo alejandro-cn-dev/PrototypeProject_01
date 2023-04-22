@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('telefono');
+            $table->boolean('isEnable')->default(1);
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Compra_cabecera;
 use App\Models\Compra_detalle;
 use App\Models\Producto;
+use App\Models\Proveedor;
 use PDF;
 
 class CompraController extends Controller
@@ -32,7 +33,9 @@ class CompraController extends Controller
     public function create()
     {
         $productos = Producto::where('isEnable','=',1)->get();
-        return view('compra.create')->with('productos',$productos);
+        //$proveedores = Proveedor::where('isEnable','=',1)->get();
+        $proveedores = Proveedor::all();
+        return view('compra.create')->with('productos',$productos)->with('proveedores',$proveedores);
     }
 
     /**
@@ -80,11 +83,9 @@ class CompraController extends Controller
     public function update(Request $request, $id)
     {
         $cabecera = Compra_cabecera::find($id);
-        $cabecera->denominacion = $request->get('denominacion');
-        $cabecera->numeracion = $request->get('numeracion');
-        $cabecera->num_autorizacion = $request->get('num_autorizacion');
-        $cabecera->nombre = $request->get('nombre');
         $cabecera->nit_ci = $request->get('nit_ci');
+        $cabecera->id_proveedor = $request->get('id_proveedor');
+        $cabecera->fecha_compra = $request->get('fecha_compra');
         //$cabecera->fecha_emision = $request->get('fecha_emision');
         $cabecera->save();
 
@@ -105,13 +106,13 @@ class CompraController extends Controller
         $entrada->save();
 
         //Anulando registros de venta
-        $affectedRows = Compra_detalle::where("id_cabecera", $id)->update(["isEnable" => 0]);
+        $affectedRows = Compra_detalle::where("id_compra", $id)->update(["isEnable" => 0]);
         return redirect('/compras');
     }
 
     //Funciones propias
     public function detalle($id){
-        $entrada = Compra_detalle::where('id_cabecera','=',$id)->get();
+        $entrada = Compra_detalle::where('id_compra','=',$id)->get();
         $cabecera = Compra_cabecera::find($id);
         $productos = Producto::all();
         return view('compra.detalle_entrada')->with('cabecera',$cabecera)->with('compras',$entrada)->with('productos',$productos);
@@ -119,8 +120,8 @@ class CompraController extends Controller
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [
             'producto'          => 'required',
-            'unidad_compra'      => 'required',
-            'precio_compra'      => 'required',
+            'costo_unitario'      => 'required',
+            'precio_unitario'      => 'required',
             'cantidad'          => 'required',
         ]);
         if ($validator->fails())
@@ -134,8 +135,8 @@ class CompraController extends Controller
         array_push($this->tabla_salidas,array(
             //"id" => $this->fila, 
             "producto" => $request->producto, 
-            "unidad" => $request->unidad_venta, 
-            "precio" => $request->precio_venta, 
+            "costo" => $request->costo_unitario, 
+            "precio" => $request->precio_unitario, 
             "cantidad" => $request->cantidad            
         ));
         //return response()->json(['success'=>'Data is successfully added']);
@@ -161,7 +162,7 @@ class CompraController extends Controller
     }
     public function reporte_ind($id){
         $cabecera = Compra_cabecera::find($id);
-        $compras = Compra_detalle::where('id_cabecera','=',$id)->get();
+        $compras = Compra_detalle::where('id_compra','=',$id)->get();
         $productos = Producto::where('isEnable','=',1)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
@@ -171,47 +172,26 @@ class CompraController extends Controller
     }
     public function guardar(Request $request){
         $total = 0;
-        $validator = \Validator::make($request->all(), [
-            'denominacion'          => 'required',
-            'numeracion'            => 'required',
-            //'nombre'                => 'required',
-            //'num_autorizacion'      => 'required',
-            // 'nit_razon_social'      => 'required',
-            'fecha_emision'         => 'required'
-        ]);
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
+        // $validator = \Validator::make($request->all(), [
+        //     'id_proveedor'          => 'required',
+        //     'fecha_compra'            => 'required',
+        // ]);
+        // if ($validator->fails())
+        // {
+        //     return response()->json(['errors'=>$validator->errors()->all()]);
+        // }
         //Sumar total
         $filas_tabla = json_decode($request->tabla);
         
         foreach($filas_tabla as $fila){
-            $total = $total + (($fila->precio_compra)*($fila->cantidad));
+            $total = $total + (($fila->precio_unitario)*($fila->cantidad));
         }
 
         //Proceso
-        $cabecera = new Cabecera();
-        $cabecera->denominacion = $request->denominacion;
-        $cabecera->numeracion = $request->numeracion;
-        $num_autorizacion = $request->num_autorizacion;
-        if(empty($num_autorizacion)){
-            $num_autorizacion = "(Sin Nro Autorizacion)";
-        }
-        $cabecera->num_autorizacion = $num_autorizacion;
-        $nombre = $request->nombre;
-        if(empty($nombre)){
-            $nombre = "(Sin nombre)";
-        }
-        $cabecera->nombre = $nombre;
-        $nit = $request->nit_razon_social;
-        if(empty($nit)){
-            $nit = "(Sin NIT/CI)";
-        }
-        $cabecera->nit_ci = $nit;
-        $cabecera->nit_ci = $request->nit_razon_social;
-        $cabecera->fecha_emision = $request->fecha_emision;
-        $cabecera->tipo = 'E';
+        $cabecera = new Compra_cabecera();
+        $cabecera->nit_ci = $request->nit_ci;
+        $cabecera->id_proveedor = $request->id_proveedor;
+        $cabecera->fecha_compra = $request->fecha_compra;
         $cabecera->monto_total = $total;
         $cabecera->save();
         
@@ -219,13 +199,13 @@ class CompraController extends Controller
 
         foreach($filas_tabla as $fila){            
             $entrada = new Compra_detalle();
-            $producto = Producto::where('descripcion','=',$fila->producto)->first();        
-            $entrada->id_producto = $producto->id;
-            $entrada->id_cabecera = $cabecera->id;
-            $entrada->unidad = $fila->unidad_compra;
-            $entrada->precio = $fila->precio_compra;
-            $entrada->fecha = $request->get('fecha_emision');
+            $producto = Producto::where('descripcion','=',$fila->producto)->first();  
+            $entrada->id_compra = $cabecera->id;      
+            $entrada->costo_unitario = $fila->costo_unitario;   // Añadir variable a la tabla
+            $entrada->precio_unitario = $fila->precio_unitario; // Añadir variable a la tabla
+
             $entrada->cantidad = $fila->cantidad;
+            $entrada->id_producto = $producto->id;
             $entrada->save();
         }
 

@@ -339,7 +339,7 @@ return [
             'icon'    => 'fas fa-fw fa-list-alt',
             'submenu' => [
                 [
-                    'text' => 'Inventario',
+                    'text' => 'Productos',
                     'url'  => 'productos',
                     'icon'    => 'fas fa-fw fa-box',
                 ],                

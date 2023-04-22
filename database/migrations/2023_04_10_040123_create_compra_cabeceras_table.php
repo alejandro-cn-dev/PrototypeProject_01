@@ -14,11 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('compra_cabeceras', function (Blueprint $table) {
-            $table->id();
+            $table->id();            
+            $table->string('nombre_razon_social')->nullable();            
+            $table->string('nit_ci',10)->nullable();
+            
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');
             $table->decimal('monto_total');
             $table->boolean('isEnable')->default(1);
+            
             $table->foreign('id_proveedor')->references('id')->on('proveedors');
             $table->timestamps();
         });
