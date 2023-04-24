@@ -36,5 +36,41 @@ class DatabaseSeeder extends Seeder
             //'email' => 'demo@demo.com',
             'id_rol' => '1',            
         ]);
+
+        \App\Models\Proveedor::factory()->create([
+            'nombre' => 'Fernando Cora - ASATEX',
+            'telefono' => '60291828'    
+        ]);
+        \App\Models\Almacen::factory()->create([
+            'nombre' => 'Esq. Gonzalves #219 piso 2',
+            'tipo' => 'deposito',
+            'sufijo_almacen' => 'ES',
+            'matricula' => 'DDD0000000XX'
+        ]);
+        \App\Models\Marca::factory()->create([
+            'detalle' => 'ASATEX',
+            'sufijo_marca' => 'AS',
+            'matricula' => 'DDD0000000XX'          
+        ]);
+        \App\Models\Categoria::factory()->create([
+            'nombre' => 'Hilos',
+            'detalle' => 'Hilanderia no especializada',
+            'sufijo_categoria' => 'HI',
+            'matricula' => 'DDD0000000XX'
+        ]);
+        \App\Models\Producto::factory()->create([
+            'item_producto' => 'HI-AS-001',
+            'descripcion' => 'Hilo cruzado',
+            'color' => 'Verde',            
+            'matricula' => 'DDD0000000XX',            
+            'unidad_compra' => 'caja',            
+            'unidad_venta'  =>  'unidad',
+            'precio_compra' =>  '40',
+            'precio_venta'  =>  '5',
+            'existencia'    =>  '10',
+            'id_categoria'  =>  '1',
+            'id_almacen'    =>  '1',
+            'id_marca'      =>  '1'
+        ]);
     }
 }
