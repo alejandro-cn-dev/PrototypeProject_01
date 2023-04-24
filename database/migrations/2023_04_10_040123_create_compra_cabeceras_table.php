@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('compra_cabeceras', function (Blueprint $table) {
             $table->id();            
-            $table->string('nombre_razon_social')->nullable();            
-            $table->string('nit_ci',10)->nullable();
+            // Solo aplicar en caso de factura o nota de venta
+            // $table->string('nombre_razon_social')->nullable();            
+            // $table->string('nit_ci',10)->nullable();
             
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');

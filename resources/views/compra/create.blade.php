@@ -219,24 +219,17 @@
                 $('#insert_entrada').on('submit',function(e){
                         if((tabla_entradas.length) > 0){
                                 e.preventDefault();
-                                let denominacion = $('#denominacion').val();
-                                let numeracion = $('#numeracion').val();
-                                let nombre = $('#nombre').val();
-                                let num_autorizacion = $('#num_autorizacion').val();
-                                let nit_razon_social = $('#nit_razon_social').val();
-                                let fecha_emision = $('#fecha_emision').val();
+                                //let nit_ci = $('#nit_ci').val();
+                                let id_proveedor = $('#id_proveedor').val();
+                                let fecha_compra = $('#fecha_compra').val();
 
                                 $.ajax({
                                         url: "{{ route('guardar_compra') }}",
                                         type: "POST",
                                         data: {
                                                 _token: "{{ csrf_token() }}",
-                                                denominacion: denominacion,
-                                                numeracion: numeracion,
-                                                nombre: nombre,
-                                                num_autorizacion: num_autorizacion,
-                                                nit_razon_social: nit_razon_social,
-                                                fecha_emision: fecha_emision,
+                                                id_proveedor: id_proveedor,
+                                                fecha_compra: fecha_compra,
                                                 tabla: JSON.stringify(tabla_entradas)
                                         },
                                         success: function(result){

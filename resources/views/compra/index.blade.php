@@ -36,9 +36,9 @@
                     <td>{{$compra->monto_total}}</td>
                     <td>{{$compra->fecha_emision}}</td>
                     <td>
-                        <form action="{{route('compras.destroy',$entrada->id)}}" method="POST">
-                            <a href="/compras/detalle_entrada/{{$entrada->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
-                            <a href="/compras/{{$entrada->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                        <form action="{{route('compras.destroy',$compra->id)}}" method="POST">
+                            <a href="/compras/detalle_commpra/{{$compra->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                            <a href="/compras/{{$compra->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>

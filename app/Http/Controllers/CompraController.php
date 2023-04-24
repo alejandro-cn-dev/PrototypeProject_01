@@ -189,7 +189,7 @@ class CompraController extends Controller
 
         //Proceso
         $cabecera = new Compra_cabecera();
-        $cabecera->nit_ci = $request->nit_ci;
+        //$cabecera->nit_ci = $request->nit_ci;
         $cabecera->id_proveedor = $request->id_proveedor;
         $cabecera->fecha_compra = $request->fecha_compra;
         $cabecera->monto_total = $total;
