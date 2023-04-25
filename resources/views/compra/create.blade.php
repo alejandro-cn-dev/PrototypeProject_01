@@ -17,7 +17,7 @@
                 <div class="mb-3"><label for="" class="form-label">Proveedor</label>
                         {{-- <input id="nombre" name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /> --}}
                         <select name="id_proveedor" id="id_proveedor" class="form-control" required>
-                                <option value="0">Seleccione un proveedor...</option>
+                                <option value="">Seleccione un proveedor...</option>
                                 @foreach($proveedores as $proveedor)
                                         <option value='{{$proveedor->id}}'>{{$proveedor->nombre}}</option>
                                 @endforeach
@@ -40,8 +40,9 @@
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>
                                                 <th scope="col">Costo</th>
-                                                <th scope="col">Precio</th>
+                                                <th scope="col">Unidad</th>
                                                 <th scope="col">Cantidad</th>
+                                                <th scope="col">Sub Total</th>
                                                 <th scope="col">Opciones</th>
                                                 </tr>
                                         </thead>
@@ -68,21 +69,23 @@
                     <div class="modal-body">
                         <div class="form-group">
                                 <label for="producto" class="form-label">Producto</label>
-                                <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required>
-                                <datalist id="productList">
+                                {{-- <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required> --}}
+                                <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
+                                        <option value="">Seleccione un producto...</option>
                                         @foreach($productos as $producto)
                                                 {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
-                                                <option value="{{$producto->descripcion}}">{{$producto->id}}</option>
+                                                {{-- <option value="{{$producto->descripcion}}">{{$producto->id}}</option> --}}
+                                                <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_compra}},"unidad":"{{$producto->unidad_compra}}","producto":"{{$producto->descripcion}}"}'>{{$producto->descripcion}}</option>
                                         @endforeach
-                                </datalist>
+                                </select>
                         </div>  
                         <div class="form-group">
-                                <label for="costo_unitario" class="form-label">Costo</label>
-                                <input type="text" name="costo_unitario" id="costo_unitario" class="form-control" required>
+                                <label for="precio_compra" class="form-label">Costo</label>
+                                <input type="number" name="precio_compra" id="precio_compra" class="form-control" required>
                         </div>
                         <div class="form-group">
-                                <label for="precio_unitario" class="form-label">Precio</label>
-                                <input type="number" name="precio_unitario" id="precio_unitario" class="form-control" required>
+                                <label for="unidad_compra" class="form-label">Unidad</label>
+                                <input type="text" name="unidad_compra" id="unidad_compra" class="form-control" disabled>
                         </div>
                         <div class="form-group">
                                 <label for="cantidad" class="form-label">Cantidad</label>
@@ -112,9 +115,26 @@
 <script type="text/javascript">     
         var tabla_entradas = [];
         var auto_id = 1;        
-        var campos = ['id','producto','costo_unitario','precio_unitario','cantidad','opciones'];        
-        var input_name = ['producto','costo_unitario','precio_unitario','cantidad'];
+        var campos = ['id','producto','precio_compra','unidad_compra','cantidad','subtotal','opciones'];        
+        var input_name = ['producto','precio_compra','unidad_compra','cantidad'];
         
+        // cargar valores despues de seleccionar algun valor del select "producto"
+        function cargar_precio_unidad(){
+                const valores = parsear_objeto("producto")
+                let unidad = String(valores['unidad']);
+                let precio = valores['precio'];
+                $("#unidad_compra").val(unidad);
+                $("#precio_compra").val(precio);
+        }
+
+        // Deserializa un objeto JSON desde una cadena de texto, 
+        // que se encuentre en el ID de un elemento
+        function parsear_objeto(objeto){
+                let e = document.getElementById(objeto);
+                let vector = e.value;
+                let valores = JSON.parse(vector);
+                return valores;
+        }
         function actualizar_fila(){                
                 tbody = document.getElementById("contenido");
                 var tr = document.createElement("tr");  
@@ -127,16 +147,23 @@
                                         celda = document.createTextNode(auto_id);
                                         auto_id = auto_id + 1;
                                         break;
+                                case "producto":                                        
+                                        const valores = parsear_objeto("producto");
+                                        celda = document.createTextNode(valores['producto']);
+                                        break;
                                 case "opciones":                                        
                                         var boton = document.createElement("button");
                                         boton.className= "btn btn-danger";
                                         boton.innerHTML= "<i class='fas fa-fw fa-times'></i> Anular";
                                         boton.type= "button";
                                         boton.addEventListener("click", function () {
-                                                //eliminar_fila(auto_id);
+                                                eliminar_fila(auto_id);
                                                 $(this).closest('tr').remove();
                                         });
                                         celda = boton;
+                                        break;
+                                case "subtotal":                                        
+                                        celda = document.createTextNode($("#precio_compra").val()*$("#cantidad").val());
                                         break;
                                 default:
                                         valor = $("#"+campo+"").val();
@@ -157,10 +184,14 @@
         }
         function eliminar_fila(i){
                 //document.getElementById("contenido").deleteRow(i);
-                tabla_entradas.pop(auto_id-1);
+                // Volver a hacer
+                //tabla_entradas.pop(i);
+                //delete(tabla_entradas[i-1]);
         }      
         function limpiar_tabla(){
                 $('#contenido tr').detach();
+                auto_id = 0;
+                tabla_entradas = [];
         }
         function cambiar_input(e){
                 var valor = e.target.value;
@@ -178,9 +209,10 @@
                 $('#insert_form').on('submit',function(e){
                         let fila = new Array(); 
                         e.preventDefault();
-                        let producto = $('#producto').val();
-                        let costo_unitario = $('#costo_unitario').val();
-                        let precio_unitario = $('#precio_unitario').val();
+                        const valores = parsear_objeto("producto");
+                        let producto = valores['producto'];
+                        let precio_compra = $('#precio_compra').val();
+                        let unidad_compra = $('#unidad_compra').val();
                         let cantidad = $('#cantidad').val();
                         $.ajax({
                                 url: "{{ route('agregar_producto_compra') }}",
@@ -188,8 +220,8 @@
                                 data: {
                                         _token: "{{ csrf_token() }}",
                                         producto: producto,
-                                        costo_unitario: costo_unitario,
-                                        precio_unitario: precio_unitario,
+                                        precio_compra: precio_compra,
+                                        unidad_compra: unidad_compra,
                                         cantidad: cantidad
                                 },
                                 success: function(result){
@@ -202,8 +234,9 @@
                                         }else{
                                                 $('#alert2').hide();
                                                 $('#insert_form').modal('hide');
-                                                actualizar_fila();                                                
-                                                tabla_entradas.push({producto: $('#producto').val(), costo_unitario: $('#costo_unitario').val(), precio_unitario: $('#precio_unitario').val(), cantidad: $('#cantidad').val()});
+                                                actualizar_fila();         
+                                                const valores = parsear_objeto("producto");
+                                                tabla_entradas.push({id: auto_id-1,producto: valores['id'], precio_compra: $('#precio_compra').val(), unidad_compra: $('#unidad_compra').val(), cantidad: $('#cantidad').val()});
                                                 vaciarCampos();
                                         }
                                         console.log(result);
@@ -215,7 +248,7 @@
                         });
                 });
                 
-                //Del formulario para ingresar la cabecera
+                //Del formulario para enviar al controlador y guardar en BD
                 $('#insert_entrada').on('submit',function(e){
                         if((tabla_entradas.length) > 0){
                                 e.preventDefault();

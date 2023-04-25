@@ -12,7 +12,7 @@
     <form action="" method="">
         <div class="text-right">
             <a href="/entradas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
-            <a href="{{route('generar_reporte_entrada_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
+            <a href="{{route('generar_reporte_compra_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
         </div>
         @csrf
         <div class="mb-3">
@@ -50,20 +50,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($entradas as $entrada)
+                @foreach ($compras as $compra)
                 <tr>
-                    <td>{{$entrada->id}}</td>
+                    <td>{{$compra->id}}</td>
                         {{-- {{$salida->id_producto}} --}}
                         @forEach($productos as $producto)
-                            @if($entrada->id_producto == $producto->id)
+                            @if($compra->id_producto == $producto->id)
                             <td>
                                 {{$producto->descripcion}}
                             </td>                                
                             @endif
                         @endforeach                        
-                    <td>{{$entrada->unidad}}</td>
-                    <td>{{$entrada->cantidad}}</td>
-                    <td>{{$entrada->precio}}</td>
+                    <td>{{$compra->unidad}}</td>
+                    <td>{{$compra->cantidad}}</td>
+                    <td>{{$compra->precio}}</td>
                 </tr>
                 @endforeach
             </tbody>

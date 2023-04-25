@@ -43,14 +43,14 @@ Route::resource('home','App\Http\Controllers\HomeController');
 Route::resource('inicio','App\Http\Controllers\IncioController');
 
 Route::resource('ventas','App\Http\Controllers\VentaController');
-Route::get('ventas/detalle_salida/{id}',[VentaController::class,'detalle'])->middleware('auth')->name('salidas.detalle_venta');
+Route::get('ventas/detalle_venta/{id}',[VentaController::class,'detalle'])->middleware('auth')->name('salidas.detalle_venta');
 Route::post('ventas/agregar',[VentaController::class,'agregar'])->middleware('auth')->name('agregar_producto_venta');
 Route::post('ventas/guardar',[VentaController::class,'guardar'])->middleware('auth')->name('guardar_venta');
 Route::get('ventas/reporte/{id}',[VentaController::class,'reporte'])->middleware('auth')->name('generar_reporte_ventas');
 Route::get('ventas/reporte_ind/{id}',[VentaController::class,'reporte_ind'])->middleware('auth')->name('generar_reporte_venta_ind');
 
 Route::resource('compras','App\Http\Controllers\CompraController');
-Route::get('compras/detalle_entrada/{id}',[CompraController::class,'detalle'])->middleware('auth')->name('compras.detalle_entrada');
+Route::get('compras/detalle_compra/{id}',[CompraController::class,'detalle'])->middleware('auth')->name('compras.detalle_compra');
 Route::post('compras/agregar',[CompraController::class,'agregar'])->middleware('auth')->name('agregar_producto_compra');
 Route::post('compras/guardar',[CompraController::class,'guardar'])->middleware('auth')->name('guardar_compra');
 Route::get('compras/reporte/{id}',[CompraController::class,'reporte'])->middleware('auth')->name('generar_reporte_compras');

@@ -21,7 +21,10 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra_cabecera::where('isEnable','=',1)->get();
+        $compras = Compra_cabecera::join('proveedors','compra_cabeceras.id_proveedor','=','proveedors.id')
+        ->select('compra_cabeceras.id','proveedors.nombre as proveedor','compra_cabeceras.monto_total','compra_cabeceras.fecha_compra')
+        ->where('compra_cabeceras.isEnable','=',1)
+        ->get();
         return view('compra.index')->with('compras',$compras);
     }
 
@@ -115,13 +118,13 @@ class CompraController extends Controller
         $entrada = Compra_detalle::where('id_compra','=',$id)->get();
         $cabecera = Compra_cabecera::find($id);
         $productos = Producto::all();
-        return view('compra.detalle_entrada')->with('cabecera',$cabecera)->with('compras',$entrada)->with('productos',$productos);
+        return view('compra.detalle_compra')->with('cabecera',$cabecera)->with('compras',$entrada)->with('productos',$productos);
     }
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [
             'producto'          => 'required',
-            'costo_unitario'      => 'required',
-            'precio_unitario'      => 'required',
+            'precio_compra'      => 'required',
+            'unidad_compra'      => 'required',
             'cantidad'          => 'required',
         ]);
         if ($validator->fails())
@@ -135,8 +138,8 @@ class CompraController extends Controller
         array_push($this->tabla_salidas,array(
             //"id" => $this->fila, 
             "producto" => $request->producto, 
-            "costo" => $request->costo_unitario, 
-            "precio" => $request->precio_unitario, 
+            "precio_compra" => $request->precio_compra, 
+            "unidad_compra" => $request->unidad_compra, 
             "cantidad" => $request->cantidad            
         ));
         //return response()->json(['success'=>'Data is successfully added']);
@@ -184,7 +187,7 @@ class CompraController extends Controller
         $filas_tabla = json_decode($request->tabla);
         
         foreach($filas_tabla as $fila){
-            $total = $total + (($fila->precio_unitario)*($fila->cantidad));
+            $total = $total + (($fila->precio_compra)*($fila->cantidad));
         }
 
         //Proceso
@@ -199,13 +202,11 @@ class CompraController extends Controller
 
         foreach($filas_tabla as $fila){            
             $entrada = new Compra_detalle();
-            $producto = Producto::where('descripcion','=',$fila->producto)->first();  
+            //$producto = Producto::where('descripcion','=',$fila->producto)->first();  
             $entrada->id_compra = $cabecera->id;      
-            $entrada->costo_unitario = $fila->costo_unitario;   // Añadir variable a la tabla
-            $entrada->precio_unitario = $fila->precio_unitario; // Añadir variable a la tabla
-
+            $entrada->costo_compra = $fila->precio_compra;   // Añadir variable a la tabla
             $entrada->cantidad = $fila->cantidad;
-            $entrada->id_producto = $producto->id;
+            $entrada->id_producto = $fila->producto;
             $entrada->save();
         }
 

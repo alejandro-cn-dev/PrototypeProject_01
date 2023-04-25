@@ -18,9 +18,7 @@
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Denominacion</th>
-                    <th scope="col">Nro</th>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">Proveedor</th>
                     <th scope="col">Importe</th>
                     <th scope="col">Fecha de emision</th>
                     <th scope="col">Opciones</th>
@@ -30,14 +28,12 @@
                 @foreach ($compras as $compra)
                 <tr>
                     <td>{{$compra->id}}</td>
-                    <td>{{$compra->denominacion}}</td>
-                    <td>{{$compra->numeracion}}</td>
-                    <td>{{$compra->nombre}}</td>
+                    <td>{{$compra->proveedor}}</td>
                     <td>{{$compra->monto_total}}</td>
-                    <td>{{$compra->fecha_emision}}</td>
+                    <td>{{$compra->fecha_compra}}</td>
                     <td>
                         <form action="{{route('compras.destroy',$compra->id)}}" method="POST">
-                            <a href="/compras/detalle_commpra/{{$compra->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                            <a href="/compras/detalle_compra/{{$compra->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
                             <a href="/compras/{{$compra->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf
                             @method('DELETE')
