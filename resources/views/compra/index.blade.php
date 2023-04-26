@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de entradas')
+@section('title', 'Listado de compras')
 
 @section('content_header')
-    <h1>Listado de registros de Entradas</h1>
+    <h1>Listado de registros de compras</h1>
 @stop
 
 @section('content')
@@ -19,8 +19,8 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Proveedor</th>
-                    <th scope="col">Importe</th>
                     <th scope="col">Fecha de emision</th>
+                    <th scope="col">Importe</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -29,8 +29,8 @@
                 <tr>
                     <td>{{$compra->id}}</td>
                     <td>{{$compra->proveedor}}</td>
-                    <td>{{$compra->monto_total}}</td>
                     <td>{{$compra->fecha_compra}}</td>
+                    <td>{{$compra->monto_total}}</td>
                     <td>
                         <form action="{{route('compras.destroy',$compra->id)}}" method="POST">
                             <a href="/compras/detalle_compra/{{$compra->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>

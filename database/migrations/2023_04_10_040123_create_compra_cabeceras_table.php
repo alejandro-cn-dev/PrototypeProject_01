@@ -23,8 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_proveedor');
             $table->decimal('monto_total');
             $table->boolean('isEnable')->default(1);
-            
+            $table->unsignedBigInteger('id_usuario');
+
             $table->foreign('id_proveedor')->references('id')->on('proveedors');
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->timestamps();
         });
     }

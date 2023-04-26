@@ -55,5 +55,6 @@ Route::post('compras/agregar',[CompraController::class,'agregar'])->middleware('
 Route::post('compras/guardar',[CompraController::class,'guardar'])->middleware('auth')->name('guardar_compra');
 Route::get('compras/reporte/{id}',[CompraController::class,'reporte'])->middleware('auth')->name('generar_reporte_compras');
 Route::get('compras/reporte_ind/{id}',[CompraController::class,'reporte_ind'])->middleware('auth')->name('generar_reporte_compra_ind');
+Route::get('compras/recibo_ind/{id}',[CompraController::class,'recibo_ind'])->middleware('auth')->name('generar_recibo_compra_ind');
 
 //Route::get('entradas/reporte',[CompraController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');

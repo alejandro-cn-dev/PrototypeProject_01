@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('cantidad');
             // $table->decimal('subtotal');
             $table->unsignedBigInteger('id_producto');
+            $table->boolean('isEnable')->default(1);
             $table->timestamps();
             
             $table->foreign('id_compra')->references('id')->on('compra_cabeceras');

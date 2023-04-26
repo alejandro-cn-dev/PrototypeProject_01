@@ -34,8 +34,8 @@
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
                         {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
                         <div class="table-responsive">
-                                <table id="entradas" class="table table-striped table-bordered mt-4" style="width: 100%;">
-                                        <thead class="table-dark">
+                                <table id="entradas" class="table table-sm table-bordered mt-4" style="width: 100%;">
+                                        <thead>
                                                 <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>

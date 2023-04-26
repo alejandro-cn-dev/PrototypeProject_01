@@ -55,9 +55,7 @@
     <thead style="background-color: lightgray;">
       <tr>
         <th>#</th>
-        <th>Denominacion</th>
-        <th>Numero</th>
-        <th>Nombre</th>
+        <th>Proveedor</th>
         <th>Fecha emision</th>
         <th>Importe</th>
       </tr>
@@ -66,17 +64,15 @@
       @foreach($compras as $compra)
       <tr>
         <th scope="row">{{$compra->id}}</th>
-        <td>{{$compra->denominacion}}</td>
-        <td>{{$compra->numeracion}}</td>
-        <td>{{$compra->nombre}}</td>
-        <td>{{$compra->fecha_emision}}</td>
+        <td>{{$compra->proveedor}}</td>
+        <td>{{$compra->fecha_compra}}</td>
         <td align="right">{{$compra->monto_total}}</td>
       </tr>
       @endforeach
     </tbody>  
     <tfoot>
       <tr>
-          <td colspan="4"></td>
+          <td colspan="2"></td>
           <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$total}}</td>
       </tr>

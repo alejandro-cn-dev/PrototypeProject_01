@@ -42,11 +42,10 @@
         <td align="left">
             <h2>Tienda Textil "Presitex"</h2>
             <pre>
-                <b>Denominación: </b> {{$cabecera->denominacion}}
-                <b>Nro. </b> {{$cabecera->numeracion}}
-                <b>Nombre: </b> {{$cabecera->nombre}}
-                <b>NIT/CI: </b>{{$cabecera->nit_ci}}
-                <b>Fecha de emisión: </b>{{$cabecera->fecha_emision}}
+                <b>Numero recibo: </b> 00000000
+                <b>Usuario encargado: </b> {{$cabecera->denominacion}}
+                <b>Proveedor: </b> {{$cabecera->numeracion}}
+                <b>Fecha de compra: </b>{{$cabecera->fecha_emision}}
                 <b>Monto total: </b>{{$cabecera->monto_total}}
             </pre>
 	      </td>
@@ -67,6 +66,7 @@
         <th>Unidad</th>
         <th>Cantidad</th>
         <th>Precio</th>
+        <th>Subtotal</th>
       </tr>
     </thead>
     <tbody>
@@ -76,20 +76,19 @@
         {{-- {{$entrada->id_producto}} --}}
                         @forEach($productos as $producto)
                             @if($entrada->id_producto == $producto->id)
-                            <td>
-                                {{$producto->descripcion}}
-                            </td>                                
+                            <td>{{$producto->descripcion}}</td>
+                            <td>{{$producto->unidad_compra}}</td>
                             @endif
                         @endforeach    
-        <td>{{$entrada->unidad}}</td>
         <td align="right">{{$entrada->cantidad}}</td>
-        <td align="right">{{$entrada->precio}}</td>
+        <td align="right">{{$entrada->costo_compra}}</td>
+        <td align="right">{{($entrada->costo_compra * $entrada->cantidad)}}</td>
       </tr>
       @endforeach
     </tbody>  
     <tfoot>
       <tr>
-          <td colspan="3"></td>
+          <td colspan="4"></td>
           <td class="total" align="right">Total $</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>

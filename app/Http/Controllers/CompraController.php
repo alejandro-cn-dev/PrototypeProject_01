@@ -7,6 +7,8 @@ use App\Models\Compra_cabecera;
 use App\Models\Compra_detalle;
 use App\Models\Producto;
 use App\Models\Proveedor;
+use App\Models\User;
+use App\Models\Empleado;
 use PDF;
 
 class CompraController extends Controller
@@ -72,8 +74,9 @@ class CompraController extends Controller
     public function edit($id)
     {
         $compras = Compra_cabecera::find($id);
-        $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
-        return view('compra.edit')->with('compra',$compras)->with('denominacion',$denominacion);
+        $proveedores = Proveedor::all();
+        // $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
+        return view('compra.edit')->with('entrada',$compras)->with('proveedores',$proveedores);
     }
 
     /**
@@ -118,7 +121,14 @@ class CompraController extends Controller
         $entrada = Compra_detalle::where('id_compra','=',$id)->get();
         $cabecera = Compra_cabecera::find($id);
         $productos = Producto::all();
-        return view('compra.detalle_compra')->with('cabecera',$cabecera)->with('compras',$entrada)->with('productos',$productos);
+        $proveedor = Proveedor::find($cabecera->id_proveedor);
+        $usuario = Empleado::where('id_user','=',($cabecera->id_usuario))->first();
+        return view('compra.detalle_compra')
+        ->with('cabecera',$cabecera)
+        ->with('compras',$entrada)
+        ->with('productos',$productos)
+        ->with('proveedor',$proveedor)
+        ->with('usuario',$usuario);
     }
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [
@@ -155,8 +165,12 @@ class CompraController extends Controller
         unset($this->tabla_salidas[$id]);
     }
     public function reporte(){
-        $compras = Compra_cabecera::where('isEnable','=',1)->get();
+        $compras = Compra_cabecera::join('proveedors','compra_cabeceras.id_proveedor','=','proveedors.id')
+        ->select('compra_cabeceras.id','proveedors.nombre as proveedor','compra_cabeceras.monto_total','compra_cabeceras.fecha_compra')
+        ->where('compra_cabeceras.isEnable','=',1)
+        ->get();
         $total = Compra_cabecera::where('isEnable','=',1)->sum('monto_total');
+        $proveedor = Proveedor::all();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('compra/pdf_compra',compact('compras','total','fecha'));
@@ -165,7 +179,7 @@ class CompraController extends Controller
     }
     public function reporte_ind($id){
         $cabecera = Compra_cabecera::find($id);
-        $compras = Compra_detalle::where('id_compra','=',$id)->get();
+        $entradas = Compra_detalle::where('id_compra','=',$id)->get();
         $productos = Producto::where('isEnable','=',1)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
@@ -196,6 +210,7 @@ class CompraController extends Controller
         $cabecera->id_proveedor = $request->id_proveedor;
         $cabecera->fecha_compra = $request->fecha_compra;
         $cabecera->monto_total = $total;
+        $cabecera->id_usuario = auth()->user()->id;
         $cabecera->save();
         
         $filas_tabla = json_decode($request->tabla);

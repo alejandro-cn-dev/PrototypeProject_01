@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Venta_cabecera;
+use App\Models\Empleado;
+use App\Models\Producto;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $ventas = Venta_cabecera::where('isEnable','=',1)->count();
+        $empleados = Empleado::where('isEnable','=',1)->count();
+        $productos = Producto::where('isEnable','=',1)->count();
+        return view('home')
+        ->with('ventas',$ventas)
+        ->with('empleados',$empleados)
+        ->with('productos',$productos);
     }
 }
