@@ -3,8 +3,10 @@
 @section('title', 'Dashboard Admin')
 
 @section('content_header')
-    <h2>Dashboard de Administración</h2>
-    <h1>Bienvenido {{auth()->user()->email}}</h1>
+<div style="background-color: #343a40; color: white; text-align: center; padding: 10px; border-radius: 10px;">  
+    <h2>Dashboard de {{$role_name->name}}</h2>
+    <h1>Bienvenido {{auth()->user()->name}}</h1>
+</div>
 @stop
 
 @section('content')
@@ -21,7 +23,7 @@
             <div class="icon" bis_skin_checked="1">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/ventas" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -35,7 +37,7 @@
             <div class="icon" bis_skin_checked="1">
               <i class="fa fa-check" aria-hidden="true"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -49,7 +51,7 @@
             <div class="icon" bis_skin_checked="1">
               <i class="fa fa-user-plus" aria-hidden="true"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/empleados" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -63,7 +65,7 @@
             <div class="icon" bis_skin_checked="1">
               <i class="fas fa-fw fa-store " aria-hidden="true"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/productos" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

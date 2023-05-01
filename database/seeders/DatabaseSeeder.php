@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
     {
        //\App\Models\User::factory(1)->create();
 
+        \App\Models\Rol::factory()->count(2)->sequence(['name' => 'Administrador'],['name' => 'Encargado'])
+        ->create();
         \App\Models\User::factory()->create([
             'name' => 'demo',
             'email' => 'demo@demo.com',
             'password' => 'demo_demo',
-            'role' => 'admin'
+            'id_role' => '1'
         ]);
-        \App\Models\Rol::factory()->count(2)->sequence(['detalle' => 'admin'],['detalle' => 'encargado'])
-        ->create();
         \App\Models\Empleado::factory()->create([
             'ap_paterno' => 'Demo',
             'ap_materno' => 'Demo',

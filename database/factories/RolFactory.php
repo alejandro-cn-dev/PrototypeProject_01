@@ -17,7 +17,7 @@ class RolFactory extends Factory
     public function definition()
     {
         return [
-            'detalle' => 'admin'
+            //
         ];
     }
 }
