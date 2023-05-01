@@ -37,7 +37,7 @@
                                 <table id="entradas" class="table table-sm table-bordered mt-4" style="width: 100%;">
                                         <thead>
                                                 <tr>
-                                                <th scope="col">#</th>
+                                                <th scope="col">#</th>                                                
                                                 <th scope="col">Producto</th>
                                                 <th scope="col">Costo</th>
                                                 <th scope="col">Unidad</th>
@@ -147,10 +147,13 @@
                                         celda = document.createTextNode(auto_id);
                                         auto_id = auto_id + 1;
                                         break;
-                                case "producto":                                        
-                                        const valores = parsear_objeto("producto");
-                                        celda = document.createTextNode(valores['producto']);
-                                        break;
+                                case "producto":
+                                        const valores = parsear_objeto("producto");                            
+                                        let producto = document.createElement("div");
+                                        producto.innerHTML = valores['producto'];
+                                        producto.id = valores['id'];
+                                        celda = producto;
+                                        break;                                
                                 case "opciones":                                        
                                         var boton = document.createElement("button");
                                         boton.className= "btn btn-danger";
@@ -183,7 +186,7 @@
                 });
         }
         function eliminar_fila(i){
-                //document.getElementById("contenido").deleteRow(i);
+                document.getElementById("contenido").deleteRow(i);
                 // Volver a hacer
                 //tabla_entradas.pop(i);
                 //delete(tabla_entradas[i-1]);
@@ -191,7 +194,7 @@
         function limpiar_tabla(){
                 $('#contenido tr').detach();
                 auto_id = 0;
-                tabla_entradas = [];
+                //tabla_entradas = [];
         }
         function cambiar_input(e){
                 var valor = e.target.value;
@@ -203,7 +206,32 @@
                         document.getElementById('div_nit_razon_social').style.display = 'none';
                 }
         }
-        
+
+        function table_to_array(name){
+                let tabla = document.getElementById(name);
+                const datos = [];
+                for (var i = 1; i < tabla.rows.length; i++) {
+                        // Accede a la fila actual
+                        var fila = tabla.rows[i];
+                        
+                        // Crea un objeto para contener los datos de la fila
+                        var datosFila = {};
+                        var campos = ['id','producto','precio_compra','unidad_compra','cantidad','subtotal','opciones'];        
+                        // Accede a cada celda en la fila y agrega su valor al objeto de datosFila
+                        datosFila.id = fila.cells[0].textContent;                        
+                        //datosFila.producto = fila.cells[1].textContent;
+                        datosFila.producto = fila.cells[1].getElementsByTagName('div')[0].id;
+                        datosFila.precio_compra = fila.cells[2].textContent;
+                        datosFila.unidad_compra = fila.cells[3].textContent;
+                        datosFila.cantidad = fila.cells[4].textContent;
+                        datosFila.subtotal = fila.cells[5].textContent;
+
+                        // Agrega el objeto de datosFila al array de datos
+                        datos.push(datosFila);
+                }
+                return datos;
+        }
+
         $(document).ready(function(){ 
                 //Del formulario modal para ingresar productos               
                 $('#insert_form').on('submit',function(e){
@@ -236,7 +264,7 @@
                                                 $('#insert_form').modal('hide');
                                                 actualizar_fila();         
                                                 const valores = parsear_objeto("producto");
-                                                tabla_entradas.push({id: auto_id-1,producto: valores['id'], precio_compra: $('#precio_compra').val(), unidad_compra: $('#unidad_compra').val(), cantidad: $('#cantidad').val()});
+                                                //tabla_entradas.push({id: auto_id-1,producto: valores['id'], precio_compra: $('#precio_compra').val(), unidad_compra: $('#unidad_compra').val(), cantidad: $('#cantidad').val()});
                                                 vaciarCampos();
                                         }
                                         console.log(result);
@@ -250,7 +278,8 @@
                 
                 //Del formulario para enviar al controlador y guardar en BD
                 $('#insert_entrada').on('submit',function(e){
-                        if((tabla_entradas.length) > 0){
+                        const compras = table_to_array("entradas");
+                        if((compras.length) > 0){
                                 e.preventDefault();
                                 //let nit_ci = $('#nit_ci').val();
                                 let id_proveedor = $('#id_proveedor').val();
@@ -263,7 +292,8 @@
                                                 _token: "{{ csrf_token() }}",
                                                 id_proveedor: id_proveedor,
                                                 fecha_compra: fecha_compra,
-                                                tabla: JSON.stringify(tabla_entradas)
+                                                tabla: JSON.stringify(compras)
+                                                //tabla: compras
                                         },
                                         success: function(result){
                                                 if(result.errors){

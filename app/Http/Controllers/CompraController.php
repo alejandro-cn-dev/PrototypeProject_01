@@ -199,6 +199,7 @@ class CompraController extends Controller
         // }
         //Sumar total
         $filas_tabla = json_decode($request->tabla);
+        //$filas_tabla = $request->tabla;
         
         foreach($filas_tabla as $fila){
             $total = $total + (($fila->precio_compra)*($fila->cantidad));
