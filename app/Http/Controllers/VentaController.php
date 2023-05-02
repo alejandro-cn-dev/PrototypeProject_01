@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Venta_cabecera;
 use App\Models\Venta_detalle;
 use App\Models\Producto;
+use App\Models\Cliente;
 use PDF;
 
 class VentaController extends Controller
@@ -27,6 +28,10 @@ class VentaController extends Controller
     public function index()
     {
         $ventas = Venta_cabecera::where('isEnable','=',1)->get();
+        $ventas = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
+        ->join('users','venta_cabeceras.id_usuario','=','users.id')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre as nombre','users.name as usuario','venta_cabeceras.monto_total')
+        ->where('venta_cabeceras.isEnable','=',1)->get();
         return view('venta.index')->with('ventas',$ventas);
     }
 
@@ -37,9 +42,9 @@ class VentaController extends Controller
      */
     public function create()
     {
-        $ventas = Venta_cabecera::where('tipo','=','S')->get();
+        //$ventas = Venta_cabecera::where('tipo','=','S')->get();
         $productos = Producto::where('isEnable','=',1)->get();
-        return view('venta.create')->with('ventas',$ventas)->with("productos",$productos);
+        return view('venta.create')->with("productos",$productos);
     }
 
     /**
@@ -172,18 +177,6 @@ class VentaController extends Controller
     }
     public function guardar(Request $request){
         $total = 0;
-        $validator = \Validator::make($request->all(), [
-            'denominacion'          => 'required',
-            'numeracion'            => 'required',
-            //'nombre'                => 'required',
-            //'num_autorizacion'      => 'required',
-            //'nit_razon_social'      => 'required',
-            'fecha_emision'         => 'required'
-        ]);
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
         //Sumar total
         $filas_tabla = json_decode($request->tabla);
         
@@ -192,38 +185,32 @@ class VentaController extends Controller
         }
 
         //Proceso
-        $cabecera = new Cabecera();
-        $cabecera->denominacion = $request->denominacion;
-        $cabecera->numeracion = $request->numeracion;
-        $num_autorizacion = $request->num_autorizacion;
-        if(empty($num_autorizacion)){
-            $num_autorizacion = "(Sin Nro Autorizacion)";
-        }
-        $cabecera->num_autorizacion = $num_autorizacion;
-        $nombre = $request->nombre;
-        if(empty($nombre)){
-            $nombre = "(Sin nombre)";
-        }
-        $cabecera->nombre = $nombre;
-        $nit = $request->nit_razon_social;
-        if(empty($nit)){
-            $nit = "(Sin NIT/CI)";
-        }
-        $cabecera->nit_ci = $nit;
-        $cabecera->fecha_emision = $request->fecha_emision;
-        $cabecera->tipo = 'S';
+        //Insertar cliente
+        $cliente = new Cliente();
+        $cliente->nombre = $request->nombre;
+        $cliente->ci = $request->ci;
+        $cliente->telefono = $request->telefono;
+        $cliente->email = $request->email;
+        $cliente->direccion = $request->direccion;        
+        $cliente->save();
+
+        //insertar cabecera
+        $cabecera = new Venta_cabecera();
+        //$cabecera->numeracion = $numero_nota_venta;
+        $cabecera->numeracion = '920129127';
+        $cabecera->id_cliente = $cliente->id;
+        $cabecera->id_usuario = auth()->user()->id;
         $cabecera->monto_total = $total;
         $cabecera->save();
 
+        //insertar detalle
         foreach($filas_tabla as $fila){
             $salida = new Venta_detalle();
-            $producto = Producto::where('descripcion','=',$fila->producto)->first();        
-            $salida->id_producto = $producto->id;
-            $salida->id_cabecera = $cabecera->id;
-            $salida->unidad = $fila->unidad_venta;
-            $salida->precio = $fila->precio_venta;
-            $salida->fecha = $request->get('fecha_emision');
-            $salida->cantidad = $fila->cantidad;
+            //$producto = Producto::where('descripcion','=',$fila->producto)->first();
+            $salida->id_venta = $cabecera->id;
+            $salida->precio_unitario = $fila->precio_venta;
+            $salida->cantidad = $fila->cantidad;        
+            $salida->id_producto = $fila->producto;
             $salida->save();
         }
 

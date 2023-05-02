@@ -14,17 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('venta_cabeceras', function (Blueprint $table) {
-            $table->id();
-            $table->string('denominacion',15);
-            $table->string('numeracion',10);
-            $table->string('nombre_razon_social')->nullable();
-            $table->string('num_autorizacion',15)->nullable();
-            $table->string('nit_ci',10)->nullable();
-            $table->date('fecha_venta');
+            $table->id();            
+            $table->string('numeracion');
             $table->unsignedBigInteger('id_cliente');
+            $table->unsignedBigInteger('id_usuario');
             $table->decimal('monto_total');
             $table->boolean('isEnable')->default(1);
             $table->foreign('id_cliente')->references('id')->on('clientes');
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->timestamps();
         });
     }

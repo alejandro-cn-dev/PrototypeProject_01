@@ -18,11 +18,10 @@
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Denominacion</th>
-                    <th scope="col">Nro</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Importe</th>
-                    <th scope="col">Fecha de emision</th>
+                    <th scope="col">Numeracion</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Atendido por</th>
+                    <th scope="col">Total</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -30,14 +29,13 @@
                 @foreach ($ventas as $venta)
                 <tr>
                     <td>{{$venta->id}}</td>
-                    <td>{{$venta->denominacion}}</td>
                     <td>{{$venta->numeracion}}</td>
                     <td>{{$venta->nombre}}</td>
+                    <td>{{$venta->usuario}}</td>
                     <td>{{$venta->monto_total}}</td>
-                    <td>{{$venta->fecha_emision}}</td>
                     <td>
                         <form action="{{route('ventas.destroy',$venta->id)}}" method="POST">
-                            <a href="/ventas/detalle_salida/{{$venta->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                            <a href="/ventas/detalle_venta/{{$venta->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
                             <a href="/ventas/{{$venta->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf
                             @method('DELETE')

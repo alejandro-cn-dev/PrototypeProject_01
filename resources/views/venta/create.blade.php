@@ -14,41 +14,41 @@
                 </div>
                 @csrf
                 <div id="alert1" class="alert alert-danger" style="display:none"></div>
-                <div class="row g-2 mb-3">
-                        <div class="col-md-4">
-                                <label for="" class="form-label">Denominación</label>
-                                <select id="denominacion" name="denominacion" class="form-control" onchange="cambiar_input(event)" required>
-                                        <option value="" selected>Elegir denominación...</option>
-                                        <option value="recibo">Recibo</option>
-                                        <option value="factura">Factura</option>
-                                        <option value="nota de venta">Nota de venta</option>
-                                </select>
-                        </div>
-                        <div class="col-md-8"><label for="" class="form-label">Numeración</label><input id="numeracion" name="numeracion"
-                                type="text" class="form-control" tabindex="2" required/></div>
+
+                <div class="mb-3">
+                        <label for="" class="form-label">Nombre</label>
+                        <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required/>
                 </div>
-                
-                <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre"
-                name="nombre" type="text" class="form-control" placeholder="(Sin nombre)" tabindex="3" /></div>
-                <div class="mb-3" id="div_num_autorizacion" style="display:none"><label for="" class="form-label">Num. autorizacion</label><input id="num_autorizacion"
-                        name="num_autorizacion" type="text" class="form-control" placeholder="(Sin Num. Autorizacion)" tabindex="3" /></div>
-                <div class="mb-3" id="div_nit_razon_social" style="display:none"><label for="" class="form-label">NIT/Razon social</label><input id="nit_razon_social"
-                        name="nit_razon_social" type="text" class="form-control" placeholder="(Sin NIT)" tabindex="3" /></div>        
-                <div class="mb-3"><label for="" class="form-label">Fecha de emision</label><input id="fecha_emision" name="fecha_emision"
-                        type="date" class="form-control" tabindex="7" required/></div>
+                <div class="mb-3">
+                        <label for="" class="form-label">CI</label>
+                        <input id="ci" name="ci" type="text" class="form-control" placeholder="(Sin CI)" tabindex="3" />
+                </div>
+                <div class="mb-3">
+                        <label for="" class="form-label">Teléfono</label>
+                        <input id="telefono" name="telefono" type="text" class="form-control" placeholder="(Sin Teléfono)" tabindex="3" />
+                </div>
+                <div class="mb-3">
+                        <label for="" class="form-label">Email</label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="(Sin E-mail)" tabindex="3" />
+                </div>
+                <div class="mb-3">
+                        <label for="" class="form-label">Dirección</label>
+                        <input id="direccion" name="direccion" type="text" class="form-control" placeholder="(Sin Dirección)" tabindex="7"/>
+                </div>
                 <div class="border p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
                         {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
                         <div class="table-responsive">
-                                <table id="salidas" class="table table-striped table-bordered mt-4" style="width: 100%;">
-                                        <thead class="table-dark">
+                                <table id="salidas" class="table table-sm table-bordered mt-4" style="width: 100%;">
+                                        <thead>
                                                 <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>
                                                 <th scope="col">Unidad</th>
-                                                <th scope="col">Precio</th>
                                                 <th scope="col">Cantidad</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Sub Total</th>
                                                 <th scope="col">Opciones</th>
                                                 </tr>
                                         </thead>
@@ -90,7 +90,7 @@
                         </div>  
                         <div class="form-group">
                                 <label for="unidad_venta" class="form-label">Unidad</label>
-                                <input type="text" name="unidad_venta" id="unidad_venta" class="form-control" required>
+                                <input type="text" name="unidad_venta" id="unidad_venta" class="form-control" disabled>
                         </div>
                         <div class="form-group">
                                 <label for="precio_venta" class="form-label">Precio</label>
@@ -125,9 +125,10 @@
         var tabla_salidas = [];
         var auto_id = 1;        
         var total = 0.0;
-        var campos = ['id','producto','unidad','precio','cantidad','opciones'];        
+        var campos = ['id','producto','unidad_venta','cantidad','precio_venta','subtotal','opciones'];        
         var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
         
+        // cargar valores despues de seleccionar algun valor del select "producto"
         function cargar_precio_unidad(){
                 let e = document.getElementById("producto");
                 let vector = e.value;
@@ -136,6 +137,15 @@
                 let precio = valores['precio'];
                 $("#unidad_venta").val(unidad);
                 $("#precio_venta").val(precio);
+        }
+
+        // Deserializa un objeto JSON desde una cadena de texto, 
+        // que se encuentre en el ID de un elemento
+        function parsear_objeto(objeto){
+                let e = document.getElementById(objeto);
+                let vector = e.value;
+                let valores = JSON.parse(vector);
+                return valores;
         }
 
         function actualizar_fila(){         
@@ -150,6 +160,13 @@
                                 case "id":                                        
                                         celda = document.createTextNode(auto_id);
                                         auto_id = auto_id + 1;
+                                        break;
+                                case "producto":
+                                        const valores = parsear_objeto("producto");                            
+                                        let producto = document.createElement("div");
+                                        producto.innerHTML = valores['producto'];
+                                        producto.id = valores['id'];
+                                        celda = producto;
                                         break;
                                 case "opciones":                                        
                                         var boton = document.createElement("button");
@@ -168,13 +185,12 @@
                                         // });
                                         celda = boton;
                                         break;
-                                case "cantidad":
-                                        valor = $("#"+campo).val();
-                                        celda = document.createTextNode(valor);
+                                case "subtotal":                                        
+                                        celda = document.createTextNode($("#precio_venta").val()*$("#cantidad").val());
                                         break;
                                 default:
-                                        valor = valores[campo];
-                                        celda = document.createTextNode(valor);   
+                                        valor = $("#"+campo+"").val();
+                                        celda = document.createTextNode(valor);  
                                         break;                                     
                         }            
                         td.appendChild(celda); 
@@ -193,17 +209,32 @@
         function limpiar_tabla(){
                 $('#contenido tr').detach();
         }
-        function cambiar_input(e){
-                var valor = e.target.value;
-                if(valor == "factura"){
-                        document.getElementById('div_num_autorizacion').style.display = 'block';
-                        document.getElementById('div_nit_razon_social').style.display = 'block';
-                }else{
-                        document.getElementById('div_num_autorizacion').style.display = 'none';
-                        document.getElementById('div_nit_razon_social').style.display = 'none';
-                }
-        }
         
+        //funcion para transferir los datos de la tabla 'salidas' a un array JS
+        function table_to_array(name){
+                let tabla = document.getElementById(name);
+                const datos = [];
+                for (var i = 1; i < tabla.rows.length; i++) {
+                        // Accede a la fila actual
+                        var fila = tabla.rows[i];
+                        
+                        // Crea un objeto para contener los datos de la fila
+                        var datosFila = {};                        
+                        // Accede a cada celda en la fila y agrega su valor al objeto de datosFila
+                        datosFila.id = fila.cells[0].textContent;                        
+                        //datosFila.producto = fila.cells[1].textContent;
+                        datosFila.producto = fila.cells[1].getElementsByTagName('div')[0].id;
+                        datosFila.unidad_venta = fila.cells[2].textContent;
+                        datosFila.cantidad = fila.cells[3].textContent;
+                        datosFila.precio_venta = fila.cells[4].textContent;
+                        datosFila.subtotal = fila.cells[5].textContent;
+
+                        // Agrega el objeto de datosFila al array de datos
+                        datos.push(datosFila);
+                }
+                return datos;
+        }
+
         $(document).ready(function(){                
                 $('#insert_form').on('submit',function(e){
                         let fila = new Array(); 
@@ -245,28 +276,28 @@
                         });
                 });
                 
+                //Del formulario para enviar al controlador y guardar en BD
                 $('#insert_salida').on('submit',function(e){
-                        if((tabla_salidas.length) > 0){
+                        const ventas = table_to_array("salidas");
+                        if((ventas.length) > 0){
                                 e.preventDefault();
-                                let denominacion = $('#denominacion').val();
-                                let numeracion = $('#numeracion').val();
                                 let nombre = $('#nombre').val();
-                                let num_autorizacion = $('#num_autorizacion').val();
-                                let nit_razon_social = $('#nit_razon_social').val();
-                                let fecha_emision = $('#fecha_emision').val();
+                                let ci = $('#ci').val();
+                                let telefono = $('#telefono').val();
+                                let email = $('#email').val();
+                                let direccion = $('#direccion').val();
 
                                 $.ajax({
                                         url: "{{ route('guardar_venta') }}",
                                         type: "POST",
                                         data: {
                                                 _token: "{{ csrf_token() }}",
-                                                denominacion: denominacion,
-                                                numeracion: numeracion,
                                                 nombre: nombre,
-                                                num_autorizacion: num_autorizacion,
-                                                nit_razon_social: nit_razon_social,
-                                                fecha_emision: fecha_emision,
-                                                tabla: JSON.stringify(tabla_salidas)
+                                                ci: ci,
+                                                telefono: telefono,
+                                                email: email,
+                                                direccion: direccion,
+                                                tabla: JSON.stringify(ventas)
                                         },
                                         success: function(result){
                                                 if(result.errors){
