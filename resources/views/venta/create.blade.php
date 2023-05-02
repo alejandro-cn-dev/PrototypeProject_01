@@ -16,12 +16,12 @@
                 <div id="alert1" class="alert alert-danger" style="display:none"></div>
 
                 <div class="mb-3">
-                        <label for="" class="form-label">Nombre</label>
-                        <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required/>
+                        <label for="" class="form-label">CI</label>
+                        <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/>
                 </div>
                 <div class="mb-3">
-                        <label for="" class="form-label">CI</label>
-                        <input id="ci" name="ci" type="text" class="form-control" placeholder="(Sin CI)" tabindex="3" />
+                        <label for="" class="form-label">Nombre</label>
+                        <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required/>
                 </div>
                 <div class="mb-3">
                         <label for="" class="form-label">Teléfono</label>

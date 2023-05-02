@@ -38,7 +38,7 @@
                     <th scope="col">Producto</th>
                     <th scope="col">Unidad</th>
                     <th scope="col">Cantidad</th>
-                    <th scope="col">Precio</th>
+                    <th scope="col">Costo</th>
                     <th scope="col">Subtotal</th>
                 </tr>
             </thead>
@@ -46,7 +46,6 @@
                 @foreach ($compras as $compra)
                 <tr>
                     <td>{{$compra->id}}</td>
-                        {{-- {{$salida->id_producto}} --}}
                         @forEach($productos as $producto)
                             @if($compra->id_producto == $producto->id)
                             <td>{{$producto->descripcion}}</td>

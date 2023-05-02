@@ -124,10 +124,13 @@ class VentaController extends Controller
 
     //Funciones propias
     public function detalle($id){
-        $ventas = Venta_detalle::where('id_cabecera','=',$id)->get();
-        $cabecera = Venta_cabecera::find($id);
+        $ventas = Venta_detalle::where('id_venta','=',$id)->get();
+        $cabecera = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
+        ->join('users','venta_cabeceras.id_usuario','=','users.id')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->where('venta_cabeceras.id','=',$id)->first();
         $productos = Producto::all();
-        return view('venta.detalle_salida')->with('cabecera',$cabecera)->with('ventas',$ventas)->with('productos',$productos);
+        return view('venta.detalle_venta')->with('cabecera',$cabecera)->with('salidas',$ventas)->with('productos',$productos);        
     }
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [
