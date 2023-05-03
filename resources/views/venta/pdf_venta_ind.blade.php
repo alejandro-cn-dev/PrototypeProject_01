@@ -7,8 +7,24 @@
     * {
         font-family: Verdana, Arial, sans-serif;
     }
-    table{
+    .col-3, .col-4, table{
         font-size: 12px;
+    }
+    [class^=col]{
+        float:left;
+        height:auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .col-3{
+      width: 30%;
+    }
+    .col-4{
+      width: 40%;
+    }
+    .col-10{
+      width: 100%;
     }
     .total{
         font-weight: bold;
@@ -20,46 +36,59 @@
         background-color: lightgray
     }
     #contenido{
-	border-collapse:collapse;
+	    border-collapse:collapse;
     }
     #contenido thead tr th{
-	border: 1px solid black;
+	    border: 1px solid black;
     }
     #contenido tbody tr th{
-	border: 1px solid black;
+	    border: 1px solid black;
     }
     #contenido tbody tr td{
-	border: 1px solid black;
+	    border: 1px solid black;
     }
 </style>
 
 </head>
 <body>
 
+  <div>
+    <h3 style="text-align: center">Comercial textil "Presitex"</h3>
+    <div class="col-3">
+      <img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/>
+    </div>
+    <div class="col-4">      
+      <pre>
+        <b>Nota de venta Nro. </b> {{$cabecera->numeracion}}
+        <b>Emitido por: </b> {{$cabecera->name}}
+        <b>Nombre cliente: </b> {{$cabecera->nombre}}
+        <b>NIT/CI: </b>{{$cabecera->ci}}
+        <b>Fecha de emisión: </b>{{$cabecera->fecha_emision}}
+        <b>Monto total: </b>{{$cabecera->monto_total}}
+      </pre>
+    </div>
+    <div class="col-3">
+      <pre>
+        <b>Lugar y fecha:</b>
+        La Paz, {{$fecha}}
+      </pre>
+    </div>
+  
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    
+  </div>
   <table width="100%">
-    <tr>
-        <td valign="top"><img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/></td>
-
-        <td align="left">
-            <h2>Tienda Textil "Presitex"</h2>
-            <pre>
-                <b>Nota de venta Nro. </b> {{$cabecera->numeracion}}
-                <b>Emitido por: </b> {{$cabecera->name}}
-                <b>Nombre cliente: </b> {{$cabecera->nombre}}
-                <b>NIT/CI: </b>{{$cabecera->ci}}
-                <b>Fecha de emisión: </b>{{$cabecera->fecha_emision}}
-                <b>Monto total: </b>{{$cabecera->monto_total}}
-            </pre>
-	      </td>
-        <td align="right">
-          <h3>Lugar y fecha:</h3>
-          <pre>La Paz, {{$fecha}}</pre>
-        </td>
-    </tr>
-
+    <h3 style="text-align: center">Detalle de venta</h3>
+    <hr size="3" color="black" />
   </table>
-  <h3 align="center">Detalle de venta</h3>
-  <hr size="3" color="black" />
+  
   <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
       <tr>
