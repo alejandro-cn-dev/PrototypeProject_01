@@ -64,7 +64,7 @@
                         @endforeach                      
                     <td align="right">{{$salida->cantidad}}</td>
                     <td align="right">{{$salida->precio_unitario}}</td>
-                    <td align="right">{{$salida->precio_unitario * $salida->cantidad}}</td>
+                    <td align="right">{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
                 </tr>
                 @endforeach
             </tbody>

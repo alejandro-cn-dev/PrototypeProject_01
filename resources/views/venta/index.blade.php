@@ -36,7 +36,7 @@
                     <td>
                         <form action="{{route('ventas.destroy',$venta->id)}}" method="POST">
                             <a href="/ventas/detalle_venta/{{$venta->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
-                            <a href="/ventas/{{$venta->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                            <!-- <a href="/ventas/{{$venta->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a> -->
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>

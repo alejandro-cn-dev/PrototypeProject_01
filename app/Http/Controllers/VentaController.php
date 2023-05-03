@@ -181,6 +181,18 @@ class VentaController extends Controller
         return $pdf->download('venta_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('venta/pdf_salida',compact('salidas','total','fecha'));
     }
+    public function nota_ind($id){
+        $cabecera = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
+        ->join('users','venta_cabeceras.id_usuario','=','users.id')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->where('venta_cabeceras.id','=',$id)->first();
+        $salidas = Venta_detalle::where('id_venta','=',$id)->get();
+        $productos = Producto::where('isEnable','=',1)->get();
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('venta/pdf_nota_venta',compact('cabecera','salidas','productos','fecha'));
+        return $pdf->download('nota_venta_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+    }
     public function guardar(Request $request){
         $total = 0;
         //Sumar total
