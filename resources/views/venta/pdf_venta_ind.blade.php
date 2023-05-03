@@ -16,6 +16,7 @@
         border: 1px solid black;
     }
     .gray {
+        border: 1px;
         background-color: lightgray
     }
     #contenido{
@@ -42,10 +43,10 @@
         <td align="left">
             <h2>Tienda Textil "Presitex"</h2>
             <pre>
-                <b>Denominación: </b> {{$cabecera->denominacion}}
-                <b>Nro. </b> {{$cabecera->numeracion}}
-                <b>Nombre: </b> {{$cabecera->nombre}}
-                <b>NIT/CI: </b>{{$cabecera->nit_ci}}
+                <b>Nota de venta Nro. </b> {{$cabecera->numeracion}}
+                <b>Emitido por: </b> {{$cabecera->name}}
+                <b>Nombre cliente: </b> {{$cabecera->nombre}}
+                <b>NIT/CI: </b>{{$cabecera->ci}}
                 <b>Fecha de emisión: </b>{{$cabecera->fecha_emision}}
                 <b>Monto total: </b>{{$cabecera->monto_total}}
             </pre>
@@ -67,29 +68,32 @@
         <th>Unidad</th>
         <th>Cantidad</th>
         <th>Precio</th>
+        <th>Subtotal</th>
       </tr>
     </thead>
     <tbody>
       @foreach($salidas as $salida)
       <tr>
         <th scope="row">{{$salida->id}}</th>
-        {{-- {{$salida->id_producto}} --}}
-                        @forEach($productos as $producto)
-                            @if($salida->id_producto == $producto->id)
-                            <td>
-                                {{$producto->descripcion}}
-                            </td>                                
-                            @endif
-                        @endforeach    
-        <td>{{$salida->unidad}}</td>
+          @forEach($productos as $producto)
+              @if($salida->id_producto == $producto->id)
+              <td>
+                  {{$producto->descripcion}}
+              </td>
+              <td>
+                  {{$producto->unidad_venta}}
+              </td>
+              @endif
+          @endforeach    
         <td align="right">{{$salida->cantidad}}</td>
-        <td align="right">{{$salida->precio}}</td>
+        <td align="right">{{$salida->precio_unitario}}</td>
+        <td align="right">{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
       </tr>
       @endforeach
     </tbody>  
     <tfoot>
       <tr>
-          <td colspan="3"></td>
+          <td colspan="4"></td>
           <td class="total" align="right">Total $</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>

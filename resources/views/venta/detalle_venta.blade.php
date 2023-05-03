@@ -20,7 +20,7 @@
             <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->name}}</p>            
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Numeración:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->numeracion}}</p>            
+            <p class="text-center"> <label class="form-label">Nota de venta Nro.:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->numeracion}}</p>            
         </div>
         <div class="mb-3">
             <p class="text-center"> <label class="form-label">Cliente:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->nombre}}</p>                        
@@ -39,7 +39,7 @@
     <div class="table-responsive">
         <div class="table-responsive">
             <table id="detalle" class="table table-sm table-bordered mt-4">
-                <tr>
+                <tr class="text-center">
                     <th scope="col">ID</th>
                     <th scope="col">Producto</th>
                     <th scope="col">Unidad</th>
