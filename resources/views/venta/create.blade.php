@@ -14,23 +14,26 @@
                 </div>
                 @csrf
                 <div id="alert1" class="alert alert-danger" style="display:none"></div>
-
-                <div class="mb-3">
-                        <label for="" class="form-label">CI</label>
-                        <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/>
+                <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                                <label for="" class="form-label">CI</label>
+                                <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/>
+                        </div>
+                        <div class="col-md-6">
+                                <label for="" class="form-label">Nombre</label>
+                                <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required/>
+                        </div>
                 </div>
-                <div class="mb-3">
-                        <label for="" class="form-label">Nombre</label>
-                        <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required/>
-                </div>
-                <div class="mb-3">
-                        <label for="" class="form-label">Teléfono</label>
-                        <input id="telefono" name="telefono" type="text" class="form-control" placeholder="(Sin Teléfono)" tabindex="3" />
-                </div>
-                <div class="mb-3">
-                        <label for="" class="form-label">Email</label>
-                        <input id="email" name="email" type="text" class="form-control" placeholder="(Sin E-mail)" tabindex="3" />
-                </div>
+                <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                                <label for="" class="form-label">Teléfono</label>
+                                <input id="telefono" name="telefono" type="text" class="form-control" placeholder="(Sin Teléfono)" tabindex="3" />
+                        </div>
+                        <div class="col-md-6">
+                                <label for="" class="form-label">Email</label>
+                                <input id="email" name="email" type="text" class="form-control" placeholder="(Sin E-mail)" tabindex="3" />
+                        </div>
+                </div>               
                 <div class="mb-3">
                         <label for="" class="form-label">Dirección</label>
                         <input id="direccion" name="direccion" type="text" class="form-control" placeholder="(Sin Dirección)" tabindex="7"/>

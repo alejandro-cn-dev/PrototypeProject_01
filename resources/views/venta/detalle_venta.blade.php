@@ -20,13 +20,13 @@
             <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->name}}</p>            
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Nota de venta Nro.:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->numeracion}}</p>            
+            <p class="text-center"> <label class="form-label">Nota de venta Nro.:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</p>            
         </div>
         <div class="mb-3">
             <p class="text-center"> <label class="form-label">Cliente:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->nombre}}</p>                        
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">NIT/CI:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->ci}}</p>                        
+            <p class="text-center"> <label class="form-label">CI:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->ci}}</p>                        
         </div>
         <div class="mb-3">
             <p class="text-center"> <label class="form-label">Fecha de emision:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->fecha_emision}}</p>                        

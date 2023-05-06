@@ -59,7 +59,7 @@
     </div>
     <div class="col-4">      
       <pre>
-        <b>Nota de venta Nro. </b> {{$cabecera->numeracion}}
+        <b>Nota de venta Nro. </b> {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}
         <b>Emitido por: </b> {{$cabecera->name}}
         <b>Nombre cliente: </b> {{$cabecera->nombre}}
         <b>NIT/CI: </b>{{$cabecera->ci}}

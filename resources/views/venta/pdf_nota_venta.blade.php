@@ -43,6 +43,9 @@
       </style>
    </head>
    <body>
+      <?php
+         setlocale(LC_ALL, 'es_ES');
+      ?>
       <table>
          <tbody>
             <tr>
@@ -60,8 +63,9 @@
                     <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia</p>
                 </td>
                <td width="30%">
-                  <p style="text-align: right;"><strong>NRO. {{$cabecera->numeracion}}</strong></p>
-                  <p style="text-align: right;"><strong>FECHA:</strong> {{$cabecera->fecha_emision}}</p>
+                  <p style="text-align: right;"><strong>NRO. {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</strong></p>
+                  <p style="text-align: right;"><strong>FECHA:</strong> {{$fecha_nota}}</p>
+                  <p style="text-align: right;"><strong>HORA:</strong> {{date_format(date_create(date($cabecera->fecha_emision)),'H:i:s A')}}</p>
                </td>
             </tr>
          </tbody>
@@ -70,16 +74,14 @@
       <table style="border-collapse:collapse;">
          <tbody>
             <tr>
-               <td colspan="2"><b>Nombre:   {{$cabecera->nombre}}</b></td>
+               <td colspan="2"><b>Nombre:   </b>{{$cabecera->nombre}}</td>
             </tr>
             <tr>
-               <td>CI:</td>
-               <td>
-                  <h3><b>Tel&eacute;fono:  7000000</b></h3>
-               </td>
+               <td>CI: {{$cabecera->ci}}</td>
+               <td><b>Tel&eacute;fono:</b>  @if($cabecera->telefono == '') (Sin teléfono) @else {{$cabecera->telefono}} @endif</td>
             </tr>
             <tr>
-               <td colspan="2"><b>Direcci&oacute;n: AAAAAAAAAAAAAAA</b></td>
+               <td colspan="2"><b>Direcci&oacute;n: </b>@if($cabecera->direccion == '') (Sin dirección) @else {{$cabecera->direccion}} @endif</td>
             </tr>
             <tr>
                <td colspan="2">
@@ -124,7 +126,7 @@
                      <p><b>SUBTOTAL</b></p>
                   </td>
                   <td>
-                     <p>&nbsp;</p>
+                     <p>{{$cabecera->monto_total}}</p>
                   </td>
                 </tr>
                 <tr>

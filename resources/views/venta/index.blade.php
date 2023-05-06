@@ -29,7 +29,7 @@
                 @foreach ($ventas as $venta)
                 <tr>
                     <td>{{$venta->id}}</td>
-                    <td>{{$venta->numeracion}}</td>
+                    <td>{{str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
                     <td>{{$venta->nombre}}</td>
                     <td>{{$venta->usuario}}</td>
                     <td>{{$venta->monto_total}}</td>
