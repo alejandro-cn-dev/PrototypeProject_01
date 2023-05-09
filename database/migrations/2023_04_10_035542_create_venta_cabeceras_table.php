@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_usuario');
             $table->decimal('monto_total');
-            $table->boolean('isEnable')->default(1);
+            $table->boolean('isDeleted')->default(0);
             $table->foreign('id_cliente')->references('id')->on('clientes');
             $table->foreign('id_usuario')->references('id')->on('users');
             $table->timestamps();

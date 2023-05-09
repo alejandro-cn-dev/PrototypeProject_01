@@ -17,10 +17,7 @@ class AlmacenFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => 'Esq. Gonzalves #219 piso 2',
-            'tipo' => 'deposito',
-            'sufijo_almacen' => 'ES',
-            'matricula' => 'DDD0000000XX'
+            //
         ];
     }
 }

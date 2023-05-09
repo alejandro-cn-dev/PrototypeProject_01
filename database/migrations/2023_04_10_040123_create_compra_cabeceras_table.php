@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');
             $table->decimal('monto_total');
-            $table->boolean('isEnable')->default(1);
+            $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
 
             $table->foreign('id_proveedor')->references('id')->on('proveedors');

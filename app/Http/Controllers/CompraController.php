@@ -25,7 +25,7 @@ class CompraController extends Controller
     {
         $compras = Compra_cabecera::join('proveedors','compra_cabeceras.id_proveedor','=','proveedors.id')
         ->select('compra_cabeceras.id','proveedors.nombre as proveedor','compra_cabeceras.monto_total','compra_cabeceras.fecha_compra')
-        ->where('compra_cabeceras.isEnable','=',1)
+        ->where('compra_cabeceras.isDeleted','=',0)
         ->get();
         return view('compra.index')->with('compras',$compras);
     }
@@ -37,8 +37,8 @@ class CompraController extends Controller
      */
     public function create()
     {
-        $productos = Producto::where('isEnable','=',1)->get();
-        //$proveedores = Proveedor::where('isEnable','=',1)->get();
+        $productos = Producto::where('isDeleted','=',0)->get();
+        //$proveedores = Proveedor::where('isDeleted','=',1)->get();
         $proveedores = Proveedor::all();
         return view('compra.create')->with('productos',$productos)->with('proveedores',$proveedores);
     }
@@ -108,11 +108,11 @@ class CompraController extends Controller
     {
         //Anulando cabecera
         $entrada = Compra_cabecera::find($id);
-        $entrada->isEnable = false;
+        $entrada->isDeleted = true;
         $entrada->save();
 
-        //Anulando registros de venta
-        $affectedRows = Compra_detalle::where("id_compra", $id)->update(["isEnable" => 0]);
+        //Anulando registros de compra
+        $affectedRows = Compra_detalle::where("id_compra", $id)->update(["isDeleted" => true]);
         return redirect('/compras');
     }
 
@@ -167,9 +167,9 @@ class CompraController extends Controller
     public function reporte(){
         $compras = Compra_cabecera::join('proveedors','compra_cabeceras.id_proveedor','=','proveedors.id')
         ->select('compra_cabeceras.id','proveedors.nombre as proveedor','compra_cabeceras.monto_total','compra_cabeceras.fecha_compra')
-        ->where('compra_cabeceras.isEnable','=',1)
+        ->where('compra_cabeceras.isDeleted','=',0)
         ->get();
-        $total = Compra_cabecera::where('isEnable','=',1)->sum('monto_total');
+        $total = Compra_cabecera::where('isDeleted','=',0)->sum('monto_total');
         $proveedor = Proveedor::all();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
@@ -180,7 +180,7 @@ class CompraController extends Controller
     public function reporte_ind($id){
         $cabecera = Compra_cabecera::find($id);
         $entradas = Compra_detalle::where('id_compra','=',$id)->get();
-        $productos = Producto::where('isEnable','=',1)->get();
+        $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('compra/pdf_compra_ind',compact('cabecera','entradas','productos','fecha'));

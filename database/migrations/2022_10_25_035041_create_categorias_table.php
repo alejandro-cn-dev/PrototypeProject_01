@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('detalle')->nullable();
             $table->string('sufijo_categoria');
-            $table->boolean('isEnable')->default(1);
-            $table->string('matricula')->nullable();
+            $table->boolean('isDeleted')->default(0);
+            $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
-            $table->foreign('matricula')->references('matricula')->on('empleados')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id')->on('users');
         });
     }
 

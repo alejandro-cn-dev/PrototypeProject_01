@@ -31,7 +31,7 @@ class ProductoController extends Controller
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
-        ->where('productos.isEnable','=',1)->get();
+        ->where('productos.isDeleted','=',0)->get();
 
         return view('producto.index')->with('productos',$productos);
     }
@@ -61,9 +61,6 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $id_user = auth()->user()->id;
-        $empleado = Empleado::where('id_user','=',$id_user)->first();
-
         $productos = new Producto();                        
         $productos->descripcion = $request->get('descripcion');
         $color = $request->get('color');
@@ -82,10 +79,10 @@ class ProductoController extends Controller
         $categoria = Categoria::where('id','=',$id_categoria)->first();
         $productos->id_marca = $id_marca = $request->get('id_marca');
         $marca = Marca::where('id','=',$id_marca)->first();
-        $productos->matricula = $empleado->matricula;
+        $productos->id_usuario = auth()->user()->id;
         $prefijo_matricula = strtoupper(substr($categoria->nombre,0,2)).'-'.strtoupper(substr($marca->detalle,0,2));
         //$last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortByDesc()->get();
-        //$last_id = Producto::orderBy('id','DESC')->where('item_producto','LIKE',$prefijo_matricula.'%')->where('isEnable','=',1)->first();
+        //$last_id = Producto::orderBy('id','DESC')->where('item_producto','LIKE',$prefijo_matricula.'%')->where('isDeleted','=',1)->first();
         $grupo_productos = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->get();
         // $str_num = '001';
         // if(count((array)$last_id) > 0){
@@ -179,7 +176,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::find($id);
-        $producto->isEnable = false;
+        $producto->isDeleted = true;
         $producto->save();
         //$producto->delete();
         return redirect('/productos');
@@ -194,7 +191,7 @@ class ProductoController extends Controller
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
-        ->where('productos.isEnable','=',1)->get();
+        ->where('productos.isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('producto/pdf_producto',compact('productos','fecha'));

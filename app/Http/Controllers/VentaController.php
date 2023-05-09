@@ -28,11 +28,11 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta_cabecera::where('isEnable','=',1)->get();
+        $ventas = Venta_cabecera::where('isDeleted','=',0)->get();
         $ventas = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
         ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre as nombre','users.name as usuario','venta_cabeceras.monto_total')
-        ->where('venta_cabeceras.isEnable','=',1)->get();
+        ->where('venta_cabeceras.isDeleted','=',0)->get();
         return view('venta.index')->with('ventas',$ventas);
     }
 
@@ -44,7 +44,7 @@ class VentaController extends Controller
     public function create()
     {
         //$ventas = Venta_cabecera::where('tipo','=','S')->get();
-        $productos = Producto::where('isEnable','=',1)->get();
+        $productos = Producto::where('isDeleted','=',0)->get();
         return view('venta.create')->with("productos",$productos);
     }
 
@@ -79,8 +79,8 @@ class VentaController extends Controller
     public function edit($id)
     {
         $ventas = Venta_cabecera::find($id);
-        $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
-        return view('venta.edit')->with('venta',$ventas)->with('denominacion',$denominacion);
+        // $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
+        return view('venta.edit')->with('venta',$ventas);
     }
 
     /**
@@ -115,11 +115,11 @@ class VentaController extends Controller
     {
         //Anulando cabecera
         $salida = Venta_cabecera::find($id);
-        $salida->isEnable = false;
+        $salida->isDeleted = true;
         $salida->save();
 
         //Anulando registros de venta
-        $affectedRows = Venta_detalle::where("id_cabecera", $id)->update(["isEnable" => 0]);
+        $affectedRows = Venta_detalle::where("id_venta", $id)->update(["isDeleted" => true]);
         return redirect('/ventas');
     }
 
@@ -161,8 +161,8 @@ class VentaController extends Controller
         unset($this->tabla_salidas[$id]);
     }
     public function reporte(){
-        $ventas = Venta_cabecera::where('isEnable','=',1)->get();
-        $total = Venta_cabecera::where('isEnable','=',1)->sum('monto_total');
+        $ventas = Venta_cabecera::where('isDeleted','=',0)->get();
+        $total = Venta_cabecera::where('isDeleted','=',0)->sum('monto_total');
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('venta/pdf_venta',compact('ventas','total','fecha'));
@@ -175,7 +175,7 @@ class VentaController extends Controller
         ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
         $salidas = Venta_detalle::where('id_venta','=',$id)->get();
-        $productos = Producto::where('isEnable','=',1)->get();
+        $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('venta/pdf_venta_ind',compact('cabecera','salidas','productos','fecha'));
@@ -188,7 +188,7 @@ class VentaController extends Controller
         ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.ci','clientes.nombre','clientes.telefono','clientes.direccion','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
         $salidas = Venta_detalle::where('id_venta','=',$id)->get();
-        $productos = Producto::where('isEnable','=',1)->get();
+        $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
 
         // Para conseguir fecha en español

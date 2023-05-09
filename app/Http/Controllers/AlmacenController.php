@@ -16,7 +16,7 @@ class AlmacenController extends Controller
     public function index()
     {
         //$almacenes = Almacen::all();
-        $almacenes = Almacen::where('isEnable','=',1)->get();
+        $almacenes = Almacen::where('isDeleted','=',0)->get();
         return view('almacen.index')->with('almacenes',$almacenes);
     }
 
@@ -39,14 +39,10 @@ class AlmacenController extends Controller
     public function store(Request $request)
     {
         $almacenes = new Almacen();
-        $id_user = auth()->user()->id;
-        //$id = auth()->user()->id;
-        $empleado = Empleado::where('id_user','=',$id_user)->first();
         $nombre = $request->get('nombre');
         $almacenes->nombre = $nombre;
         $almacenes->tipo = $request->get('tipo');
-        //$almacenes->matricula = auth()->user()->matricula;
-        $almacenes->matricula=$empleado->matricula;
+        $almacenes->id_usuario = auth()->user()->id;
         $almacenes->sufijo_almacen = strtoupper(substr($nombre,0,2));
         $almacenes->save();
 
@@ -105,7 +101,7 @@ class AlmacenController extends Controller
     public function destroy($id)
     {
         $almacen = Almacen::find($id);        
-        $almacen->isEnable = false;
+        $almacen->isDeleted = true;
         $almacen->save();
         //$almacen->delete();
         return redirect('/almacens');
@@ -113,7 +109,7 @@ class AlmacenController extends Controller
 
     //Funciones propias
     public function reporte(){
-        $almacens = Almacen::where('isEnable','=',1)->get();
+        $almacens = Almacen::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('almacen/pdf_almacen',compact('almacens','fecha'));

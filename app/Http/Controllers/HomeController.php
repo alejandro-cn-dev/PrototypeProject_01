@@ -27,9 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $ventas = Venta_cabecera::where('isEnable','=',1)->count();
-        $empleados = Empleado::where('isEnable','=',1)->count();
-        $productos = Producto::where('isEnable','=',1)->count();
+        $ventas = Venta_cabecera::where('isDeleted','=',0)->count();
+        $empleados = Empleado::where('isDeleted','=',0)->count();
+        $productos = Producto::where('isDeleted','=',0)->count();
         $role_name = Rol::select('name')->where('id','=',auth()->user()->id_role)->first();
         return view('home')
         ->with('ventas',$ventas)

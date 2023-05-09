@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('cantidad');
             // $table->integer('descuento')->default(0);
             $table->unsignedBigInteger('id_producto');
+            $table->boolean('isDeleted')->default(0);
             $table->timestamps();
 
             $table->foreign('id_venta')->references('id')->on('venta_cabeceras');

@@ -26,9 +26,9 @@ class EmpleadoController extends Controller
         $empleados = Empleado::join('rols','empleados.id_rol','rols.id')
         ->join('users','empleados.id_user','users.id')
         ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','users.email','rols.detalle')
-        ->where('empleados.isEnable','=',1)->get();
+        ->where('empleados.isDeleted','=',0)->get();
 
-        //$empleados = Empleado::where('isEnable','=',1)->get();
+        //$empleados = Empleado::where('isDeleted','=',1)->get();
         return view('empleado.index')->with('empleados',$empleados);
     }
 
@@ -114,16 +114,8 @@ class EmpleadoController extends Controller
         $roles = Rol::where('id','=',$id_rol)->first();
 
         $email = $request->get('email');
-        //$usuario = User::where('email','=',$email)->first();
-        //$usuario = User::find('email',$email);
-        //$usuario->email = $email;
-        //$usuario->name = $nombre = $request->get('nombre');
-        //$usuario->password = $request->get('password');
-        //$usuario->role = $roles->detalle;
         $nombre = $request->get('nombre');
         $pass = $request->get('password');
-        //$usuario = User::where('email',$email)->update(['name' => $nombre]);        
-        //$usuario->save();
         $usuario = User::find($id_user);
         $usuario->name = $nombre;
         $usuario->save();
@@ -154,7 +146,7 @@ class EmpleadoController extends Controller
     public function destroy($id)
     {
         $empleado = Empleado::find($id);
-        $empleado->isEnable = false;
+        $empleado->isDeleted = true;
         $empleado->save();
         //$empleado->delete();
         return redirect('/empleados');
@@ -165,7 +157,7 @@ class EmpleadoController extends Controller
         $empleados = Empleado::join('rols','empleados.id_rol','rols.id')
         ->join('users','empleados.id_user','users.id')
         ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','users.email','rols.detalle')
-        ->where('empleados.isEnable','=',1)->get();
+        ->where('empleados.isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'));

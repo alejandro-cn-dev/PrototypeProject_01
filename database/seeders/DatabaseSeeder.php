@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
     {
        //\App\Models\User::factory(1)->create();
 
-        \App\Models\Rol::factory()->count(2)->sequence(['name' => 'Administrador'],['name' => 'Encargado'])
+        \App\Models\Rol::factory()->count(3)->sequence(['name' => 'Administrador'],['name' => 'Vendedor'],['name' => 'Acomodador'])
         ->create();
         \App\Models\User::factory()->create([
-            'name' => 'demo',
-            'email' => 'demo@demo.com',
-            'password' => 'demo_demo',
+            'name' => 'administrador1',
+            'email' => 'admin@admin.com',
+            'password' => 'admin_admin',
             'id_role' => '1'
         ]);
         \App\Models\Empleado::factory()->create([
@@ -37,40 +37,92 @@ class DatabaseSeeder extends Seeder
             'id_rol' => '1',            
         ]);
 
-        \App\Models\Proveedor::factory()->create([
+        \App\Models\Proveedor::factory()->count(3)->sequence([
             'nombre' => 'Fernando Cora - ASATEX',
-            'telefono' => '60291828'    
-        ]);
+            'telefono' => '60291828',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Gabriel Araujo - ASATEX',
+            'telefono' => '69800166',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Vicente Mallorca - TEXBOL',
+            'telefono' => '70583801',
+            'id_usuario' => '1'
+        ])->create();
         \App\Models\Almacen::factory()->create([
             'nombre' => 'Esq. Gonzalves #219 piso 2',
             'tipo' => 'deposito',
             'sufijo_almacen' => 'ES',
-            'matricula' => 'DDD0000000XX'
+            'id_usuario' => '1'
         ]);
         \App\Models\Marca::factory()->create([
             'detalle' => 'ASATEX',
             'sufijo_marca' => 'AS',
-            'matricula' => 'DDD0000000XX'          
+            'id_usuario' => '1'
         ]);
-        \App\Models\Categoria::factory()->create([
+        \App\Models\Categoria::factory()->count(7)->sequence([
+            'nombre' => 'Tela corriente',
+            'detalle' => 'Tela de uso común',
+            'sufijo_categoria' => 'TC',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Tela especial',
+            'detalle' => 'Tela de uso específico',
+            'sufijo_categoria' => 'TS',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Tela Algodon',
+            'detalle' => 'Telas hechas de algodon',
+            'sufijo_categoria' => 'TA',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Tela Lino',
+            'detalle' => 'Tela hechas de Lino',
+            'sufijo_categoria' => 'TL',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Tela Nailon',
+            'detalle' => 'Tela hechas de Nailon',
+            'sufijo_categoria' => 'TN',
+            'id_usuario' => '1'
+        ],[
+            'nombre' => 'Tela Poliéster',
+            'detalle' => 'Tela hechas de alguna variedad de poliéster',
+            'sufijo_categoria' => 'TP',
+            'id_usuario' => '1'
+        ],[
             'nombre' => 'Hilos',
             'detalle' => 'Hilanderia no especializada',
             'sufijo_categoria' => 'HI',
-            'matricula' => 'DDD0000000XX'
-        ]);
-        \App\Models\Producto::factory()->create([
-            'item_producto' => 'HI-AS-001',
+            'id_usuario' => '1'
+        ])->create();
+        \App\Models\Producto::factory()->count(2)->sequence([
+            'item_producto' => 'HI-001',
             'descripcion' => 'Hilo cruzado',
             'color' => 'Verde',            
-            'matricula' => 'DDD0000000XX',            
+            'id_usuario' => '1',            
             'unidad_compra' => 'caja',            
             'unidad_venta'  =>  'unidad',
-            'precio_compra' =>  '40',
-            'precio_venta'  =>  '5',
+            'precio_compra' =>  '40.00',
+            'precio_venta'  =>  '5.00',
             'existencia'    =>  '10',
             'id_categoria'  =>  '1',
             'id_almacen'    =>  '1',
             'id_marca'      =>  '1'
-        ]);
+        ],[
+            'item_producto' => 'TN-001',
+            'descripcion' => 'Tela piel de sirena',
+            'color' => 'estampado rojo',            
+            'id_usuario' => '1',            
+            'unidad_compra' =>  'rollo',            
+            'unidad_venta'  =>  'metro',
+            'precio_compra' =>  '530.40',
+            'precio_venta'  =>  '10.00',
+            'existencia'    =>  '25',
+            'id_categoria'  =>  '1',
+            'id_almacen'    =>  '1',
+            'id_marca'      =>  '1'
+        ])->create();
     }
 }

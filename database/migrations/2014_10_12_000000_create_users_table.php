@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('id_role');
             //$table->string('matricula')->nullable()->unique();
-            $table->boolean('isEnable')->default(1);
+            $table->boolean('isDeleted')->default(0);
             $table->rememberToken();
             $table->timestamps();
 

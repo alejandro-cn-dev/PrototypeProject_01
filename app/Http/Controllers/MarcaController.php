@@ -21,7 +21,7 @@ class MarcaController extends Controller
     public function index()
     {
         //$marcas = Marca::all();
-        $marcas = Marca::where('isEnable','=',1)->get();
+        $marcas = Marca::where('isDeleted','=',0)->get();
         return view('marca.index')->with('marcas',$marcas);
     }
 
@@ -44,13 +44,9 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         $marcas = new Marca();
-        $id_user = auth()->user()->id;
-        //$id = auth()->user()->id;
-        $empleado = Empleado::where('id_user','=',$id_user)->first();
         $detalle = $request->get('detalle');
-        $marcas->detalle = $detalle;
-        //$marcas->matricula = auth()->user()->matricula;        
-        $marcas->matricula = $empleado->matricula;
+        $marcas->detalle = $detalle;       
+        $marcas->id_usuario = auth()->user()->id;
         $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
 
         $marcas->save();
@@ -109,13 +105,13 @@ class MarcaController extends Controller
     {
         $marca = Marca::find($id);
         //$marca->delete();
-        $marca->isEnable = false;
+        $marca->isDeleted = true;
         $marca->save();
         return redirect('/marcas');
     }
     //Funciones propias
     public function reporte(){
-        $marcas = Marca::where('isEnable','=',1)->get();
+        $marcas = Marca::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('marca/pdf_marca',compact('marcas','fecha'));

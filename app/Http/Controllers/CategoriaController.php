@@ -21,7 +21,7 @@ class CategoriaController extends Controller
     public function index()
     {
         //$categorias = Categoria::all();
-        $categorias = Categoria::where('isEnable','=',1)->get();
+        $categorias = Categoria::where('isDeleted','=',0)->get();
         return view('categoria.index')->with('categorias',$categorias);
     }
 
@@ -44,14 +44,11 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $categorias = new Categoria();
-        $id_user = auth()->user()->id;
-        //$id = auth()->user()->id;
-        $empleado = Empleado::where('id_user','=',$id_user)->first();
         $nombre = $request->get('nombre');
         $categorias->nombre = $nombre;
         $categorias->detalle = $request->get('detalle');
         //$categorias->matricula = auth()->user()->matricula;
-        $categorias->matricula = $empleado->matricula;
+        $categorias->id_usuario = auth()->user()->id;
         $categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
 
         $categorias->save();
@@ -109,7 +106,7 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         $categoria = Categoria::find($id);
-        $categoria->isEnable = false;
+        $categoria->isDeleted = true;
         $categoria->save();
         //$categoria->delete();
         return redirect('/categorias');
@@ -117,7 +114,7 @@ class CategoriaController extends Controller
 
     //Funciones propias
     public function reporte(){
-        $categorias = Categoria::where('isEnable','=',1)->get();
+        $categorias = Categoria::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('categoria/pdf_categoria',compact('categorias','fecha'));

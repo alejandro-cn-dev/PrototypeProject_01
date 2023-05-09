@@ -19,7 +19,7 @@ return new class extends Migration
             $table->mediumText('descripcion',100);
             $table->string('color',30)->nullable();
             //$table->unsignedBigInteger('id_empleado');
-            $table->string('matricula');
+            $table->unsignedBigInteger('id_usuario');
             
             $table->string('unidad_compra')->nullable();
             $table->string('unidad_venta')->nullable();
@@ -31,10 +31,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_almacen');
             $table->unsignedBigInteger('id_marca');
             //$table->string('estado',20);
-            $table->boolean('isEnable')->default(1);
+            $table->boolean('isDeleted')->default(0);
             
             //$table->foreign('id_empleado')->references('id')->on('empleados');
-            $table->foreign('matricula')->references('matricula')->on('empleados');
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->foreign('id_almacen')->references('id')->on('almacens');
             $table->foreign('id_marca')->references('id')->on('marcas');
