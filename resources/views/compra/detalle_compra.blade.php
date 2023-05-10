@@ -33,8 +33,7 @@
     <div class="table-responsive">
         <table id="detalle" class="table table-sm table-bordered mt-4">
             <thead>
-                <tr>
-                    <th scope="col">ID</th>
+                <tr class="text-center">
                     <th scope="col">Producto</th>
                     <th scope="col">Unidad</th>
                     <th scope="col">Cantidad</th>
@@ -45,19 +44,25 @@
             <tbody>
                 @foreach ($compras as $compra)
                 <tr>
-                    <td>{{$compra->id}}</td>
-                        @forEach($productos as $producto)
-                            @if($compra->id_producto == $producto->id)
-                            <td>{{$producto->descripcion}}</td>
-                            <td>{{$producto->unidad_compra}}</td>
-                            @endif
-                        @endforeach
-                    <td>{{$compra->cantidad}}</td>
-                    <td>{{$compra->costo_compra}}</td>
-                    <td>{{($compra->costo_compra * $compra->cantidad)}}</td>
+                    @forEach($productos as $producto)
+                        @if($compra->id_producto == $producto->id)
+                        <td>{{$producto->descripcion}}</td>
+                        <td>{{$producto->unidad_compra}}</td>
+                        @endif
+                    @endforeach
+                    <td align="right">{{$compra->cantidad}}</td>
+                    <td align="right">{{$compra->costo_compra}}</td>
+                    <td align="right">{{number_format((float) ($compra->costo_compra * $compra->cantidad), 2, '.', '')}}</td>
                 </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td align="right">Total $</td>
+                    <td align="right" style="background-color: gold;">{{$cabecera->monto_total}}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>    
 </div>

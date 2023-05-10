@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Salidas</title>
+<title>Reporte de ventas</title>
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
@@ -55,20 +55,20 @@
     <thead style="background-color: lightgray;">
       <tr>
         <th>#</th>
-        <th>Denominacion</th>
-        <th>Numero</th>
-        <th>Nombre</th>
+        <th>Nro. nota de venta</th>
+        <th>Cliente</th>
+        <th>Atendido por</th>
         <th>Fecha emision</th>
-        <th>Importe</th>
+        <th>Total de venta</th>
       </tr>
     </thead>
     <tbody>
       @foreach($salidas as $salida)
       <tr>
         <th scope="row">{{$salida->id}}</th>
-        <td>{{$salida->denominacion}}</td>
-        <td>{{$salida->numeracion}}</td>
-        <td>{{$salida->nombre}}</td>
+        <td>{{str_pad($salida->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
+        <td>{{$salida->nombre}} {{$salida->ci}}</td>
+        <td>{{$salida->name}}</td>
         <td>{{$salida->fecha_emision}}</td>
         <td align="right">{{$salida->monto_total}}</td>
       </tr>

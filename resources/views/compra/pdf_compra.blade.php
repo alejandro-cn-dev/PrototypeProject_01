@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Reporte de Entradas</title>
+<title>Reporte de Compras</title>
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;

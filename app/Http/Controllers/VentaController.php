@@ -161,12 +161,24 @@ class VentaController extends Controller
         unset($this->tabla_salidas[$id]);
     }
     public function reporte(){
-        $ventas = Venta_cabecera::where('isDeleted','=',0)->get();
+        //$salidas = Venta_cabecera::where('isDeleted','=',0)->get();
+        $salidas = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
+        ->join('users','venta_cabeceras.id_usuario','=','users.id')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->where('venta_cabeceras.isDeleted','=',0)
+        ->get();
         $total = Venta_cabecera::where('isDeleted','=',0)->sum('monto_total');
-        $fecha_actual = date_create(date('d-m-Y'));
-        $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('venta/pdf_venta',compact('ventas','total','fecha'));
-        return $pdf->download('ventas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+
+        //Conseguir fecha actual y brindarle formato        
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $fecha_actual = Carbon::now();
+        $mes = $meses[($fecha_actual->format('n')) - 1];
+        $dia = $dias[$fecha_actual->format('w')];
+        $fecha = $dia . ', '.$fecha_actual->format('d') . ' de ' . $mes . ' de ' . $fecha_actual->format('Y');
+        
+        $pdf = PDF::loadView('venta/pdf_venta',compact('salidas','total','fecha'));
+        return $pdf->download('reporte_ventas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('venta/pdf_salida',compact('salidas','total','fecha'));
     }
     public function reporte_ind($id){
@@ -177,7 +189,15 @@ class VentaController extends Controller
         $salidas = Venta_detalle::where('id_venta','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
-        $fecha = date_format($fecha_actual,'d-m-Y');
+
+        //Conseguir fecha actual y brindarle formato        
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $fecha_actual = Carbon::now();
+        $mes = $meses[($fecha_actual->format('n')) - 1];
+        $dia = $dias[$fecha_actual->format('w')];
+        $fecha = $dia . ', '.$fecha_actual->format('d') . ' de ' . $mes . ' de ' . $fecha_actual->format('Y');
+
         $pdf = PDF::loadView('venta/pdf_venta_ind',compact('cabecera','salidas','productos','fecha'));
         return $pdf->download('venta_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('venta/pdf_salida',compact('salidas','total','fecha'));

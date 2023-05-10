@@ -39,8 +39,8 @@
     <div class="table-responsive">
         <div class="table-responsive">
             <table id="detalle" class="table table-sm table-bordered mt-4">
+            <thead>
                 <tr class="text-center">
-                    <th scope="col">ID</th>
                     <th scope="col">Producto</th>
                     <th scope="col">Unidad</th>
                     <th scope="col">Cantidad</th>
@@ -51,17 +51,16 @@
             <tbody>
                 @foreach ($salidas as $salida)
                 <tr>
-                    <td>{{$salida->id}}</td>
-                        @forEach($productos as $producto)
-                            @if($salida->id_producto == $producto->id)
-                            <td>
-                                {{$producto->descripcion}}
-                            </td>
-                            <td>
-                                {{$producto->unidad_venta}}
-                            </td>                                
-                            @endif
-                        @endforeach                      
+                    @forEach($productos as $producto)
+                        @if($salida->id_producto == $producto->id)
+                        <td>
+                            {{$producto->descripcion}}
+                        </td>
+                        <td>
+                            {{$producto->unidad_venta}}
+                        </td>                                
+                        @endif
+                    @endforeach                      
                     <td align="right">{{$salida->cantidad}}</td>
                     <td align="right">{{$salida->precio_unitario}}</td>
                     <td align="right">{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
@@ -70,9 +69,9 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4"></td>
+                    <td colspan="3"></td>
                     <td align="right">Total $</td>
-                    <td align="right">{{$cabecera->monto_total}}</td>
+                    <td align="right" style="background-color: gold;">{{$cabecera->monto_total}}</td>
                 </tr>
             </tfoot>
         </table>

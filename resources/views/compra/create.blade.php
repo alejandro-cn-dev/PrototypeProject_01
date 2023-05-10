@@ -29,7 +29,7 @@
                         name="nit_ci" type="text" class="form-control" placeholder="(Sin NIT/CI)" tabindex="3" /></div>         --}}
                 <div class="mb-3"><label for="" class="form-label">Fecha</label><input id="fecha_compra" name="fecha_compra"
                         type="date" class="form-control" tabindex="7" required/></div>
-                <div class="border p-3">
+                <div class="border border-dark p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
                         {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
@@ -50,9 +50,10 @@
                                         </table>
                         </div>                
                 </div>        
-
-                <a href="/compras" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
-                <button type="submit" name="btn1" class="btn btn-primary" ><i class="fas fa-fw fa-save"></i> Guardar</button>
+                <div class="m-3">
+                        <a href="/compras" class="btn btn-secondary"><i class="fas fa-fw fa-times"></i> Cancelar</a>
+                        <button type="submit" name="btn1" class="btn btn-success" ><i class="fas fa-fw fa-save"></i> Guardar</button>
+                </div>                
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
         <form method="POST" action="{{ route('agregar_producto_compra') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -160,7 +161,6 @@
                                         boton.innerHTML= "<i class='fas fa-fw fa-times'></i> Anular";
                                         boton.type= "button";
                                         boton.addEventListener("click", function () {
-                                                eliminar_fila(auto_id);
                                                 $(this).closest('tr').remove();
                                         });
                                         celda = boton;

@@ -34,7 +34,7 @@
                     <td>
                         <form action="{{route('compras.destroy',$compra->id)}}" method="POST">
                             <a href="/compras/detalle_compra/{{$compra->id}} " class="btn btn-success"><i class="fas fa-fw fa-eye"></i> Ver</a>
-                            <a href="/compras/{{$compra->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                            {{-- <a href="/compras/{{$compra->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a> --}}
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>

@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\User;
 use App\Models\Empleado;
+use Carbon\Carbon;
 use PDF;
 
 class CompraController extends Controller
@@ -172,9 +173,17 @@ class CompraController extends Controller
         $total = Compra_cabecera::where('isDeleted','=',0)->sum('monto_total');
         $proveedor = Proveedor::all();
         $fecha_actual = date_create(date('d-m-Y'));
-        $fecha = date_format($fecha_actual,'d-m-Y');
+
+        //Conseguir fecha actual y brindarle formato        
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $fecha_actual = Carbon::now();
+        $mes = $meses[($fecha_actual->format('n')) - 1];
+        $dia = $dias[$fecha_actual->format('w')];
+        $fecha = $dia . ', '.$fecha_actual->format('d') . ' de ' . $mes . ' de ' . $fecha_actual->format('Y');
+
         $pdf = PDF::loadView('compra/pdf_compra',compact('compras','total','fecha'));
-        return $pdf->download('compras_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        return $pdf->download('reporte_compras_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('compra/pdf_entrada',compact('entradas','total','fecha'));
     }
     public function reporte_ind($id){
