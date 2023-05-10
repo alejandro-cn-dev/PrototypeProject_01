@@ -196,6 +196,27 @@ class CompraController extends Controller
         return $pdf->download('compra_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('salida/pdf_salida',compact('entradas','total','fecha'));
     }
+    // Reporte en forma de recibo
+    public function recibo_ind($id){
+        $cabecera = Compra_cabecera::join('proveedors','compra_cabeceras.id_proveedor','=','proveedors.id')
+        ->join('users','compra_cabeceras.id_usuario','=','users.id')
+        ->select('compra_cabeceras.id','compra_cabeceras.numeracion','proveedors.nombre','proveedors.telefono','users.name','compra_cabeceras.created_at as fecha_emision','compra_cabeceras.monto_total')
+        ->where('compra_cabeceras.id','=',$id)->first();
+        $entradas = Compra_detalle::where('id_compra','=',$id)->get();
+        $productos = Producto::where('isDeleted','=',0)->get();
+        $fecha_actual = date_create(date('d-m-Y'));
+
+        // Para conseguir fecha en español
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $fecha = Carbon::parse($cabecera->fecha_emision);
+        $mes = $meses[($fecha->format('n')) - 1];
+        $dia = $dias[$fecha->format('w')];
+        $fecha_recibo = $dia . ', '.$fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
+        
+        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'));
+        return $pdf->download('recibo_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+    }
     public function guardar(Request $request){
         $total = 0;
         // $validator = \Validator::make($request->all(), [
@@ -213,10 +234,12 @@ class CompraController extends Controller
         foreach($filas_tabla as $fila){
             $total = $total + (($fila->precio_compra)*($fila->cantidad));
         }
-
+        // Ultimo numero de recibo
+        $last = Compra_cabecera::max('numeracion');
         //Proceso
         $cabecera = new Compra_cabecera();
         //$cabecera->nit_ci = $request->nit_ci;
+        $cabecera->numeracion = $last + 1;
         $cabecera->id_proveedor = $request->id_proveedor;
         $cabecera->fecha_compra = $request->fecha_compra;
         $cabecera->monto_total = $total;

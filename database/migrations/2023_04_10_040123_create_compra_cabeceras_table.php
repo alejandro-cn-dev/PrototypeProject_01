@@ -19,6 +19,7 @@ return new class extends Migration
             // $table->string('nombre_razon_social')->nullable();            
             // $table->string('nit_ci',10)->nullable();
             
+            $table->double('numeracion');
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');
             $table->decimal('monto_total');
