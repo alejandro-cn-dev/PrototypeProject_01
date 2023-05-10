@@ -119,17 +119,17 @@
                 </tr>
             <tfoot>
                 <tr>
-                  <td colspan="3" rowspan="2">
-                     <p><strong>&nbsp;Comentarios:</strong></p>
+                  <td colspan="3">
+                     {{-- <p><strong>&nbsp;Comentarios:</strong></p> --}}
                   </td>
-                  <td colspan="1">
+                  {{-- <td colspan="1">
                      <p><b>SUBTOTAL</b></p>
                   </td>
                   <td>
                      <p>{{$cabecera->monto_total}}</p>
                   </td>
                 </tr>
-                <tr>
+                <tr> --}}
                   <td style="background-color: #ffcc00;">
                      <p><b>TOTAL</b></p>
                   </td>
