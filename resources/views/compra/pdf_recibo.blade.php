@@ -17,21 +17,19 @@
             }
             #detalle{
                 border-collapse:collapse;
+                padding: 2px;
             }
             #detalle thead tr td{
                 border: 1px solid black;
             }
             #detalle thead tr th{
                 border: 1px solid black;
-                padding: 0;
             }
             #detalle tbody tr th{
                 border: 1px solid black;
-                padding: 0;
             }
             #detalle tbody tr td{
                 border: 1px solid black;
-                padding: 0;
             }
             #detalle tfoot tr td{
                 border: 1px solid black;
@@ -43,51 +41,44 @@
       </style>
    </head>
    <body>
-      <?php
-         setlocale(LC_ALL, 'es_ES');
-      ?>
       <table>
          <tbody>
             <tr>
-               <td width="70%" width="50%">                                  
-                  <img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="80"/>              
+               <td width="70%" width="50%">
+                  <h1 style="font-size: 20px;">RECIBO</h1>              
                </td>
-               <td width="30%">
-                  <h1 style="text-align: right; font-size: 20px;">RECIBO</h1>
+               <td width="30%">                                  
+                  <img style="float: right;" src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="80"/>
                </td>
             </tr>
             <tr>
                 <td>
-                    <h2 style="font-size: 20px;">Empresa Comercial "Presitex"</h2>
+                    <h2 style="font-size: 15px;">DE:</h2>
+                    <p>Empresa Comercial "Presitex"</p>
                     <p>Especializada en material textil</p>
-                    <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia</p>
+                    <p>C/Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo" Local 103 y 104</p>
                 </td>
                <td width="30%">
-                  <p style="text-align: right;"><strong>NRO. {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</strong></p>
+                  <p style="text-align: right;"><strong>N° DE RECIBO. {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</strong></p>
                   <p style="text-align: right;"><strong>FECHA:</strong> {{$fecha_recibo}}</p>
                   <p style="text-align: right;"><strong>HORA:</strong> {{date_format(date_create(date($cabecera->fecha_emision)),'H:i:s A')}}</p>
                </td>
             </tr>
          </tbody>
       </table>
-      <p>&nbsp;</p>
       <table style="border-collapse:collapse;">
          <tbody>
+            <tr>
+               <td><h2 style="font-size: 15px;">A:</h2></td>
+            </tr>
             <tr>
                <td colspan="2"><b>Nombre:   </b>{{$cabecera->nombre}}</td>
             </tr>
             <tr>
                <td><b>Tel&eacute;fono:</b>  @if($cabecera->telefono == '') (Sin teléfono) @else {{$cabecera->telefono}} @endif</td>
             </tr>
-            <tr>
-               <td colspan="2">
-                  <h3>&nbsp;</h3>
-                  <h3 style="text-align: center;"><span style="text-decoration: underline; font-size: 16px;">DETALLE DE COMPRA</span></h3>
-               </td>
-            </tr>
          </tbody>
       </table>
-      <hr size="3" color="black" />
       <p>&nbsp;</p>
       <table id="detalle">
             <thead style="background-color: lightgray; text-align: center;">
@@ -109,31 +100,20 @@
                      </td>
                      @endif
                   @endforeach
-                  <td>{{$entrada->costo_compra}}</td>
-                  <td>{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}}</td>
+                  <td>{{$entrada->costo_compra}} Bs.</td>
+                  <td>{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}} Bs.</td>
               @endforeach 
                 </tr>
             <tfoot>
                 <tr>
-                  <td colspan="3">
-                     {{-- <p><strong>&nbsp;Comentarios:</strong></p> --}}
+                  <td colspan="4" style="font-size: 18px; background-color: #ffcc00;">
+                     TOTAL
                   </td>
-                  {{-- <td colspan="1">
-                     <p><b>SUBTOTAL</b></p>
-                  </td>
-                  <td>
-                     <p>{{$cabecera->monto_total}}</p>
+                  <td style="font-size: 18px; background-color: #ffcc00;">
+                     {{$cabecera->monto_total}} Bs.
                   </td>
                 </tr>
-                <tr> --}}
-                  <td style="background-color: #ffcc00;">
-                     <p><b>TOTAL</b></p>
-                  </td>
-                  <td style="background-color: #ffcc00;">
-                     <p>{{$cabecera->monto_total}}</p>
-                  </td>
-                </tr>
-            </tfoot>            
+            </tfoot>           
          </tbody>
       </table>
       <p>&nbsp;</p>

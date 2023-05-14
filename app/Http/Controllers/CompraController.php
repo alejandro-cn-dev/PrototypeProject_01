@@ -214,7 +214,10 @@ class CompraController extends Controller
         $dia = $dias[$fecha->format('w')];
         $fecha_recibo = $dia . ', '.$fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
         
-        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'));
+        //tamaño personalizado de hoja de recibo
+        $customPaper = array(0,0,567.00,450.00);
+
+        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'))->setPaper($customPaper, 'landscape');;
         return $pdf->download('recibo_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
