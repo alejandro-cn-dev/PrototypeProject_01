@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
        //\App\Models\User::factory(1)->create();
-
+        $this->call(RoleSeeder::class);
         \App\Models\Rol::factory()->count(3)->sequence(['name' => 'Administrador'],['name' => 'Vendedor'],['name' => 'Acomodador'])
         ->create();
         \App\Models\User::factory()->create([
