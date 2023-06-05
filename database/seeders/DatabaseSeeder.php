@@ -15,15 +15,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
        //\App\Models\User::factory(1)->create();
+        //Role Seeder's.
         $this->call(RoleSeeder::class);
+
         \App\Models\Rol::factory()->count(3)->sequence(['name' => 'Administrador'],['name' => 'Vendedor'],['name' => 'Acomodador'])
         ->create();
-        \App\Models\User::factory()->create([
+        \App\Models\User::create([
             'name' => 'administrador1',
             'email' => 'admin@admin.com',
             'password' => 'admin_admin',
             'id_role' => '1'
-        ]);
+        ])->assignRole('administrador');
         \App\Models\Empleado::factory()->create([
             'ap_paterno' => 'Demo',
             'ap_materno' => 'Demo',

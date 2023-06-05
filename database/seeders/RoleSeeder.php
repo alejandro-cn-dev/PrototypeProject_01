@@ -20,14 +20,16 @@ class RoleSeeder extends Seeder
         $role1 = Role::create(['name' => 'administrador']);
         $role2 = Role::create(['name' => 'vendedor']);
         
-        Permission::create(['name' => 'empleados.index']);
-        Permission::create(['name' => 'empleados.create']);
-        Permission::create(['name' => 'empleados.edit']);
-        Permission::create(['name' => 'empleados.delete']);
+        Permission::create(['name' => 'dashboard'])->syncRoles([$role1,$role2]);
 
-        Permission::create(['name' => 'productos.index']);
-        Permission::create(['name' => 'productos.create']);
-        Permission::create(['name' => 'productos.edit']);
-        Permission::create(['name' => 'productos.delete']);
+        Permission::create(['name' => 'empleados.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'empleados.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'empleados.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'empleados.delete'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'productos.index'])->syncRoles([$role2]);
+        Permission::create(['name' => 'productos.create'])->syncRoles([$role2]);
+        Permission::create(['name' => 'productos.edit'])->syncRoles([$role2]);
+        Permission::create(['name' => 'productos.delete'])->syncRoles([$role2]);
     }
 }
