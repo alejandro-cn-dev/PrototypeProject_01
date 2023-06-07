@@ -108,7 +108,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
             'path' => 'img/logo_p.png',
             'alt' => 'Preloader Image',
