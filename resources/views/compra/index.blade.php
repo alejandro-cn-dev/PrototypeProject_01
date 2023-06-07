@@ -60,7 +60,11 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#entradas').DataTable();
+        $('#entradas').DataTable({
+          "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        }
+    });
     } );
 </script>
 @stop

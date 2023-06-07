@@ -17,8 +17,8 @@
         <table id="productos" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Categoria</th>
                     <th scope="col">ITEM</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Color</th>
                     <th scope="col">Ubicacion</th>
@@ -29,8 +29,8 @@
             <tbody>
                 @foreach ($productos as $producto)
                     <tr>
-                        <td>{{$producto->id_categoria}}</td>
                         <td>{{$producto->item_producto}}</td>
+                        <td>{{$producto->id_categoria}}</td>
                         <td>{{$producto->descripcion}}</td>
                         <td>{{$producto->color}}</td>
                         <td>{{$producto->id_almacen}}</td>
@@ -62,7 +62,11 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#productos').DataTable();
+    $('#productos').DataTable({
+          "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        }
+    });
 });
 </script>
 @stop
