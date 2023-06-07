@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Empleado;
 use App\Models\User;
 use App\Models\Rol;
+use Spatie\Permission\Traits\HasRoles;
 use PDF;
 
 class EmpleadoController extends Controller
@@ -21,15 +21,8 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-        //$empleados = Empleado::all();
-        //recuperar el detalle de rol
-        $empleados = Empleado::join('rols','empleados.id_rol','rols.id')
-        ->join('users','empleados.id_user','users.id')
-        ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','users.email','rols.detalle')
-        ->where('empleados.isDeleted','=',0)->get();
-
-        //$empleados = Empleado::where('isDeleted','=',1)->get();
-        return view('empleado.index')->with('empleados',$empleados);
+        $usuarios = User::where('isDeleted','=',0)->get();
+        return view('empleado.index')->with('empleados',$usuarios);
     }
 
     /**
@@ -60,7 +53,7 @@ class EmpleadoController extends Controller
         $usuario->role = $roles->detalle;
         $usuario->save();
 
-        $empleados = new Empleado();        
+        $empleados = new User();        
         $empleados->ap_paterno = $ap_paterno =$request->get('ap_paterno');
         $empleados->ap_materno = $ap_materno = $request->get('ap_materno');
         $empleados->nombre = $nombre;
@@ -96,7 +89,7 @@ class EmpleadoController extends Controller
      */
     public function edit($id)
     {
-        $empleado = Empleado::find($id);
+        $empleado = User::find($id);
         return view('empleado.edit')->with('empleado',$empleado);
     }
 
@@ -120,7 +113,7 @@ class EmpleadoController extends Controller
         $usuario->name = $nombre;
         $usuario->save();
 
-        $empleado = Empleado::find($id);
+        $empleado = User::find($id);
         $empleado->ap_paterno = $ap_paterno = $request->get('ap_paterno');
         $empleado->ap_materno = $ap_materno = $request->get('ap_materno');
         $empleado->nombre = $nombre;
@@ -145,7 +138,7 @@ class EmpleadoController extends Controller
      */
     public function destroy($id)
     {
-        $empleado = Empleado::find($id);
+        $empleado = User::find($id);
         $empleado->isDeleted = true;
         $empleado->save();
         //$empleado->delete();
@@ -154,10 +147,7 @@ class EmpleadoController extends Controller
 
     //Funciones propias
     public function reporte(){
-        $empleados = Empleado::join('rols','empleados.id_rol','rols.id')
-        ->join('users','empleados.id_user','users.id')
-        ->select('empleados.id','empleados.ap_paterno','empleados.ap_materno','empleados.nombre','empleados.ci','empleados.expedido','empleados.matricula','empleados.telefono','users.email','rols.detalle')
-        ->where('empleados.isDeleted','=',0)->get();
+        $empleados = User::where('empleados.isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'));

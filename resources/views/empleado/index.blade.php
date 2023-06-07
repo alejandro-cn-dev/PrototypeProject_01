@@ -39,7 +39,7 @@
                     <td>{{$empleado->matricula}}</td>
                     <td>{{$empleado->telefono}}</td>
                     <td>{{$empleado->email}}</td>
-                    <td>{{$empleado->detalle}}</td>
+                    <td>{{$empleado->getRoleNames()[0]}}</td>
                     <td>
                         <form action="{{route('empleados.destroy',$empleado->id)}}" method="POST">
                             <a href="/empleados/{{$empleado->id}}/edit " class="btn btn-info">Editar</a>

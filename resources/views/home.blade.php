@@ -4,7 +4,7 @@
 
 @section('content_header')
 <div style="background-color: #343a40; color: white; text-align: center; padding: 10px; border-radius: 10px;">  
-    <h2>Dashboard de {{$role_name->name}}</h2>
+    <h2>Dashboard de {{auth()->user()->getRoleNames()[0]}}</h2>
     <h1>Bienvenido {{auth()->user()->name}}</h1>
 </div>
 @stop
@@ -46,7 +46,7 @@
           <div class="small-box bg-warning" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
               <h3>{{$empleados}}</h3>
-              <p>Empleados registrados</p>
+              <p>Usuarios registrados</p>
             </div>
             <div class="icon" bis_skin_checked="1">
               <i class="fa fa-user-plus" aria-hidden="true"></i>

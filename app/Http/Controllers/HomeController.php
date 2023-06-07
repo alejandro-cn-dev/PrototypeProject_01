@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Venta_cabecera;
-use App\Models\Empleado;
+use App\Models\User;
 use App\Models\Producto;
 use App\Models\Rol;
 
@@ -28,13 +28,11 @@ class HomeController extends Controller
     public function index()
     {
         $ventas = Venta_cabecera::where('isDeleted','=',0)->count();
-        $empleados = Empleado::where('isDeleted','=',0)->count();
+        $empleados = User::where('isDeleted','=',0)->count();
         $productos = Producto::where('isDeleted','=',0)->count();
-        $role_name = Rol::select('name')->where('id','=',auth()->user()->id_role)->first();
         return view('home')
         ->with('ventas',$ventas)
         ->with('empleados',$empleados)
-        ->with('productos',$productos)
-        ->with('role_name',$role_name);
+        ->with('productos',$productos);
     }
 }

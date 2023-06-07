@@ -330,7 +330,7 @@ return [
             ],
         ],
         [
-            'text'        => 'Gestion de Empleados',
+            'text'        => 'Gestion de Usuarios',
             'url'         => 'empleados',
             'icon'    => 'fas fa-fw fa-users'
         ],
