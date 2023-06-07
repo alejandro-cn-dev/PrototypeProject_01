@@ -15,17 +15,27 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            
+            //Datos básicos de empleado
+            $table->string('ap_paterno');
+            $table->string('ap_materno');
+            $table->string('nombre');
+            $table->string('ci');
+            $table->string('expedido');
+            $table->string('telefono');
+            $table->string('matricula')->nullable()->unique();
+
+            //Validacion de usuario
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_role');
-            //$table->string('matricula')->nullable()->unique();
+            
+            //Anulacion de registro
             $table->boolean('isDeleted')->default(0);
+
+            //Datos de auditoria
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('id_role')->references('id')->on('rols');
         });
     }
 

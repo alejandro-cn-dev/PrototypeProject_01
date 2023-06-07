@@ -18,26 +18,18 @@ class DatabaseSeeder extends Seeder
         //Role Seeder's.
         $this->call(RoleSeeder::class);
 
-        \App\Models\Rol::factory()->count(3)->sequence(['name' => 'Administrador'],['name' => 'Vendedor'],['name' => 'Acomodador'])
-        ->create();
+        //\App\Models\Rol::factory()->count(3)->sequence(['name' => 'Administrador'],['name' => 'Vendedor'],['name' => 'Acomodador'])->create();
         \App\Models\User::create([
-            'name' => 'administrador1',
-            'email' => 'admin@admin.com',
-            'password' => 'admin_admin',
-            'id_role' => '1'
-        ])->assignRole('administrador');
-        \App\Models\Empleado::factory()->create([
             'ap_paterno' => 'Demo',
             'ap_materno' => 'Demo',
             'nombre' => 'Demo',
             'ci' => '0000000',
             'expedido' => 'XX',
-            'id_user' => '1',
             'telefono' => '000000',
             'matricula' => 'DDD0000000XX',
-            //'email' => 'demo@demo.com',
-            'id_rol' => '1',            
-        ]);
+            'email' => 'admin@admin.com',
+            'password' => 'admin_admin'            
+        ])->assignRole('administrador');
 
         \App\Models\Proveedor::factory()->count(3)->sequence([
             'nombre' => 'Fernando Cora - ASATEX',
