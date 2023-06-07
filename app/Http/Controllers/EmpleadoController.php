@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Rol;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use PDF;
 
@@ -32,7 +32,8 @@ class EmpleadoController extends Controller
      */
     public function create()
     {        
-        return view('empleado.create');
+        $roles =  Role::all();
+        return view('empleado.create')->with('roles',$roles);
     }
 
     /**
@@ -43,29 +44,18 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        $id_rol = $request->get('id_rol');
-        $roles = Rol::where('id','=',$id_rol)->first();
-        
         $usuario = new User();
-        $usuario->email = $email = $request->get('email');
-        $usuario->name = $nombre = $request->get('nombre');
+        $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
+        $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
+        $usuario->nombre = $request->get('nombre');
+        $usuario->ci = $ci = $request->get('ci');
+        $usuario->expedido = $exp = $request->get('expedido');
+        $usuario->telefono = $request->get('telefono');
+        $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+        $usuario->email = $request->get('email');
         $usuario->password = $request->get('password');
-        $usuario->role = $roles->detalle;
         $usuario->save();
-
-        $empleados = new User();        
-        $empleados->ap_paterno = $ap_paterno =$request->get('ap_paterno');
-        $empleados->ap_materno = $ap_materno = $request->get('ap_materno');
-        $empleados->nombre = $nombre;
-        $empleados->ci = $ci = $request->get('ci');
-        $empleados->expedido = $exp = $request->get('expedido');
-        $empleados->telefono = $request->get('telefono');
-        //$empleados->matricula = $request->get('matricula');
-        $empleados->id_user = $usuario->id;
-        $empleados->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
-        $empleados->id_rol = $id_rol;
-        //$empleados->email = $email;
-        $empleados->save();
+        $usuario->assignRole($request->get('role'));
 
         return redirect('/empleados');
     }
@@ -102,31 +92,26 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        $id_rol = $request->get('id_rol');
-        $id_user = $request->get('id_user');
-        $roles = Rol::where('id','=',$id_rol)->first();
-
-        $email = $request->get('email');
-        $nombre = $request->get('nombre');
-        $pass = $request->get('password');
-        $usuario = User::find($id_user);
-        $usuario->name = $nombre;
-        $usuario->save();
-
-        $empleado = User::find($id);
-        $empleado->ap_paterno = $ap_paterno = $request->get('ap_paterno');
-        $empleado->ap_materno = $ap_materno = $request->get('ap_materno');
-        $empleado->nombre = $nombre;
-        $empleado->ci = $ci = $request->get('ci');
-        $empleado->expedido = $exp = $request->get('expedido');
-        $empleado->telefono = $request->get('telefono');
-        $empleado->id_user = $usuario->id;
-        //$empleado->matricula = $request->get('matricula');
-        $empleado->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
-        $empleado->id_rol = $request->get('id_rol');
-        //$empleado->email = $email;
-        $empleado->save();
+        //$id_rol = $request->get('id_rol');
+        //$id_user = $request->get('id_user');
+        //$roles = Rol::where('id','=',$id_rol)->first();
         
+        // $usuario = User::find($id_user);
+        // $usuario->name = $nombre;
+        // $usuario->save();
+        $usuario = User::find($id);
+        $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
+        $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
+        $usuario->nombre = $request->get('nombre');
+        $usuario->ci = $ci = $request->get('ci');
+        $usuario->expedido = $exp = $request->get('expedido');
+        $usuario->telefono = $request->get('telefono');
+        $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+        $usuario->email = $request->get('email');
+        $usuario->password = $request->get('password');
+        $usuario->save();
+        $usuario->assignRole($request->get('role'));
+
         return redirect('/empleados');
     }
 

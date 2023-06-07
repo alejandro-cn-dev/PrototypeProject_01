@@ -68,7 +68,11 @@
         </div>    -->
         <div class="mb-3">
             <label for="" class="form-label">Rol</label>
-            
+            <div class="col-sm-9">
+                @foreach ($roles as $role)
+                    <input type="radio" name="role" value="{{$role->name}}"> {{$role->name}}
+                @endforeach
+            </div>            
         </div>
         <a href="/empleados" class="btn btn-secondary" tabindex="10">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="11">Guardar</button>
