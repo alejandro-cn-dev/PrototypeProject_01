@@ -332,7 +332,8 @@ return [
         [
             'text'        => 'Gestion de Usuarios',
             'url'         => 'empleados',
-            'icon'    => 'fas fa-fw fa-users'
+            'icon'    => 'fas fa-fw fa-users',
+            'can'   => 'empleados.index',
         ],
         [
             'text'    => 'Gestion de Stock',
@@ -342,6 +343,7 @@ return [
                     'text' => 'Productos',
                     'url'  => 'productos',
                     'icon'    => 'fas fa-fw fa-box',
+                    'can'   => 'productos.index'
                 ],                
                 [
                     'text' => 'Categorias',

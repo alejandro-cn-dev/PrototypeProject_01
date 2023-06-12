@@ -30,6 +30,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => 'admin_admin'            
         ])->assignRole('administrador');
+        \App\Models\User::create([
+            'ap_paterno' => 'Apaza',
+            'ap_materno' => 'Colima',
+            'nombre' => 'Fernando',
+            'ci' => '2969372',
+            'expedido' => 'LP',
+            'telefono' => '1100100',
+            'matricula' => 'ACF2969372LP',
+            'email' => 'vendedor1@admin.com',
+            'password' => 'admin_admin'            
+        ])->assignRole('vendedor');
 
         \App\Models\Proveedor::factory()->count(3)->sequence([
             'nombre' => 'Fernando Cora - ASATEX',
