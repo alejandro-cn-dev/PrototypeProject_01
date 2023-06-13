@@ -34,7 +34,7 @@
                     <td>{{$empleado->id}}</td>
                     <td>{{$empleado->ap_paterno}}</td>
                     <td>{{$empleado->ap_materno}}</td>
-                    <td>{{$empleado->nombre}}</td>
+                    <td>{{$empleado->name}}</td>
                     <td>{{$empleado->ci}} {{$empleado->expedido}}</td>
                     <td>{{$empleado->matricula}}</td>
                     <td>{{$empleado->telefono}}</td>

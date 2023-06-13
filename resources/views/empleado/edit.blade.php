@@ -28,7 +28,7 @@
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Nombre</label>
-        <input id="nombre" name="nombre" type="text" class="form-control" value="{{$empleado->nombre}}" />
+        <input id="nombre" name="nombre" type="text" class="form-control" value="{{$empleado->name}}" />
     </div>
     <div class="mb-3">
         <label for="" class="form-label">CI</label>
@@ -56,7 +56,7 @@
     <!--CAMPO QUE FUNCIONA COMO LLAVE FORANEA-->
     <div class="mb-3">
         <label for="" class="form-label">Email</label>
-        <input id="email" name="email" type="text" disabled class="form-control" value="{{$empleado->email}}" />
+        <input id="email" name="email" type="text" class="form-control" value="{{$empleado->email}}" />
     </div>
     <div class="mb-3">
         <label for="" class="form-label">Contraseña</label>
