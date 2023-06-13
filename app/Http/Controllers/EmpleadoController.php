@@ -47,7 +47,7 @@ class EmpleadoController extends Controller
         $usuario = new User();
         $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
         $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
-        $usuario->nombre = $request->get('nombre');
+        $usuario->name = $request->get('nombre');
         $usuario->ci = $ci = $request->get('ci');
         $usuario->expedido = $exp = $request->get('expedido');
         $usuario->telefono = $request->get('telefono');
@@ -102,7 +102,7 @@ class EmpleadoController extends Controller
         $usuario = User::find($id);
         $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
         $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
-        $usuario->nombre = $request->get('nombre');
+        $usuario->name = $request->get('nombre');
         $usuario->ci = $ci = $request->get('ci');
         $usuario->expedido = $exp = $request->get('expedido');
         $usuario->telefono = $request->get('telefono');

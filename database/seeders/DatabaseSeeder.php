@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
             'ap_paterno' => 'Demo',
             'ap_materno' => 'Demo',
-            'nombre' => 'Demo',
+            'name' => 'Demo',
             'ci' => '0000000',
             'expedido' => 'XX',
             'telefono' => '000000',
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
             'ap_paterno' => 'Apaza',
             'ap_materno' => 'Colima',
-            'nombre' => 'Fernando',
+            'name' => 'Fernando',
             'ci' => '2969372',
             'expedido' => 'LP',
             'telefono' => '1100100',

@@ -19,7 +19,7 @@ return new class extends Migration
             //Datos básicos de empleado
             $table->string('ap_paterno');
             $table->string('ap_materno');
-            $table->string('nombre');
+            $table->string('name');
             $table->string('ci');
             $table->string('expedido');
             $table->string('telefono');

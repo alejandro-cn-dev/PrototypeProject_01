@@ -23,7 +23,7 @@ class User extends Authenticatable
         'id',
         'ap_paterno',
         'ap_materno',
-        'nombre',
+        'name',
         'ci',
         'expedido',
         'telefono',
@@ -52,5 +52,9 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
+    }
+    // Funciones propias
+    public function getName(){
+        return 'nombre';
     }
 }
