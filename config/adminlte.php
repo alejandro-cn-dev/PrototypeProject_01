@@ -321,11 +321,13 @@ return [
                     'text' => 'Gestion de compras',
                     'icon'    => 'fas fa-fw fa-arrow-down',
                     'url'  => 'compras',
+                    'can'   => 'compras.index'
                 ],
                 [
                     'text' => 'Gestion de ventas',
                     'icon'    => 'fas fa-fw fa-arrow-up',
                     'url'  => 'ventas',
+                    'can'   => 'ventas.index'
                 ],
             ],
         ],
@@ -349,23 +351,27 @@ return [
                     'text' => 'Categorias',
                     'icon'    => 'fas fa-fw fa-tags',
                     'url'  => 'categorias',
+                    'can'   => 'categorias.index'
                 ],
                 [
                     'text' => 'Marcas',
                     'icon'    => 'fas fa-fw fa-trademark',
                     'url'  => 'marcas',
+                    'can'   => 'marcas.index'
                 ],
                 [
                     'text' => 'Almacenes',
                     'icon'    => 'fas fa-fw fa-store',
                     'url'  => 'almacens',
+                    'can'   => 'almacens.index'
                 ],
             ],
         ],
         [
             'text'        => 'Generacion de reportes',
             'url'         => 'reportes',
-            'icon'    => 'fas fa-fw fa-file-excel'
+            'icon'    => 'fas fa-fw fa-file-excel',
+            'can'       =>  'reportes.index'
         ],
        
     ],
