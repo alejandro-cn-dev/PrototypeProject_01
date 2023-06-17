@@ -24,7 +24,10 @@ use App\Http\Controllers\EmpleadoController;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Ruta a Login AdminLTE directo
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Ruta a Nueva vitrina virtual
+Route::get('/', function () { return view('vitrina.index');});
 
 //Route::get('/', [App\Http\Controllers\PageController::class, 'home'])->name('page_home');
 
