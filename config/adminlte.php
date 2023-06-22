@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Sistema Web | Presitex | v5',
+    'title' => 'Sistema Web | Presitex | v6.1',
     'title_prefix' => '',
     'title_postfix' => '',
 
