@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard')
 
 @section('content_header')
 <div style="background-color: #343a40; color: white; text-align: center; padding: 10px; border-radius: 10px;">  

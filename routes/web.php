@@ -28,8 +28,12 @@ Auth::routes();
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Ruta a Nueva vitrina virtual
 Route::get('/', function () { return view('vitrina.index');});
+Route::get('/inicio', function () { return view('vitrina.index');});
+Route::get('/info', function () { return view('vitrina.info');});
+Route::get('/lista', function () { return view('vitrina.lista');});
 
-//Route::get('/', [App\Http\Controllers\PageController::class, 'home'])->name('page_home');
+//Route::get('/home', [App\Http\Controllers\PageController::class, 'home'])->name('page_home');
+//Route::get('/home', function () { return view('home');});
 
 Route::resource('productos','App\Http\Controllers\ProductoController');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');
@@ -42,8 +46,9 @@ Route::resource('marcas','App\Http\Controllers\MarcaController');
 Route::get('marcas/reporte/{id}',[MarcaController::class,'reporte'])->middleware('auth')->name('generar_reporte_marca');
 Route::resource('almacens','App\Http\Controllers\AlmacenController');
 Route::get('almacens/reporte/{id}',[AlmacenController::class,'reporte'])->middleware('auth')->name('generar_reporte_almacenes');
-Route::resource('home','App\Http\Controllers\HomeController');
-Route::resource('inicio','App\Http\Controllers\IncioController');
+// Implementar luego
+// Route::resource('home','App\Http\Controllers\HomeController');
+// Route::resource('inicio','App\Http\Controllers\IncioController');
 
 Route::resource('ventas','App\Http\Controllers\VentaController');
 Route::get('ventas/detalle_venta/{id}',[VentaController::class,'detalle'])->middleware('auth')->name('salidas.detalle_venta');
