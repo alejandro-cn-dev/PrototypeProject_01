@@ -8,7 +8,6 @@ use App\Models\Compra_detalle;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\User;
-use App\Models\Empleado;
 use Carbon\Carbon;
 use PDF;
 
@@ -123,7 +122,8 @@ class CompraController extends Controller
         $cabecera = Compra_cabecera::find($id);
         $productos = Producto::all();
         $proveedor = Proveedor::find($cabecera->id_proveedor);
-        $usuario = Empleado::where('id_user','=',($cabecera->id_usuario))->first();
+        //$usuario = User::where('id_user','=',($cabecera->id_usuario))->first();
+        $usuario = User::find($cabecera->id_usuario);
         return view('compra.detalle_compra')
         ->with('cabecera',$cabecera)
         ->with('compras',$entrada)
@@ -218,7 +218,7 @@ class CompraController extends Controller
         $customPaper = array(0,0,567.00,450.00);
 
         $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'))->setPaper($customPaper, 'landscape');;
-        return $pdf->download('recibo_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        return $pdf->download('recibo_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
         $total = 0;

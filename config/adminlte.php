@@ -254,8 +254,10 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    //'dashboard_url' => 'home',
+    'dashboard_url' => 'inicio',
     'logout_url' => 'logout',
+    //'logout_url' => 'inicio',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
@@ -312,7 +314,19 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        
+        // ['header' => 'Configuracion de compras y ventas'],
+        // [
+        //     'text' => 'Gestion de compras',
+        //     'icon'    => 'fas fa-fw fa-arrow-down',
+        //     'url'  => 'compras',
+        //     'can'   => 'compras.index'
+        // ],
+        // [
+        //     'text' => 'Gestion de ventas',
+        //     'icon'    => 'fas fa-fw fa-arrow-up',
+        //     'url'  => 'ventas',
+        //     'can'   => 'ventas.index'
+        // ],
         [
             'text'    => 'Gestion de Compras y Ventas',
             'icon'    => 'fas fa-fw fa-list-alt',
@@ -373,7 +387,11 @@ return [
             'icon'    => 'fas fa-fw fa-file-excel',
             'can'       =>  'reportes.index'
         ],
-       
+        [
+            'text'        => 'Volver a la Home',
+            'url'         => 'inicio',
+            'icon'    => 'fas fa-fw fa-undo'
+        ],
     ],
 
     /*

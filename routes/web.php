@@ -7,7 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,12 @@ Route::get('/inicio', function () { return view('vitrina.index');});
 Route::get('/info', function () { return view('vitrina.info');});
 Route::get('/lista', function () { return view('vitrina.lista');});
 
-//Route::get('/home', [App\Http\Controllers\PageController::class, 'home'])->name('page_home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('page_home');
+Route::resource('/home','App\Http\Controllers\HomeController');
+Route::get('inicio',[PageController::class,'index'])->name('inicio');
+Route::get('info',[PageController::class,'info'])->name('info');
+Route::get('lista', [PageController::class,'lista'])->name('lista');
+
 //Route::get('/home', function () { return view('home');});
 
 Route::resource('productos','App\Http\Controllers\ProductoController');
