@@ -37,7 +37,8 @@
 
   <table width="100%">
     <tr>
-        <td valign="top"><img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/></td>
+        <!-- <td valign="top"><img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/></td> -->
+        <td valign="top"><img src="{{ public_path('img/logo.jpg') }}" alt="" width="150"/></td>
 
         <td align="left">
             <h2>Tienda Textil "Presitex"</h2>
