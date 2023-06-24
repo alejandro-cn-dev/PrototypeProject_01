@@ -50,7 +50,7 @@
          <tbody>
             <tr>
                <td width="70%" width="50%">                                  
-                  <img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="80"/>              
+                  <img src="{{ public_path('img/logo.jpg') }}" alt="" width="80"/>              
                </td>
                <td width="30%">
                   <h1 style="text-align: right; font-size: 20px;">NOTA DE VENTA</h1>

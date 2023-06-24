@@ -48,7 +48,7 @@
                   <h1 style="font-size: 20px;">RECIBO</h1>              
                </td>
                <td width="30%">                                  
-                  <img style="float: right;" src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="80"/>
+                  <img style="float: right;" src="{{ public_path('img/logo.jpg') }}" alt="" width="80"/>
                </td>
             </tr>
             <tr>

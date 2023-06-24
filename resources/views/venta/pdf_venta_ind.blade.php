@@ -55,7 +55,7 @@
   <div>
     <h3 style="text-align: center">Comercial textil "Presitex"</h3>
     <div class="col-3">
-      <img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/>
+      <img src="{{ public_path('img/logo.jpg') }}" alt="" width="150"/>
     </div>
     <div class="col-4">      
       <pre>
