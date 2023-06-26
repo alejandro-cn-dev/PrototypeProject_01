@@ -27,16 +27,19 @@ Auth::routes();
 // Ruta a Login AdminLTE directo
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Ruta a Nueva vitrina virtual
-Route::get('/', function () { return view('vitrina.index');});
-Route::get('/inicio', function () { return view('vitrina.index');});
-Route::get('/info', function () { return view('vitrina.info');});
-Route::get('/lista', function () { return view('vitrina.lista');});
+// Route::get('/', function () { return view('vitrina.index');});
+// Route::get('/inicio', function () { return view('vitrina.index');});
+// Route::get('/info', function () { return view('vitrina.info');});
+// Route::get('/lista', function () { return view('vitrina.lista');});
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('page_home');
 Route::resource('/home','App\Http\Controllers\HomeController');
+Route::get('/',[PageController::class,'index']);
 Route::get('inicio',[PageController::class,'index'])->name('inicio');
 Route::get('info',[PageController::class,'info'])->name('info');
 Route::get('lista', [PageController::class,'lista'])->name('lista');
+Route::get('categories', [PageController::class,'porcat'])->name('categories');
+Route::get('detalle/producto/{id}', [PageController::class,'producto'])->name('detalle');
 
 //Route::get('/home', function () { return view('home');});
 

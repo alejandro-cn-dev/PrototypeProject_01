@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Pressitex</title>
+    <title>Presitex</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <img src="img/logo_p.png" alt="Logo pressitex" style="widht: 30px; height: 30px;">
-                <a class="navbar-brand" href="#!">Tienda Pressitex</a>
+                <a class="navbar-brand" href="#!">Tienda Presitex</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -83,23 +83,37 @@
                     </form>
                 </div>
             </div>
-        </nav>
-        <!-- Cabecera-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Bienvenido</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Somos una empresa comercial especializada en material textil, ¡Disfrute su estancia!</p>
-                </div>
-            </div>
-        </header>
+        </nav>        
         <!-- Contenido-->
         <main class="py-4">
             @yield('content')
         </main>
         <!-- Pie-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Pressitex 2023</p></div>
+            <div class="container">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-4 text-white">
+                        <h2>Telefono y correo</h2>
+                        <ul class="m-0">
+                            <li>Telefono:  (+591) 2-460674 </li>
+                            <li>Correo:   presitex.tex@gmail.com </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 text-white">
+                        <h2>Dirección</h2>
+                        <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia</p>
+                    </div>
+                    <div class="col-md-4 text-white">
+                        <h2>Redes Sociales</h2>
+                        <a href="https://www.facebook.com/telasbolivia"><img src="/favicons/facebook-logo-0.png" alt="Facebook logo" style="width:40px; height:40px;"></a>
+                        <a href="https://www.tiktok.com/@Telas.Comercial.Presitex"><img src="/favicons/tiktok-logo-0-1.png" alt="TikTok logo" style="width:40px; height:40px;"></a>
+                    </div>
+                </div>
+                
+                Contacto:
+                
+                <p class="m-0 text-white">&copy; 2023 Presitex - Todos los derechos reservados</p>
+            </div>
         </footer>
     </div>
 </body>
