@@ -25,13 +25,12 @@
         <!-- Navegación-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <img src="img/logo_p.png" alt="Logo pressitex" style="widht: 30px; height: 30px;">
+                <img src="{{ asset('img/logo_p.png') }}" alt="Logo pressitex" style="widht: 30px; height: 30px;">
                 <a class="navbar-brand" href="#!">Tienda Presitex</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="/inicio">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/info">Info</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,6 +40,7 @@
                                 <li><a class="dropdown-item" href="#!">Nuevos</a></li>                                 
                             </ul>
                         </li>                        
+                        <li class="nav-item"><a class="nav-link" href="/info">Sobre nosotros</a></li>
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
@@ -93,18 +93,20 @@
             <div class="container">
                 <div class="row g-3 mb-3">
                     <div class="col-md-4 text-white">
-                        <h2>Telefono y correo</h2>
+                        <h3>Telefonos y correo</h3>
                         <ul class="m-0">
-                            <li>Telefono:  (+591) 2-460674 </li>
+                            <li>Telefonos:  (+591) 2-460674 </li>
+                            <li>(+591) 73238038</li>
+                            <li>(+591) 71996788</li>
                             <li>Correo:   presitex.tex@gmail.com </li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-white">
-                        <h2>Dirección</h2>
+                        <h3>Dirección</h3>
                         <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia</p>
                     </div>
                     <div class="col-md-4 text-white">
-                        <h2>Redes Sociales</h2>
+                        <h3>Redes Sociales</h3>
                         <a href="https://www.facebook.com/telasbolivia"><img src="/favicons/facebook-logo-0.png" alt="Facebook logo" style="width:40px; height:40px;"></a>
                         <a href="https://www.tiktok.com/@Telas.Comercial.Presitex"><img src="/favicons/tiktok-logo-0-1.png" alt="TikTok logo" style="width:40px; height:40px;"></a>
                     </div>

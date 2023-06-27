@@ -12,7 +12,30 @@
             </div>
         </div>
     </header>
-    <!-- Section-->
+    <!-- Sección de imagenes-->
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/slide1.jpg" class="img-fluid" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="img/slide2.jpg" class="img-fluid" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="img/slide3.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
+    <!-- Sección de productos-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -33,7 +56,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Nombre del producto-->
-                                <h5 class="fw-bolder">{{ $producto->descripcion}}</h5>
+                                <a class="nav-link fw-bolder" href="/detalle/producto/{{$producto->id}}"><h5>{{ $producto->descripcion}}</h5></a>                                
                                 <!-- Product reviews (TAGS) (opcional)-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
                                     {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Categoria;
 
 class PageController extends Controller
 {
@@ -50,7 +51,9 @@ class PageController extends Controller
     // Vista de producto individual
     public function producto($id)
     {
-
+        $producto = Producto::find($id);
+        $relacionados = Categoria::where('id','=',$producto->id_categoria)->get();
+        return view('vitrina.product', ['producto' => $producto, 'ralacionados' => $relacionados]);
     }
     /**
      * Show the form for creating a new resource.
