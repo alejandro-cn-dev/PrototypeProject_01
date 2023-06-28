@@ -7,12 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Presitex</title>
+    <title>Presitex | @yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('favicons/favicon32x32.ico') }}"/>
+    @yield('css')
     <!-- No sirve -->
     <!-- <link rel="shortcut icon" sizes="32x32" href="{{ asset('favicons/favicon32x32.jpg') }}"/> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -118,5 +119,6 @@
             </div>
         </footer>
     </div>
+    @yield('js')
 </body>
 </html>

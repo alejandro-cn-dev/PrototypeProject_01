@@ -40,7 +40,8 @@ Route::get('info',[PageController::class,'info'])->name('info');
 Route::get('lista', [PageController::class,'lista'])->name('lista');
 Route::get('categories', [PageController::class,'porcat'])->name('categories');
 Route::get('detalle/producto/{id}', [PageController::class,'producto'])->name('detalle');
-
+//Busqueda de producto
+Route::any('/buscar',[PageController::class,'buscar']);
 //Route::get('/home', function () { return view('home');});
 
 Route::resource('productos','App\Http\Controllers\ProductoController');

@@ -53,71 +53,16 @@ class PageController extends Controller
     {
         $producto = Producto::find($id);
         $relacionados = Categoria::where('id','=',$producto->id_categoria)->get();
-        return view('vitrina.product', ['producto' => $producto, 'ralacionados' => $relacionados]);
+        return view('vitrina.product', ['producto' => $producto, 'relacionados' => $relacionados]);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
+    // Buscar productos
+    public function buscar(Request $request){
+        $product =$request->get('product');
+        $result = Producto::where('descripcion','LIKE','%'.$product.'%')->orWhere('item_producto','LIKE','%'.$product.'%')->get();
+        if(count($result) > 0)
+            //return view('vitrina.product')->withDetails($result)->withQuery ( $product );
+            return view('vitrina.lista')->with('productos',$result)->with('term',$product);
+        else return view ('vitrina.lista')->with('productos',null);
+        }
 }

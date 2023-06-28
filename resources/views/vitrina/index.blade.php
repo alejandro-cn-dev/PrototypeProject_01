@@ -44,21 +44,26 @@
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-                            @if($producto->existencia = 0) 
-                                Agotado  
-                            @endif  
-                                Disponible 
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
+                            @if ($producto->existencia === 0)
+                                Agotado
+                            @elseif ($producto->existencia < 5)
+                                Por agotarse
+                            @else
+                                Disponible
+                            @endif
                         </div>
                         <!-- Imagen de producto-->
-                        <img class="card-img-top" style="width: 205px; height: 136px;" src="/img/product_generic_img_3.jpg" alt="producto 1" />
+                        <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
+                            <img class="card-img-top" style="width: 205px; height: 136px;" src="/img/product_generic_img_3.jpg" alt="producto 1" />
+                        </a>
                         <!-- Detalle del producto-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Nombre del producto-->
-                                <a class="nav-link fw-bolder" href="/detalle/producto/{{$producto->id}}"><h5>{{ $producto->descripcion}}</h5></a>                                
+                                <h5 class="fw-bolder">{{$producto->descripcion}}</h5>
                                 <!-- Product reviews (TAGS) (opcional)-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="d-flex justify-content-center small mb-2">
                                     {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}
                                     <!-- <div class="bi-star-fill">A</div>
                                     <div class="bi-star-fill">B</div>

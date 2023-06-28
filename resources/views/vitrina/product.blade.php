@@ -11,6 +11,15 @@
                     <img class="card-img-top mb-5 mb-md-0" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="{{$producto->descripcion}} imagen" />
                 </div>
                 <div class="col-md-6">
+                    <!-- Notificacion de existencias -->                    
+                        <!-- Notifications <span class="badge badge-light">4</span> -->
+                        @if ($producto->existencia === 0)
+                            <button type="button" class="btn btn-danger">Agotado</button>
+                        @elseif ($producto->existencia < 5)
+                            <button type="button" class="btn btn-warning">Por agotarse</button>
+                        @else
+                            <button type="button" class="btn btn-success">Disponible</button>
+                        @endif                    
                     <div class="small mb-1">ITEM: {{ $producto->item_producto }}</div>
                     <h1 class="display-5 fw-bolder">{{ $producto->descripcion }}</h1>
                     <div class="fs-5 mb-5">
