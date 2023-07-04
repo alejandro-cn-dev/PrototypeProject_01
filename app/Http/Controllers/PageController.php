@@ -45,14 +45,28 @@ class PageController extends Controller
     // Listado de productos por categorias
     public function porcat()
     {
-
+        
     }
 
     // Vista de producto individual
     public function producto($id)
     {
-        $producto = Producto::find($id);
-        $relacionados = Categoria::where('id','=',$producto->id_categoria)->get();
+        // Recuperar registro de producto mediante 'id'
+        //$producto = Producto::find($id);
+        $producto = Producto::join('marcas','productos.id_marca','=','marcas.id')
+        ->join('categorias','productos.id_categoria','=','categorias.id')
+        ->select('productos.id','productos.id_categoria','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
+        ->where('productos.isDeleted','=',0)
+        ->where('productos.id','=',$id)
+        ->first();        
+        // Recuperar registros de productos que son de la misma categoria por 'id_categoria'
+        $relacionados = Producto::join('marcas','productos.id_marca','=','marcas.id')
+        ->join('categorias','productos.id_categoria','=','categorias.id')
+        ->select('productos.id','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
+        ->where('productos.isDeleted','=',0)
+        ->where('productos.id_categoria','=',$producto->id_categoria)
+        ->where('productos.id','!=',$id)
+        ->get();
         return view('vitrina.product', ['producto' => $producto, 'relacionados' => $relacionados]);
     }
     

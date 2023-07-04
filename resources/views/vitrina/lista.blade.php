@@ -91,5 +91,5 @@
 @stop
 
 @section('js')
-<script src="https://kit.fontawesome.com/856ec43d17.js" crossorigin="anonymous"></script>
+
 @stop

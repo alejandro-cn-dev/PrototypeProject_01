@@ -16,7 +16,7 @@
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="img/slide1.jpg" class="img-fluid" alt="...">
+                <img src="{{ asset('img/slide1.jpg') }}" class="img-fluid" alt="...">
             </div>
             <div class="carousel-item">
                 <img src="img/slide2.jpg" class="img-fluid" alt="...">
@@ -55,7 +55,7 @@
                         </div>
                         <!-- Imagen de producto-->
                         <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
-                            <img class="card-img-top" style="width: 205px; height: 136px;" src="/img/product_generic_img_3.jpg" alt="producto 1" />
+                            <img class="card-img-top" style="width: 205px; height: 136px;" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="producto 1" />
                         </a>
                         <!-- Detalle del producto-->
                         <div class="card-body p-4">
@@ -84,27 +84,6 @@
                 </div>
                 @endforeach
                 <!-- Acabar el foreach aqui -->
-
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Fancy Product</h5>
-                                <!-- Product price-->
-                                $120.00 - $280.00
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                        </div>
-                    </div>
-                </div>
-                
                 </div>
             </div>
         </div>
@@ -112,12 +91,7 @@
 @stop
 
 @section('css')
-    <style>
-        .card-img-top{
-            width: 205px;
-            height: 136px;
-        }
-    </style>
+
 @stop
 
 @section('js')

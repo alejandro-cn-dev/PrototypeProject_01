@@ -37,6 +37,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/lista">Todos los productos</a></li>
                                 <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="/categories">Por categorias</a></li>
                                 <li><a class="dropdown-item" href="#!">Tendencias</a></li>
                                 <li><a class="dropdown-item" href="#!">Nuevos</a></li>                                 
                             </ul>
@@ -45,7 +46,7 @@
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Carrito
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
@@ -119,6 +120,7 @@
             </div>
         </footer>
     </div>
+    <script src="https://kit.fontawesome.com/856ec43d17.js" crossorigin="anonymous"></script>
     @yield('js')
 </body>
 </html>

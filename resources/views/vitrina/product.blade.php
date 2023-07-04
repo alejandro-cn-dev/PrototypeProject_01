@@ -14,11 +14,20 @@
                     <!-- Notificacion de existencias -->                    
                         <!-- Notifications <span class="badge badge-light">4</span> -->
                         @if ($producto->existencia === 0)
-                            <button type="button" class="btn btn-danger">Agotado</button>
+                            <!-- <button type="button" class="btn btn-danger">Agotado</button> -->
+                            <div class="alert alert-danger" role="alert">
+                                Agotado
+                            </div>
                         @elseif ($producto->existencia < 5)
-                            <button type="button" class="btn btn-warning">Por agotarse</button>
+                            <!-- <button type="button" class="btn btn-warning">Por agotarse</button> -->
+                            <div class="alert alert-warning" role="alert">
+                                Por agotarse
+                            </div>
                         @else
-                            <button type="button" class="btn btn-success">Disponible</button>
+                            <!-- <button type="button" class="btn btn-success">Disponible</button> -->
+                            <div class="alert alert-success" role="alert">
+                                Disponible
+                            </div>
                         @endif                    
                     <div class="small mb-1">ITEM: {{ $producto->item_producto }}</div>
                     <h1 class="display-5 fw-bolder">{{ $producto->descripcion }}</h1>
@@ -26,13 +35,28 @@
                         <!-- <span class="text-decoration-line-through">$45.00</span> -->
                         <span>{{ $producto->precio_venta }} Bs. por {{ $producto->unidad_venta }}</span>
                     </div>
-                    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                    <p class="lead">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Marca: </b>{{$producto->marca}}</li>
+                            <li class="list-group-item"><b>Categoria: </b>{{$producto->categoria}}</li>
+                            <li class="list-group-item"><b>Color: </b>{{$producto->color}}</li>
+                            @if($producto->existencia > 0)
+                            <li class="list-group-item"><b>Existencias: </b>{{$producto->existencia}} @if($producto->unidad_venta === 'unidad') unidad(es) @else metro(s) @endif</li>
+                            @endif                            
+                        </ul>
+                    </p>
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
+                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" @if($producto->existencia === 0){ disabled } @endif/>
+                        <button class="btn btn-outline-dark flex-shrink-0 me-3" type="button" @if($producto->existencia === 0){ disabled } @endif>
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
                             Añadir al carrito
                         </button>
+                        @can('productos.edit')
+                        <a href="/productos/{{$producto->id}}/edit" class="btn btn-primary flex-shrink-0">
+                            <i class="fas fa-fw fa-edit" aria-hidden="true"></i>
+                            Editar producto
+                        </a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -41,109 +65,56 @@
     <!-- Sección de productos relacionados-->
     <section class="py-5 bg-light">
         <div class="container px-4 px-lg-5 mt-5">
+            @if (!$relacionados->isEmpty())
             <h2 class="fw-bolder mb-4">Productos parecidos</h2>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <!-- Aqui comienza el foreach -->
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Fancy Product</h5>
-                                <!-- Product price-->
-                                $40.00 - $80.00
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">                
+                    <!-- Aqui comienza el foreach -->
+                    @foreach($relacionados as $producto)
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
+                                @if ($producto->existencia === 0)
+                                    Agotado
+                                @elseif ($producto->existencia < 5)
+                                    Por agotarse
+                                @else
+                                    Disponible
+                                @endif
                             </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Aqui acaba el foreach -->
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Special Item</h5>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
+                            <!-- Imagen de producto-->
+                            <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
+                                <img class="card-img-top" style="width: 205px; height: 136px;" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="producto 1" />
+                            </a>
+                            <!-- Detalle del producto-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Nombre del producto-->
+                                    <h5 class="fw-bolder">{{$producto->descripcion}}</h5>
+                                    <!-- Product reviews (TAGS) (opcional)-->
+                                    <div class="d-flex justify-content-center small mb-2">
+                                        {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}
+                                        <!-- <div class="bi-star-fill">A</div>
+                                        <div class="bi-star-fill">B</div>
+                                        <div class="bi-star-fill">C</div>
+                                        <div class="bi-star-fill">D</div>
+                                        <div class="bi-star-fill">E</div> -->
+                                    </div>
+                                    <!-- Precio-->
+                                    <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
+                                    {{ $producto->precio_venta }} Bs. / {{ $producto->unidad_venta}}
                                 </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$20.00</span>
-                                $18.00
+                            </div>
+                            <!-- Acciones-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Añadir al carrito</a></div>
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                        </div>
                     </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Sale Item</h5>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$50.00</span>
-                                $25.00
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">Popular Item</h5>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                </div>
-                                <!-- Product price-->
-                                $40.00
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                    <!-- Aqui acaba el foreach -->
             </div>
+            @endif
         </div>
     </section>
 @stop

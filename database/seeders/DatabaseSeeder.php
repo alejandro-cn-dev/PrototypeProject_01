@@ -102,7 +102,7 @@ class DatabaseSeeder extends Seeder
             'sufijo_categoria' => 'HI',
             'id_usuario' => '1'
         ])->create();
-        \App\Models\Producto::factory()->count(2)->sequence([
+        \App\Models\Producto::create([
             'item_producto' => 'HI-001',
             'descripcion' => 'Hilo cruzado',
             'color' => 'Verde',            
@@ -115,8 +115,9 @@ class DatabaseSeeder extends Seeder
             'id_categoria'  =>  '1',
             'id_almacen'    =>  '1',
             'id_marca'      =>  '1'
-        ],[
-            'item_producto' => 'TN-001',
+        ]);
+        \App\Models\Producto::create([
+            'item_producto' => 'TS-001',
             'descripcion' => 'Tela piel de sirena',
             'color' => 'estampado rojo',            
             'id_usuario' => '1',            
@@ -125,9 +126,37 @@ class DatabaseSeeder extends Seeder
             'precio_compra' =>  '530.40',
             'precio_venta'  =>  '10.00',
             'existencia'    =>  '25',
-            'id_categoria'  =>  '1',
+            'id_categoria'  =>  '2',
             'id_almacen'    =>  '1',
             'id_marca'      =>  '1'
-        ])->create();
+        ]);
+        \App\Models\Producto::create([
+            'item_producto' => 'TP-001',
+            'descripcion' => 'Tela Cuadrile',
+            'color' => 'azul rey',            
+            'id_usuario' => '1',            
+            'unidad_compra' =>  'rollo',            
+            'unidad_venta'  =>  'metro',
+            'precio_compra' =>  '200.40',
+            'precio_venta'  =>  '13.00',
+            'existencia'    =>  '44',
+            'id_categoria'  =>  '6',
+            'id_almacen'    =>  '1',
+            'id_marca'      =>  '1'
+        ]);
+        \App\Models\Producto::create([
+            'item_producto' => 'TS-002',
+            'descripcion' => 'Tela Gamuza',
+            'color' => 'rojo',            
+            'id_usuario' => '1',            
+            'unidad_compra' =>  'rollo',            
+            'unidad_venta'  =>  'metro',
+            'precio_compra' =>  '345.00',
+            'precio_venta'  =>  '11.00',
+            'existencia'    =>  '32',
+            'id_categoria'  =>  '2',
+            'id_almacen'    =>  '1',
+            'id_marca'      =>  '1'
+        ]);
     }
 }
