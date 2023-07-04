@@ -13,6 +13,7 @@ class ReporteController extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('can:reportes.index')->only('index');
     }
     
     public function index()

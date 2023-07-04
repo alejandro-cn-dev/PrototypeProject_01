@@ -16,6 +16,14 @@ class CompraController extends Controller
     private $tabla_salidas = [];
     private $fila = 0;
     private $total = 0;
+
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:compras.index')->only('index');
+        $this->middleware('can:compras.create')->only('create','store');
+        $this->middleware('can:compras.edit')->only('edit','update');
+        $this->middleware('can:compras.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -11,6 +11,10 @@ class AlmacenController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('can:almacens.index')->only('index');
+        $this->middleware('can:almacens.create')->only('create','store');
+        $this->middleware('can:almacens.edit')->only('edit','update');
+        $this->middleware('can:almacens.delete')->only('destroy');
     }
 
     public function index()

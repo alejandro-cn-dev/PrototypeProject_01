@@ -16,6 +16,10 @@ class MarcaController extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('can:marcas.index')->only('index');
+        $this->middleware('can:marcas.create')->only('create','store');
+        $this->middleware('can:marcas.edit')->only('edit','update');
+        $this->middleware('can:marcas.delete')->only('destroy');
     }
 
     public function index()

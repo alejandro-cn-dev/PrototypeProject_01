@@ -44,22 +44,22 @@ Route::get('detalle/producto/{id}', [PageController::class,'producto'])->name('d
 Route::any('/buscar',[PageController::class,'buscar']);
 //Route::get('/home', function () { return view('home');});
 
-Route::resource('productos','App\Http\Controllers\ProductoController');
+Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');
-Route::resource('empleados','App\Http\Controllers\EmpleadoController');
+Route::resource('empleados','App\Http\Controllers\EmpleadoController')->except('show');
 Route::get('empleados/reporte/{id}',[EmpleadoController::class,'reporte'])->middleware('auth')->name('generar_reporte_empleado');
-Route::resource('categorias','App\Http\Controllers\CategoriaController');
+Route::resource('categorias','App\Http\Controllers\CategoriaController')->except('show');
 Route::get('categorias/reporte/{id}',[CategoriaController::class,'reporte'])->middleware('auth')->name('generar_reporte_categoria');
-Route::resource('reportes','App\Http\Controllers\ReporteController');
+Route::resource('reportes','App\Http\Controllers\ReporteController')->except('show');
 Route::resource('marcas','App\Http\Controllers\MarcaController');
 Route::get('marcas/reporte/{id}',[MarcaController::class,'reporte'])->middleware('auth')->name('generar_reporte_marca');
-Route::resource('almacens','App\Http\Controllers\AlmacenController');
+Route::resource('almacens','App\Http\Controllers\AlmacenController')->except('show');
 Route::get('almacens/reporte/{id}',[AlmacenController::class,'reporte'])->middleware('auth')->name('generar_reporte_almacenes');
 // Implementar luego
 // Route::resource('home','App\Http\Controllers\HomeController');
 // Route::resource('inicio','App\Http\Controllers\IncioController');
 
-Route::resource('ventas','App\Http\Controllers\VentaController');
+Route::resource('ventas','App\Http\Controllers\VentaController')->except('show');
 Route::get('ventas/detalle_venta/{id}',[VentaController::class,'detalle'])->middleware('auth')->name('salidas.detalle_venta');
 Route::post('ventas/agregar',[VentaController::class,'agregar'])->middleware('auth')->name('agregar_producto_venta');
 Route::post('ventas/guardar',[VentaController::class,'guardar'])->middleware('auth')->name('guardar_venta');
@@ -67,7 +67,7 @@ Route::get('ventas/reporte/{id}',[VentaController::class,'reporte'])->middleware
 Route::get('ventas/reporte_ind/{id}',[VentaController::class,'reporte_ind'])->middleware('auth')->name('generar_reporte_venta_ind');
 Route::get('ventas/nota_ind/{id}',[VentaController::class,'nota_ind'])->middleware('auth')->name('generar_nota_venta_ind');
 
-Route::resource('compras','App\Http\Controllers\CompraController');
+Route::resource('compras','App\Http\Controllers\CompraController')->except('show');
 Route::get('compras/detalle_compra/{id}',[CompraController::class,'detalle'])->middleware('auth')->name('compras.detalle_compra');
 Route::post('compras/agregar',[CompraController::class,'agregar'])->middleware('auth')->name('agregar_producto_compra');
 Route::post('compras/guardar',[CompraController::class,'guardar'])->middleware('auth')->name('guardar_compra');

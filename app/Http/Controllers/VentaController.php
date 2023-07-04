@@ -16,11 +16,13 @@ class VentaController extends Controller
     private $fila = 0;
     private $total = 0;
 
-    // public function __construct(){        
-    //     $this->tabla_salidas = [];
-    //     $this->fila = 0;
-    //     $this->total = 0;
-    // }
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:ventas.index')->only('index');
+        $this->middleware('can:ventas.create')->only('create','store');
+        $this->middleware('can:ventas.edit')->only('edit','update');
+        $this->middleware('can:ventas.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

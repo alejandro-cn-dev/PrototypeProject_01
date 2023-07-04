@@ -19,6 +19,10 @@ class ProductoController extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('can:productos.index')->only('index');
+        $this->middleware('can:productos.create')->only('create','store');
+        $this->middleware('can:productos.edit')->only('edit','update');
+        $this->middleware('can:productos.delete')->only('destroy');
     }
 
     public function index()

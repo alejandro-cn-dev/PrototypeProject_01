@@ -17,6 +17,10 @@ class EmpleadoController extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('can:empleados.index')->only('index');
+        $this->middleware('can:empleados.create')->only('create','store');
+        $this->middleware('can:empleados.edit')->only('edit','update');
+        $this->middleware('can:empleados.delete')->only('destroy');
     }
 
     public function index()
