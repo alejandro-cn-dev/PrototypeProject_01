@@ -33,7 +33,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="/inicio">Inicio</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/lista">Todos los productos</a></li>
                                 <li><hr class="dropdown-divider" /></li>
@@ -57,7 +57,8 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
+                                    <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
                                 </li>
                             @endif
                             @else
@@ -87,7 +88,8 @@
             </div>
         </nav>        
         <!-- Contenido-->
-        <main class="py-4">
+        <!-- <main class="py-4"> -->
+        <main>
             @yield('content')
         </main>
         <!-- Pie-->

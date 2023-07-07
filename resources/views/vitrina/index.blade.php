@@ -5,7 +5,7 @@
 @section('content')
     <!-- Cabecera-->
     <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
+        <div class="container px-4 px-lg-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Bienvenido</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Somos una empresa comercial especializada en material textil, ¡Disfrute su estancia!</p>
@@ -62,7 +62,7 @@
                             <div class="text-center">
                                 <!-- Nombre del producto-->
                                 <h5 class="fw-bolder">{{$producto->descripcion}}</h5>
-                                <!-- Product reviews (TAGS) (opcional)-->
+                                <!-- (TAGS) (opcional)-->
                                 <div class="d-flex justify-content-center small mb-2">
                                     {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}
                                     <!-- <div class="bi-star-fill">A</div>

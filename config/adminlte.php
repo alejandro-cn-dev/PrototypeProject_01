@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Tienda Presitex</b>',
+    'logo' => '<b>Presitex</b>',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img' => 'img/logo_p.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
