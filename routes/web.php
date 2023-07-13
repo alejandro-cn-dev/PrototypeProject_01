@@ -8,6 +8,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\InventarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,4 +76,6 @@ Route::get('compras/reporte/{id}',[CompraController::class,'reporte'])->middlewa
 Route::get('compras/reporte_ind/{id}',[CompraController::class,'reporte_ind'])->middleware('auth')->name('generar_reporte_compra_ind');
 Route::get('compras/recibo_ind/{id}',[CompraController::class,'recibo_ind'])->middleware('auth')->name('generar_recibo_compra_ind');
 
+
+Route::get('inventario',[InventarioController::class,'index'])->middleware('auth')->name('inventario.index');
 //Route::get('entradas/reporte',[CompraController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');

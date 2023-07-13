@@ -347,6 +347,17 @@ return [
             ],
         ],
         [
+            'text'    => 'Gestion de inventario',
+            'icon'    => 'fas fa-fw fa-list-alt',
+            'submenu' => [             
+                [
+                    'text' => 'Balance de inventario?',
+                    'icon'    => 'fas fa-fw fa-book',
+                    'url'  => 'inventario',
+                ]
+            ],
+        ],
+        [
             'text'        => 'Gestion de Usuarios',
             'url'         => 'empleados',
             'icon'    => 'fas fa-fw fa-users',
