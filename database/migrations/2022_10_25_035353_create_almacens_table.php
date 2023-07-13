@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('tipo');
             $table->string('sufijo_almacen');
-            $table->boolean('isEnable')->default(1);
+            $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
             $table->foreign('id_usuario')->references('id')->on('users');
