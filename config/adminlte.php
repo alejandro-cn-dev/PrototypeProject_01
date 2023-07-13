@@ -329,43 +329,8 @@ return [
         //     'can'   => 'ventas.index'
         // ],
         [
-            'text'    => 'Gestion de Compras y Ventas',
-            'icon'    => 'fas fa-fw fa-list-alt',
-            'submenu' => [             
-                [
-                    'text' => 'Gestion de compras',
-                    'icon'    => 'fas fa-fw fa-arrow-down',
-                    'url'  => 'compras',
-                    'can'   => 'compras.index'
-                ],
-                [
-                    'text' => 'Gestion de ventas',
-                    'icon'    => 'fas fa-fw fa-arrow-up',
-                    'url'  => 'ventas',
-                    'can'   => 'ventas.index'
-                ],
-            ],
-        ],
-        [
-            'text'    => 'Gestion de inventario',
-            'icon'    => 'fas fa-fw fa-list-alt',
-            'submenu' => [             
-                [
-                    'text' => 'Balance de inventario?',
-                    'icon'    => 'fas fa-fw fa-book',
-                    'url'  => 'inventario',
-                ]
-            ],
-        ],
-        [
-            'text'        => 'Gestion de Usuarios',
-            'url'         => 'empleados',
-            'icon'    => 'fas fa-fw fa-users',
-            'can'   => 'empleados.index',
-        ],
-        [
-            'text'    => 'Gestion de Stock',
-            'icon'    => 'fas fa-fw fa-list-alt',
+            'text'    => 'Gestion de productos',
+            'icon'    => 'fas fa-fw fa-box',
             'submenu' => [
                 [
                     'text' => 'Productos',
@@ -391,6 +356,35 @@ return [
                     'url'  => 'almacens',
                     'can'   => 'almacens.index'
                 ],
+            ],
+        ],        
+        [
+            'text'        => 'Gestion de Usuarios',
+            'url'         => 'empleados',
+            'icon'    => 'fas fa-fw fa-users',
+            'can'   => 'empleados.index',
+        ],  
+        [
+            'text'    => 'Gestion de Inventario',
+            'icon'    => 'fas fa-fw fa-book',
+            'submenu' => [             
+                [
+                    'text' => 'Gestion de compras',
+                    'icon'    => 'fas fa-fw fa-arrow-down',
+                    'url'  => 'compras',
+                    'can'   => 'compras.index'
+                ],
+                [
+                    'text' => 'Gestion de ventas',
+                    'icon'    => 'fas fa-fw fa-arrow-up',
+                    'url'  => 'ventas',
+                    'can'   => 'ventas.index'
+                ],
+                [
+                    'text' => 'Movimientos de inventario',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'inventario',
+                ]
             ],
         ],
         [

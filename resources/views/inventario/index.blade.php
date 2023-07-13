@@ -3,7 +3,7 @@
 @section('title', 'Sistema de gestion')
 
 @section('content_header')
-    <h1>Balance de inventario?</h1>
+    <h1>Movimiento de inventarios</h1>
 @stop
 
 @section('content')
@@ -12,20 +12,25 @@
     <table id="empleados" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Apellido Paterno</th>
-                <th scope="col">Apellido Materno</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">CI</th>
-                <th scope="col">Matricula</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Email</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Opciones</th>
+                <th scope="col">Item</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio unitario</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Fecha</th>
             </tr>
         </thead>
         <tbody>
-            
+            @foreach ($inventarios as $inventario)
+                <tr>
+                    <td>{{ $inventario->item_producto }}</td>
+                    <td>{{ $inventario->descripcion }}</td>
+                    <td>{{ $inventario->cantidad }}</td>
+                    <td>{{ $inventario->costo }}</td>
+                    <td>{{ $inventario->costo * $inventario->cantidad }}</td>
+                    <td>{{ $inventario->created_at }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
