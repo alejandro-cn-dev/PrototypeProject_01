@@ -42,6 +42,7 @@
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
                         {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
+                        <h3 style="float: right;">TOTAL: <span id="total" class="badge bg-warning">0.00 Bs</span></h3>
                         <div class="table-responsive">
                                 <table id="salidas" class="table table-sm table-bordered mt-4" style="width: 100%;">
                                         <thead>
@@ -155,6 +156,7 @@
         function actualizar_fila(){         
                 let valores = JSON.parse(document.getElementById("producto").value);    
                 tbody = document.getElementById("contenido");
+                campo_total = document.getElementById("total");
                 var tr = document.createElement("tr");  
                 campos.forEach(function(campo){
                         var td = document.createElement("td");                        
@@ -201,8 +203,10 @@
                         tr.appendChild(td);
                         
                 });                
-                
                 tbody.appendChild(tr);
+                total = parseFloat($("#precio_venta").val() * $("#cantidad").val()) + total;
+                campo_total.innerHTML = "";
+                campo_total.appendChild(document.createTextNode(total.toFixed(2) + ' Bs'));
                 //vaciarCampos();
         }
         function vaciarCampos(){
@@ -212,6 +216,7 @@
         }
         function limpiar_tabla(){
                 $('#contenido tr').detach();
+                document.getElementById("total").innerHTML = "0.00 Bs";
         }
         
         //funcion para transferir los datos de la tabla 'salidas' a un array JS
