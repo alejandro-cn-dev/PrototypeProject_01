@@ -17,6 +17,7 @@
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio unitario</th>
                 <th scope="col">Subtotal</th>
+                <th scope="col">Tipo</th>
                 <th scope="col">Fecha</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                     <td>{{ $inventario->cantidad }}</td>
                     <td>{{ $inventario->costo }}</td>
                     <td>{{ $inventario->costo * $inventario->cantidad }}</td>
+                    <td>{{ $inventario->tipo }}</td>
                     <td>{{ $inventario->created_at }}</td>
                 </tr>
             @endforeach

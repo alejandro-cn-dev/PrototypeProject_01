@@ -384,6 +384,11 @@ return [
                     'text' => 'Movimientos de inventario',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'inventario',
+                ],
+                [
+                    'text' => 'Control de stock',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'stock',
                 ]
             ],
         ],
