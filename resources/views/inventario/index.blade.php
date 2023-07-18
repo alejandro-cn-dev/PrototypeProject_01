@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Sistema de gestion')
+@section('title', 'Movimiento de inventario | Presitex Panel Admin')
 
 @section('content_header')
     <h1>Movimiento de inventarios</h1>
 @stop
 
 @section('content')
-<img src="{{ asset('img/inventory_logo.png') }}" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
+<img src="{{ asset('img/inventory_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
 <div class="shadow-none p-3 bg-white rounded"> 
     <table id="empleados" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
