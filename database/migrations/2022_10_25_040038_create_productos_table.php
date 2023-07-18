@@ -24,8 +24,8 @@ return new class extends Migration
             // $table->string('unidad_compra')->nullable();
             // $table->string('unidad_venta')->nullable();
             $table->string('unidad',20)->nullable();
-            $table->integer('precio_compra')->nullable();
-            $table->integer('precio_venta')->nullable();     
+            $table->decimal('precio_compra')->nullable();
+            $table->decimal('precio_venta')->nullable();     
             // $table->integer('existencia')->default(0);       
 
             $table->unsignedBigInteger('id_categoria');
