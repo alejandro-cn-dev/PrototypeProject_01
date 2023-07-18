@@ -143,7 +143,7 @@ class CompraController extends Controller
         $validator = \Validator::make($request->all(), [
             'producto'          => 'required',
             'precio_compra'      => 'required',
-            'unidad_compra'      => 'required',
+            'unidad'      => 'required',
             'cantidad'          => 'required',
         ]);
         if ($validator->fails())
@@ -158,7 +158,7 @@ class CompraController extends Controller
             //"id" => $this->fila, 
             "producto" => $request->producto, 
             "precio_compra" => $request->precio_compra, 
-            "unidad_compra" => $request->unidad_compra, 
+            "unidad" => $request->unidad, 
             "cantidad" => $request->cantidad            
         ));
         //return response()->json(['success'=>'Data is successfully added']);

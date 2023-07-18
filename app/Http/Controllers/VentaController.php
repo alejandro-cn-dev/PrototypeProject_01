@@ -138,7 +138,7 @@ class VentaController extends Controller
     public function agregar(Request $request){
         $validator = \Validator::make($request->all(), [
             'producto'          => 'required',
-            'unidad_venta'      => 'required',
+            'unidad'      => 'required',
             'precio_venta'      => 'required',
             'cantidad'          => 'required',
         ]);

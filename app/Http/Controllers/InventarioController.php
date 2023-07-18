@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Compra_detalle;
 use App\Models\Venta_detalle;
+use App\Models\Compra_cabecera;
+use App\Models\Venta_cabecera;
+use App\Models\Producto;
 use DB;
 
 class InventarioController extends Controller
@@ -90,5 +93,17 @@ class InventarioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Funciones propias
+     */
+    public function stock()
+    {
+        $productos = Producto::select('descripcion','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE id_producto = productos.id) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE id_producto = productos.id) AS salidas"))
+        ->where('isDeleted','=',0)
+        ->get();
+
+        return view('inventario.control_stock')->with('productos',$productos);
     }
 }
