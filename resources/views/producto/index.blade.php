@@ -11,7 +11,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         <a href="productos/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Producto</a>    
-        <a href="{{route('generar_reporte_producto',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Inventario</a>    
+        <a href="{{route('generar_reporte_producto',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte listado de productos</a>    
     </div>      
     <div class="table-responsive">
         <table id="productos" class="table table-striped table-bordered mt-4" style="width: 100%;">
@@ -19,8 +19,10 @@
                 <tr>
                     <th scope="col">ITEM</th>
                     <th scope="col">Categoria</th>
+                    <!-- <th scope="col">Nombre</th> -->
                     <th scope="col">Descripcion</th>
                     <th scope="col">Color</th>
+                    <th scope="col">Unidad</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Opciones</th>
@@ -31,8 +33,10 @@
                     <tr>
                         <td>{{$producto->item_producto}}</td>
                         <td>{{$producto->id_categoria}}</td>
+                        <!-- <td>{{$producto->nombre}}</td> -->
                         <td>{{$producto->descripcion}}</td>
                         <td>{{$producto->color}}</td>
+                        <td>{{$producto->unidad}}</td>
                         <td>{{$producto->id_almacen}}</td>
                         <td>{{$producto->id_marca}}</td>
                         <td>

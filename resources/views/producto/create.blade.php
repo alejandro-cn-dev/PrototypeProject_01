@@ -10,6 +10,10 @@
 <div class="shadow-none p-3 bg-white rounded">
     <form action="/productos" method="POST">
         @csrf
+        <!-- <div class="mb-3">
+            <label for="" class="form-label">Nombre</label>
+            <input id="nombre" name="nombre" type="text" class="form-control" required/>
+        </div> -->
         <div class="mb-3">
             <label for="" class="form-label">Descripcion</label>
             <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="1" required/>
@@ -47,41 +51,31 @@
                 </select>                
             </div>
         </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Tipo de Unidad</label>
+            {{-- <input type="text" class="form-control" id="unidad" name="unidad" required> --}}
+            <select class="form-control" name="unidad" id="unidad" required>
+                <option value="0">Seleccione unidad</option>
+                <option value="unidad">Unidad</option>
+                <option value="metro">Metro</option>
+                <!-- <option value="otro">Otro</option> -->
+            </select>
+        </div>
         <div class="row g-2 mb-3">
-            <div class="col-md-6">
-                <label for="" class="form-label">Unidad Compra</label>
-                {{-- <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" required> --}}
-                <select class="form-control" name="unidad_compra" id="unidad_compra" required>
-                    <option value="0">Seleccione unidad</option>
-                    <option value="caja">Caja</option>
-                    <option value="rollo">Rollo</option>
-                    <option value="otro">Otro</option>
-                </select>
-            </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Compra</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
-                    <input id="precio_compra" name="precio_compra" type="number" maxlength="15" placeholder="0.0" required/>
+                    <!-- <input id="precio_compra" name="precio_compra" type="number" maxlength="15" placeholder="0.0" required/> -->
+                    <input class="numeric" type="text" id="precio_compra" name="precio_compra" required/>
                 </div>
-            </div>            
-        </div>
-        <div class="row g-2 mb-3">            
-            <div class="col-md-6">
-                <label for="" class="form-label">Unidad Venta</label>
-                {{-- <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" required> --}}
-                <select class="form-control" name="unidad_venta" id="unidad_venta" required>
-                    <option value="0">Seleccione unidad</option>
-                    <option value="unidad">Unidad</option>
-                    <option value="metro">Metro</option>
-                    <option value="otro">Otro</option>
-                </select>
-            </div>
+            </div>        
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Venta</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
-                    <input id="precio_venta" name="precio_venta" type="number" maxlength="15" placeholder="0.0" required/>
+                    <!-- <input id="precio_venta" name="precio_venta" type="number" maxlength="15" placeholder="0.0" required/> -->
+                    <input class="numeric" type="text" id="precio_venta" name="precio_venta" required/>
                 </div>                
             </div>
         </div>
@@ -120,4 +114,7 @@
 @stop
 
 @section('js')
+<script>
+    $(".numeric").numeric({ decimal : ".",  negative : false, scale: 3 });
+</script>    
 @stop

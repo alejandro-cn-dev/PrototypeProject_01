@@ -31,7 +31,7 @@ class ProductoController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color',
+        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color','productos.unidad',
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
@@ -76,8 +76,7 @@ class ProductoController extends Controller
 
         $productos->precio_compra = $request->get('precio_compra');
         $productos->precio_venta = $request->get('precio_venta');
-        $productos->unidad_compra = $request->get('unidad_compra');
-        $productos->unidad_venta = $request->get('unidad_venta');
+        $productos->unidad = $request->get('unidad');
 
         $productos->id_categoria = $id_categoria = $request->get('id_categoria');
         $categoria = Categoria::where('id','=',$id_categoria)->first();
@@ -163,8 +162,7 @@ class ProductoController extends Controller
         //$producto->id_marca = $request->get('id_marca');
         $producto->precio_compra = $request->get('precio_compra');
         $producto->precio_venta = $request->get('precio_venta');
-        $producto->unidad_compra = $request->get('unidad_compra');
-        $producto->unidad_venta = $request->get('unidad_venta');
+        $producto->unidad = $request->get('unidad');
 
         $producto->save();
 

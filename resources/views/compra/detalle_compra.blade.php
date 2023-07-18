@@ -47,7 +47,7 @@
                     @forEach($productos as $producto)
                         @if($compra->id_producto == $producto->id)
                         <td>{{$producto->descripcion}}</td>
-                        <td>{{$producto->unidad_compra}}</td>
+                        <td>{{$producto->unidad}}</td>
                         @endif
                     @endforeach
                     <td align="right">{{$compra->cantidad}}</td>

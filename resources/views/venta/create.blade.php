@@ -78,33 +78,34 @@
                     </div>
                     <div id="alert2" class="alert alert-danger" style="display:none"></div>
                     <div class="modal-body">
-                        <div class="form-group">
-                                <label for="unidad_compra" class="form-label">Producto</label>
-                                {{-- <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required>
-                                <datalist id="productList">
-                                        @foreach($productos as $producto)                                                
-                                                <option value="{{$producto->descripcion}}" onclick="cargar_precio_unidad({{$producto->precio_venta}},{{$producto->unidad_venta}})">{{$producto->id}}</option>
-                                        @endforeach
-                                </datalist> --}}
-                                <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
-                                        <option value="0">Seleccione un producto...</option>
-                                        @foreach($productos as $producto)
-                                                <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_venta}},"unidad":"{{$producto->unidad_venta}}","producto":"{{$producto->descripcion}}"}'>{{$producto->descripcion}}</option>
-                                        @endforeach
-                                </select>
+                        <div class="mb-3">
+                                <div class="form-group">
+                                        <label for="producto" class="form-label">Producto</label>
+                                        {{-- <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required> --}}
+                                        <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
+                                                <option value="">Seleccione un producto...</option>
+                                                @foreach($productos as $producto)
+                                                        {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
+                                                        {{-- <option value="{{$producto->descripcion}}">{{$producto->id}}</option> --}}
+                                                        <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_venta}},"unidad":"{{$producto->unidad}}","producto":"{{$producto->descripcion}}"}'>{{$producto->descripcion}}</option>
+                                                @endforeach
+                                        </select>
+                                </div>
                         </div>  
-                        <div class="form-group">
-                                <label for="unidad_venta" class="form-label">Unidad</label>
-                                <input type="text" name="unidad_venta" id="unidad_venta" class="form-control" disabled>
-                        </div>
-                        <div class="form-group">
-                                <label for="precio_venta" class="form-label">Precio</label>
-                                <input type="number" name="precio_venta" id="precio_venta" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                                <label for="unidad_compra" class="form-label">Cantidad</label>
-                                <input type="number" name="cantidad" id="cantidad" class="form-control" required>
-                        </div>  
+                        <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                        <label for="cantidad" class="form-label">Cantidad</label>
+                                        <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" required>
+                                </div>
+                                <div class="col-md-4">
+                                        <label for="unidad" class="form-label">Unidad</label>
+                                        <input type="text" name="unidad" id="unidad" class="form-control" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                        <label for="precio_venta" class="form-label">Costo</label>
+                                        <input type="number" name="precio_ventacompra" id="precio_venta" class="form-control" required>
+                                </div>
+                        </div>                        
                     </div>
                     <div class="modal-footer">
                       {{-- <button id="guardarProducto" type="submit" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"> <i class="fas fa-fw fa-save"></i> Guardar</button> --}}
@@ -130,8 +131,8 @@
         var tabla_salidas = [];
         var auto_id = 1;        
         var total = 0.0;
-        var campos = ['id','producto','unidad_venta','cantidad','precio_venta','subtotal','opciones'];        
-        var input_name = ['producto','unidad_venta','precio_venta','cantidad'];
+        var campos = ['id','producto','unidad','cantidad','precio_venta','subtotal','opciones'];        
+        var input_name = ['producto','unidad','precio_venta','cantidad'];
         
         // cargar valores despues de seleccionar algun valor del select "producto"
         function cargar_precio_unidad(){
@@ -140,7 +141,7 @@
                 const valores = JSON.parse(vector);
                 let unidad = String(valores['unidad']);
                 let precio = valores['precio'];
-                $("#unidad_venta").val(unidad);
+                $("#unidad").val(unidad);
                 $("#precio_venta").val(precio);
         }
 
@@ -233,7 +234,7 @@
                         datosFila.id = fila.cells[0].textContent;                        
                         //datosFila.producto = fila.cells[1].textContent;
                         datosFila.producto = fila.cells[1].getElementsByTagName('div')[0].id;
-                        datosFila.unidad_venta = fila.cells[2].textContent;
+                        datosFila.unidad = fila.cells[2].textContent;
                         datosFila.cantidad = fila.cells[3].textContent;
                         datosFila.precio_venta = fila.cells[4].textContent;
                         datosFila.subtotal = fila.cells[5].textContent;
@@ -249,7 +250,7 @@
                         let fila = new Array(); 
                         e.preventDefault();
                         let producto = $('#producto').val();
-                        let unidad_venta = $('#unidad_venta').val();
+                        let unidad = $('#unidad').val();
                         let precio_venta = $('#precio_venta').val();
                         let cantidad = $('#cantidad').val();
                         $.ajax({
@@ -258,7 +259,7 @@
                                 data: {
                                         _token: "{{ csrf_token() }}",
                                         producto: producto,
-                                        unidad_venta: unidad_venta,
+                                        unidad: unidad,
                                         precio_venta: precio_venta,
                                         cantidad: cantidad
                                 },
@@ -273,7 +274,7 @@
                                                 $('#alert2').hide();
                                                 $('#insert_form').modal('hide');
                                                 actualizar_fila();                                                
-                                                tabla_salidas.push({producto: $('#producto').val(), unidad_venta: $('#unidad_venta').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});                                                
+                                                tabla_salidas.push({producto: $('#producto').val(), unidad: $('#unidad').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});                                                
                                                 vaciarCampos();                                                
                                         }
                                         console.log(result);

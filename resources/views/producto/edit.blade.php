@@ -28,7 +28,7 @@
             <label for="" class="form-label">Color</label>
             <input id="color" name="color" type="text" class="form-control" value="{{$producto->color}}" />
         </div>
-        <div class="row g-3">
+        <div class="row g-3 mb-3">
             <div class="col-md-4">
                 <label for="" class="form-label">Categoria</label>            
                 <select class="form-control" disabled id="id_categoria" name="id_categoria">
@@ -57,37 +57,32 @@
                 </select>
             </div>   
         </div>
-        <div class="row g-2 mb-3">
-            <div class="col-md-6">
-                <label for="" class="form-label">Unidad Compra</label>
-                {{-- <input type="text" class="form-control" id="unidad_compra" name="unidad_compra" value="{{$producto->unidad_compra}}"> --}}
-                
-                <select class="form-control" name="unidad_compra" id="unidad_compra" required>
-                    <option value="0">Seleccione unidad</option>
-                    @foreach($unidad_compras as $compra)
-                        <option @if($compra == ($producto->unidad_compra)){ selected } @endif value="{{$compra}}">{{$compra}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="" class="form-label">Unidad Venta</label>
-                {{-- <input type="text" class="form-control" id="unidad_venta" name="unidad_venta" value="{{$producto->unidad_venta}}"> --}}
-                <select class="form-control" name="unidad_venta" id="unidad_venta" required>
-                    <option value="0">Seleccione unidad</option>
-                    <option value="unidad">Unidad</option>
-                    <option value="metro">Metro</option>
-                    <option value="otro">Otro</option>
-                </select>
-            </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Tipo de Unidad</label>
+            {{-- <input type="text" class="form-control" id="unidad" name="unidad" required> --}}
+            <select class="form-control" name="unidad" id="unidad" required>
+                <option value="0">Seleccione unidad</option>
+                <option value="unidad" @if(($producto->unidad)== 'unidad'){ selected } @endif >Unidad</option>
+                <option value="metro" @if(($producto->unidad)=='metro'){ selected } @endif>Metro</option>
+                <!-- <option value="otro">Otro</option> -->
+            </select>
         </div>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Compra</label>
-                <input type="text" class="form-control" id="precio_compra" name="precio_compra" value="{{$producto->precio_compra}}">
-            </div>
+                <div class="flex">
+                    <span class="currency">Bs.</span>
+                    <!-- <input id="precio_compra" name="precio_compra" type="number" maxlength="15" placeholder="0.0" required/> -->
+                    <input class="numeric" type="text" id="precio_compra" name="precio_compra" value="{{$producto->precio_compra}}" required/>
+                </div>
+            </div>        
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Venta</label>
-                <input type="text" class="form-control" id="precio_venta" name="precio_venta" value="{{$producto->precio_venta}}">
+                <div class="flex">
+                    <span class="currency">Bs.</span>
+                    <!-- <input id="precio_venta" name="precio_venta" type="number" maxlength="15" placeholder="0.0" required/> -->
+                    <input class="numeric" type="text" id="precio_venta" name="precio_venta" value="{{$producto->precio_venta}}" required/>
+                </div>                
             </div>
         </div>
         <div class="p-3">
@@ -100,7 +95,31 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .flex {
+            display: flex;
+            justify-content: flex-start;
+        
+        }
+        .flex input {
+            max-width: 300px;
+            flex: 1 1 300px;
+        }
+        .flex .currency {
+            font-size: 15px;
+            padding: 0 10px 0 20px;
+            color: #999;
+            border: 2px solid #ccc;
+            border-right: 0;
+            line-height: 2.5;
+            border-radius: 7px 0 0 7px;
+            background: white;
+        }
+    </style>
 @stop
 
 @section('js')
+<script>
+    $(".numeric").numeric({ decimal : ".",  negative : false, scale: 3 });
+</script>
 @stop

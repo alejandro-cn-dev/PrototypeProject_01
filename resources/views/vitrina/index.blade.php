@@ -73,7 +73,7 @@
                                 </div>
                                 <!-- Precio-->
                                 <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
-                                {{ $producto->precio_venta }} Bs. / {{ $producto->unidad_venta}}
+                                {{ $producto->precio_venta }} Bs. / {{ $producto->unidad}}
                             </div>
                         </div>
                         <!-- Acciones-->
