@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_compra');
             $table->decimal('costo_compra');
             $table->integer('cantidad');
+            $table->integer('stock_inicial')->default(0);
             // $table->decimal('subtotal');
             $table->unsignedBigInteger('id_producto');
             $table->boolean('isDeleted')->default(0);

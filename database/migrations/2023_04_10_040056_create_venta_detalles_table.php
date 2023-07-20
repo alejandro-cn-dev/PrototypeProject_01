@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_venta');
             $table->decimal('precio_unitario');
             $table->integer('cantidad');
+            $table->integer('stock_inicial')->default(0);
             // $table->integer('descuento')->default(0);
             $table->unsignedBigInteger('id_producto');
             $table->boolean('isDeleted')->default(0);
