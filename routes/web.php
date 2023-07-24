@@ -78,5 +78,8 @@ Route::get('compras/recibo_ind/{id}',[CompraController::class,'recibo_ind'])->mi
 
 
 Route::get('inventario',[InventarioController::class,'index'])->middleware('auth')->name('inventario.index');
+Route::post('get_movimientos',[InventarioController::class,'get_movimientos'])->middleware('auth')->name('inventario.get_movimientos');
 Route::get('stock',[InventarioController::class,'stock'])->middleware('auth')->name('inventario.stock');
+Route::get('reporte_stock',[InventarioController::class,'reporte_stock'])->middleware('auth')->name('inventario.reporte_stock');
+Route::get('reporte_valoracion',[InventarioController::class,'reporte_valoracion'])->middleware('auth')->name('inventario.reporte_valoracion');
 //Route::get('entradas/reporte',[CompraController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');

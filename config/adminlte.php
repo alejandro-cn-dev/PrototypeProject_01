@@ -384,19 +384,30 @@ return [
                     'text' => 'Movimientos de inventario',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'inventario',
-                ],
-                [
-                    'text' => 'Control de stock',
-                    'icon'    => 'fas fa-fw fa-list-alt',
-                    'url'  => 'stock',
                 ]
             ],
         ],
         [
-            'text'        => 'Generacion de reportes',
-            'url'         => 'reportes',
+            'text'    => 'Reportes',
             'icon'    => 'fas fa-fw fa-file-excel',
-            'can'       =>  'reportes.index'
+            'submenu' => [
+                [
+                    'text' => 'Control de stock',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'stock',
+                ],         
+                [
+                    'text' => 'Stock',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'reporte_stock',
+                    'can'   => 'reportes.index'
+                ],
+                [
+                    'text' => 'Valoracion de inventarios',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'reporte_valoracion',
+                ]
+            ],
         ],
         [
             'text'        => 'Volver a la Home',
