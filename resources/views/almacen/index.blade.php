@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de Almacenes')
+@section('title', 'Almacenes | Presitex Panel Admin')
 
 @section('content_header')
     <h1>Listado de registros de Almacenes</h1>
@@ -10,7 +10,9 @@
 <img src="img/almacen_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo almacenes">
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
+        @can('almacens.create')
         <a href="almacens/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacén</a>    
+        @endcan
         <a href="{{route('generar_reporte_almacenes',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Almacenes</a>    
     </div>  
     <table id="almacenes" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
@@ -30,10 +32,14 @@
                     <td>{{$almacen->tipo}}</td>
                     <td>
                         <form action="{{route('almacens.destroy',$almacen->id)}}" method="POST">
+                            @can('almacens.edit')
                             <a href="/almacens/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                            @endcan
                             @csrf
+                            @can('almacens.delete')
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
+                            @endcan
                         </form>
                     </td>
                 </tr>
@@ -45,20 +51,60 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet"/>
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#almacenes').DataTable({
-          "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-        }
-    });
-});
+    $(document).ready(function(){        
+        $('#almacenes').DataTable({
+            dom: 'Bfrtip',
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fas fa-copy"></i> Copiar',
+                    titleAttr: 'Copiar',
+                    exportOptions: {
+                        columns: [ 0, 1, 2 ]
+                    }
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    titleAttr: 'Excel',
+                    exportOptions: {
+                        columns: [ 0, 1, 2 ]
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    titleAttr: 'CSV',
+                    exportOptions: {
+                        columns: [ 0, 1, 2 ]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    titleAttr: 'PDF',
+                    exportOptions: {
+                        columns: [ 0, 1, 2 ]
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Imprimir',
+                    titleAttr: 'Imprimir',
+                    exportOptions: {
+                        columns: [ 0, 1, 2 ]
+                    }
+                }
+            ],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            }
+        });
+    });    
 </script>
 @stop

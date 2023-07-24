@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de categorias | Presitex Panel Admin')
+@section('title', 'Categorias | Presitex Panel Admin')
 
 @section('content_header')
 <h1>Listado de categorias</h1>
@@ -10,7 +10,9 @@
 <img src="img/categorias_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo categorias">
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
+            @can('categorias.create')
             <a href="categorias/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Categoria</a>    
+            @endcan
             <a href="{{route('generar_reporte_categoria',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Categorias</a>    
     </div>  
     <div class="table-responsive">
@@ -33,10 +35,14 @@
                     <td>{{$categoria->sufijo_categoria}}</td>
                     <td>
                         <form action="{{route('categorias.destroy',$categoria->id)}}" method="POST">
+                            @can('categorias.edit')
                             <a href="/categorias/{{$categoria->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                            @endcan
                             @csrf
+                            @can('categorias.delete')
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
+                            @endcan
                         </form>
                     </td>
                 </tr>
@@ -63,17 +69,26 @@ $(document).ready(function(){
                 {
                     extend: 'copyHtml5',
                     text: '<i class="fas fa-copy"></i> Copiar',
-                    titleAttr: 'Copy'
+                    titleAttr: 'Copiar',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    }
                 },
                 {
                     extend: 'excelHtml5',
                     text: '<i class="fas fa-file-excel"></i> Excel',
-                    titleAttr: 'Excel'
+                    titleAttr: 'Excel',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    }
                 },
                 {
                     extend: 'csvHtml5',
                     text: '<i class="fas fa-file-csv"></i> CSV',
-                    titleAttr: 'CSV'
+                    titleAttr: 'CSV',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    }
                 },
                 {
                     extend: 'pdfHtml5',
@@ -83,7 +98,10 @@ $(document).ready(function(){
                 {
                     extend: 'print',
                     text: '<i class="fas fa-print"></i> Imprimir',
-                    titleAttr: 'Imprimir'
+                    titleAttr: 'Imprimir',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    }
                 }
             ],
             "language": {

@@ -8,28 +8,38 @@
 
 @section('content')
 <img src="{{ asset('img/inventory_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
-<div class="shadow-none p-3 bg-white rounded"> 
+<div class="shadow-none p-3 bg-white rounded">
+    <div class="form-group row">
+        <label for="criterio" class="col-sm-2 col-form-label">Seleccionar criterio: </label>
+        <div class="col-sm-10">            
+            <select name="criterio" id="criterio" class="form-control" onchange="cargar_tabla();">
+                <option value="todo" selected>Mostrar todo</option>
+                <option value="compras">Solo compras</option>
+                <option value="ventas">Solo ventas</option>
+            </select>
+        </div>
+    </div>
     <table id="movimientos" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
+                <th scope="col">Tipo</th>
                 <th scope="col">Item</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio unitario</th>
                 <th scope="col">Subtotal</th>
-                <th scope="col">Tipo</th>
                 <th scope="col">Fecha</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($inventarios as $inventario)
                 <tr>
+                    <td><span @if(($inventario->tipo) == 'entrada') class="badge bg-primary" @else class="badge bg-success" @endif>{{ $inventario->tipo }}</span></td>
                     <td>{{ $inventario->item_producto }}</td>
                     <td>{{ $inventario->descripcion }}</td>
                     <td>{{ $inventario->cantidad }}</td>
                     <td>{{ $inventario->costo }}</td>
                     <td>{{ $inventario->costo * $inventario->cantidad }}</td>
-                    <td>{{ $inventario->tipo }}</td>
                     <td>{{ $inventario->created_at }}</td>
                 </tr>
             @endforeach
@@ -81,5 +91,42 @@
             }
         });
     });    
+    function cargar_tabla(){
+        let e = document.getElementById("criterio");
+        let criterio = e.value;
+        $.ajax({
+            url: "{{ route('inventario.get_movimientos') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                criterio: criterio
+            },
+            success: function(result){
+                if(result){
+                    cargar_datos(result.respuesta);
+                }
+                console.log(result);
+                console.log(result.respuesta[0].tipo);
+            },
+            error: function(response){
+                console.log(response);
+            }
+        });
+    }
+    function cargar_datos(resultado){
+        $('#movimientos tbody').detach();
+        tbody = document.getElementById("movimientos");        
+        var tr = document.createElement("tr");
+        resultado.forEach(function(fila){            
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.tipo)));
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.item_producto)));
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.descripcion)));
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.cantidad)));
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.costo)));
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.costo + fila.cantidad)));
+            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.created_at)));
+        });
+        tbody.appendChild(tr);
+    }
 </script>
 @stop
