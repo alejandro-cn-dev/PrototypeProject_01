@@ -31,7 +31,7 @@
                 <th scope="col">Fecha</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="lista_movimientos">
             @foreach ($inventarios as $inventario)
                 <tr>
                     <td><span @if(($inventario->tipo) == 'entrada') class="badge bg-primary" @else class="badge bg-success" @endif>{{ $inventario->tipo }}</span></td>
@@ -55,7 +55,48 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){        
+    $(document).ready(function(){  
+        recarga_plugin();        
+    });    
+    function cargar_tabla(){
+        let e = document.getElementById("criterio");
+        let criterio = e.value;
+        $.ajax({
+            url: "{{ route('inventario.get_movimientos') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                criterio: criterio
+            },
+            success: function(result){
+                if(result){
+                    cargar_datos(result.respuesta);
+                }
+                console.log(result);
+                console.log(result.respuesta[0].tipo);
+            },
+            error: function(response){
+                console.log(response);
+            }
+        });
+    }
+    function cargar_datos(resultado){
+        $('#movimientos tbody tr').detach();
+        tbody = document.getElementById("lista_movimientos");        
+        resultado.forEach(function(fila){
+            let tr = document.createElement("tr");
+            let fila_tabla = "";
+            if(fila.tipo == 'entrada'){
+                fila_tabla = "<tr><td><span class='badge bg-primary'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.descripcion+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.created_at+"</td></tr>";    
+            }else{
+                fila_tabla = "<tr><td><span class='badge bg-success'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.descripcion+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.created_at+"</td></tr>";
+            }            
+            tr.innerHTML = fila_tabla;
+            tbody.appendChild(tr);
+        });
+        recarga_plugin();
+    }
+    function recarga_plugin(){
         $('#movimientos').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -90,43 +131,6 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
         });
-    });    
-    function cargar_tabla(){
-        let e = document.getElementById("criterio");
-        let criterio = e.value;
-        $.ajax({
-            url: "{{ route('inventario.get_movimientos') }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                criterio: criterio
-            },
-            success: function(result){
-                if(result){
-                    cargar_datos(result.respuesta);
-                }
-                console.log(result);
-                console.log(result.respuesta[0].tipo);
-            },
-            error: function(response){
-                console.log(response);
-            }
-        });
-    }
-    function cargar_datos(resultado){
-        $('#movimientos tbody').detach();
-        tbody = document.getElementById("movimientos");        
-        var tr = document.createElement("tr");
-        resultado.forEach(function(fila){            
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.tipo)));
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.item_producto)));
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.descripcion)));
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.cantidad)));
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.costo)));
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.costo + fila.cantidad)));
-            tr.appendChild(document.createElement("td").appendChild(document.createTextNode(fila.created_at)));
-        });
-        tbody.appendChild(tr);
     }
 </script>
 @stop
