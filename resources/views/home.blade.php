@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard | Presitex Panel Admin')
 
 @section('content_header')
 <div style="background-color: #343a40; color: white; text-align: center; padding: 10px; border-radius: 10px;">  
@@ -12,6 +12,7 @@
 @section('content')
     <!-- PRIMERA SECCION -->
     <div class="row" bis_skin_checked="1">
+        <!-- Tarjeta #1 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-info" bis_skin_checked="1">
@@ -25,21 +26,21 @@
             <a href="/ventas" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- Tarjeta #2 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-success" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
-              <h3>10<sup style="font-size: 20px">%</sup></h3>
-              <p>Ganancias</p>
+              <h3>{{ $compras }}</h3>
+              <p>Compras</p>
             </div>
             <div class="icon" bis_skin_checked="1">
-              <i class="fa fa-check" aria-hidden="true"></i>
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             </div>
             <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- Tarjeta #3 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-warning" bis_skin_checked="1">
@@ -53,7 +54,7 @@
             <a href="/empleados" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- Tarjeta #4 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-danger" bis_skin_checked="1">
@@ -67,10 +68,9 @@
             <a href="/productos" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
-      </div>
     </div>
     <div class="row" bis_skin_checked="1">
+        <!-- Tarjeta #5 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-info" bis_skin_checked="1">
@@ -84,7 +84,7 @@
             <a href="/ventas" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- Tarjeta #6 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-success" bis_skin_checked="1">
@@ -98,7 +98,7 @@
             <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- Tarjeta #7 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-warning" bis_skin_checked="1">
@@ -112,7 +112,7 @@
             <a href="/empleados" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- Tarjeta #8 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-danger" bis_skin_checked="1">
@@ -126,8 +126,6 @@
             <a href="/productos" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
-      </div>
     </div>
       <!-- FIN PRIMERA SECCION -->
 
