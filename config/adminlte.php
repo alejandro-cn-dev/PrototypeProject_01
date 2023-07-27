@@ -329,6 +329,11 @@ return [
         //     'can'   => 'ventas.index'
         // ],
         [
+            'text'        => 'Inicio del panel',
+            'url'         => 'home',
+            'icon'    => 'fas fa-fw fa-home',
+        ], 
+        [
             'text'    => 'Gestion de productos',
             'icon'    => 'fas fa-fw fa-box',
             'submenu' => [
@@ -355,6 +360,12 @@ return [
                     'icon'    => 'fas fa-fw fa-store',
                     'url'  => 'almacens',
                     'can'   => 'almacens.index'
+                ],
+                
+                [
+                    'text' => 'Proveedores',
+                    'icon'    => 'fas fa-fw fa-users',
+                    'url'  => '#',
                 ],
             ],
         ],        
@@ -396,17 +407,17 @@ return [
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'stock',
                 ],         
-                [
-                    'text' => 'Stock',
-                    'icon'    => 'fas fa-fw fa-list-alt',
-                    'url'  => 'reporte_stock',
-                    'can'   => 'reportes.index'
-                ],
-                [
-                    'text' => 'Valoracion de inventarios',
-                    'icon'    => 'fas fa-fw fa-list-alt',
-                    'url'  => 'reporte_valoracion',
-                ]
+                // [
+                //     'text' => 'Stock',
+                //     'icon'    => 'fas fa-fw fa-list-alt',
+                //     'url'  => 'reporte_stock',
+                //     'can'   => 'reportes.index'
+                // ],
+                // [
+                //     'text' => 'Valoracion de inventarios',
+                //     'icon'    => 'fas fa-fw fa-list-alt',
+                //     'url'  => 'reporte_valoracion',
+                // ]
             ],
         ],
         [

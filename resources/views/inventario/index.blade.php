@@ -56,7 +56,40 @@
 @section('js')
 <script>
     $(document).ready(function(){  
-        recarga_plugin();        
+        $('#movimientos').DataTable({
+            dom: 'Bfrtip',
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fas fa-copy"></i> Copiar',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fas fa-file-csv"></i> CSV',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fas fa-file-pdf"></i> PDF',
+                    titleAttr: 'PDF'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i> Imprimir',
+                    titleAttr: 'Imprimir'
+                }
+            ],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            }
+        });  
     });    
     function cargar_tabla(){
         let e = document.getElementById("criterio");
@@ -93,43 +126,6 @@
             }            
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
-        });
-        recarga_plugin();
-    }
-    function recarga_plugin(){
-        $('#movimientos').DataTable({
-            dom: 'Bfrtip',
-            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            buttons: [
-                {
-                    extend: 'copyHtml5',
-                    text: '<i class="fas fa-copy"></i> Copiar',
-                    titleAttr: 'Copy'
-                },
-                {
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i> Excel',
-                    titleAttr: 'Excel'
-                },
-                {
-                    extend: 'csvHtml5',
-                    text: '<i class="fas fa-file-csv"></i> CSV',
-                    titleAttr: 'CSV'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i> PDF',
-                    titleAttr: 'PDF'
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="fas fa-print"></i> Imprimir',
-                    titleAttr: 'Imprimir'
-                }
-            ],
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-            }
         });
     }
 </script>

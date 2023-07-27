@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Control de stock | Presitex Panel Admin')
+@section('title', 'Control de inventario | Presitex Panel Admin')
 
 @section('content_header')
-    <h1>Control de Stock</h1>
+    <h1>Control de inventario</h1>
 @stop
 
 @section('content')
@@ -33,7 +33,8 @@
                     <td>{{ $producto->precio_compra }}</td>
                     <td>{{ $producto->precio_venta }}</td>
                     <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif - @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->
-                    <td>{{$producto->entradas - $producto->salidas}}</td>
+                    <!-- <td>{{$producto->entradas - $producto->salidas}}</td> -->
+                    <td>0</td>
                     <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif</td>
                     <td>@if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td>
                     <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif + @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->

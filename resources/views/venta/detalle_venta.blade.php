@@ -13,7 +13,8 @@
         <div class="text-right mb-5">
             <a href="/ventas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
             <a href="{{route('generar_reporte_venta_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
-            <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir nota de venta</a>
+            <!-- <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir nota de venta</a> -->
+            <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir Factura</a>
         </div>
         @csrf
         <div class="mb-3">
