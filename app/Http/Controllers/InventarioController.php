@@ -98,6 +98,15 @@ class InventarioController extends Controller
     /**
      * Funciones propias
      */
+    public function existencias()
+    {
+        $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->select('productos.id','productos.item_producto','productos.descripcion','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE id_producto = productos.id) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE id_producto = productos.id)) AS existencias"))
+        ->where('productos.isDeleted','=',0)->get();
+        return view('inventario.existencias')->with('productos',$productos);
+    }
     public function get_movimientos(Request $request)
     {
         $ventas = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')

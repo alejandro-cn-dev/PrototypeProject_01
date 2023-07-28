@@ -1,44 +1,40 @@
 @extends('adminlte::page')
 
-@section('title', 'Control de inventario | Presitex Panel Admin')
+@section('title', 'Existencias | Presitex Panel Admin')
 
 @section('content_header')
-    <h1>Control de inventario</h1>
+    <h1>Existencia de productos</h1>
 @stop
 
 @section('content')
-<img src="{{ asset('img/stock_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
+<img src="{{ asset('img/existencias_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
 <div class="shadow-none p-3 bg-white rounded"> 
-    <table id="stock" class="table table-striped table-bordered mt-4" style="width: 100%;">
+    <table id="existencias" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
-                <th scope="col">Producto</th>
                 <th scope="col">Item</th>
-                <!-- <th scope="col">Descipción</th> -->
-                <th scope="col">Precio unitario</th>                
-                <!-- <th scope="col"> % IVA </th> -->
-                <th scope="col">Precio final</th>
-                <th scope="col">Stock inicial</th>
-                <th scope="col">Entradas</th>
-                <th scope="col">Salidas</th>
-                <th scope="col">Stock actual</th>
-                <!-- <th scope="col">Fecha</th> -->
+                <th scope="col">Producto</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Color</th>
+                <th scope="col">U. Medida</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Existencias</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($productos as $producto)
                 <tr>
-                    <td>{{ $producto->descripcion }}</td>
                     <td>{{ $producto->item_producto }}</td>
+                    <td>{{ $producto->descripcion }}</td>
+                    <td>{{ $producto->categoria }}</td>
+                    <td>{{ $producto->marca }}</td>
+                    <td>{{ $producto->color }}</td>
+                    <td>{{ $producto->unidad }}</td>
                     <td>{{ $producto->precio_compra }}</td>
                     <td>{{ $producto->precio_venta }}</td>
-                    <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif - @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->
-                    <!-- <td>{{$producto->entradas - $producto->salidas}}</td> -->
-                    <td>0</td>
-                    <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif</td>
-                    <td>@if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td>
-                    <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif + @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->
-                    <td>{{$producto->entradas + $producto->salidas}}</td>
+                    <td>@if(empty($producto->existencias)) 0 @else {{$producto->existencias}} @endif</td>
                 </tr>
             @endforeach
         </tbody>
@@ -53,7 +49,7 @@
 @section('js')
 <script>
     $(document).ready(function(){        
-        $('#stock').DataTable({
+        $('#existencias').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             buttons: [

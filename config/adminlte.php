@@ -297,7 +297,7 @@ return [
         // Navbar items:
         [
             'type'         => 'navbar-search',
-            'text'         => 'search',
+            'text'         => 'Buscar...',
             'topnav_right' => false,
         ],
         [
@@ -308,7 +308,7 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar...',
         ],
         [
             'text' => 'blog',
@@ -395,16 +395,21 @@ return [
                     'text' => 'Movimientos de inventario',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'inventario',
+                ],
+                [
+                    'text' => 'Existencias',
+                    'icon'    => 'nav-icon fas fa-edit',
+                    'url'  => 'existencias',
                 ]
             ],
         ],
         [
             'text'    => 'Reportes',
-            'icon'    => 'fas fa-fw fa-file-excel',
+            'icon'    => 'fas fa-fw fa-file-pdf',
             'submenu' => [
                 [
                     'text' => 'Control de stock',
-                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'icon'    => 'fas fa-fw fa-file-text',
                     'url'  => 'stock',
                 ],         
                 // [
