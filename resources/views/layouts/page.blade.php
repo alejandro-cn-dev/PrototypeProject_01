@@ -44,14 +44,14 @@
                         </li>                        
                         <li class="nav-item"><a class="nav-link" href="/info">Sobre nosotros</a></li>
                     </ul>
-                    <form class="d-flex">
+                    <div class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Carrito
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                    </form>
-                    <form class="d-flex">
+                    </div>
+                    <div class="d-flex">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <!-- Links de autenticación-->
                         @guest
@@ -69,11 +69,11 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('home.index') }}">Dashboard</a>
+                                    <a class="dropdown-item" href="{{ route('home.index') }}">Panel de administración</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        Cerrar sesión
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -83,7 +83,7 @@
                             </li>
                         @endguest
                         </ul>
-                    </form>
+                    </div>
                 </div>
             </div>
         </nav>        
