@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('proveedors', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('telefono');
+            $table->string('nombre',100);
+            $table->string('telefono',10);
             $table->unsignedBigInteger('id_usuario');
             $table->boolean('isDeleted')->default(0);
             $table->timestamps();

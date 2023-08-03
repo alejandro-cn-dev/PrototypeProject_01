@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('venta_cabeceras', function (Blueprint $table) {
             $table->id();            
             $table->double('numeracion');
+            $table->date('fecha_venta')->nullable();
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_usuario');
-            $table->decimal('monto_total');
+            $table->decimal('monto_total',7,4);
             $table->boolean('isDeleted')->default(0);
             $table->foreign('id_cliente')->references('id')->on('clientes');
             $table->foreign('id_usuario')->references('id')->on('users');

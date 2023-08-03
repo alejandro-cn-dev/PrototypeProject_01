@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('numeracion');
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');
-            $table->decimal('monto_total');
+            $table->decimal('monto_total',7,4);
             $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
 

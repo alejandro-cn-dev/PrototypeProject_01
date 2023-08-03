@@ -17,16 +17,16 @@ return new class extends Migration
             $table->id();
             
             //Datos básicos de empleado
-            $table->string('ap_paterno');
-            $table->string('ap_materno');
-            $table->string('name');
-            $table->string('ci');
-            $table->string('expedido');
-            $table->string('telefono');
-            $table->string('matricula')->nullable()->unique();
+            $table->string('ap_paterno',20);
+            $table->string('ap_materno',20);
+            $table->string('name',50);
+            $table->string('ci',10);
+            $table->string('expedido',2);
+            $table->string('telefono',10);
+            $table->string('matricula',15)->nullable()->unique();
 
             //Validacion de usuario
-            $table->string('email')->unique();
+            $table->string('email',50)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             

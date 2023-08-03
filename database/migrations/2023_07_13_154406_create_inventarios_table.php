@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_compra')->nullable();
             $table->unsignedBigInteger('id_venta')->nullable();
-            $table->decimal('precio');
+            $table->decimal('precio',7,4);
             $table->integer('cantidad');
             // $table->decimal('subtotal');
             $table->unsignedBigInteger('id_producto');
