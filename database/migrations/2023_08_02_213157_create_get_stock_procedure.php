@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        $procedimiento = "CREATE PROCEDURE `get_stock_by_productid`(IN `idx` INT, OUT `stock` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SET stock = (SELECT COALESCE(SUM(cantidad),0) FROM `compra_detalles` WHERE id_producto = idx AND isDeleted = 0) - (SELECT COALESCE(SUM(cantidad),0) FROM `venta_detalles` WHERE id_producto = idx AND isDeleted = 0); END";
+        $procedimiento = "DROP PROCEDURE IF EXISTS `get_stock_by_productid`; CREATE PROCEDURE `get_stock_by_productid`(IN `idx` INT, OUT `stock` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SET stock = (SELECT COALESCE(SUM(cantidad),0) FROM `compra_detalles` WHERE id_producto = idx AND isDeleted = 0) - (SELECT COALESCE(SUM(cantidad),0) FROM `venta_detalles` WHERE id_producto = idx AND isDeleted = 0); END";
         DB::unprepared($procedimiento);
     }
 
@@ -24,7 +24,6 @@ return new class extends Migration
      */
     public function down()
     {
-        $drop_procedimiento = " DROP PROCEDURE IF EXISTS `get_stock_by_productid`";
-        DB::unprepared($drop_procedimiento);
+        //
     }
 };

@@ -46,11 +46,13 @@ class DatabaseSeeder extends Seeder
             'nombre' => 'Fernando Cora - ASATEX',
             'telefono' => '60291828',
             'id_usuario' => '1'
-        ],[
+        ]);
+        \App\Models\Proveedor::create([
             'nombre' => 'Gabriel Araujo - ASATEX',
             'telefono' => '69800166',
             'id_usuario' => '1'
-        ],[
+        ]);
+        \App\Models\Proveedor::create([
             'nombre' => 'Vicente Mallorca - TEXBOL',
             'telefono' => '70583801',
             'id_usuario' => '1'
