@@ -101,9 +101,13 @@
                                         <label for="unidad" class="form-label">Unidad</label>
                                         <input type="text" name="unidad" id="unidad" class="form-control" disabled>
                                 </div>
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                         <label for="precio_venta" class="form-label">Costo</label>
                                         <input type="number" name="precio_ventacompra" id="precio_venta" class="form-control" required>
+                                </div> -->
+                                <div class="col-md-4">
+                                        <label for="precio_venta" class="form-label">Costo:</label>
+                                        <input class="form-control" type="text" name="precio_venta" id="precio_venta" required>
                                 </div>
                         </div>                        
                     </div>
@@ -124,13 +128,10 @@
 @stop
 
 @section('js')
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">     
         var tabla_salidas = [];
         var auto_id = 1;        
-        var total = 0.0;
+        var total = 0;
         var campos = ['id','producto','unidad','cantidad','precio_venta','subtotal','opciones'];        
         var input_name = ['producto','unidad','precio_venta','cantidad'];
         
@@ -180,20 +181,18 @@
                                         boton.className= "btn btn-danger";
                                         boton.innerHTML= "<i class='fas fa-fw fa-times'></i> Anular";
                                         boton.type= "button";
-                                        // boton.onclick = function(){
-                                        //         eliminar_fila(auto_id-1);
-                                        // };
                                         boton.addEventListener("click", function () {
-                                                //eliminar_fila(auto_id);
                                                 $(this).closest('tr').remove();
+                                                get_total_by_table();
                                         });
-                                        // boton.addEventListener('click', function handleClick(event) {
-                                        //         eliminar_fila(auto_id-1);
-                                        // });
                                         celda = boton;
                                         break;
+                                case "precio_venta":
+                                        celda = document.createTextNode((formato_precio(document.getElementById("precio_venta").value)).toFixed(2) + " Bs");
+                                        break;
                                 case "subtotal":                                        
-                                        celda = document.createTextNode($("#precio_venta").val()*$("#cantidad").val());
+                                        //celda = document.createTextNode($("#precio_venta").val()*$("#cantidad").val());
+                                        celda = document.createTextNode(formato_precio($("#precio_venta").val())*formato_precio($("#cantidad").val()).toFixed(2) + " Bs");
                                         break;
                                 default:
                                         valor = $("#"+campo+"").val();
@@ -201,14 +200,14 @@
                                         break;                                     
                         }            
                         td.appendChild(celda); 
+                        if(campo == "precio_venta" || campo == "subtotal"){
+                                td.style.cssText = "text-align-last: right;";
+                        }
                         tr.appendChild(td);
                         
                 });                
                 tbody.appendChild(tr);
-                total = parseFloat($("#precio_venta").val() * $("#cantidad").val()) + total;
-                campo_total.innerHTML = "";
-                campo_total.appendChild(document.createTextNode(total.toFixed(2) + ' Bs'));
-                //vaciarCampos();
+                get_total_by_table();
         }
         function vaciarCampos(){
                 input_name.forEach(function(campo){
@@ -217,7 +216,9 @@
         }
         function limpiar_tabla(){
                 $('#contenido tr').detach();
+                auto_id = 0;
                 document.getElementById("total").innerHTML = "0.00 Bs";
+                total = 0;
         }
         
         //funcion para transferir los datos de la tabla 'salidas' a un array JS
@@ -236,8 +237,9 @@
                         datosFila.producto = fila.cells[1].getElementsByTagName('div')[0].id;
                         datosFila.unidad = fila.cells[2].textContent;
                         datosFila.cantidad = fila.cells[3].textContent;
-                        datosFila.precio_venta = fila.cells[4].textContent;
-                        datosFila.subtotal = fila.cells[5].textContent;
+                        datosFila.precio_venta = formato_precio(fila.cells[4].textContent);
+                        //datosFila.subtotal = fila.cells[5].textContent;
+                        datosFila.subtotal = formato_precio(fila.cells[5].textContent);
 
                         // Agrega el objeto de datosFila al array de datos
                         datos.push(datosFila);
@@ -245,7 +247,45 @@
                 return datos;
         }
 
-        $(document).ready(function(){                
+        function get_total_by_table(){                
+                let campo_total = document.getElementById("total");
+                let tabla = document.getElementById("salidas");
+                let sum_total = 0;
+                const datos = [];
+                for (var i = 1; i < tabla.rows.length; i++) {
+                        // Accede a la fila actual
+                        var fila = tabla.rows[i];
+                        //inicializar variable que contendrá el subtotal de la fila
+                        let subtotal = 0;
+                        //subtotal = parseFloat(fila.cells[5].textContent);
+                        subtotal = formato_precio(fila.cells[5].textContent);
+                        //agregar subtotal al total
+                        sum_total = sum_total + subtotal;
+                }
+                total = sum_total;
+                //return sum_total;
+                campo_total.innerHTML = "";
+                campo_total.appendChild(document.createTextNode(sum_total.toFixed(2) + ' Bs'));
+                return sum_total;
+        }
+
+        function formato_precio(precio_lit)
+        {
+                return Number(precio_lit.replace(/[^0-9.-]+/g,""));
+        }
+
+        $(document).ready(function(){    
+                $("#precio_venta").inputmask({
+                        alias: 'numeric',
+                        mask: '99[.99] Bs',
+                        placeholder: ' ',
+                        definitions: {
+                                '*': {
+                                        validator: "[0-9]"
+                                }
+                        },
+                        rightAlign: true
+                });            
                 $('#insert_form').on('submit',function(e){
                         let fila = new Array(); 
                         e.preventDefault();
