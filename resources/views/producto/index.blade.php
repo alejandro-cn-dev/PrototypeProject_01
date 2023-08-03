@@ -22,7 +22,7 @@
                     <th scope="col">ITEM</th>
                     <th scope="col">Categoria</th>
                     <!-- <th scope="col">Nombre</th> -->
-                    <th scope="col">Descripcion</th>
+                    <th scope="col">Nombre</th>
                     <th scope="col">Color</th>
                     <th scope="col">Unidad</th>
                     <th scope="col">Ubicacion</th>
@@ -36,7 +36,7 @@
                         <td>{{$producto->item_producto}}</td>
                         <td>{{$producto->id_categoria}}</td>
                         <!-- <td>{{$producto->nombre}}</td> -->
-                        <td>{{$producto->descripcion}}</td>
+                        <td>{{$producto->nombre}}</td>
                         <td>{{$producto->color}}</td>
                         <td>{{$producto->unidad}}</td>
                         <td>{{$producto->id_almacen}}</td>

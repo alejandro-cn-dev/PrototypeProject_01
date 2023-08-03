@@ -31,7 +31,7 @@ class ProductoController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color','productos.unidad',
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.descripcion','productos.color','productos.unidad',
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')

@@ -6,11 +6,6 @@
     <h1>Editar Registro de Producto</h1>
 @stop
 
-<?php
-    $unidad_compras = ['caja','rollo','otro'];
-    $unidad_ventas = ['unidad','metro','otro'];
-?>
-
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">
     <form action="/productos/{{$producto->id}}" method="POST">
