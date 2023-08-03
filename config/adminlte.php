@@ -365,7 +365,7 @@ return [
                 [
                     'text' => 'Proveedores',
                     'icon'    => 'fas fa-fw fa-users',
-                    'url'  => '#',
+                    'url'  => 'proveedors',
                 ],
             ],
         ],        
@@ -470,6 +470,12 @@ return [
         'Datatables' => [
             'active' => true,
             'files' => [
+                // InputMask
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js',
+                ],
                 [
                     'type' => 'js',
                     'asset' => false,

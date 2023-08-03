@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\InventarioController;
 
@@ -56,6 +57,9 @@ Route::resource('marcas','App\Http\Controllers\MarcaController');
 Route::get('marcas/reporte/{id}',[MarcaController::class,'reporte'])->middleware('auth')->name('generar_reporte_marca');
 Route::resource('almacens','App\Http\Controllers\AlmacenController')->except('show');
 Route::get('almacens/reporte/{id}',[AlmacenController::class,'reporte'])->middleware('auth')->name('generar_reporte_almacenes');
+Route::resource('proveedors','App\Http\Controllers\ProveedorController')->except('show');
+Route::get('proveedors/reporte',[ProveedorController::class,'reporte'])->middleware('auth')->name('generar_reporte_proveedor');
+
 // Implementar luego
 // Route::resource('home','App\Http\Controllers\HomeController');
 // Route::resource('inicio','App\Http\Controllers\IncioController');
