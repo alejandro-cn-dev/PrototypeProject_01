@@ -37,10 +37,32 @@ class DatabaseSeeder extends Seeder
             'ci' => '2969372',
             'expedido' => 'LP',
             'telefono' => '1100100',
-            'matricula' => 'ACF2969372LP',
+            'matricula' => 'ACV2969372LP',
             'email' => 'vendedor1@admin.com',
             'password' => 'admin_admin'            
         ])->assignRole('vendedor');
+        \App\Models\User::create([
+            'ap_paterno' => 'Apaza',
+            'ap_materno' => 'Colima',
+            'name' => 'Acomodador1',
+            'ci' => '452112',
+            'expedido' => 'LP',
+            'telefono' => '6325222',
+            'matricula' => 'ACA2969372LP',
+            'email' => 'acomodador1@admin.com',
+            'password' => 'admin_admin'            
+        ])->assignRole('acomodador');
+        \App\Models\User::create([
+            'ap_paterno' => 'Apaza',
+            'ap_materno' => 'Colima',
+            'name' => 'Cobrador1',
+            'ci' => '5623532',
+            'expedido' => 'LP',
+            'telefono' => '325236',
+            'matricula' => 'ACC5623532LP',
+            'email' => 'cobrador1@admin.com',
+            'password' => 'admin_admin'            
+        ])->assignRole('cobrador');
 
         \App\Models\Proveedor::create([
             'nombre' => 'Fernando Cora - ASATEX',
@@ -112,7 +134,8 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Producto::create([
             'item_producto' => 'HI-001',
-            'descripcion' => 'Hilo cruzado',
+            'nombre' => 'Hilo cruzado',
+            'descripcion' => 'Hilo entretegido con varias hebras de nylon',
             'color' => 'Verde',            
             'id_usuario' => '1',            
             'unidad' => 'unidad',
@@ -124,7 +147,8 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Producto::create([
             'item_producto' => 'TS-001',
-            'descripcion' => 'Tela piel de sirena',
+            'nombre' => 'Tela piel de sirena',
+            'descripcion' => 'Tela que tiene relieves con forma de escamas y con tacto resbaloso',
             'color' => 'estampado rojo',            
             'id_usuario' => '1',            
             'unidad' =>  'metro',
@@ -136,7 +160,8 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Producto::create([
             'item_producto' => 'TP-001',
-            'descripcion' => 'Tela Cuadrile',
+            'nombre' => 'Tela Cuadrile',
+            'descripcion' => 'Tela con diseños a cuadros entremezclando el color principal con varios colores',
             'color' => 'azul rey',            
             'id_usuario' => '1',            
             'unidad' =>  'metro',
@@ -148,7 +173,8 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Producto::create([
             'item_producto' => 'TS-002',
-            'descripcion' => 'Tela Gamuza',
+            'nombre' => 'Tela Gamuza',
+            'descripcion' => 'Tela con relieve tipo alfombra y con un toque de terciopelo',
             'color' => 'rojo',            
             'id_usuario' => '1',
             'unidad'  =>  'metro',
