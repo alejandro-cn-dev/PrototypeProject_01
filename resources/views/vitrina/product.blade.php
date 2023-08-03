@@ -73,7 +73,7 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
+                            <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
                                 @if ($producto->existencia === 0)
                                     Agotado
                                 @elseif ($producto->existencia < 5)
@@ -85,7 +85,7 @@
                             <!-- Imagen de producto-->
                             <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
                                 <img class="card-img-top" style="width: 205px; height: 136px;" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="producto 1" />
-                            </a>
+                            </a> -->
                             <!-- Detalle del producto-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -106,9 +106,9 @@
                                 </div>
                             </div>
                             <!-- Acciones-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Añadir al carrito</a></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     @endforeach

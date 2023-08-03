@@ -36,7 +36,8 @@ class PageController extends Controller
     {
         $productos = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
-        ->select('productos.id','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
+        // ->select('productos.id','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->get();
         return view('vitrina.lista', ['productos' => $productos]);
@@ -55,14 +56,14 @@ class PageController extends Controller
         //$producto = Producto::find($id);
         $producto = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
-        ->select('productos.id','productos.id_categoria','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.id_categoria','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->where('productos.id','=',$id)
         ->first();        
         // Recuperar registros de productos que son de la misma categoria por 'id_categoria'
         $relacionados = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
-        ->select('productos.id','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->where('productos.id_categoria','=',$producto->id_categoria)
         ->where('productos.id','!=',$id)
