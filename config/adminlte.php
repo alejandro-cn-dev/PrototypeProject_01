@@ -212,7 +212,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -358,14 +358,14 @@ return [
                 [
                     'text' => 'Almacenes',
                     'icon'    => 'fas fa-fw fa-store',
-                    'url'  => 'almacens',
+                    'url'  => 'almacenes',
                     'can'   => 'almacens.index'
                 ],
                 
                 [
                     'text' => 'Proveedores',
                     'icon'    => 'fas fa-fw fa-users',
-                    'url'  => 'proveedors',
+                    'url'  => 'proveedores',
                 ],
             ],
         ],        

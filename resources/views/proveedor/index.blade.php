@@ -7,11 +7,11 @@
 @stop
 
 @section('content')
-<img src="img/proveedors_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo proveedors">
+<img src="{{ asset('img/proveedor_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo proveedores">
 <div class="hadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        <a href="proveedors/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar proveedor</a>    
-        <a href="{{route('generar_reporte_proveedor')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedors</a>    
+        <a href="proveedores/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar proveedor</a>    
+        <a href="{{route('generar_reporte_proveedores')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a>    
     </div>  
     <div class="table-responsive">
         <table id="proveedors" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
@@ -30,8 +30,8 @@
                     <td>{{$proveedor->nombre}}</td>
                     <td>{{$proveedor->telefono}}</td>
                     <td>
-                        <form action="{{route('proveedors.destroy',$proveedor->id)}}" method="POST">
-                            <a href="/proveedors/{{$proveedor->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                        <form action="{{route('proveedores.destroy',$proveedor->id)}}" method="POST">
+                            <a href="/proveedores/{{$proveedor->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @csrf                            
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>

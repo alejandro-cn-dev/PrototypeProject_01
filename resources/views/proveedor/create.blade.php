@@ -1,21 +1,25 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear registro de marca')
+@section('title', 'Registro de proveedor | Presitex Panel Admin')
 
 @section('content_header')
-<h1>Crear registro de marca</h1>
+<h1>Crear registro de proveedor</h1>
 @stop
 
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">
-    <form action="/marcas" method="POST">
+    <form action="/proveedores" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="" class="form-label">Detalle</label>
-            <input id="detalle" name="detalle" type="text" class="form-control" tabindex="1" required/>
+            <label for="nombre" class="form-label">Nombre</label>
+            <input id="nombre" name="nombre" type="text" class="form-control" />
         </div>
-        <a href="/marcas" class="btn btn-secondary" tabindex="2"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
-        <button type="submit" class="btn btn-primary" tabindex="3"><i class="fas fa-fw fa-save"></i> Guardar</button>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input id="telefono" name="telefono" type="text" class="form-control" />
+        </div>
+        <a href="/proveedores" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-save"></i>Guardar</button>
     </form>
 </div>
 @stop

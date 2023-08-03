@@ -55,10 +55,10 @@ Route::get('categorias/reporte/{id}',[CategoriaController::class,'reporte'])->mi
 Route::resource('reportes','App\Http\Controllers\ReporteController')->except('show');
 Route::resource('marcas','App\Http\Controllers\MarcaController');
 Route::get('marcas/reporte/{id}',[MarcaController::class,'reporte'])->middleware('auth')->name('generar_reporte_marca');
-Route::resource('almacens','App\Http\Controllers\AlmacenController')->except('show');
-Route::get('almacens/reporte/{id}',[AlmacenController::class,'reporte'])->middleware('auth')->name('generar_reporte_almacenes');
-Route::resource('proveedors','App\Http\Controllers\ProveedorController')->except('show');
-Route::get('proveedors/reporte',[ProveedorController::class,'reporte'])->middleware('auth')->name('generar_reporte_proveedor');
+Route::resource('almacenes','App\Http\Controllers\AlmacenController')->except('show');
+Route::get('almacenes/reporte/{id}',[AlmacenController::class,'reporte'])->middleware('auth')->name('generar_reporte_almacenes');
+Route::resource('proveedores','App\Http\Controllers\ProveedorController')->except('show');
+Route::get('proveedores/reporte',[ProveedorController::class,'reporte'])->middleware('auth')->name('generar_reporte_proveedores');
 
 // Implementar luego
 // Route::resource('home','App\Http\Controllers\HomeController');

@@ -42,7 +42,7 @@ class ProveedorController extends Controller
         $provedor->id_usuario = auth()->user()->id;
         $provedor->save();
 
-        return redirect('/proveedor');
+        return redirect('/proveedores');
     }
 
     /**
@@ -65,7 +65,7 @@ class ProveedorController extends Controller
     public function edit($id)
     {
         $provedor = Proveedor::find($id);
-        return view('proveedor.edit');
+        return view('proveedor.edit')->with('proveedor',$provedor);
     }
 
     /**
@@ -83,7 +83,7 @@ class ProveedorController extends Controller
         $provedor->id_usuario = auth()->user()->id;
         $provedor->save();
 
-        return redirect('/proveedor');
+        return redirect('/proveedores');
     }
 
     /**
@@ -98,6 +98,6 @@ class ProveedorController extends Controller
         $provedor->isDeleted = true;
         $provedor->save();
 
-        return redirect('/proveedor');
+        return redirect('/proveedores');
     }
 }
