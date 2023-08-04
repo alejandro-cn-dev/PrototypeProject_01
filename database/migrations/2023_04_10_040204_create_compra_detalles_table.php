@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('compra_detalles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_compra');
-            $table->decimal('costo_compra',7,4);
+            $table->decimal('costo_compra',5,2);
             $table->integer('cantidad');
             // $table->integer('stock_inicial')->default(0);
             // $table->decimal('subtotal');

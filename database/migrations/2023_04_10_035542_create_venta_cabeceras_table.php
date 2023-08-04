@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('fecha_venta')->nullable();
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_usuario');
-            $table->decimal('monto_total',7,4);
+            $table->decimal('monto_total',5,2);
             $table->boolean('isDeleted')->default(0);
             $table->foreign('id_cliente')->references('id')->on('clientes');
             $table->foreign('id_usuario')->references('id')->on('users');

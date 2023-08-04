@@ -14,15 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('compra_cabeceras', function (Blueprint $table) {
-            $table->id();            
-            // Solo aplicar en caso de factura o nota de venta
-            // $table->string('nombre_razon_social')->nullable();            
-            // $table->string('nit_ci',10)->nullable();
-            
+            $table->id();
             $table->double('numeracion');
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');
-            $table->decimal('monto_total',7,4);
+            $table->decimal('monto_total',5,2);
             $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
 
