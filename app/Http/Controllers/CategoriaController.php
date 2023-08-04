@@ -48,13 +48,22 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $categorias = new Categoria();
-        $nombre = $request->get('nombre');
-        $categorias->nombre = $nombre;
+        $categorias->nombre = $nombre = $request->get('nombre');
         $categorias->detalle = $request->get('detalle');
-        //$categorias->matricula = auth()->user()->matricula;
         $categorias->id_usuario = auth()->user()->id;
-        $categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
-
+        //$categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
+        // Obteniendo las letras iniciales de las palabras de la categoria
+        $sufijo = preg_replace('/\b(\w)[^\s]*\s*/m', '$1', $nombre);
+        // Estableciendo valor
+        $categorias->sufijo_categoria = $sufijo;
+        // En caso de existir el mismo sufijo se debe añadir un numero al final para evitar repeticiones
+        $sufijos = Categoria::orderBy('created_at','desc')->where('sufijo_categoria','LIKE','%'.$sufijo.'%')->first();
+        // Si existe un sufijo igual o parecido se procesa uno nuevo
+        if(!empty($sufijos)){
+            // Obteniendo el numero del sufijo para sumar en +1 el nuevo sufijo
+            $num = (int) filter_var($sufijos->sufijo_categoria, FILTER_SANITIZE_NUMBER_INT);
+            $categorias->sufijo_categoria = $sufijo.($num + 1);
+        }
         $categorias->save();
         return redirect('/categorias');
     }
