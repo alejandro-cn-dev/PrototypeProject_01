@@ -53,7 +53,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Nombre del producto-->
-                                <h5 class="fw-bolder">{{$producto->descripcion}}</h5>
+                                <h5 class="fw-bolder">{{$producto->nombre}}</h5>
                                 <!-- Product reviews (TAGS) (opcional)-->
                                 <div class="d-flex justify-content-center small mb-2">
                                     {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}
@@ -65,13 +65,13 @@
                                 </div>
                                 <!-- Precio-->
                                 <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
-                                {{ $producto->precio_venta }} Bs. / {{ $producto->unidad_venta}}
+                                {{ $producto->precio_venta }} Bs. / {{ $producto->unidad}}
                             </div>
                         </div>
                         <!-- Acciones-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Añadir al carrito</a></div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 @endforeach

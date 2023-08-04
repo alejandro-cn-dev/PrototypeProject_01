@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
+use DB;
 
 class PageController extends Controller
 {
@@ -18,7 +19,7 @@ class PageController extends Controller
     {
         $productos = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
-        ->select('productos.id','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->get();
         return view('vitrina.index')->with('productos',$productos);
@@ -37,7 +38,7 @@ class PageController extends Controller
         $productos = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
         // ->select('productos.id','productos.descripcion','productos.color','productos.existencia','productos.precio_venta','productos.unidad_venta','marcas.detalle as marca','categorias.nombre as categoria')
-        ->select('productos.id','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->get();
         return view('vitrina.lista', ['productos' => $productos]);
@@ -56,14 +57,14 @@ class PageController extends Controller
         //$producto = Producto::find($id);
         $producto = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
-        ->select('productos.id','productos.id_categoria','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.id_categoria','productos.item_producto',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM `compra_detalles` WHERE id_producto = productos.id AND isDeleted = 0) - (SELECT COALESCE(SUM(cantidad),0) FROM `venta_detalles` WHERE id_producto = productos.id AND isDeleted = 0)) AS existencia"),'productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->where('productos.id','=',$id)
         ->first();        
         // Recuperar registros de productos que son de la misma categoria por 'id_categoria'
         $relacionados = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
-        ->select('productos.id','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
+        ->select('productos.id','productos.nombre','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->where('productos.id_categoria','=',$producto->id_categoria)
         ->where('productos.id','!=',$id)
@@ -74,7 +75,11 @@ class PageController extends Controller
     // Buscar productos
     public function buscar(Request $request){
         $product =$request->get('product');
-        $result = Producto::where('descripcion','LIKE','%'.$product.'%')->orWhere('item_producto','LIKE','%'.$product.'%')->get();
+        $result = Producto::join('marcas','productos.id_marca','=','marcas.id')
+        ->join('categorias','productos.id_categoria','=','categorias.id')
+        ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
+        ->where('descripcion','LIKE','%'.$product.'%')
+        ->orWhere('item_producto','LIKE','%'.$product.'%')->get();
         if(count($result) > 0)
             //return view('vitrina.product')->withDetails($result)->withQuery ( $product );
             return view('vitrina.lista')->with('productos',$result)->with('term',$product);

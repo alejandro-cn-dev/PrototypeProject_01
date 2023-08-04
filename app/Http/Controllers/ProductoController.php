@@ -47,9 +47,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::select('id','nombre')->get();
-        $marcas = Marca::select('id','detalle')->get();
-        $almacenes = Almacen::select('id','nombre')->get();
+        $categorias = Categoria::select('id','nombre')->where('isDeleted','=',0)->get();
+        $marcas = Marca::select('id','detalle')->where('isDeleted','=',0)->get();
+        $almacenes = Almacen::select('id','nombre')->where('isDeleted','=',0)->get();
         return view('producto.create')
         ->with('categorias',$categorias)
         ->with('marcas',$marcas)
@@ -66,6 +66,7 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $productos = new Producto();                        
+        $productos->nombre = $request->get('nombre');
         $productos->descripcion = $request->get('descripcion');
         $color = $request->get('color');
         if(empty($color)){
@@ -81,35 +82,14 @@ class ProductoController extends Controller
         $productos->id_categoria = $id_categoria = $request->get('id_categoria');
         $categoria = Categoria::where('id','=',$id_categoria)->first();
         $productos->id_marca = $id_marca = $request->get('id_marca');
-        $marca = Marca::where('id','=',$id_marca)->first();
+        // $marca = Marca::where('id','=',$id_marca)->first();
         $productos->id_usuario = auth()->user()->id;
-        $prefijo_matricula = strtoupper(substr($categoria->nombre,0,2)).'-'.strtoupper(substr($marca->detalle,0,2));
+        //$prefijo_matricula = strtoupper(substr($categoria->nombre,0,2)).'-'.strtoupper(substr($marca->detalle,0,2));
         //$last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortByDesc()->get();
         //$last_id = Producto::orderBy('id','DESC')->where('item_producto','LIKE',$prefijo_matricula.'%')->where('isDeleted','=',1)->first();
-        $grupo_productos = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->get();
-        // $str_num = '001';
-        // if(count((array)$last_id) > 0){
-        //     $matricula_anterior = strtoupper(substr($last_id->matricula,6,8)) ;
-        //     $num_item = (int)$matricula_anterior;
-        //     $num_item = $num_item + 1;
-            
-        //     if(strlen($num_item)<10){
-        //         $str_num = '00'.$num_item;
-        //     }else if(strlen($num_item)<100){
-        //         $str_num = '0'.$num_item;
-        //     }
-        // }
-        $int_num = count($grupo_productos);
-        $str_num = (string) $int_num;
-        if($int_num<99){
-            if($int_num<9){
-                $str_num = '00'.($int_num+1);
-            }else{
-                $str_num = '0'.($int_num+1);
-            }
-        }
-        $productos->item_producto = $prefijo_matricula.'-'.$str_num;
-
+        //$grupo_productos = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->get();
+        $num_item = Producto::where('id_categoria','=',$categoria->id)->where('isDeleted','=',0)->get();        
+        $productos->item_producto = $categoria->sufijo_categoria.'-'.str_pad(($num_item->count() + 1), 3, '0', STR_PAD_LEFT);
         $productos->save();
 
         return redirect('/productos');

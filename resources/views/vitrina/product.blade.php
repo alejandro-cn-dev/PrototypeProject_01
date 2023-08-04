@@ -13,7 +13,7 @@
                 <div class="col-md-6">
                     <!-- Notificacion de existencias -->                    
                         <!-- Notifications <span class="badge badge-light">4</span> -->
-                        @if ($producto->existencia === 0)
+                        @if ($producto->existencia == 0)
                             <!-- <button type="button" class="btn btn-danger">Agotado</button> -->
                             <div class="alert alert-danger" role="alert">
                                 Agotado
@@ -30,11 +30,12 @@
                             </div>
                         @endif                    
                     <div class="small mb-1">ITEM: {{ $producto->item_producto }}</div>
-                    <h1 class="display-5 fw-bolder">{{ $producto->descripcion }}</h1>
+                    <h1 class="display-5 fw-bolder">{{ $producto->nombre }}</h1>
                     <div class="fs-5 mb-5">
                         <!-- <span class="text-decoration-line-through">$45.00</span> -->
-                        <span>{{ $producto->precio_venta }} Bs. por {{ $producto->unidad_venta }}</span>
+                        <span>{{ $producto->precio_venta }} Bs. por {{ $producto->unidad }}</span>
                     </div>
+                    <p class="lead">{{ $producto->descripcion }}</p>
                     <p class="lead">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Marca: </b>{{$producto->marca}}</li>
@@ -46,11 +47,11 @@
                         </ul>
                     </p>
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" @if($producto->existencia === 0){ disabled } @endif/>
+                        <!-- <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" @if($producto->existencia === 0){ disabled } @endif/>
                         <button class="btn btn-outline-dark flex-shrink-0 me-3" type="button" @if($producto->existencia === 0){ disabled } @endif>
                             <i class="fa fa-cart-plus" aria-hidden="true"></i>
                             Añadir al carrito
-                        </button>
+                        </button> -->
                         @can('productos.edit')
                         <a href="/productos/{{$producto->id}}/edit" class="btn btn-primary flex-shrink-0">
                             <i class="fas fa-fw fa-edit" aria-hidden="true"></i>
@@ -73,7 +74,7 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
-                            <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
                                 @if ($producto->existencia === 0)
                                     Agotado
                                 @elseif ($producto->existencia < 5)
@@ -82,15 +83,15 @@
                                     Disponible
                                 @endif
                             </div>
-                            <!-- Imagen de producto-->
+                            <!-- Imagen de producto -->
                             <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
                                 <img class="card-img-top" style="width: 205px; height: 136px;" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="producto 1" />
-                            </a> -->
+                            </a>
                             <!-- Detalle del producto-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Nombre del producto-->
-                                    <h5 class="fw-bolder">{{$producto->descripcion}}</h5>
+                                    <h5 class="fw-bolder">{{$producto->nombre}}</h5>
                                     <!-- Product reviews (TAGS) (opcional)-->
                                     <div class="d-flex justify-content-center small mb-2">
                                         {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}
@@ -102,7 +103,7 @@
                                     </div>
                                     <!-- Precio-->
                                     <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
-                                    {{ $producto->precio_venta }} Bs. / {{ $producto->unidad_venta}}
+                                    {{ $producto->precio_venta }} Bs. / {{ $producto->unidad}}
                                 </div>
                             </div>
                             <!-- Acciones-->

@@ -61,7 +61,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Nombre del producto-->
-                                <h5 class="fw-bolder">{{$producto->descripcion}}</h5>
+                                <h5 class="fw-bolder">{{$producto->nombre}}</h5>
                                 <!-- (TAGS) (opcional)-->
                                 <div class="d-flex justify-content-center small mb-2">
                                     {{ $producto->categoria }} - {{ $producto->marca }} - {{ $producto->color }}
