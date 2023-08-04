@@ -11,7 +11,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('almacens.create')
-        <a href="almacens/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacén</a>    
+        <a href="almacenes/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacén</a>    
         @endcan
         <a href="{{route('generar_reporte_almacenes',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Almacenes</a>    
     </div>  
@@ -31,9 +31,9 @@
                     <td>{{$almacen->nombre}}</td>
                     <td>{{$almacen->tipo}}</td>
                     <td>
-                        <form action="{{route('almacens.destroy',$almacen->id)}}" method="POST">
+                        <form action="{{route('almacenes.destroy',$almacen->id)}}" method="POST">
                             @can('almacens.edit')
-                            <a href="/almacens/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                            <a href="/almacenes/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @endcan
                             @csrf
                             @can('almacens.delete')

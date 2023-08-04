@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Marca')
+@section('title', 'Editar Marca | Presitex Panel Admin')
 
 @section('content_header')
     <h1>Editar Marca</h1>
