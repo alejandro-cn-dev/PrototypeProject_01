@@ -50,7 +50,7 @@ class AlmacenController extends Controller
         $almacenes->sufijo_almacen = strtoupper(substr($nombre,0,2));
         $almacenes->save();
 
-        return redirect('/almacens');
+        return redirect('/almacenes');
     }
 
     /**
@@ -93,7 +93,7 @@ class AlmacenController extends Controller
 
         $almacen->save();
 
-        return redirect('/almacens');
+        return redirect('/almacenes');
     }
 
     /**
@@ -108,7 +108,7 @@ class AlmacenController extends Controller
         $almacen->isDeleted = true;
         $almacen->save();
         //$almacen->delete();
-        return redirect('/almacens');
+        return redirect('/almacenes');
     }
 
     //Funciones propias
