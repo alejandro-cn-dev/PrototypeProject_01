@@ -43,10 +43,10 @@
         <td align="left">
             <h2>Tienda Textil "Presitex"</h2>
             <pre>
-                <b>Numero recibo: </b> 00000000
-                <b>Usuario encargado: </b> {{$cabecera->denominacion}}
-                <b>Proveedor: </b> {{$cabecera->numeracion}}
-                <b>Fecha de compra: </b>{{$cabecera->fecha_emision}}
+                <b>Numero recibo: </b> {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}
+                <b>Usuario encargado: </b> {{$usuario->ap_paterno}} {{$usuario->ap_materno}} {{$usuario->name}}
+                <b>Proveedor: </b> {{$proveedor->nombre}}
+                <b>Fecha de compra: </b>{{$cabecera->fecha_compra}}
                 <b>Monto total: </b>{{$cabecera->monto_total}}
             </pre>
 	      </td>
@@ -77,20 +77,20 @@
         {{-- {{$entrada->id_producto}} --}}
                         @forEach($productos as $producto)
                             @if($entrada->id_producto == $producto->id)
-                            <td>{{$producto->descripcion}}</td>
-                            <td>{{$producto->unidad_compra}}</td>
+                            <td>{{$producto->nombre}}</td>
+                            <td>{{$producto->unidad}}</td>
                             @endif
                         @endforeach    
         <td align="right">{{$entrada->cantidad}}</td>
         <td align="right">{{$entrada->costo_compra}}</td>
-        <td align="right">{{($entrada->costo_compra * $entrada->cantidad)}}</td>
+        <td align="right">{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}}</td>
       </tr>
       @endforeach
     </tbody>  
     <tfoot>
       <tr>
           <td colspan="4"></td>
-          <td class="total" align="right">Total $</td>
+          <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>
   </tfoot>  

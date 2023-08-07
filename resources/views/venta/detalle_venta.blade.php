@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalle de Venta')
+@section('title', 'Detalle de Venta | Presitex Panel Admin')
 
 @section('content_header')
     <h1>Detalle de Venta N° {{$cabecera->id}} - {{$cabecera->nombre}} - {{$cabecera->fecha_emision}}</h1>
@@ -13,12 +13,11 @@
         <div class="text-right mb-5">
             <a href="/ventas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
             <a href="{{route('generar_reporte_venta_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
-            <!-- <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir nota de venta</a> -->
-            <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir Factura</a>
+            <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir nota de venta</a>            
         </div>
         @csrf
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->name}}</p>            
+            <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->ap_paterno}} {{$cabecera->ap_materno}} {{$cabecera->name}}</p>            
         </div>
         <div class="mb-3">
             <p class="text-center"> <label class="form-label">Nota de venta Nro.:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</p>            
@@ -33,7 +32,7 @@
             <p class="text-center"> <label class="form-label">Fecha de emision:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->fecha_emision}}</p>                        
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}}</p>                        
+            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}} Bs.</p>                        
         </div>
     </form>
 
@@ -55,10 +54,10 @@
                     @forEach($productos as $producto)
                         @if($salida->id_producto == $producto->id)
                         <td>
-                            {{$producto->descripcion}}
+                            {{$producto->nombre}}
                         </td>
                         <td>
-                            {{$producto->unidad_venta}}
+                            {{$producto->unidad}}
                         </td>                                
                         @endif
                     @endforeach                      
@@ -71,7 +70,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3"></td>
-                    <td align="right">Total $</td>
+                    <td align="right">Total Bs.</td>
                     <td align="right" style="background-color: gold;">{{$cabecera->monto_total}}</td>
                 </tr>
             </tfoot>

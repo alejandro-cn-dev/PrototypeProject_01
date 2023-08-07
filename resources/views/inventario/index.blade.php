@@ -36,7 +36,7 @@
                 <tr>
                     <td><span @if(($inventario->tipo) == 'entrada') class="badge bg-primary" @else class="badge bg-success" @endif>{{ $inventario->tipo }}</span></td>
                     <td>{{ $inventario->item_producto }}</td>
-                    <td>{{ $inventario->descripcion }}</td>
+                    <td>{{ $inventario->nombre }}</td>
                     <td>{{ $inventario->cantidad }}</td>
                     <td>{{ $inventario->costo }}</td>
                     <td>{{ $inventario->costo * $inventario->cantidad }}</td>

@@ -53,7 +53,7 @@
 <body>
 
   <div>
-    <h3 style="text-align: center">Comercial textil "Presitex"</h3>
+    <h3 style="text-align: center">Empresa comercial textil "Presitex"</h3>
     <div class="col-3">
       <img src="{{ public_path('img/logo.jpg') }}" alt="" width="150"/>
     </div>
@@ -64,7 +64,7 @@
         <b>Nombre cliente: </b> {{$cabecera->nombre}}
         <b>NIT/CI: </b>{{$cabecera->ci}}
         <b>Fecha de emisión: </b>{{$cabecera->fecha_emision}}
-        <b>Monto total: </b>{{$cabecera->monto_total}}
+        <b>Monto total: </b>{{$cabecera->monto_total}} Bs.
       </pre>
     </div>
     <div class="col-3">
@@ -94,7 +94,7 @@
       <tr>
         <th>#</th>
         <th>Producto</th>
-        <th>Unidad</th>
+        <th>U. Medida</th>
         <th>Cantidad</th>
         <th>Precio</th>
         <th>Subtotal</th>
@@ -107,10 +107,10 @@
           @forEach($productos as $producto)
               @if($salida->id_producto == $producto->id)
               <td>
-                  {{$producto->descripcion}}
+                  {{$producto->nombre}}
               </td>
               <td>
-                  {{$producto->unidad_venta}}
+                  {{$producto->unidad}}
               </td>
               @endif
           @endforeach    
@@ -123,7 +123,7 @@
     <tfoot>
       <tr>
           <td colspan="4"></td>
-          <td class="total" align="right">Total $</td>
+          <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>
   </tfoot>  

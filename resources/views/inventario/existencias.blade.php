@@ -27,7 +27,7 @@
             @foreach ($productos as $producto)
                 <tr>
                     <td>{{ $producto->item_producto }}</td>
-                    <td>{{ $producto->descripcion }}</td>
+                    <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->categoria }}</td>
                     <td>{{ $producto->marca }}</td>
                     <td>{{ $producto->color }}</td>

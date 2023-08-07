@@ -28,7 +28,7 @@
         <tbody>
             @foreach ($productos as $producto)
                 <tr>
-                    <td>{{ $producto->descripcion }}</td>
+                    <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->item_producto }}</td>
                     <td>{{ $producto->precio_compra }}</td>
                     <td>{{ $producto->precio_venta }}</td>

@@ -198,9 +198,11 @@ class CompraController extends Controller
         $cabecera = Compra_cabecera::find($id);
         $entradas = Compra_detalle::where('id_compra','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();
+        $proveedor = Proveedor::find($cabecera->id_proveedor);
+        $usuario = User::find($cabecera->id_usuario);
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('compra/pdf_compra_ind',compact('cabecera','entradas','productos','fecha'));
+        $pdf = PDF::loadView('compra/pdf_compra_ind',compact('cabecera','entradas','productos','proveedor','usuario','fecha'));
         return $pdf->download('compra_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('salida/pdf_salida',compact('entradas','total','fecha'));
     }
@@ -225,7 +227,8 @@ class CompraController extends Controller
         //tamaño personalizado de hoja de recibo
         $customPaper = array(0,0,567.00,450.00);
 
-        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'))->setPaper($customPaper, 'landscape');;
+        //$pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'))->setPaper($customPaper, 'landscape');
+        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'));
         return $pdf->download('recibo_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){

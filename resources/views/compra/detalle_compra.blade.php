@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalle de compras')
+@section('title', 'Detalle de compras | Presitex Panel Admin')
 
 @section('content_header')
     <h1>Detalle de Compra N° {{$cabecera->id}} - {{$proveedor->nombre}} - {{$cabecera->fecha_compra}}</h1>
@@ -17,7 +17,8 @@
         </div>
         @csrf        
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$usuario->matricula}}</p>
+            <!-- <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$usuario->matricula}}</p> -->
+            <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$usuario->ap_paterno}} {{$usuario->ap_materno}} {{$usuario->name}}</p>
         </div>
         <div class="mb-3">
             <p class="text-center"> <label class="form-label">Proveedor:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$proveedor->nombre}}</p>                        
@@ -26,7 +27,7 @@
             <p class="text-center"> <label class="form-label">Fecha de compra:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->fecha_compra}}</p>                        
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}}</p>                        
+            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}} Bs.</p>                        
         </div>
     </form>
 
@@ -46,7 +47,7 @@
                 <tr>
                     @forEach($productos as $producto)
                         @if($compra->id_producto == $producto->id)
-                        <td>{{$producto->descripcion}}</td>
+                        <td>{{$producto->nombre}}</td>
                         <td>{{$producto->unidad}}</td>
                         @endif
                     @endforeach
@@ -59,7 +60,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3"></td>
-                    <td align="right">Total $</td>
+                    <td align="right">Total Bs.</td>
                     <td align="right" style="background-color: gold;">{{$cabecera->monto_total}}</td>
                 </tr>
             </tfoot>

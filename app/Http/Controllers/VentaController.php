@@ -130,7 +130,7 @@ class VentaController extends Controller
         $ventas = Venta_detalle::where('id_venta','=',$id)->get();
         $cabecera = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
-        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.ap_paterno','users.ap_materno','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
         $productos = Producto::all();
         return view('venta.detalle_venta')->with('cabecera',$cabecera)->with('salidas',$ventas)->with('productos',$productos);        

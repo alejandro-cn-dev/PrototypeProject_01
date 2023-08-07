@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Registro venta')
+@section('title', 'Registro venta | Presitex Panel Admin')
 
 @section('content_header')
 <h1>Crear Registro de venta</h1>
@@ -41,7 +41,6 @@
                 <div class="border border-dark p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>
-                        {{-- <a class="btn btn-primary" id="addProducto">Agregar producto</a> --}}
                         <h3 style="float: right;">TOTAL: <span id="total" class="badge bg-warning">0.00 Bs</span></h3>
                         <div class="table-responsive">
                                 <table id="salidas" class="table table-sm table-bordered mt-4" style="width: 100%;">
@@ -80,14 +79,11 @@
                     <div class="modal-body">
                         <div class="mb-3">
                                 <div class="form-group">
-                                        <label for="producto" class="form-label">Producto</label>
-                                        {{-- <input class="form-control" list="productList" value="" name="producto" id="producto" placeholder="Presione para buscar.." required> --}}
+                                        <label for="producto" class="form-label">Producto</label>                                        
                                         <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
                                                 <option value="">Seleccione un producto...</option>
-                                                @foreach($productos as $producto)
-                                                        {{-- <option value="{{$producto->id}}">{{$producto->item_producto}} - {{$producto->descripcion}}</option> --}}
-                                                        {{-- <option value="{{$producto->descripcion}}">{{$producto->id}}</option> --}}
-                                                        <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_venta}},"unidad":"{{$producto->unidad}}","producto":"{{$producto->descripcion}}"}'>{{$producto->descripcion}}</option>
+                                                @foreach($productos as $producto)                                                        
+                                                        <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_venta}},"unidad":"{{$producto->unidad}}","producto":"{{$producto->nombre}}"}'>{{$producto->nombre}}</option>
                                                 @endforeach
                                         </select>
                                 </div>
@@ -111,8 +107,7 @@
                                 </div>
                         </div>                        
                     </div>
-                    <div class="modal-footer">
-                      {{-- <button id="guardarProducto" type="submit" data-dismiss="modal" class="btn btn-primary" onclick="actualizar_fila()"> <i class="fas fa-fw fa-save"></i> Guardar</button> --}}
+                    <div class="modal-footer">                      
                       <button id="guardarProducto" name="btn2" type="submit" class="btn btn-primary"> <i class="fas fa-fw fa-save"></i> Guardar</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Cerrar</button>
                     </div>
@@ -192,7 +187,7 @@
                                         break;
                                 case "subtotal":                                        
                                         //celda = document.createTextNode($("#precio_venta").val()*$("#cantidad").val());
-                                        celda = document.createTextNode(formato_precio($("#precio_venta").val())*formato_precio($("#cantidad").val()).toFixed(2) + " Bs");
+                                        celda = document.createTextNode((formato_precio($("#precio_venta").val())*formato_precio($("#cantidad").val())).toFixed(2) + " Bs");
                                         break;
                                 default:
                                         valor = $("#"+campo+"").val();

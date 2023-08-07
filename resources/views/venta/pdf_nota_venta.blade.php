@@ -97,10 +97,10 @@
       <table id="detalle">
             <thead style="background-color: lightgray; text-align: center;">
                 <tr>
-                  <td><b>CANTIDAD</b></td>
-                  <td colspan="2"><b>DESCRIPCI&Oacute;N<b></td>
-                  <td><b>PRECIO UNITARIO</b></td>
-                  <td><b>IMPORTE</b></td>
+                  <td style="width: 15%;"><b>CANTIDAD</b></td>
+                  <td style="width: 55%;" colspan="2"><b>DESCRIPCI&Oacute;N<b></td>
+                  <td style="width: 15%;"><b>PRECIO UNITARIO</b></td>
+                  <td style="width: 15%;"><b>IMPORTE</b></td>
                 </tr>
             </thead>
             <tbody>
@@ -110,7 +110,7 @@
                   @forEach($productos as $producto)
                      @if($salida->id_producto == $producto->id)
                      <td colspan="2">
-                        {{$producto->descripcion}}
+                        {{$producto->nombre}}
                      </td>
                      @endif
                   @endforeach
