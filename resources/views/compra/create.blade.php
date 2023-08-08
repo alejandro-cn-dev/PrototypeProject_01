@@ -34,7 +34,7 @@
                                                 <tr>
                                                 <th scope="col">#</th>                                                
                                                 <th scope="col">Producto</th>
-                                                <th scope="col">Unidad</th>
+                                                <th scope="col">U. Medida</th>
                                                 <th scope="col">Cantidad</th>
                                                 <th scope="col">Costo</th>
                                                 <th scope="col">Sub Total</th>
@@ -52,6 +52,7 @@
         </form>
         <!-- FORMULARIO INSERTAR PRODUCTO -->
         <form method="POST" action="{{ route('agregar_producto_compra') }}" class="modal fade" id="insert_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <form method="POST" action="{{ route('agregar_producto_compra') }}" class="modal fade" id="insert_form" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
                 @csrf
                 <div class="modal-dialog">
                   <div class="modal-content">                        
@@ -66,7 +67,8 @@
                         <div class="mb-3">
                                 <div class="form-group">
                                         <label for="producto" class="form-label">Producto</label>
-                                        <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
+                                        <!-- <select name="producto" id="producto" style="width: 100%;" onchange="cargar_precio_unidad();"> -->
+                                        <select name="producto" id="producto" style="width: 100%;" required>
                                                 <option value="">Seleccione un producto...</option>
                                                 @foreach($productos as $producto)                                                        
                                                         <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_compra}},"unidad":"{{$producto->unidad}}","producto":"{{$producto->nombre}}"}'>{{$producto->nombre}}</option>
@@ -80,7 +82,7 @@
                                         <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" required>
                                 </div>
                                 <div class="col-md-4">
-                                        <label for="unidad" class="form-label">Unidad</label>
+                                        <label for="unidad" class="form-label">Unidad de medida</label>
                                         <input type="text" name="unidad" id="unidad" class="form-control" disabled>
                                 </div>
                                 <div class="col-md-4">
@@ -113,6 +115,9 @@
         var total = 0;
         
         // cargar valores despues de seleccionar algun valor del select "producto"
+        $("#producto").on('select2:select',function(e){
+                cargar_precio_unidad();
+        });
         function cargar_precio_unidad(){
                 const valores = parsear_objeto("producto")
                 let unidad = String(valores['unidad']);
@@ -183,6 +188,7 @@
                 input_name.forEach(function(campo){
                         document.getElementById(campo).value = "";
                 });
+                $("#producto").val(null).trigger('change');
         }
            
         function limpiar_tabla(){
@@ -258,6 +264,10 @@
                         },
                         rightAlign: true
                 }); 
+                $("#producto").select2({
+                        placeholder: 'Elija una opción',
+                        dropdownParent: $("#insert_form")
+                });
                 //Del formulario modal para ingresar productos               
                 $('#insert_form').on('submit',function(e){
                         let fila = new Array(); 

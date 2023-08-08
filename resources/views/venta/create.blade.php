@@ -17,7 +17,13 @@
                 <div class="row g-2 mb-3">
                         <div class="col-md-6">
                                 <label for="" class="form-label">CI</label>
-                                <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/>
+                                <!-- <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/> -->
+                                <select name="ci" id="ci" class="form-control" tabindex="3" required>
+                                        <option value="">Seleccione el CI...</option>
+                                        @foreach ($clientes as $cliente)
+                                        <option value='{"id":{{$cliente->id}},"nombre":{{$cliente->nombre}},"ci":"{{$cliente->ci}}","telefono":"{{$cliente->telefono}},"email":"{{$cliente->email}},"direccion":"{{$cliente->direccion}}"}'>{{$cliente->ci}}</option>
+                                        @endforeach
+                                </select>
                         </div>
                         <div class="col-md-6">
                                 <label for="" class="form-label">Nombre</label>
@@ -48,7 +54,7 @@
                                                 <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>
-                                                <th scope="col">Unidad</th>
+                                                <th scope="col">U. Medida</th>
                                                 <th scope="col">Cantidad</th>
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Sub Total</th>
@@ -80,7 +86,8 @@
                         <div class="mb-3">
                                 <div class="form-group">
                                         <label for="producto" class="form-label">Producto</label>                                        
-                                        <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();">
+                                        <!-- <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();"> -->
+                                        <select name="producto" id="producto" style="width: 100%;" required>
                                                 <option value="">Seleccione un producto...</option>
                                                 @foreach($productos as $producto)                                                        
                                                         <option value='{"id":{{$producto->id}},"precio":{{$producto->precio_venta}},"unidad":"{{$producto->unidad}}","producto":"{{$producto->nombre}}"}'>{{$producto->nombre}}</option>
@@ -94,7 +101,7 @@
                                         <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" required>
                                 </div>
                                 <div class="col-md-4">
-                                        <label for="unidad" class="form-label">Unidad</label>
+                                        <label for="unidad" class="form-label">Unidad de medida</label>
                                         <input type="text" name="unidad" id="unidad" class="form-control" disabled>
                                 </div>
                                 <!-- <div class="col-md-4">
@@ -131,6 +138,9 @@
         var input_name = ['producto','unidad','precio_venta','cantidad'];
         
         // cargar valores despues de seleccionar algun valor del select "producto"
+        $("#producto").on('select2:select',function(e){
+                cargar_precio_unidad();
+        });
         function cargar_precio_unidad(){
                 let e = document.getElementById("producto");
                 let vector = e.value;
@@ -208,6 +218,7 @@
                 input_name.forEach(function(campo){
                         document.getElementById(campo).value = "";
                 });
+                $("#producto").val(null).trigger('change');
         }
         function limpiar_tabla(){
                 $('#contenido tr').detach();
@@ -280,7 +291,14 @@
                                 }
                         },
                         rightAlign: true
-                });            
+                });
+                $("#producto").select2({
+                        placeholder: 'Elija una opción',
+                        dropdownParent: $("#insert_form")
+                });
+                $("#ci").select2({
+                        placeholder: 'Escriba un CI'
+                });        
                 $('#insert_form').on('submit',function(e){
                         let fila = new Array(); 
                         e.preventDefault();

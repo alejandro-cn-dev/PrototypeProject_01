@@ -20,7 +20,8 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Descripcion</label>
-            <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required/>
+            <!-- <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required/> -->
+            <textarea id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required></textarea>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Color</label>
@@ -29,7 +30,7 @@
         <div class="row g-3 mb-3">
             <div class="col-md-4">
                 <label for="" class="form-label">Categoria</label>
-                <select class="form-control" id="id_categoria" name="id_categoria" tabindex="4" required>
+                <select class="form-control entidades" id="id_categoria" name="id_categoria" tabindex="4" required>
                     <option value="" selected>Elegir categoria...</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>    
@@ -38,7 +39,7 @@
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Ubicación</label>
-                <select class="form-control" id="id_almacen" name="id_almacen" tabindex="5" required>
+                <select class="form-control entidades" id="id_almacen" name="id_almacen" tabindex="5" required>
                     <option value="" selected>Elegir ubicación...</option>
                     @foreach ($almacenes as $almacen)
                         <option value="{{$almacen->id}}">{{$almacen->nombre}}</option>    
@@ -47,7 +48,7 @@
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Marca</label>
-                <select class="form-control" id="id_marca" name="id_marca" tabindex="5" required>
+                <select class="form-control entidades" id="id_marca" name="id_marca" tabindex="5" required>
                     <option value="" selected>Elegir marca...</option>
                     @foreach ($marcas as $marca)
                         <option value="{{$marca->id}}">{{$marca->detalle}}</option>    
@@ -117,11 +118,12 @@
 @section('js')
 <script>
     $(document).ready(function(){    
+        // Formato de campos de precios
         $(".precio_compra").inputmask({
                 alias: 'numeric',
                 allowMinus: false, 
                 digits: 2, 
-                max: 999.99
+                max: 999.99,
                 definitions: {
                         '*': {
                                 validator: "[0-9]"
@@ -129,6 +131,10 @@
                 },
                 rightAlign: true
         }); 
+        // Formato a select's de categoria, ubicacion y marca
+        $(".entidades").select2({
+            placeholder: 'Elija una opción'
+        });
     });
 </script>    
 @stop

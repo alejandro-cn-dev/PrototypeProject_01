@@ -47,7 +47,8 @@ class VentaController extends Controller
     {
         //$ventas = Venta_cabecera::where('tipo','=','S')->get();
         $productos = Producto::where('isDeleted','=',0)->get();
-        return view('venta.create')->with("productos",$productos);
+        $clientes = Cliente::all();
+        return view('venta.create')->with("productos",$productos)->with("clientes",$clientes);
     }
 
     /**
