@@ -56,6 +56,7 @@ Route::resource('reportes','App\Http\Controllers\ReporteController')->except('sh
 Route::resource('marcas','App\Http\Controllers\MarcaController');
 Route::get('marcas/reporte/{id}',[MarcaController::class,'reporte'])->middleware('auth')->name('generar_reporte_marca');
 Route::resource('almacenes','App\Http\Controllers\AlmacenController')->except('show');
+Route::post('almacenes/eliminar/{id}',[AlmacenController::class,'destroy'])->middleware('auth')->name('eliminar_almacen');
 Route::get('almacenes/reporte/{id}',[AlmacenController::class,'reporte'])->middleware('auth')->name('generar_reporte_almacenes');
 Route::resource('proveedores','App\Http\Controllers\ProveedorController')->except('show');
 Route::get('proveedores/reporte',[ProveedorController::class,'reporte'])->middleware('auth')->name('generar_reporte_proveedores');

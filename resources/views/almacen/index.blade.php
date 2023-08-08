@@ -31,16 +31,18 @@
                     <td>{{$almacen->nombre}}</td>
                     <td>{{$almacen->tipo}}</td>
                     <td>
-                        <form action="{{route('almacenes.destroy',$almacen->id)}}" method="POST">
+                        <!-- <form action="{{route('almacenes.destroy',$almacen->id)}}" method="POST"> -->
+                        <!-- <form action="#" id="anular" method="POST"> -->
                             @can('almacens.edit')
                             <a href="/almacenes/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @endcan
                             @csrf
                             @can('almacens.delete')
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
+                            <!-- @method('DELETE') -->
+                            <!-- <button type="submit" class="btn btn-danger" onclick="confirma_anular();"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
+                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{ $almacen->id }});"><i class="fas fa-fw fa-trash"></i> Anular</a>
                             @endcan
-                        </form>
+                        <!-- </form> -->
                     </td>
                 </tr>
             @endforeach
@@ -55,7 +57,7 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){        
+    $(document).ready(function(){    
         $('#almacenes').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -104,7 +106,44 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
+        });        
+    });  
+    function confirma_anular(id_alm){
+        swal({
+                title: "Está seguro?",
+                text: "Una vez eliminado no será posible recuperarlo",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                var token = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    method: 'POST',
+                    url: "{{route('eliminar_almacen',2)}}",
+                    data: {
+                        _token: token,
+                        contentType: 'application/json',
+                    },
+                    dataType: 'JSON',
+                    success: function(data){
+                        swal("Registro eliminado correctamente!", {
+                            icon: "success",
+                        });
+                        
+                    },
+                    error: function(response){
+                        swal("Ocurrio un error", {
+                            icon: "warning",
+                        });
+                        console.log(response);
+                    }                    
+                });                
+            } else {
+                swal("Eliminación cancelada");
+            }
         });
-    });    
+    }  
 </script>
 @stop

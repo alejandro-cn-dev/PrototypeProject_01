@@ -108,7 +108,12 @@ class AlmacenController extends Controller
         $almacen->isDeleted = true;
         $almacen->save();
         //$almacen->delete();
-        return redirect('/almacenes');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response); 
+        //return redirect('/almacenes');
     }
 
     //Funciones propias
