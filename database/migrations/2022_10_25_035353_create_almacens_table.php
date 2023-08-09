@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('almacens', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',100);
-            $table->string('tipo',15);
+            $table->string('tipo',20);
             $table->string('sufijo_almacen',5);
             $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
