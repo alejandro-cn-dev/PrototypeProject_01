@@ -121,7 +121,13 @@ class CompraController extends Controller
 
         //Anulando registros de compra
         $affectedRows = Compra_detalle::where("id_compra", $id)->update(["isDeleted" => true]);
-        return redirect('/compras');
+        
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response); 
+        //return redirect('/compras');
     }
 
     //Funciones propias

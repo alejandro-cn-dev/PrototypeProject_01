@@ -111,7 +111,12 @@ class MarcaController extends Controller
         //$marca->delete();
         $marca->isDeleted = true;
         $marca->save();
-        return redirect('/marcas');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response);
+        //return redirect('/marcas');
     }
     //Funciones propias
     public function reporte(){

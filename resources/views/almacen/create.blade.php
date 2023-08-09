@@ -19,7 +19,7 @@
             <select id="tipo" name="tipo" class="form-control" tabindex="2" required>
                 <option value="default" selected>Elegir tipo...</option>
                 <option value="deposito">Deposito</option>
-                <option value="almacen_pequenio">Almacen pequeño</option>
+                <option value="almacen pequeño">Almacen pequeño</option>
             </select>
             <!--<input id="tipo" name="tipo" type="date" class="form-control" tabindex="2" />-->
         </div>

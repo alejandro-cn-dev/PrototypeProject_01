@@ -123,7 +123,12 @@ class VentaController extends Controller
 
         //Anulando registros de venta
         $affectedRows = Venta_detalle::where("id_venta", $id)->update(["isDeleted" => true]);
-        return redirect('/ventas');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response); 
+        //return redirect('/ventas');
     }
 
     //Funciones propias

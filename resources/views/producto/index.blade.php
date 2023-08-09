@@ -42,16 +42,17 @@
                         <td>{{$producto->id_almacen}}</td>
                         <td>{{$producto->id_marca}}</td>
                         <td>
-                            <form action="{{route('productos.destroy',$producto->id)}}" method="POST">
+                            <!-- <form action="{{route('productos.destroy',$producto->id)}}" method="POST"> -->
                                 @can('productos.edit')
                                 <a href="/productos/{{$producto->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                                 @endcan
                                 @csrf
                                 @can('productos.delete')
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button>
+                                <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
+                                <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$producto->id}});"><i class="fas fa-fw fa-trash"></i> Anular</a>
                                 @endcan
-                            </form>
+                            <!-- </form> -->
                         </td>
                     </tr>
                 @endforeach
@@ -117,6 +118,52 @@ $(document).ready(function(){
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
         });
-    });    
+    });
+    function confirma_anular(numero){
+        let ruta = "{{route('productos.destroy',':id')}}";
+        ruta = ruta.replace(':id',numero);
+        swal({
+                title: "Está seguro?",
+                text: "Una vez eliminado no será posible recuperarlo",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                var token = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    method: 'POST',
+                    url: ruta,
+                    data: {
+                        _token: token,
+                        _method: 'DELETE',
+                        contentType: 'application/json',
+                    },
+                    dataType: 'JSON',
+                    success: function(data){
+                        swal("Registro eliminado correctamente!", {
+                            icon: "success",
+                            timer: 1500,
+                        });
+                        location.reload();
+                    },
+                    error: function(response){
+                        swal("Ocurrio un error", {
+                            icon: "warning",
+                        });
+                        console.log(response);
+                    }                    
+                });                
+            } else {
+                swal("Eliminación cancelada",{
+                    icon: 'info',
+                    buttons: false,
+                    timer: 1500,
+                });
+                
+            }
+        });
+    }  
 </script>
 @stop

@@ -161,7 +161,12 @@ class ProductoController extends Controller
         $producto->isDeleted = true;
         $producto->save();
         //$producto->delete();
-        return redirect('/productos');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response);
+        //return redirect('/productos');
     }
 
     //Funciones propias

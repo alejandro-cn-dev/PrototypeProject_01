@@ -24,7 +24,7 @@
             <label for="" class="form-label">Nombre</label>
             <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" />
         </div>
-        <div class="row g-2">
+        <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">CI</label>
                 <input id="ci" name="ci" type="text" class="form-control" tabindex="4" />
@@ -32,7 +32,7 @@
             <div class="col-md-6">
                 <label for="" class="form-label">EXP</label>
                 <select id="expedido" name="expedido" class="form-control" tabindex="5">
-                    <option value="0" selected>Expedido en...</option>
+                    <option value="" selected>Expedido en...</option>
                     <option value="BE">Beni</option>
                     <option value="CB">Cochabamba</option>
                     <option value="CH">Chuquisaca</option>
@@ -85,4 +85,11 @@
 @stop
 
 @section('js')
+<script type="text/javascript">
+    $(document).ready(function(){ 
+        $("#expedido").select2({
+            placeholder: 'Expedido en...',
+        });
+    });
+</script>
 @stop

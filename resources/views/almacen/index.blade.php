@@ -31,16 +31,16 @@
                     <td>{{$almacen->nombre}}</td>
                     <td>{{$almacen->tipo}}</td>
                     <td>
-                        <!-- <form action="{{route('almacenes.destroy',$almacen->id)}}" method="POST"> -->
+                        <!-- <form method="post" action="{{route('almacenes.destroy',$almacen->id)}}" id="anular" name="anular" method="POST"> -->
                         <!-- <form action="#" id="anular" method="POST"> -->
                             @can('almacens.edit')
                             <a href="/almacenes/{{$almacen->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @endcan
                             @csrf
                             @can('almacens.delete')
-                            <!-- @method('DELETE') -->
-                            <!-- <button type="submit" class="btn btn-danger" onclick="confirma_anular();"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
-                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{ $almacen->id }});"><i class="fas fa-fw fa-trash"></i> Anular</a>
+                            @method('DELETE')
+                            <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
+                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$almacen->id}});"><i class="fas fa-fw fa-trash"></i> Anular</a>
                             @endcan
                         <!-- </form> -->
                     </td>
@@ -106,32 +106,36 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
-        });        
+        });
     });  
-    function confirma_anular(id_alm){
+    function confirma_anular(numero){
+        let ruta = "{{route('almacenes.destroy',':id')}}";
+        ruta = ruta.replace(':id',numero);
         swal({
                 title: "Está seguro?",
                 text: "Una vez eliminado no será posible recuperarlo",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-            })
-            .then((willDelete) => {
+        })
+        .then((willDelete) => {
             if (willDelete) {
                 var token = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     method: 'POST',
-                    url: "{{route('eliminar_almacen',2)}}",
+                    url: ruta,
                     data: {
                         _token: token,
+                        _method: 'DELETE',
                         contentType: 'application/json',
                     },
                     dataType: 'JSON',
                     success: function(data){
                         swal("Registro eliminado correctamente!", {
                             icon: "success",
+                            timer: 1500,
                         });
-                        
+                        location.reload();
                     },
                     error: function(response){
                         swal("Ocurrio un error", {
@@ -141,7 +145,12 @@
                     }                    
                 });                
             } else {
-                swal("Eliminación cancelada");
+                swal("Eliminación cancelada",{
+                    icon: 'info',
+                    buttons: false,
+                    timer: 1500,
+                });
+                
             }
         });
     }  

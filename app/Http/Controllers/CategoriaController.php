@@ -122,7 +122,12 @@ class CategoriaController extends Controller
         $categoria->isDeleted = true;
         $categoria->save();
         //$categoria->delete();
-        return redirect('/categorias');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response); 
+        //return redirect('/categorias');
     }
 
     //Funciones propias

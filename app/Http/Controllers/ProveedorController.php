@@ -98,6 +98,11 @@ class ProveedorController extends Controller
         $provedor->isDeleted = true;
         $provedor->save();
 
-        return redirect('/proveedores');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response);
+        //return redirect('/proveedores');
     }
 }

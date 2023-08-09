@@ -131,7 +131,12 @@ class EmpleadoController extends Controller
         $empleado->isDeleted = true;
         $empleado->save();
         //$empleado->delete();
-        return redirect('/empleados');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response);
+        //return redirect('/empleados');
     }
 
     //Funciones propias
