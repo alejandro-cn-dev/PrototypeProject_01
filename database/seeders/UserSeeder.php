@@ -14,10 +14,7 @@ class UserSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        $this->call(RoleSeeder::class);
-
-        //\App\Models\Rol::factory()->count(3)->sequence(['name' => 'Administrador'],['name' => 'Vendedor'],['name' => 'Acomodador'])->create();
+    {        
         User::create([
             'ap_paterno' => 'Demo',
             'ap_materno' => 'Demo',
