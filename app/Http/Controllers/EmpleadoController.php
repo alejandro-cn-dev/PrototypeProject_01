@@ -84,7 +84,8 @@ class EmpleadoController extends Controller
     public function edit($id)
     {
         $empleado = User::find($id);
-        return view('empleado.edit')->with('empleado',$empleado);
+        $roles = Role::all();
+        return view('empleado.edit')->with('empleado',$empleado)->with('roles',$roles);
     }
 
     /**
@@ -111,8 +112,8 @@ class EmpleadoController extends Controller
         $usuario->expedido = $exp = $request->get('expedido');
         $usuario->telefono = $request->get('telefono');
         $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
-        $usuario->email = $request->get('email');
-        $usuario->password = $request->get('password');
+        // $usuario->email = $request->get('email');
+        // $usuario->password = $request->get('password');
         $usuario->save();
         $usuario->assignRole($request->get('role'));
 
