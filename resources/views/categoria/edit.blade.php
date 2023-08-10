@@ -12,9 +12,9 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-3"><label for="" class="form-label">Nombre</label><input id="nombre" name="nombre" type="text"
-                        class="form-control" value="{{$categoria->nombre}}" /></div>
+                        class="form-control" value="{{$categoria->nombre}}" required/></div>
                 <div class="mb-3"><label for="" class="form-label">Detalle</label><input id="detalle" name="detalle" type="text"
-                        class="form-control" value="{{$categoria->detalle}}" /></div>        
+                        class="form-control" value="{{$categoria->detalle}}" required/></div>        
                 <a href="/categorias" class="btn btn-secondary" tabindex="5"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
                 <button type="submit" class="btn btn-primary" tabindex="6"><i class="fas fa-fw fa-save"></i> Guardar</button>
         </form>    

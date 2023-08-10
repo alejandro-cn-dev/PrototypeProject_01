@@ -13,14 +13,14 @@
         @method('PUT')
         <div class="mb-3">
             <label for="" class="form-label">Nombre</label>
-            <input id="nombre" name="nombre" type="text" class="form-control" value="{{$almacen->nombre}}" />
+            <input id="nombre" name="nombre" type="text" class="form-control" value="{{$almacen->nombre}}" required/>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Tipo</label>
-            <select id="tipo" name="tipo" class="form-control">
-                <option value="default" @if(($almacen->tipo)==""){ selected } @endif>Elegir tipo...</option>
+            <select id="tipo" name="tipo" class="form-control" required>
+                <option value="">Elegir tipo...</option>
                 <option value="deposito" @if(($almacen->tipo)=="deposito"){ selected } @endif>Deposito</option>
-                <option value="almacen_pequenio" @if(($almacen->tipo)=="almacen_pequenio"){ selected } @endif>Almacén pequeño</option>
+                <option value="almacen pequeño" @if(($almacen->tipo)=="almacen_pequenio"){ selected } @endif>Almacén pequeño</option>
             </select>            
         </div>    
         <a href="/almacenes" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>

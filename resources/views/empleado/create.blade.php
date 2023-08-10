@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Sistema de gestion')
+@section('title', 'Registrar usuario | Presitex Panel Admin')
 
 @section('content_header')
     <h1>Registrar Empleado</h1>
@@ -13,7 +13,7 @@
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">Apellido Paterno</label>
-                <input id="ap_paterno" name="ap_paterno" type="text" class="form-control" tabindex="1" />
+                <input id="ap_paterno" name="ap_paterno" type="text" class="form-control" tabindex="1" required />
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Apellido Materno</label>
@@ -22,16 +22,16 @@
         </div>        
         <div class="mb-3">
             <label for="" class="form-label">Nombre</label>
-            <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" />
+            <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required />
         </div>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="" class="form-label">CI</label>
-                <input id="ci" name="ci" type="text" class="form-control" tabindex="4" />
+                <input id="ci" name="ci" type="text" class="form-control" placeholder="00000000" tabindex="4" required />
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">EXP</label>
-                <select id="expedido" name="expedido" class="form-control" tabindex="5">
+                <select id="expedido" name="expedido" class="form-control" tabindex="5" required>
                     <option value="" selected>Expedido en...</option>
                     <option value="BE">Beni</option>
                     <option value="CB">Cochabamba</option>
@@ -48,16 +48,16 @@
         
         <div class="mb-3">
             <label for="" class="form-label">Telefono</label>
-            <input id="telefono" name="telefono" type="number" class="form-control" tabindex="6" />
+            <input id="telefono" name="telefono" type="text" class="form-control" placeholder="000-00-000" tabindex="6" />
         </div>
         <div class="row g-2 border border-dark p-2">
             <div class="col-md-6">
                 <label for="" class="form-label">Email</label>
-                <input id="email" name="email" type="text" class="form-control" tabindex="7" />
+                <input id="email" name="email" type="text" class="form-control" placeholder="example@demo.com" tabindex="7" required />
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Contraseña</label>
-                <input id="password" name="password" type="password" class="form-control" tabindex="8" />
+                <input id="password" name="password" type="password" class="form-control" tabindex="8" required />
             </div>
         </div>
         
@@ -68,11 +68,14 @@
         </div>    -->
         <div class="mb-3">
             <label for="" class="form-label">Rol</label>
-            <div class="col-sm-9">
-                @foreach ($roles as $role)
-                    <input type="radio" name="role" value="{{$role->name}}"> {{$role->name}}
-                @endforeach
-            </div>            
+            @foreach ($roles as $role)
+            <div class="form-check">               
+                <input type="radio" class="form-check-input" name="role" value="{{$role->name}}" required>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    {{ $role->name }}
+                </label>
+            </div>
+            @endforeach 
         </div>
         <a href="/empleados" class="btn btn-secondary" tabindex="10">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="11">Guardar</button>
@@ -89,6 +92,24 @@
     $(document).ready(function(){ 
         $("#expedido").select2({
             placeholder: 'Expedido en...',
+        });
+        $("#ci").inputmask({
+            alias: 'numeric',
+            mask: '999999999',
+            definitions: {
+                    '*': {
+                            validator: "[0-9]"
+                    }
+            },
+        });
+        $("#telefono").inputmask({
+            alias: 'numeric',
+            mask: '99999999',
+            definitions: {
+                    '*': {
+                            validator: "[0-9]"
+                    }
+            },
         });
     });
 </script>

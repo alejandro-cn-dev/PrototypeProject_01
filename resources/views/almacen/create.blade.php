@@ -17,7 +17,7 @@
         <div class="mb-3">
             <label for="" class="form-label">Tipo</label>
             <select id="tipo" name="tipo" class="form-control" tabindex="2" required>
-                <option value="default" selected>Elegir tipo...</option>
+                <option value="" selected>Elegir tipo...</option>
                 <option value="deposito">Deposito</option>
                 <option value="almacen pequeño">Almacen pequeño</option>
             </select>

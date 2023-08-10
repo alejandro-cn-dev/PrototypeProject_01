@@ -19,9 +19,6 @@
         <table id="empleados" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Apellido Paterno</th>
-                    <th scope="col">Apellido Materno</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">CI</th>
                     <th scope="col">Matricula</th>
@@ -34,10 +31,7 @@
             <tbody>
                 @foreach ($empleados as $empleado)
                     <tr>
-                        <td>{{$empleado->id}}</td>
-                        <td>{{$empleado->ap_paterno}}</td>
-                        <td>{{$empleado->ap_materno}}</td>
-                        <td>{{$empleado->name}}</td>
+                        <td>{{$empleado->ap_paterno}} {{$empleado->ap_materno}} {{$empleado->name}}</td>
                         <td>{{$empleado->ci}} {{$empleado->expedido}}</td>
                         <td>{{$empleado->matricula}}</td>
                         <td>{{$empleado->telefono}}</td>
@@ -46,7 +40,7 @@
                         <td>
                             <!-- <form action="{{route('empleados.destroy',$empleado->id)}}" method="POST"> -->
                                 @can('empleados.edit')
-                                <a href="/empleados/{{$empleado->id}}/edit " class="btn btn-info">Editar</a>
+                                <a href="/empleados/{{$empleado->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                                 @endcan
                                 @csrf
                                 @can('empleados.delete')
@@ -54,6 +48,7 @@
                                 <!-- <button type="submit" class="btn btn-danger">Anular</button> -->
                                 <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$empleado->id}});"><i class="fas fa-fw fa-trash"></i> Anular</a>
                                 @endcan
+                                <a href="#" class="btn btn-secondary" id="cambiar"><i class="fa fa-key"></i> Cambiar contraseña</a>
                             <!-- </form> -->
                         </td>
                     </tr>
