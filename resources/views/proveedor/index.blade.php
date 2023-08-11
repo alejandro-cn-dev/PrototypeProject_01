@@ -35,7 +35,7 @@
                             @csrf                            
                             @method('DELETE')
                             <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
-                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$proveedor->id}});"><i class="fas fa-fw fa-trash"></i> Anular</a>
+                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$proveedor->id}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                         <!-- </form> -->
                     </td>
                 </tr>
