@@ -7,6 +7,12 @@
 @stop
 
 @section('content')
+
+@php
+    $ruta1 = "img/product_generic_img_3.jpg";
+    $ruta2 = "storage/img/name";
+    $ruta_img = "";
+@endphp
 <img src="img/productos_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo productos">
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
@@ -42,13 +48,13 @@
                         <td>{{$producto->unidad}}</td>
                         <td>{{$producto->id_almacen}}</td>
                         <td>
+                        @php($ruta_img = $ruta1)
                         @foreach ($imagenes as $imagen)
                             @if(($imagen->id_registro) == ($producto->id))
-                                <img src="storage_path('images')\$imagen->nombre_imagen" alt="imagen producto {{$producto->id}}">
-                            @else
-                                <img src="asset('img/product_generic_img_3.jpg')" alt="imagen producto {{$producto->id}}">
-                            @endif
+                                @php($ruta_img = str_replace('name',$imagen->nombre_imagen,$ruta2))
+                            @endif                   
                         @endforeach                        
+                        <img src="{{asset($ruta_img)}}" alt="imagen producto {{$producto->nombre}}" style="width: 100px; height: 100px;">
                         <td>{{$producto->id_marca}}</td>
                         <td>
                             <!-- <form action="{{route('productos.destroy',$producto->id)}}" method="POST"> -->
@@ -59,7 +65,7 @@
                                 @can('productos.delete')
                                 @method('DELETE')
                                 <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
-                                <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$producto->id}});"><i class="fas fa-fw fa-trash"></i> Anular</a>
+                                <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$producto->id}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                                 @endcan
                             <!-- </form> -->
                         </td>

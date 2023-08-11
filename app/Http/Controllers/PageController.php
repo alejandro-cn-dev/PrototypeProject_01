@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
+use App\Models\Imagen;
 use DB;
 
 class PageController extends Controller
@@ -22,7 +23,8 @@ class PageController extends Controller
         ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->get();
-        return view('vitrina.index')->with('productos',$productos);
+        $imagenes = Imagen::where('tabla','=','productos')->get();
+        return view('vitrina.index')->with('productos',$productos)->with('imagenes',$imagenes);
         //return view('vitrina.index', ['productos' => $productos]);
     }
 
@@ -41,7 +43,8 @@ class PageController extends Controller
         ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->get();
-        return view('vitrina.lista', ['productos' => $productos]);
+        $imagenes = Imagen::where('tabla','=','productos')->get();
+        return view('vitrina.lista', ['productos' => $productos, 'imagenes' => $imagenes]);
     }
 
     // Listado de productos por categorias
@@ -69,7 +72,9 @@ class PageController extends Controller
         ->where('productos.id_categoria','=',$producto->id_categoria)
         ->where('productos.id','!=',$id)
         ->get();
-        return view('vitrina.product', ['producto' => $producto, 'relacionados' => $relacionados]);
+        $imagenes = Imagen::where('tabla','=','productos')->where('id_registro','=',$id)->first();
+        $imagenes_rel = Imagen::where('tabla','=','productos')->get();
+        return view('vitrina.product', ['producto' => $producto, 'relacionados' => $relacionados, 'imagenes' => $imagenes, 'imagenes_rel' => $imagenes_rel]);
     }
     
     // Buscar productos
@@ -78,11 +83,12 @@ class PageController extends Controller
         $result = Producto::join('marcas','productos.id_marca','=','marcas.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
         ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
-        ->where('descripcion','LIKE','%'.$product.'%')
-        ->orWhere('item_producto','LIKE','%'.$product.'%')->get();
+        ->where('productos.nombre','LIKE','%'.$product.'%')
+        ->orWhere('productos.item_producto','LIKE','%'.$product.'%')->get();
+        $imagenes = Imagen::where('tabla','=','productos')->get();
         if(count($result) > 0)
             //return view('vitrina.product')->withDetails($result)->withQuery ( $product );
-            return view('vitrina.lista')->with('productos',$result)->with('term',$product);
+            return view('vitrina.lista')->with('productos',$result)->with('term',$product)->with('imagenes',$imagenes);
         else return view ('vitrina.lista')->with('productos',null);
         }
 }

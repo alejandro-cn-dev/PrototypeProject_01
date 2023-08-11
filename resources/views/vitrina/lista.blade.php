@@ -19,6 +19,11 @@
     </div>  
        
     <!-- Sección de productos-->
+    @php
+        $ruta1 = "img/product_generic_img_3.jpg";
+        $ruta2 = "storage/img/name";
+        $ruta_img = "";
+    @endphp
     <section class="py-5">
         <!-- Término de busqueda-->
         <div class="container">    
@@ -37,7 +42,7 @@
                     <div class="card h-100">
                         <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
-                            @if ($producto->existencia === 0)
+                            @if ($producto->existencia == 0)
                                 Agotado
                             @elseif ($producto->existencia < 5)
                                 Por agotarse
@@ -47,7 +52,13 @@
                         </div>
                         <!-- Imagen de producto-->
                         <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
-                            <img class="card-img-top" style="width: 205px; height: 136px;" src="/img/product_generic_img_3.jpg" alt="producto 1" />
+                        @php($ruta_img = $ruta1)
+                        @foreach ($imagenes as $imagen)
+                            @if(($imagen->id_registro) == ($producto->id))
+                                @php($ruta_img = str_replace('name',$imagen->nombre_imagen,$ruta2))
+                            @endif                   
+                        @endforeach    
+                        <img class="card-img-top" style="width: 100%; height: 136px;" src="{{ asset($ruta_img) }}" alt="Imagen de {{ $producto->nombre }}" />
                         </a>
                         <!-- Detalle del producto-->
                         <div class="card-body p-4">

@@ -8,7 +8,11 @@
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                    <img class="card-img-top mb-5 mb-md-0" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="{{$producto->descripcion}} imagen" />
+                    @if(empty($imagenes))
+                        <img class="card-img-top mb-5 mb-md-0" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="{{$producto->nombre}} imagen" />
+                    @else
+                        <img class="card-img-top mb-5 mb-md-0" src="{{ asset('storage/img/'.$imagenes->nombre_imagen) }}" alt="{{$producto->nombre}} imagen" />
+                    @endif                    
                 </div>
                 <div class="col-md-6">
                     <!-- Notificacion de existencias -->                    
@@ -64,6 +68,11 @@
         </div>
     </section>
     <!-- Sección de productos relacionados-->
+    @php
+        $ruta1 = "img/product_generic_img_3.jpg";
+        $ruta2 = "storage/img/name";
+        $ruta_img = "";
+    @endphp
     <section class="py-5 bg-light">
         <div class="container px-4 px-lg-5 mt-5">
             @if (!$relacionados->isEmpty())
@@ -75,7 +84,7 @@
                         <div class="card h-100">
                             <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
-                                @if ($producto->existencia === 0)
+                                @if ($producto->existencia == 0)
                                     Agotado
                                 @elseif ($producto->existencia < 5)
                                     Por agotarse
@@ -85,7 +94,13 @@
                             </div>
                             <!-- Imagen de producto -->
                             <a class="nav-link " href="/detalle/producto/{{$producto->id}}">
-                                <img class="card-img-top" style="width: 205px; height: 136px;" src="{{ asset('img/product_generic_img_3.jpg') }}" alt="producto 1" />
+                                @php($ruta_img = $ruta1)
+                                @foreach ($imagenes_rel as $imagen)
+                                    @if(($imagen->id_registro) == ($producto->id))
+                                        @php($ruta_img = str_replace('name',$imagen->nombre_imagen,$ruta2))
+                                    @endif                   
+                                @endforeach    
+                                <img class="card-img-top" style="width: 100%; height: 136px;" src="{{ asset($ruta_img) }}" alt="Imagen de {{ $producto->nombre }} />
                             </a>
                             <!-- Detalle del producto-->
                             <div class="card-body p-4">

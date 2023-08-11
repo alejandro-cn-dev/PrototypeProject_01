@@ -95,7 +95,7 @@ class ProductoController extends Controller
         $productos->save();
 
         // verificar si existe una imagen
-        if(!isEmpty($request->file('imagen'))){
+        if(!empty($request->file('imagen'))){
             // subir imagen
             $imagen = $request->file('imagen');
             //obtenemos el nombre del archivo
