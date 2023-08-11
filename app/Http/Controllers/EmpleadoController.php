@@ -149,4 +149,8 @@ class EmpleadoController extends Controller
         return $pdf->download('empleados_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('empleado/pdf_empleado',compact('empleados','fecha'));
     }
+    public function form_cambio_contraseña($id){
+        $usuario = User::find($id);
+        return view('empleado.cambio_contraseña')->with('empleado',$usuario);
+    }
 }

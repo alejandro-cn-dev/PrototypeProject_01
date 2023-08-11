@@ -48,7 +48,7 @@
                                 <!-- <button type="submit" class="btn btn-danger">Anular</button> -->
                                 <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$empleado->id}});"><i class="fas fa-fw fa-trash"></i> Anular</a>
                                 @endcan
-                                <a href="#" class="btn btn-secondary" id="cambiar"><i class="fa fa-key"></i> Cambiar contraseña</a>
+                                <a href="/empleados/restablecer/{{$empleado->id}}" class="btn btn-secondary" id="cambiar"><i class="fa fa-key"></i> Cambiar contraseña</a>
                             <!-- </form> -->
                         </td>
                     </tr>
