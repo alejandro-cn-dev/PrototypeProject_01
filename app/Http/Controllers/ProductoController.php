@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Models\Almacen;
 use App\Models\Marca;
 use App\Models\Empleado;
+use App\Models\Imagen;
 use PDF;
 
 class ProductoController extends Controller
@@ -36,8 +37,9 @@ class ProductoController extends Controller
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
         ->where('productos.isDeleted','=',0)->get();
+        $imagenes = Imagen::where('tabla','=','productos')->get();
 
-        return view('producto.index')->with('productos',$productos);
+        return view('producto.index')->with('productos',$productos)->with('imagenes',$imagenes);
     }
 
     /**
@@ -64,7 +66,7 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         $productos = new Producto();                        
         $productos->nombre = $request->get('nombre');
         $productos->descripcion = $request->get('descripcion');
@@ -91,6 +93,24 @@ class ProductoController extends Controller
         $num_item = Producto::where('id_categoria','=',$categoria->id)->where('isDeleted','=',0)->get();        
         $productos->item_producto = $categoria->sufijo_categoria.'-'.str_pad(($num_item->count() + 1), 3, '0', STR_PAD_LEFT);
         $productos->save();
+
+        // verificar si existe una imagen
+        if(!isEmpty($request->file('imagen'))){
+            // subir imagen
+            $imagen = $request->file('imagen');
+            //obtenemos el nombre del archivo
+            $nombre =  time()."_"."producto_".$productos->id.".".$imagen->extension();
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('images')->put($nombre,  \File::get($imagen));
+
+            // guardar referencias a imagen
+            $datos_imagen = new Imagen();
+            $datos_imagen->tabla = "productos";
+            $datos_imagen->id_registro = $productos->id;
+            $datos_imagen->nombre_imagen = $nombre;
+            $datos_imagen->ubicacion = storage_path('images');
+            $datos_imagen->save();
+        }        
 
         return redirect('/productos');
     }

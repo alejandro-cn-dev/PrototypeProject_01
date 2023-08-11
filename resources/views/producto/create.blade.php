@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">
-    <form action="/productos" method="POST">
+    <form action="/productos" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- <div class="mb-3">
             <label for="" class="form-label">Nombre</label>
@@ -22,6 +22,10 @@
             <label for="" class="form-label">Descripcion</label>
             <!-- <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required/> -->
             <textarea id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen de producto</label>
+            <input type="file" id="imagen" name="imagen" class="form-control">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Color</label>

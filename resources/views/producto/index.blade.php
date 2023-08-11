@@ -26,6 +26,7 @@
                     <th scope="col">Color</th>
                     <th scope="col">Unidad</th>
                     <th scope="col">Ubicacion</th>
+                    <th scope="col">Imagen</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Opciones</th>
                 </tr>
@@ -40,6 +41,14 @@
                         <td>{{$producto->color}}</td>
                         <td>{{$producto->unidad}}</td>
                         <td>{{$producto->id_almacen}}</td>
+                        <td>
+                        @foreach ($imagenes as $imagen)
+                            @if(($imagen->id_registro) == ($producto->id))
+                                <img src="storage_path('images')\$imagen->nombre_imagen" alt="imagen producto {{$producto->id}}">
+                            @else
+                                <img src="asset('img/product_generic_img_3.jpg')" alt="imagen producto {{$producto->id}}">
+                            @endif
+                        @endforeach                        
                         <td>{{$producto->id_marca}}</td>
                         <td>
                             <!-- <form action="{{route('productos.destroy',$producto->id)}}" method="POST"> -->
