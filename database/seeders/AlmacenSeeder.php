@@ -16,9 +16,9 @@ class AlmacenSeeder extends Seeder
     public function run()
     {        
         Almacen::create([
-            'nombre' => 'Esq. Gonzalves #219 piso 2',
+            'nombre' => 'Deposito #3',
             'tipo' => 'deposito',
-            'sufijo_almacen' => 'ES',
+            'sufijo_almacen' => 'D3',
             'id_usuario' => '1'
         ]);
     }
