@@ -7,6 +7,8 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use PDF;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class EmpleadoController extends Controller
 {
@@ -152,5 +154,49 @@ class EmpleadoController extends Controller
     public function form_cambio_contraseña($id){
         $usuario = User::find($id);
         return view('empleado.cambio_contraseña')->with('empleado',$usuario);
+    }
+    public function cambio(Request $request){
+        // Verificar que coincida la contraseña antes de cambiar por una nueva
+        if (!(Hash::check($request->antigua, Auth::user()->password)))
+        {
+            return response()->json(['errors' => ['La contraseña anterior no coincide']]);
+        }
+        // reglas de validación
+        $rules = [
+            'antigua'     => 'required',
+            'nueva1'      => 'required|different:antigua',
+            'nueva2'      => 'required|same:nueva1'
+        ];
+        // Mensajes de error personalizados
+        $custom_messages = [
+            'antigua.required' => 'Debe escribir la contraseña',
+            'nueva1.required' => 'Debe escribir una nueva contraseña',
+            'nueva1.different' => 'La nueva contraseña debe ser diferente a la antigua',
+            'nueva2.required' => 'Debe repetir la nueva contraseña',
+            'nueva2.same' => 'No coincide con la nueva contraseña'
+        ];
+        // Validacion de Request
+        $validator = $this->validate($request,$rules,$custom_messages);
+    
+        // Inicio de procesos de actualización de contraseña nueva
+        $usuario = User::find($request->id_usuario);
+        $usuario->password = Hash::make($request->get('nueva_password'));
+        $usuario->save();
+        
+        $response = array(
+            'status' => 'success',
+            'msg' => 'listo',
+        );
+        return response()->json($response); 
+    }
+    public function perfil(){
+        $usuario = User::find(auth()->user()->id);
+        return view('empleado.perfil')->with('usuario',$usuario);
+    }
+    public function messages()
+    {
+        return [
+            
+        ];
     }
 }

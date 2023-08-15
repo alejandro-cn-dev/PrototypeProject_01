@@ -46,12 +46,14 @@ Route::get('detalle/producto/{id}', [PageController::class,'producto'])->name('d
 //Busqueda de producto
 Route::any('/buscar',[PageController::class,'buscar']);
 //Route::get('/home', function () { return view('home');});
+Route::get('empleados/perfil',[EmpleadoController::class,'perfil'])->middleware('auth')->name('ver_perfil');
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');
 Route::resource('empleados','App\Http\Controllers\EmpleadoController')->except('show');
 Route::get('empleados/reporte/{id}',[EmpleadoController::class,'reporte'])->middleware('auth')->name('generar_reporte_empleado');
 Route::get('empleados/restablecer/{id}',[EmpleadoController::class,'form_cambio_contraseña'])->middleware('auth')->name('form_cambio_contraseña');
+Route::post('empleados/cambio',[EmpleadoController::class,'cambio'])->middleware('auth')->name('cambio_contraseña');
 Route::resource('categorias','App\Http\Controllers\CategoriaController')->except('show');
 Route::get('categorias/reporte/{id}',[CategoriaController::class,'reporte'])->middleware('auth')->name('generar_reporte_categoria');
 Route::resource('reportes','App\Http\Controllers\ReporteController')->except('show');
