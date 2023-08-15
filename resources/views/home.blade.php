@@ -15,6 +15,20 @@
         <!-- Tarjeta #1 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
+          <div class="small-box bg-success" bis_skin_checked="1">
+            <div class="inner" bis_skin_checked="1">
+              <h3>{{ $compras }}</h3>
+              <p>Compras</p>
+            </div>
+            <div class="icon" bis_skin_checked="1">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </div>
+            <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>    
+        <!-- Tarjeta #2 -->
+        <div class="col-lg-3 col-6" bis_skin_checked="1">
+          <!-- small box -->
           <div class="small-box bg-info" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
               <h3>{{$ventas}}</h3>
@@ -26,38 +40,11 @@
             <a href="/ventas" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- Tarjeta #2 -->
-        <div class="col-lg-3 col-6" bis_skin_checked="1">
-          <!-- small box -->
-          <div class="small-box bg-success" bis_skin_checked="1">
-            <div class="inner" bis_skin_checked="1">
-              <h3>{{ $compras }}</h3>
-              <p>Compras</p>
-            </div>
-            <div class="icon" bis_skin_checked="1">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+        
         <!-- Tarjeta #3 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-warning" bis_skin_checked="1">
-            <div class="inner" bis_skin_checked="1">
-              <h3>{{$empleados}}</h3>
-              <p>Usuarios registrados</p>
-            </div>
-            <div class="icon" bis_skin_checked="1">
-              <i class="fa fa-user-plus" aria-hidden="true"></i>
-            </div>
-            <a href="/empleados" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- Tarjeta #4 -->
-        <div class="col-lg-3 col-6" bis_skin_checked="1">
-          <!-- small box -->
-          <div class="small-box bg-danger" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
               <h3>{{$productos}}</h3>
               <p>Productos registrados</p>
@@ -68,6 +55,21 @@
             <a href="/productos" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        <!-- Tarjeta #4 -->
+        <div class="col-lg-3 col-6" bis_skin_checked="1">
+          <!-- small box -->
+          <div class="small-box bg-primary" bis_skin_checked="1">
+            <div class="inner" bis_skin_checked="1">
+              <!-- <h3>74<sup style="font-size: 20px">%</sup></h3> -->
+              <h3>74</h3>
+              <p>Existencia actual (Metros de tela)</p>
+            </div>
+            <div class="icon" bis_skin_checked="1">
+              <i class="fa fa-signal" aria-hidden="true"></i>
+            </div>
+            <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>        
     </div>
     <div class="row" bis_skin_checked="1">
         <!-- Tarjeta #5 -->
@@ -87,33 +89,18 @@
         <!-- Tarjeta #6 -->
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
-          <div class="small-box bg-primary" bis_skin_checked="1">
+          <div class="small-box bg-warning" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
-              <!-- <h3>74<sup style="font-size: 20px">%</sup></h3> -->
-              <h3>74</h3>
-              <p>Existencia actual</p>
+              <h3>{{$empleados}}</h3>
+              <p>Usuarios registrados</p>
             </div>
             <div class="icon" bis_skin_checked="1">
-              <i class="fa fa-signal" aria-hidden="true"></i>
-            </div>
-            <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- Tarjeta #7 -->
-        <div class="col-lg-3 col-6" bis_skin_checked="1">
-          <!-- small box -->
-          <div class="small-box bg-danger" bis_skin_checked="1">
-            <div class="inner" bis_skin_checked="1">
-              <h3>10</h3>
-              <p>Existencia vendida</p>
-            </div>
-            <div class="icon" bis_skin_checked="1">
-              <i class="fa fa-signal" aria-hidden="true"></i>
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
             </div>
             <a href="/empleados" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
-        </div>
-        <!-- Tarjeta #8 -->
+        </div>        
+        <!-- Tarjeta #7 -->        
         <div class="col-lg-3 col-6" bis_skin_checked="1">
           <!-- small box -->
           <div class="small-box bg-success" bis_skin_checked="1">
@@ -125,6 +112,20 @@
               <i class="fas fa-fw fa-check" aria-hidden="true"></i>
             </div>
             <a href="/productos" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>        
+        <!-- Tarjeta #8 -->
+        <div class="col-lg-3 col-6" bis_skin_checked="1">
+          <!-- small box -->
+          <div class="small-box bg-danger" bis_skin_checked="1">
+            <div class="inner" bis_skin_checked="1">
+              <h3>10</h3>
+              <p>Existencia vendida (metros de tela)</p>
+            </div>
+            <div class="icon" bis_skin_checked="1">
+              <i class="fa fa-signal" aria-hidden="true"></i>
+            </div>
+            <a href="/empleados" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
     </div>
