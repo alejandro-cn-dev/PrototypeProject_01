@@ -470,12 +470,25 @@ return [
         'Datatables' => [
             'active' => true,
             'files' => [
+                // JQuery
                 // InputMask
                 [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js',
                 ],
+                // JQuery validate
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js',
+                ],
+                // Datatable
                 [
                     'type' => 'js',
                     'asset' => false,
