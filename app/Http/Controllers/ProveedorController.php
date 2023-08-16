@@ -12,6 +12,14 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:proveedores.index')->only('index');
+        $this->middleware('can:proveedores.create')->only('create','store');
+        $this->middleware('can:proveedores.edit')->only('edit','update');
+        $this->middleware('can:proveedores.delete')->only('destroy');
+    }
+    
     public function index()
     {
         $provedores = Proveedor::where('isDeleted','=',0)->get();

@@ -10,7 +10,9 @@
 <img src="{{ asset('img/proveedor_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo proveedores">
 <div class="hadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
+        @can('marcas.create')
         <a href="proveedores/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar proveedor</a>    
+        @endcan
         <a href="{{route('generar_reporte_proveedores')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a>    
     </div>  
     <div class="table-responsive">
@@ -31,11 +33,15 @@
                     <td>{{$proveedor->telefono}}</td>
                     <td>
                         <!-- <form action="{{route('proveedores.destroy',$proveedor->id)}}" method="POST"> -->
+                            @can('marcas.edit')
                             <a href="/proveedores/{{$proveedor->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
-                            @csrf                            
+                            @endcan
+                            @csrf  
+                            @can('marcas.delete')                          
                             @method('DELETE')
                             <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$proveedor->id}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
+                            @endcan
                         <!-- </form> -->
                     </td>
                 </tr>
