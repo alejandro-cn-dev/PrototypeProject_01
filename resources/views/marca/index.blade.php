@@ -10,7 +10,7 @@
 <img src="img/marcas_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo marcas">
 <div class="hadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        @can('marcascreate')
+        @can('marcas.create')
         <a href="marcas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Marca</a>    
         @endcan
         <a href="{{route('generar_reporte_marca',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>    
@@ -33,11 +33,11 @@
                     <td>{{$marca->sufijo_marca}}</td>
                     <td>
                         <!-- <form action="{{route('marcas.destroy',$marca->id)}}" method="POST"> -->
-                            @can('marcasedit')
+                            @can('marcas.edit')
                             <a href="/marcas/{{$marca->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @endcan
                             @csrf
-                            @can('marcasdelete')
+                            @can('marcas.delete')
                             @method('DELETE')
                             <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$marca->id}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
