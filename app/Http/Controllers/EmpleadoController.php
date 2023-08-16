@@ -27,7 +27,7 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-        $usuarios = User::where('isDeleted','=',0)->get();
+        $usuarios = User::where('isDeleted','=',0)->where('name','NOT LIKE',auth()->user()->name)->get();
         return view('empleado.index')->with('empleados',$usuarios);
     }
 
@@ -180,7 +180,7 @@ class EmpleadoController extends Controller
     
         // Inicio de procesos de actualización de contraseña nueva
         $usuario = User::find($request->id_usuario);
-        $usuario->password = Hash::make($request->get('nueva_password'));
+        $usuario->password = $request->get('nueva1');
         $usuario->save();
         
         $response = array(
@@ -192,11 +192,5 @@ class EmpleadoController extends Controller
     public function perfil(){
         $usuario = User::find(auth()->user()->id);
         return view('empleado.perfil')->with('usuario',$usuario);
-    }
-    public function messages()
-    {
-        return [
-            
-        ];
     }
 }
