@@ -139,7 +139,38 @@ class InventarioController extends Controller
 
         return view('inventario.control_stock')->with('productos',$productos);
     }
+    public function stock_fecha(Request $request)
+    {        
+        // reglas de validación
+        $rules = [
+            'fecha_inicio'     => 'required',
+            'fecha_final'      => 'required|after_or_equal:fecha_inicio'
+        ];
+        // Mensajes de error personalizados
+        $custom_messages = [
+            'fecha_inicio.required' => 'Debe escribir una fecha inicial',
+            'fecha_final.required' => 'Debe escribir una fecha final',
+            'fecha_final.after_or_equal' => 'La fecha final no debe ser mayor a la inicial'
+        ];
+        // Validacion de Request
+        $validator = $this->validate($request,$rules,$custom_messages);
 
+        // Consulta a BD con las fechas inicial y final
+        // Consulta de por fechas y por producto en Compras
+        $consulta_compras = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicial,$request->fecha_final),"(SELECT SUM(compra_detalles.cantidad) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra BETWEEN '|fechainicio' AND ':fechafinal')) AS entradas");
+        $consulta_ventas = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicial,$request->fecha_final),"(SELECT SUM(venta_detalles.cantidad) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta BETWEEN '|fechainicio' AND ':fechafinal')) AS salidas");
+        $respuesta = Producto::select(
+            'nombre',
+            'item_producto',
+            'precio_compra',
+            'precio_venta',
+            DB::raw($consulta_compras),
+            DB::raw($consulta_ventas))
+        ->where('isDeleted','=',0)
+        ->get();
+        
+        return response()->json(['respuesta'=>$respuesta]);
+    }
     public function reporte_stock()
     {
         $productos = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE id_producto = productos.id) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE id_producto = productos.id) AS salidas"))

@@ -8,6 +8,19 @@
 
 @section('content')
 <img src="{{ asset('img/stock_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
+<div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
+    <div class="row">
+        <label for="fecha_inicio" class="col-sm-1 col-form-label">Desde: </label>     
+        <div class="col-sm-4">                
+            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control"> 
+        </div>                  
+        <label for="fecha_final" class="col-sm-1 col-form-label">Hasta: </label>
+        <div class="col-sm-4">                
+            <input type="date" name="fecha_final" id="fecha_final" class="form-control">
+        </div>
+        <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>        
+    </div>
+</div>
 <div class="shadow-none p-3 bg-white rounded"> 
     <table id="stock" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
@@ -25,7 +38,7 @@
                 <!-- <th scope="col">Fecha</th> -->
             </tr>
         </thead>
-        <tbody>
+        <tbody id="datos_stock">
             @foreach ($productos as $producto)
                 <tr>
                     <td>{{ $producto->nombre }}</td>
@@ -88,5 +101,61 @@
             }
         });
     });    
+    function recargar_tabla(){
+        let inicio = document.getElementById("fecha_inicio").value;
+        let final = document.getElementById("fecha_final").value;
+        $.ajax({
+            url: "{{ route('stock_fecha') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                fecha_inicio: inicio,
+                fecha_final: final,
+            },
+            success: function(result){
+                console.log(result);
+                if(result){
+                    cargar_datos(result.respuesta);
+                }
+                if(result.errors){
+                    swal("Ocurrio un error", {
+                        icon: "warning",
+                    });
+                }                
+            },
+            error: function(response){             
+                console.log(response);
+                if(response.responseJSON){
+                    if(response.responseJSON.errors){
+                        let errores = "";
+                        $.each(response.responseJSON.errors,function(key,value){                               
+                            errores = value+',' + errores;
+                        }); 
+                        swal({
+                            title: "Error",
+                            icon: "error",
+                            text: errores,
+                        });                                       
+                    }
+                }                
+            }
+        });
+    }
+    function cargar_datos(resultado){
+        $('#stock tbody tr').detach();
+        tbody = document.getElementById("datos_stock");        
+        resultado.forEach(function(fila){
+            if(fila.entradas === null){
+                fila.entradas = 0;
+            }
+            if(fila.salidas === null){
+                fila.salidas = 0;
+            }
+            let tr = document.createElement("tr");
+            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_producto+"</td><td>"+fila.precio_compra+"</td><td>"+fila.precio_venta+"</td><td>0</td><td>"+fila.entradas+"</td><td>"+fila.salidas+"</td><td>"+(parseInt(fila.entradas,10) + parseInt(fila.salidas,10))+"</td></tr>";            
+            tr.innerHTML = fila_tabla;
+            tbody.appendChild(tr);
+        });
+    }
 </script>
 @stop
