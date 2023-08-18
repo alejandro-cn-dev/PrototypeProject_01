@@ -17,13 +17,13 @@
                 <div class="row g-2 mb-3">
                         <div class="col-md-6">
                                 <label for="" class="form-label">CI</label>
-                                <!-- <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/> -->
-                                <select name="ci" id="ci" class="form-control" tabindex="3" required>
+                                <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required/>
+                                <!-- <select name="ci" id="ci" class="form-control" tabindex="3" required>
                                         <option value="">Seleccione el CI...</option>
                                         @foreach ($clientes as $cliente)
                                         <option value='{"id":{{$cliente->id}},"nombre":{{$cliente->nombre}},"ci":"{{$cliente->ci}}","telefono":"{{$cliente->telefono}},"email":"{{$cliente->email}},"direccion":"{{$cliente->direccion}}"}'>{{$cliente->ci}}</option>
                                         @endforeach
-                                </select>
+                                </select> -->
                         </div>
                         <div class="col-md-6">
                                 <label for="" class="form-label">Nombre</label>
@@ -43,6 +43,10 @@
                 <div class="mb-3">
                         <label for="" class="form-label">Dirección</label>
                         <input id="direccion" name="direccion" type="text" class="form-control" placeholder="(Sin Dirección)" tabindex="7"/>
+                </div>
+                <div class="mb-3">
+                        <label for="fecha_venta" class="form-label">Fecha de venta</label>
+                        <input id="fecha_venta" name="fecha_venta" type="date" class="form-control" placeholder="(Sin Dirección)" tabindex="7"/>
                 </div>
                 <div class="border border-dark p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
@@ -296,9 +300,9 @@
                         placeholder: 'Elija una opción',
                         dropdownParent: $("#insert_form")
                 });
-                $("#ci").select2({
-                        placeholder: 'Escriba un CI'
-                });        
+                // $("#ci").select2({
+                //         placeholder: 'Escriba un CI'
+                // });        
                 $('#insert_form').on('submit',function(e){
                         let fila = new Array(); 
                         e.preventDefault();
@@ -349,6 +353,7 @@
                                 let telefono = $('#telefono').val();
                                 let email = $('#email').val();
                                 let direccion = $('#direccion').val();
+                                let fecha_venta = $('#fecha_venta').val();
 
                                 $.ajax({
                                         url: "{{ route('guardar_venta') }}",
@@ -360,6 +365,7 @@
                                                 telefono: telefono,
                                                 email: email,
                                                 direccion: direccion,
+                                                fecha_venta: fecha_venta,
                                                 tabla: JSON.stringify(ventas)
                                         },
                                         success: function(result){

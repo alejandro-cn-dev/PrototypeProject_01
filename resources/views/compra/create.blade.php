@@ -22,7 +22,7 @@
                                 @endforeach
                         </select>
                 </div>                
-                <div class="mb-3"><label for="" class="form-label">Fecha</label><input id="fecha_compra" name="fecha_compra"
+                <div class="mb-3"><label for="" class="form-label">Fecha de compra</label><input id="fecha_compra" name="fecha_compra"
                         type="date" class="form-control" tabindex="7" required/></div>
                 <div class="border border-dark p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>

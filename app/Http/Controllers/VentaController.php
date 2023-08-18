@@ -231,8 +231,8 @@ class VentaController extends Controller
         return $pdf->download('nota_venta_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
-        $total = 0;
         //Sumar total
+        $total = 0;
         $filas_tabla = json_decode($request->tabla);
         
         foreach($filas_tabla as $fila){
@@ -258,6 +258,7 @@ class VentaController extends Controller
         $cabecera->id_cliente = $cliente->id;
         $cabecera->id_usuario = auth()->user()->id;
         $cabecera->monto_total = $total;
+        $cabecera->fecha_venta = $request->fecha_venta;
         $cabecera->save();
 
         //insertar detalle
