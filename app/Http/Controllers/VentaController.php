@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\Cliente;
 use Carbon\Carbon;
 use PDF;
+use DB;
 
 class VentaController extends Controller
 {    
@@ -142,31 +143,27 @@ class VentaController extends Controller
         return view('venta.detalle_venta')->with('cabecera',$cabecera)->with('salidas',$ventas)->with('productos',$productos);        
     }
     public function agregar(Request $request){
-        $validator = \Validator::make($request->all(), [
-            'producto'          => 'required',
-            'unidad'      => 'required',
-            'precio_venta'      => 'required',
-            'cantidad'          => 'required',
-        ]);
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
-        
-        //proceso control de stock
-
-
-        return response()->json(['success'=>'Data is successfully added']);
-        //return response()->json(['success'=>$this->tabla_salidas]);
-    }
-    public function anular($id){
-        unset($this->tabla_salidas[$id-1]);
-    }
-    public function addValor($valor){
-        array_push($this->tabla_salidas,$valor);
-    }
-    public function deleteProducto($id){
-        unset($this->tabla_salidas[$id]);
+        // reglas de validación
+        $rules = [
+            'producto'      => 'required',
+            'unidad'        => 'required',
+            'precio_venta'  => 'required',
+            'cantidad'      => 'required'
+        ];
+        // Mensajes de error personalizados
+        $custom_messages = [
+            'producto.required' => 'Debe escribir la contraseña',
+            'unidad.required' => 'Debe escribir una nueva contraseña',
+            'precio_venta.required' => 'La nueva contraseña debe ser diferente a la antigua',
+            'cantidad.required' => 'Debe repetir la nueva contraseña'
+        ];
+        // Validacion de Request
+        $validator = $this->validate($request,$rules,$custom_messages);
+        // Consulta de stock disponible
+        $id_producto = json_decode($request->producto);
+        DB::select("CALL get_stock_by_productid (".$id_producto->id.", @p1)");
+        $existencias = DB::select('select @p1 as stock');
+        return response()->json(['existencias' => $existencias]);        
     }
     public function reporte(){
         //$salidas = Venta_cabecera::where('isDeleted','=',0)->get();

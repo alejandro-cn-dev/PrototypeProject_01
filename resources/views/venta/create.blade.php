@@ -328,11 +328,19 @@
                                                         $('#alert2').append('<li>'+value+'</li>');
                                                 });                                        
                                         }else{
-                                                $('#alert2').hide();
-                                                $('#insert_form').modal('hide');
-                                                actualizar_fila();                                                
-                                                tabla_salidas.push({producto: $('#producto').val(), unidad: $('#unidad').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});                                                
-                                                vaciarCampos();                                                
+                                                if(result){
+                                                        if(result.existencias[0].stock <= 10){
+                                                                $('#alert2').html('');
+                                                                $('#alert2').show();
+                                                                $('#alert2').append('<p>Por agotarse o agotado - stock disponible: '+result.existencias[0].stock+'</p>');    
+                                                        }else{
+                                                                $('#alert2').hide();
+                                                                $('#insert_form').modal('hide');
+                                                                actualizar_fila();                                                
+                                                                tabla_salidas.push({producto: $('#producto').val(), unidad: $('#unidad').val(), precio_venta: $('#precio_venta').val(), cantidad: $('#cantidad').val()});                                                
+                                                                vaciarCampos();  
+                                                        }
+                                                }                                                                                              
                                         }
                                         console.log(result);
 

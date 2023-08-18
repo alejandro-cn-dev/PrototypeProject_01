@@ -418,11 +418,11 @@ return [
                 //     'url'  => 'reporte_stock',
                 //     'can'   => 'reportes.index'
                 // ],
-                // [
-                //     'text' => 'Valoracion de inventarios',
-                //     'icon'    => 'fas fa-fw fa-list-alt',
-                //     'url'  => 'reporte_valoracion',
-                // ]
+                [
+                    'text' => 'Valoracion de inventarios',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'reporte_valoracion',
+                ]
             ],
         ],
         [
