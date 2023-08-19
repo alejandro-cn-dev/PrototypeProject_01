@@ -46,7 +46,7 @@
                 </div>
                 <div class="mb-3">
                         <label for="fecha_venta" class="form-label">Fecha de venta</label>
-                        <input id="fecha_venta" name="fecha_venta" type="date" class="form-control" placeholder="(Sin Dirección)" tabindex="7"/>
+                        <input id="fecha_venta" name="fecha_venta" type="date" class="form-control" max="{{$fecha_actual}}" tabindex="7"/>
                 </div>
                 <div class="border border-dark p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
@@ -102,7 +102,7 @@
                         <div class="row g-3 mb-3">
                                 <div class="col-md-4">
                                         <label for="cantidad" class="form-label">Cantidad</label>
-                                        <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" required>
+                                        <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" min="1" max="50" required>
                                 </div>
                                 <div class="col-md-4">
                                         <label for="unidad" class="form-label">Unidad de medida</label>
@@ -329,7 +329,7 @@
                                                 });                                        
                                         }else{
                                                 if(result){
-                                                        if(result.existencias[0].stock <= 10){
+                                                        if(result.existencias[0].stock < cantidad){
                                                                 $('#alert2').html('');
                                                                 $('#alert2').show();
                                                                 $('#alert2').append('<p>Por agotarse o agotado - stock disponible: '+result.existencias[0].stock+'</p>');    
@@ -346,6 +346,15 @@
 
                                 },
                                 error: function(response){
+                                        if(response.responseJSON.errors){
+                                                $('#alert2').html('');
+                                                $.each(response.responseJSON.errors,function(key,value){
+                                                        $('#alert2').show();                                                        
+                                                        $('#alert2').append('<li>'+value+'</li>');
+                                                });                                        
+                                        }else{
+                                                $('#alert2').hide();
+                                        }
                                         console.log(response);
                                 }
                         });

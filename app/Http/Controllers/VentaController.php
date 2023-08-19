@@ -49,7 +49,8 @@ class VentaController extends Controller
         //$ventas = Venta_cabecera::where('tipo','=','S')->get();
         $productos = Producto::where('isDeleted','=',0)->get();
         $clientes = Cliente::all();
-        return view('venta.create')->with("productos",$productos)->with("clientes",$clientes);
+        $fecha_actual = date('Y-m-d', strtotime(Carbon::now()));
+        return view('venta.create')->with("productos",$productos)->with("clientes",$clientes)->with("fecha_actual",$fecha_actual);
     }
 
     /**
@@ -152,10 +153,10 @@ class VentaController extends Controller
         ];
         // Mensajes de error personalizados
         $custom_messages = [
-            'producto.required' => 'Debe escribir la contraseña',
-            'unidad.required' => 'Debe escribir una nueva contraseña',
-            'precio_venta.required' => 'La nueva contraseña debe ser diferente a la antigua',
-            'cantidad.required' => 'Debe repetir la nueva contraseña'
+            'producto.required' => 'Debe escojer un producto',
+            'unidad.required' => 'Debe detallar la unidad de medida',
+            'precio_venta.required' => 'Debe especificar el precio',
+            'cantidad.required' => 'Debe especificar la cantidad'
         ];
         // Validacion de Request
         $validator = $this->validate($request,$rules,$custom_messages);
@@ -228,6 +229,7 @@ class VentaController extends Controller
         return $pdf->download('nota_venta_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
+        $fecha = '';
         //Sumar total
         $total = 0;
         $filas_tabla = json_decode($request->tabla);
@@ -255,7 +257,13 @@ class VentaController extends Controller
         $cabecera->id_cliente = $cliente->id;
         $cabecera->id_usuario = auth()->user()->id;
         $cabecera->monto_total = $total;
-        $cabecera->fecha_venta = $request->fecha_venta;
+        // Si no se introdujo ninguna fecha, se establece la fecha actual
+        if($request->fecha_venta !== ''){
+            $fecha = date('Y-m-d', strtotime(Carbon::now()));
+        }else{
+            $fecha = $request->fecha_venta;
+        }
+        $cabecera->fecha_venta = $fecha;
         $cabecera->save();
 
         //insertar detalle

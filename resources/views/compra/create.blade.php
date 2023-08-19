@@ -23,7 +23,7 @@
                         </select>
                 </div>                
                 <div class="mb-3"><label for="" class="form-label">Fecha de compra</label><input id="fecha_compra" name="fecha_compra"
-                        type="date" class="form-control" tabindex="7" required/></div>
+                        type="date" class="form-control" max="{{$fecha_actual}}" tabindex="7"/></div>
                 <div class="border border-dark p-3">
                         <button type="button" id="open" class="btn btn-primary" data-toggle="modal" data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>
                         <button type="button" class="btn btn-danger" onclick="limpiar_tabla()"><i class="fas fa-fw fa-eraser"></i> Limpiar tabla</button>                        
@@ -79,7 +79,7 @@
                         <div class="row g-3 mb-3">
                                 <div class="col-md-4">
                                         <label for="cantidad" class="form-label">Cantidad</label>
-                                        <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" required>
+                                        <input type="number" name="cantidad" id="cantidad" class="form-control bg-warning" min="1" required>
                                 </div>
                                 <div class="col-md-4">
                                         <label for="unidad" class="form-label">Unidad de medida</label>

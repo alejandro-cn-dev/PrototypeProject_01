@@ -48,7 +48,8 @@ class CompraController extends Controller
         $productos = Producto::where('isDeleted','=',0)->get();
         //$proveedores = Proveedor::where('isDeleted','=',1)->get();
         $proveedores = Proveedor::all();
-        return view('compra.create')->with('productos',$productos)->with('proveedores',$proveedores);
+        $fecha_actual = date('Y-m-d', strtotime(Carbon::now()));
+        return view('compra.create')->with('productos',$productos)->with('proveedores',$proveedores)->with("fecha_actual",$fecha_actual);
     }
 
     /**
@@ -239,6 +240,7 @@ class CompraController extends Controller
     }
     public function guardar(Request $request){
         $total = 0;
+        $fecha = '';
         // $validator = \Validator::make($request->all(), [
         //     'id_proveedor'          => 'required',
         //     'fecha_compra'            => 'required',
@@ -261,9 +263,16 @@ class CompraController extends Controller
         //$cabecera->nit_ci = $request->nit_ci;
         $cabecera->numeracion = $last + 1;
         $cabecera->id_proveedor = $request->id_proveedor;
-        $cabecera->fecha_compra = $request->fecha_compra;
         $cabecera->monto_total = $total;
         $cabecera->id_usuario = auth()->user()->id;
+
+        // Si no se introdujo ninguna fecha, se establece la fecha actual
+        if($request->fecha_compra !== ''){
+            $fecha = date('Y-m-d', strtotime(Carbon::now()));
+        }else{
+            $fecha = $request->fecha_compra;
+        }
+        $cabecera->fecha_compra = $fecha;
         $cabecera->save();
         
         $filas_tabla = json_decode($request->tabla);
