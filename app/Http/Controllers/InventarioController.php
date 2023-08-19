@@ -20,10 +20,12 @@ class InventarioController extends Controller
     public function index()
     {
         $ventas = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
-        ->select('id_venta AS id_cabecera','precio_unitario AS costo','cantidad','id_producto','venta_detalles.created_at','productos.nombre','productos.item_producto',DB::raw("'salida' AS tipo"))
+        ->join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
+        ->select('precio_unitario AS costo','cantidad','id_producto','venta_cabeceras.fecha_venta AS fecha','productos.nombre','productos.item_producto',DB::raw("'salida' AS tipo"))
         ->where('venta_detalles.isDeleted','=',0);
         $inventario = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
-        ->select('id_compra AS id_cabecera','costo_compra AS costo','cantidad','id_producto','compra_detalles.created_at','productos.nombre','productos.item_producto',DB::raw("'entrada' AS tipo"))
+        ->join('compra_cabeceras','compra_detalles.id_compra','=','compra_cabeceras.id')
+        ->select('costo_compra AS costo','cantidad','id_producto','compra_cabeceras.fecha_compra AS fecha','productos.nombre','productos.item_producto',DB::raw("'entrada' AS tipo"))
         ->where('compra_detalles.isDeleted','=',0)
         ->union($ventas)->get();
         return view('inventario.index')->with('inventarios',$inventario);
@@ -109,23 +111,29 @@ class InventarioController extends Controller
     }
     public function get_movimientos(Request $request)
     {
-        $ventas = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
-        ->select('id_venta AS id_cabecera','precio_unitario AS costo','cantidad','id_producto','venta_detalles.created_at','productos.nombre','productos.item_producto',DB::raw("'salida' AS tipo"))
-        ->where('venta_detalles.isDeleted','=',0);
-        $inventario = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
-        ->select('id_compra AS id_cabecera','costo_compra AS costo','cantidad','id_producto','compra_detalles.created_at','productos.nombre','productos.item_producto',DB::raw("'entrada' AS tipo"))
-        ->where('compra_detalles.isDeleted','=',0)
-        ->union($ventas)->get();
-        $respuesta = $inventario;
+        if($request->criterio != 'ventas' && $request->criterio != 'compras'){
+            $ventas = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
+            ->join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
+            ->select('precio_unitario AS costo','cantidad','id_producto','venta_cabeceras.fecha_venta AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'salida' AS tipo"))
+            ->where('venta_detalles.isDeleted','=',0);
+            $inventario = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
+            ->join('compra_cabeceras','compra_detalles.id_compra','=','compra_cabeceras.id')
+            ->select('costo_compra AS costo','cantidad','id_producto','compra_cabeceras.fecha_compra AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'entrada' AS tipo"))
+            ->where('compra_detalles.isDeleted','=',0)
+            ->union($ventas)->get();
+            $respuesta = $inventario;
+        }        
         if($request->criterio == 'ventas'){
             $respuesta = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
-            ->select('id_venta AS id_cabecera','precio_unitario AS costo','cantidad','id_producto','venta_detalles.created_at','productos.nombre','productos.item_producto',DB::raw("'salida' AS tipo"))
+            ->join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
+            ->select('precio_unitario AS costo','cantidad','id_producto','venta_cabeceras.fecha_venta AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'salida' AS tipo"))
             ->where('venta_detalles.isDeleted','=',0)
             ->get();
         }
         if($request->criterio == 'compras'){
             $respuesta = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
-            ->select('id_compra AS id_cabecera','costo_compra AS costo','cantidad','id_producto','compra_detalles.created_at','productos.nombre','productos.item_producto',DB::raw("'entrada' AS tipo"))
+            ->join('compra_cabeceras','compra_detalles.id_compra','=','compra_cabeceras.id')
+            ->select('costo_compra AS costo','cantidad','id_producto','compra_cabeceras.fecha_compra AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'entrada' AS tipo"))
             ->where('compra_detalles.isDeleted','=',0)
             ->get();
         }
@@ -182,10 +190,10 @@ class InventarioController extends Controller
 
     public function reporte_valoracion()
     {
-        $productos = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE id_producto = productos.id) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE id_producto = productos.id) AS salidas"))
+        $valoraciones = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE id_producto = productos.id) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE id_producto = productos.id) AS salidas"))
         ->where('isDeleted','=',0)
         ->get();
 
-        return view('inventario.control_stock')->with('productos',$productos);
+        return view('inventario.valoracion')->with('valoraciones',$valoraciones);
     }
 }

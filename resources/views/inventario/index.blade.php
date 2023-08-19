@@ -8,8 +8,8 @@
 
 @section('content')
 <img src="{{ asset('img/inventory_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
-<div class="shadow-none p-3 bg-white rounded">
-    <div class="form-group row">
+<div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
+    <div class="row">
         <label for="criterio" class="col-sm-2 col-form-label">Seleccionar criterio: </label>
         <div class="col-sm-10">            
             <select name="criterio" id="criterio" class="form-control" onchange="cargar_tabla();">
@@ -19,6 +19,8 @@
             </select>
         </div>
     </div>
+</div>
+<div class="shadow-none p-3 bg-white rounded">    
     <table id="movimientos" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -40,7 +42,7 @@
                     <td>{{ $inventario->cantidad }}</td>
                     <td>{{ $inventario->costo }}</td>
                     <td>{{ $inventario->costo * $inventario->cantidad }}</td>
-                    <td>{{ $inventario->created_at }}</td>
+                    <td>{{ $inventario->fecha }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -120,9 +122,9 @@
             let tr = document.createElement("tr");
             let fila_tabla = "";
             if(fila.tipo == 'entrada'){
-                fila_tabla = "<tr><td><span class='badge bg-primary'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.descripcion+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.created_at+"</td></tr>";    
+                fila_tabla = "<tr><td><span class='badge bg-primary'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.producto+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.fecha+"</td></tr>";    
             }else{
-                fila_tabla = "<tr><td><span class='badge bg-success'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.descripcion+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.created_at+"</td></tr>";
+                fila_tabla = "<tr><td><span class='badge bg-success'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.producto+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.fecha+"</td></tr>";
             }            
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
