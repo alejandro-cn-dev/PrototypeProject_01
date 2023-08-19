@@ -366,6 +366,7 @@ return [
                     'text' => 'Proveedores',
                     'icon'    => 'fas fa-fw fa-users',
                     'url'  => 'proveedores',
+                    'can'   => 'proveedores.index'
                 ],
             ],
         ],        
