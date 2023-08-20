@@ -74,14 +74,14 @@
                 <label for="" class="form-label">Precio Compra</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>                    
-                    <input class="precio_compra" type="text" id="precio_compra" name="precio_compra" tabindex="7" required/>
+                    <input class="precio" type="text" id="precio_compra" name="precio_compra" tabindex="7" required/>
                 </div>
             </div>        
             <div class="col-md-6">
                 <label for="" class="form-label">Precio Venta</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>                    
-                    <input class="precio_compra" type="text" id="precio_venta" name="precio_venta" tabindex="8" required/>
+                    <input class="precio" type="text" id="precio_venta" name="precio_venta" tabindex="8" required/>
                 </div>                
             </div>
         </div>
@@ -120,21 +120,11 @@
 @stop
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script>
     $(document).ready(function(){    
         // Formato de campos de precios
-        $(".precio_compra").inputmask({
-                alias: 'numeric',
-                allowMinus: false, 
-                digits: 2, 
-                max: 999.99,
-                definitions: {
-                        '*': {
-                                validator: "[0-9]"
-                        }
-                },
-                rightAlign: true
-        }); 
+        $(".precio").maskMoney({thousands:'', decimal:'.', allowZero:true});
         // Formato a select's de categoria, ubicacion y marca
         $(".entidades").select2({
             placeholder: 'Elija una opción'

@@ -71,7 +71,7 @@
                 <div class="flex">
                     <span class="currency">Bs.</span>
                     <!-- <input id="precio_compra" name="precio_compra" type="number" maxlength="15" placeholder="0.0" required/> -->
-                    <input class="precio_costo" type="text" id="precio_compra" name="precio_compra" value="{{$producto->precio_compra}}"  tabindex="6" required/>
+                    <input class="precio" type="text" id="precio_compra" name="precio_compra" value="{{$producto->precio_compra}}"  tabindex="6" required/>
                 </div>
             </div>        
             <div class="col-md-6">
@@ -79,7 +79,7 @@
                 <div class="flex">
                     <span class="currency">Bs.</span>
                     <!-- <input id="precio_venta" name="precio_venta" type="number" maxlength="15" placeholder="0.0" required/> -->
-                    <input class="precio_costo" type="text" id="precio_venta" name="precio_venta" value="{{$producto->precio_venta}}"  tabindex="7" required/>
+                    <input class="precio" type="text" id="precio_venta" name="precio_venta" value="{{$producto->precio_venta}}"  tabindex="7" required/>
                 </div>                
             </div>
         </div>
@@ -117,20 +117,10 @@
 @stop
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script>
     $(document).ready(function(){    
-        $(".precio_costo").inputmask({
-                alias: 'numeric',
-                allowMinus: false, 
-                digits: 2, 
-                max: 999.99
-                definitions: {
-                        '*': {
-                                validator: "[0-9]"
-                        }
-                },
-                rightAlign: true
-        }); 
+        $(".precio").maskMoney({thousands:'', decimal:'.', allowZero:true});
     });
 </script>
 @stop

@@ -134,6 +134,7 @@
 @stop
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script type="text/javascript">     
         var tabla_salidas = [];
         var auto_id = 1;        
@@ -150,9 +151,11 @@
                 let vector = e.value;
                 const valores = JSON.parse(vector);
                 let unidad = String(valores['unidad']);
-                let precio = valores['precio'];
+                let precio = String(valores['precio']);
+                precio = String(Number(precio).toFixed(2));
+                let formato_precio = (precio.split('.')[0]) + (precio.split('.')[1]);
                 $("#unidad").val(unidad);
-                $("#precio_venta").val(precio);
+                $("#precio_venta").maskMoney('mask', Number(formato_precio));
         }
 
         // Deserializa un objeto JSON desde una cadena de texto, 
@@ -197,11 +200,11 @@
                                         celda = boton;
                                         break;
                                 case "precio_venta":
-                                        celda = document.createTextNode((formato_precio(document.getElementById("precio_venta").value)).toFixed(2) + " Bs");
+                                        celda = document.createTextNode($("#precio_venta").val());
                                         break;
                                 case "subtotal":                                        
                                         //celda = document.createTextNode($("#precio_venta").val()*$("#cantidad").val());
-                                        celda = document.createTextNode((formato_precio($("#precio_venta").val())*formato_precio($("#cantidad").val())).toFixed(2) + " Bs");
+                                        celda = document.createTextNode((formato_precio($("#precio_venta").val())*(Number($("#cantidad").val()))).toFixed(2) + " Bs");
                                         break;
                                 default:
                                         valor = $("#"+campo+"").val();
@@ -281,21 +284,11 @@
 
         function formato_precio(precio_lit)
         {
-                return Number(precio_lit.replace(/[^0-9.-]+/g,""));
+                return Number(precio_lit.split(' ')[0]);
         }
 
         $(document).ready(function(){    
-                $("#precio_venta").inputmask({
-                        alias: 'numeric',
-                        mask: '99[.99] Bs',
-                        placeholder: ' ',
-                        definitions: {
-                                '*': {
-                                        validator: "[0-9]"
-                                }
-                        },
-                        rightAlign: true
-                });
+                $("#precio_venta").maskMoney({thousands:'', decimal:'.', allowZero:true, suffix: ' Bs.'});
                 $("#producto").select2({
                         placeholder: 'Elija una opción',
                         dropdownParent: $("#insert_form")
