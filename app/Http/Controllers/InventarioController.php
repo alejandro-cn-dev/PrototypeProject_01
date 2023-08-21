@@ -165,15 +165,17 @@ class InventarioController extends Controller
 
         // Consulta a BD con las fechas inicial y final
         // Consulta de por fechas y por producto en Compras
-        $consulta_compras = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicial,$request->fecha_final),"(SELECT SUM(compra_detalles.cantidad) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra BETWEEN '|fechainicio' AND ':fechafinal')) AS entradas");
-        $consulta_ventas = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicial,$request->fecha_final),"(SELECT SUM(venta_detalles.cantidad) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta BETWEEN '|fechainicio' AND ':fechafinal')) AS salidas");
+        $consulta_compras = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicio,$request->fecha_final),"(SELECT SUM(compra_detalles.cantidad) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra BETWEEN '|fechainicio' AND ':fechafinal')) AS entradas");
+        $consulta_ventas = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicio,$request->fecha_final),"(SELECT SUM(venta_detalles.cantidad) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta BETWEEN '|fechainicio' AND ':fechafinal')) AS salidas");
+        $stock_inicial = str_replace(":fechatop",$request->fecha_inicio,"((SELECT COALESCE(SUM(compra_detalles.cantidad),0) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra) AND (compra_cabeceras.fecha_compra < ':fechatop')) - (SELECT COALESCE(SUM(venta_detalles.cantidad),0) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta) AND (venta_cabeceras.fecha_venta < ':fechatop'))) AS stock_inicial");
         $respuesta = Producto::select(
             'nombre',
             'item_producto',
             'precio_compra',
             'precio_venta',
             DB::raw($consulta_compras),
-            DB::raw($consulta_ventas))
+            DB::raw($consulta_ventas),
+            DB::raw($stock_inicial))
         ->where('isDeleted','=',0)
         ->get();
         

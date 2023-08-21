@@ -51,7 +51,7 @@
                     <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif</td>
                     <td>@if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td>
                     <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif + @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->
-                    <td>{{$producto->entradas + $producto->salidas}}</td>
+                    <td>{{$producto->entradas - $producto->salidas}}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -152,7 +152,7 @@
                 fila.salidas = 0;
             }
             let tr = document.createElement("tr");
-            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_producto+"</td><td>"+fila.precio_compra+"</td><td>"+fila.precio_venta+"</td><td>0</td><td>"+fila.entradas+"</td><td>"+fila.salidas+"</td><td>"+(parseInt(fila.entradas,10) + parseInt(fila.salidas,10))+"</td></tr>";            
+            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_producto+"</td><td>"+fila.precio_compra+"</td><td>"+fila.precio_venta+"</td><td>"+fila.stock_inicial+"</td><td>"+fila.entradas+"</td><td>"+fila.salidas+"</td><td>"+((parseInt(fila.stock_inicial,10)) - (parseInt(fila.salidas,10)) + (parseInt(fila.entradas,10)))+"</td></tr>";            
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
         });
