@@ -55,7 +55,11 @@ class HomeController extends Controller
         $costos_totales = Compra_detalle::select('costo_compra')->where('isDeleted','=',0)->sum('costo_compra');
         $ingresos_totales = Venta_detalle::select('precio_unitario')->where('isDeleted','=',0)->sum('precio_unitario');
         //$ganancias_totales = (($ingresos_totales - $costos_totales) / $ingresos_totales) * 100;
-        $ganancias_totales = (($total_ventas - $total_compras) / $total_ventas) * 100;
+        if($total_ventas == 0){
+            $ganancias_totales = 0;
+        }else{
+            $ganancias_totales = (($total_ventas - $total_compras) / $total_ventas) * 100;
+        }        
         $ganancias_totales = number_format($ganancias_totales, 2, ',', ' ');
         return view('home')
         ->with('ventas',$ventas)
