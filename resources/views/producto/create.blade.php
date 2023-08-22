@@ -71,14 +71,14 @@
         </div>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
-                <label for="" class="form-label">Precio Compra</label>
+                <label for="" class="form-label">Precio de Compra sugerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>                    
                     <input class="precio" type="text" id="precio_compra" name="precio_compra" tabindex="7" required/>
                 </div>
             </div>        
             <div class="col-md-6">
-                <label for="" class="form-label">Precio Venta</label>
+                <label for="" class="form-label">Precio de Venta suguerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>                    
                     <input class="precio" type="text" id="precio_venta" name="precio_venta" tabindex="8" required/>
