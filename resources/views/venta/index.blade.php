@@ -14,6 +14,7 @@
         <a href="/ventas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Venta</a>    
         @endcan
         <a href="{{route('generar_reporte_ventas',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Ventas</a>    
+        <a href="/ventas/clientes" class="btn btn-danger mb-3" role="button"><i class="fa fa-user"></i> Ver clientes</a>    
     </div>    
     <div class="table-responsive">        
         <table id="salidas" class="table table-striped table-bordered mt-4">

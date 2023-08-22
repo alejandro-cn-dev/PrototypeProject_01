@@ -24,6 +24,9 @@
                                         <option value='{"id":{{$cliente->id}},"nombre":{{$cliente->nombre}},"ci":"{{$cliente->ci}}","telefono":"{{$cliente->telefono}},"email":"{{$cliente->email}},"direccion":"{{$cliente->direccion}}"}'>{{$cliente->ci}}</option>
                                         @endforeach
                                 </select> -->
+                                <select class="form-select" id="clientes_ci" size="3" aria-label="size 3 select example" onchage="alert('XD');">
+                                        <option value=""></option>
+                                </select>
                         </div>
                         <div class="col-md-6">
                                 <label for="" class="form-label">Nombre</label>
@@ -130,7 +133,7 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
@@ -145,6 +148,38 @@
         // cargar valores despues de seleccionar algun valor del select "producto"
         $("#producto").on('select2:select',function(e){
                 cargar_precio_unidad();
+        });
+        //buscar cliente
+        $("#ci").on("keyup",function(){
+                let ci = $("#ci").val();
+                $.ajax({
+                        url: "{{ route('consulta_clientes') }}",
+                        type: "POST",
+                        data: {
+                                _token: "{{ csrf_token() }}",
+                                ci: ci
+                        },
+                        success: function(result){
+                                $('#clientes_ci').find('option').remove();
+                                if(result){
+                                        if(result.cliente.length >= 1){
+                                                console.log('true');
+                                                $.each(result.cliente,function(key,value){                                          
+                                                        $('#clientes_ci').append($("<option />").val("{'id':"+value.id+",'nombre':"+value.nombre+"}").text(value.ci+"-"+value.nombre));
+                                                }); 
+                                        }else{
+                                                $("#clientes_ci").append($("<option />").val('').text('(No hay coincidencias)'));
+                                        }                                        
+                                }else{
+                                        console.log('false');
+                                        $("$clientes_ci").append($("<option />").text('(No hay coincidencias)'));
+                                }
+                                console.log(result);
+                        },
+                        error: function(response){
+                                console.log(response);
+                        }
+                });
         });
         function cargar_precio_unidad(){
                 let e = document.getElementById("producto");

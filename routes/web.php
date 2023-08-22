@@ -75,6 +75,8 @@ Route::post('ventas/guardar',[VentaController::class,'guardar'])->middleware('au
 Route::get('ventas/reporte/{id}',[VentaController::class,'reporte'])->middleware('auth')->name('generar_reporte_ventas');
 Route::get('ventas/reporte_ind/{id}',[VentaController::class,'reporte_ind'])->middleware('auth')->name('generar_reporte_venta_ind');
 Route::get('ventas/nota_ind/{id}',[VentaController::class,'nota_ind'])->middleware('auth')->name('generar_nota_venta_ind');
+Route::get('ventas/clientes',[VentaController::class,'clientes'])->middleware('auth');
+Route::post('ventas/getClientes',[VentaController::class,'getClientes'])->middleware('auth')->name('consulta_clientes');
 
 Route::resource('compras','App\Http\Controllers\CompraController')->except('show');
 Route::get('compras/detalle_compra/{id}',[CompraController::class,'detalle'])->middleware('auth')->name('compras.detalle_compra');

@@ -281,4 +281,12 @@ class VentaController extends Controller
         return response()->json(['success'=>'Data is successfully added']);
         //return response()->json(['success'=>$filas_tabla]);
     }
+    public function clientes(){
+        $clientes = Cliente::all();
+        return view('venta.clientes')->with('clientes',$clientes);
+    }
+    public function getClientes(Request $request){
+        $cliente = Cliente::where('ci','LIKE',$request->ci.'%')->take(10)->get();
+        return response()->json(['cliente'=>$cliente]);
+    }
 }
