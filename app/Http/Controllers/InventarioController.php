@@ -105,23 +105,27 @@ class InventarioController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE id_producto = productos.id) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE id_producto = productos.id)) AS existencias"))
+        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
         ->where('productos.isDeleted','=',0)->get();
         return view('inventario.existencias')->with('productos',$productos);
     }
     public function get_movimientos(Request $request)
     {
         if($request->criterio != 'ventas' && $request->criterio != 'compras'){
-            $ventas = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
+            $ventas1 = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
             ->join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
             ->select('precio_unitario AS costo','cantidad','id_producto','venta_cabeceras.fecha_venta AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'salida' AS tipo"))
             ->where('venta_detalles.isDeleted','=',0);
-            $inventario = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
+            //->get();
+            $compras1 = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
             ->join('compra_cabeceras','compra_detalles.id_compra','=','compra_cabeceras.id')
             ->select('costo_compra AS costo','cantidad','id_producto','compra_cabeceras.fecha_compra AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'entrada' AS tipo"))
             ->where('compra_detalles.isDeleted','=',0)
-            ->union($ventas)->get();
-            $respuesta = $inventario;
+            //->where('compra_cabeceras.isDeleted','=',0)
+            ->union($ventas1)->get();            
+            //->get();
+            //$respuesta = $compras1->merge($ventas1);
+            $respuesta = $compras1;
         }        
         if($request->criterio == 'ventas'){
             $respuesta = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
@@ -141,7 +145,7 @@ class InventarioController extends Controller
     }
     public function stock()
     {
-        $productos = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE id_producto = productos.id) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE id_producto = productos.id) AS salidas"))
+        $productos = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE (id_producto = productos.id)AND (isDeleted = 0)) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) AS salidas"))
         ->where('isDeleted','=',0)
         ->get();
 
@@ -165,9 +169,9 @@ class InventarioController extends Controller
 
         // Consulta a BD con las fechas inicial y final
         // Consulta de por fechas y por producto en Compras
-        $consulta_compras = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicio,$request->fecha_final),"(SELECT SUM(compra_detalles.cantidad) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra BETWEEN '|fechainicio' AND ':fechafinal')) AS entradas");
-        $consulta_ventas = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicio,$request->fecha_final),"(SELECT SUM(venta_detalles.cantidad) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta BETWEEN '|fechainicio' AND ':fechafinal')) AS salidas");
-        $stock_inicial = str_replace(":fechatop",$request->fecha_inicio,"((SELECT COALESCE(SUM(compra_detalles.cantidad),0) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra) AND (compra_cabeceras.fecha_compra < ':fechatop')) - (SELECT COALESCE(SUM(venta_detalles.cantidad),0) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta) AND (venta_cabeceras.fecha_venta < ':fechatop'))) AS stock_inicial");
+        $consulta_compras = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicio,$request->fecha_final),"(SELECT SUM(compra_detalles.cantidad) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.isDeleted = 0) AND (compra_cabeceras.fecha_compra BETWEEN '|fechainicio' AND ':fechafinal')) AS entradas");
+        $consulta_ventas = str_replace(array("|fechainicio",":fechafinal"),array($request->fecha_inicio,$request->fecha_final),"(SELECT SUM(venta_detalles.cantidad) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.isDeleted = 0) AND (venta_cabeceras.fecha_venta BETWEEN '|fechainicio' AND ':fechafinal')) AS salidas");
+        $stock_inicial = str_replace(":fechatop",$request->fecha_inicio,"((SELECT COALESCE(SUM(compra_detalles.cantidad),0) FROM compra_cabeceras INNER JOIN compra_detalles ON compra_cabeceras.id = compra_detalles.id_compra WHERE (compra_detalles.id_producto = productos.id) AND (compra_cabeceras.fecha_compra) AND (compra_cabeceras.isDeleted = 0) AND (compra_cabeceras.fecha_compra < ':fechatop')) - (SELECT COALESCE(SUM(venta_detalles.cantidad),0) FROM venta_cabeceras INNER JOIN venta_detalles ON venta_cabeceras.id = venta_detalles.id_venta WHERE (venta_detalles.id_producto = productos.id) AND (venta_cabeceras.fecha_venta) AND (venta_cabeceras.isDeleted = 0) AND (venta_cabeceras.fecha_venta < ':fechatop'))) AS stock_inicial");
         $respuesta = Producto::select(
             'nombre',
             'item_producto',
