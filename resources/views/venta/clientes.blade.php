@@ -28,9 +28,9 @@
                     <td>{{$cliente->id}}</td>
                     <td>{{$cliente->nombre}}</td>
                     <td>{{$cliente->ci}}</td>
-                    <td>@if(empty($cliente->telefono)) (SIn Teléfono) @else $cliente->telefono @endif</td>
-                    <td>@if(empty($cliente->email)) (SIn Email) @else $cliente->email @endif</td>
-                    <td>@if(empty($cliente->direccion)) (SIn Dirección) @else $cliente->direccion @endif</td>
+                    <td>@if(empty($cliente->telefono)) (Sin Teléfono) @else {{$cliente->telefono}} @endif</td>
+                    <td>@if(empty($cliente->email)) (Sin Email) @else {{$cliente->email}} @endif</td>
+                    <td>@if(empty($cliente->direccion)) (Sin Dirección) @else {{$cliente->direccion}} @endif</td>
                     <td>{{date('Y-m-d', strtotime($cliente->created_at))}}</td>
                 </tr>
                 @endforeach

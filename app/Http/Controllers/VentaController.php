@@ -230,6 +230,7 @@ class VentaController extends Controller
     }
     public function guardar(Request $request){
         $fecha = '';
+        $cliente_identi = '';
         //Sumar total
         $total = 0;
         $filas_tabla = json_decode($request->tabla);
@@ -240,13 +241,25 @@ class VentaController extends Controller
 
         //Proceso
         //Insertar cliente
-        $cliente = new Cliente();
-        $cliente->nombre = $request->nombre;
-        $cliente->ci = $request->ci;
-        $cliente->telefono = $request->telefono;
-        $cliente->email = $request->email;
-        $cliente->direccion = $request->direccion;        
-        $cliente->save();
+        $verificar_ci = Cliente::where('ci','=',$request->ci)->first();
+        if(($verificar_ci) == null){
+            $cliente = new Cliente();
+            $cliente->nombre = $request->nombre;
+            $cliente->ci = $request->ci;
+            $cliente->telefono = $request->telefono;
+            $cliente->email = $request->email;
+            $cliente->direccion = $request->direccion;        
+            $cliente->save();
+            $cliente_identi = $cliente->id;
+        }else{
+            $verificar_ci->nombre = $request->nombre;
+            $verificar_ci->telefono = $request->telefono;
+            $verificar_ci->email = $request->email;
+            $verificar_ci->direccion = $request->direccion;        
+            $verificar_ci->save();
+            $cliente_identi = $verificar_ci->id;
+        }
+        
 
         //insertar cabecera
         $cabecera = new Venta_cabecera();
@@ -254,7 +267,7 @@ class VentaController extends Controller
         // Obtener último número de nota de venta
         $last = Venta_cabecera::max('numeracion');
         $cabecera->numeracion = $last + 1;
-        $cabecera->id_cliente = $cliente->id;
+        $cabecera->id_cliente = $cliente_identi;
         $cabecera->id_usuario = auth()->user()->id;
         $cabecera->monto_total = $total;
         // Si no se introdujo ninguna fecha, se establece la fecha actual

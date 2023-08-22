@@ -162,16 +162,14 @@
                         success: function(result){
                                 $('#clientes_ci').find('option').remove();
                                 if(result){
-                                        if(result.cliente.length >= 1){
-                                                console.log('true');
+                                        if(result.cliente.length >= 1){                                                
                                                 $.each(result.cliente,function(key,value){                                          
-                                                        $('#clientes_ci').append($("<option />").val("{'id':"+value.id+",'nombre':"+value.nombre+"}").text(value.ci+"-"+value.nombre));
+                                                        $('#clientes_ci').append($("<option />").val('[{"id":'+value.id+',"nombre":"'+value.nombre+'","ci":"'+value.ci+'","telefono":"'+value.telefono+'","email":"'+value.email+'","direccion":"'+value.direccion+'"}]').text(value.ci+" - "+value.nombre));
                                                 }); 
                                         }else{
                                                 $("#clientes_ci").append($("<option />").val('').text('(No hay coincidencias)'));
                                         }                                        
                                 }else{
-                                        console.log('false');
                                         $("$clientes_ci").append($("<option />").text('(No hay coincidencias)'));
                                 }
                                 console.log(result);
@@ -180,6 +178,17 @@
                                 console.log(response);
                         }
                 });
+        });
+        $("#clientes_ci").on('change', function() {
+                let cliente_seleccionado = JSON.parse(this.value);
+                if(cliente_seleccionado[0].telefono === 'null'){cliente_seleccionado[0].telefono = '';}
+                if(cliente_seleccionado[0].email === 'null'){cliente_seleccionado[0].email = '';}
+                if(cliente_seleccionado[0].direccion === 'null'){cliente_seleccionado[0].direccion = '';}
+                $("#ci").val(cliente_seleccionado[0].ci);
+                $("#nombre").val(cliente_seleccionado[0].nombre);
+                $("#telefono").val(cliente_seleccionado[0].telefono);
+                $("#email").val(cliente_seleccionado[0].email);
+                $("#direccion").val(cliente_seleccionado[0].direccion);
         });
         function cargar_precio_unidad(){
                 let e = document.getElementById("producto");
