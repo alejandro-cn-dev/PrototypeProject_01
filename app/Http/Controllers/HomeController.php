@@ -52,6 +52,11 @@ class HomeController extends Controller
         $clientes = Cliente::count();
         $total_compras = Compra_cabecera::where('isDeleted','=',0)->sum('monto_total');
         $total_ventas = Venta_cabecera::where('isDeleted','=',0)->sum('monto_total');
+        $costos_totales = Compra_detalle::select('costo_compra')->where('isDeleted','=',0)->sum('costo_compra');
+        $ingresos_totales = Venta_detalle::select('precio_unitario')->where('isDeleted','=',0)->sum('precio_unitario');
+        //$ganancias_totales = (($ingresos_totales - $costos_totales) / $ingresos_totales) * 100;
+        $ganancias_totales = (($total_ventas - $total_compras) / $total_ventas) * 100;
+        $ganancias_totales = number_format($ganancias_totales, 2, ',', ' ');
         return view('home')
         ->with('ventas',$ventas)
         ->with('compras',$compras)
@@ -62,6 +67,7 @@ class HomeController extends Controller
         ->with('proveedores',$proveedores)
         ->with('clientes',$clientes)
         ->with('total_compras',$total_compras)
-        ->with('total_ventas',$total_ventas);
+        ->with('total_ventas',$total_ventas)
+        ->with('ganancias', $ganancias_totales);
     }
 }

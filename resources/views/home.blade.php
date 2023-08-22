@@ -61,7 +61,7 @@
           <!-- small box -->
           <div class="small-box bg-danger" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
-              <h3>291 Bs.</h3>
+              <h3>{{$ganancias}} %</h3>
               <p>Ganancia</p>
             </div>
             <div class="icon" bis_skin_checked="1">
@@ -190,7 +190,7 @@
             <div class="icon" bis_skin_checked="1">
               <i class="fa fa-user-plus" aria-hidden="true"></i>
             </div>
-            <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/ventas/clientes" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div> 
     </div>
