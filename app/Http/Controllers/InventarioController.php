@@ -196,9 +196,17 @@ class InventarioController extends Controller
 
     public function reporte_valoracion()
     {
-        $valoraciones = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE id_producto = productos.id) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE id_producto = productos.id) AS salidas"))
+        $valoraciones = Producto::select(
+            'item_producto',
+            'nombre',
+            'created_at',
+            DB::raw("(SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) AS entradas"),
+            'precio_compra',
+            DB::raw("(SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) AS salidas"),
+            'precio_venta')
         ->where('isDeleted','=',0)
         ->get();
+
 
         return view('inventario.valoracion')->with('valoraciones',$valoraciones);
     }

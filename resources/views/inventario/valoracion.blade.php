@@ -28,12 +28,12 @@
                 <tr>                    
                     <td>{{ $valoracion->item_producto }}</td>
                     <td>{{ $valoracion->nombre }}</td>
-                    <!-- <td>{{ $valoracion->fecha_compra }}</td>
-                    <td>{{ $valoracion->cantidad_compra }}</td>
-                    <td>{{ $valoracion->costo_compra }}</td>
-                    <td>{{ $valoracion->cantidad_venta }}</td>
-                    <td>{{ $valoracion->cantidad_compra * $valoracion->costo_compra }}</td> -->
-                    <td>XD</td>
+                    <td>{{ date('Y-m-d', strtotime($valoracion->created_at)) }}</td>
+                    <td style="text-align: right;">{{ $valoracion->entradas }}</td>
+                    <td style="text-align: right;">{{ $valoracion->precio_compra }}</td>
+                    <td style="text-align: right;">{{ $valoracion->salidas }}</td>
+                    <td style="text-align: right;">{{ $valoracion->entradas * $valoracion->precio_compra }}</td>
+                    <td style="text-align: right;">@if($valoracion->salidas == 0) 0 @else {{ ($valoracion->entradas * $valoracion->precio_compra) / $valoracion->salidas}} @endif</td>
                 </tr>
             @endforeach
         </tbody>
