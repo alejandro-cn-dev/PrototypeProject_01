@@ -17,9 +17,9 @@
                 <th scope="col">Categoria</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Color</th>
-                <th scope="col">U. Medida</th>
                 <th scope="col">Costo</th>
                 <th scope="col">Precio</th>
+                <th scope="col">U. Medida</th>
                 <th scope="col">Existencias</th>
             </tr>
         </thead>
@@ -31,10 +31,14 @@
                     <td>{{ $producto->categoria }}</td>
                     <td>{{ $producto->marca }}</td>
                     <td>{{ $producto->color }}</td>
-                    <td>{{ $producto->unidad }}</td>
                     <td>{{ $producto->precio_compra }}</td>
                     <td>{{ $producto->precio_venta }}</td>
-                    <td>@if(empty($producto->existencias)) 0 @else {{$producto->existencias}} @endif</td>
+                    <td>{{ $producto->unidad }}</td>
+                    @if(empty($producto->existencias)) 
+                        <td><span class="badge bg-danger">0</span></td>
+                    @else
+                        <td><span @if(($producto->existencias) < 5) class="badge bg-warning" @else class="badge bg-success" @endif>{{ $producto->existencias }}</span></td>
+                    @endif                    
                 </tr>
             @endforeach
         </tbody>
