@@ -20,5 +20,15 @@ class MarcaSeeder extends Seeder
             'sufijo_marca' => 'AS',
             'id_usuario' => '1'
         ]);
+        Marca::create([
+            'detalle' => 'TEXTILON',
+            'sufijo_marca' => 'TT',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'TEXBOL',
+            'sufijo_marca' => 'TB',
+            'id_usuario' => '1'
+        ]);
     }
 }

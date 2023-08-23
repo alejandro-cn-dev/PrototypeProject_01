@@ -21,5 +21,17 @@ class AlmacenSeeder extends Seeder
             'sufijo_almacen' => 'D3',
             'id_usuario' => '1'
         ]);
+        Almacen::create([
+            'nombre' => 'Almacen #2',
+            'tipo' => 'almacen',
+            'sufijo_almacen' => 'A2',
+            'id_usuario' => '1'
+        ]);
+        Almacen::create([
+            'nombre' => 'Almacen principal #1',
+            'tipo' => 'almacen',
+            'sufijo_almacen' => 'A1',
+            'id_usuario' => '1'
+        ]);
     }
 }

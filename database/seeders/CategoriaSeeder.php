@@ -23,7 +23,7 @@ class CategoriaSeeder extends Seeder
             'id_usuario' => '1'
         ]);
         Categoria::create([
-            'nombre' => 'Tela especial',
+            'nombre' => 'Tela special',
             'detalle' => 'Tela de uso específico',
             'sufijo_categoria' => 'TS',
             'id_usuario' => '1'

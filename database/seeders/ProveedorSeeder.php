@@ -30,5 +30,10 @@ class ProveedorSeeder extends Seeder
             'telefono' => '70583801',
             'id_usuario' => '1'
         ]);
+        Proveedor::create([
+            'nombre' => 'Juan Jose Arancibia - TEXTILON',
+            'telefono' => '67050121',
+            'id_usuario' => '1'
+        ]);
     }
 }

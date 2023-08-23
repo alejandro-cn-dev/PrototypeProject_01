@@ -16,46 +16,57 @@ class UserSeeder extends Seeder
     public function run()
     {        
         User::create([
-            'ap_paterno' => 'Demo',
-            'ap_materno' => 'Demo',
-            'name' => 'Admin1',
-            'ci' => '0000000',
-            'expedido' => 'XX',
-            'telefono' => '000000',
-            'matricula' => 'DDD0000000XX',
-            'email' => 'admin@admin.com',
+            'ap_paterno' => 'Valencia',
+            'ap_materno' => 'Palacios',
+            'name' => 'Gonzalo',
+            'ci' => '83610041',
+            'expedido' => 'LP',
+            'telefono' => '69612471',
+            'matricula' => 'GVP83610041LP',
+            'email' => 'gpalacios@admin.com',
+            'password' => 'admin_admin'            
+        ])->assignRole('administrador');
+        User::create([
+            'ap_paterno' => 'Conde',
+            'ap_materno' => 'Pillco',
+            'name' => 'Alejandro',
+            'ci' => '4889167',
+            'expedido' => 'LP',
+            'telefono' => '61115903',
+            'matricula' => 'ACP4889167LP',
+            'email' => 'aconde@admin.com',
             'password' => 'admin_admin'            
         ])->assignRole('administrador');
         User::create([
             'ap_paterno' => 'Apaza',
             'ap_materno' => 'Colima',
-            'name' => 'Vendedor1',
+            'name' => 'Eduardo',
             'ci' => '2969372',
             'expedido' => 'LP',
             'telefono' => '1100100',
-            'matricula' => 'ACV2969372LP',
+            'matricula' => 'ECV2969372LP',
             'email' => 'vendedor1@admin.com',
             'password' => 'admin_admin'            
         ])->assignRole('vendedor');
         User::create([
-            'ap_paterno' => 'Apaza',
-            'ap_materno' => 'Colima',
-            'name' => 'Acomodador1',
-            'ci' => '452112',
-            'expedido' => 'LP',
+            'ap_paterno' => 'Luque',
+            'ap_materno' => 'Condori',
+            'name' => 'Oscar',
+            'ci' => '64973110',
+            'expedido' => 'CB',
             'telefono' => '6325222',
-            'matricula' => 'ACA2969372LP',
+            'matricula' => 'OCL64973110CB',
             'email' => 'acomodador1@admin.com',
             'password' => 'admin_admin'            
         ])->assignRole('acomodador');
         User::create([
-            'ap_paterno' => 'Apaza',
-            'ap_materno' => 'Colima',
-            'name' => 'Cobrador1',
-            'ci' => '5623532',
+            'ap_paterno' => 'Huanca',
+            'ap_materno' => 'Flores',
+            'name' => 'Blanca',
+            'ci' => '93462514',
             'expedido' => 'LP',
             'telefono' => '325236',
-            'matricula' => 'ACC5623532LP',
+            'matricula' => 'BFH93462514LP',
             'email' => 'cobrador1@admin.com',
             'password' => 'admin_admin'            
         ])->assignRole('cobrador');
