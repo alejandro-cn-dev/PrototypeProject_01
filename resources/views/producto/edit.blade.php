@@ -67,7 +67,7 @@
         </div>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
-                <label for="" class="form-label">Precio de Compra sugerido</label>
+                <label for="" class="form-label">Precio de Compra por unidad sugerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
                     <!-- <input id="precio_compra" name="precio_compra" type="number" maxlength="15" placeholder="0.0" required/> -->
@@ -75,7 +75,7 @@
                 </div>
             </div>        
             <div class="col-md-6">
-                <label for="" class="form-label">Precio de Venta suguerido</label>
+                <label for="" class="form-label">Precio de Venta por unidad suguerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
                     <!-- <input id="precio_venta" name="precio_venta" type="number" maxlength="15" placeholder="0.0" required/> -->

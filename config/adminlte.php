@@ -396,22 +396,26 @@ return [
                     'text' => 'Movimientos de inventario',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'inventario',
+                    'can'   => 'ventas.movimientos'
                 ],
                 [
                     'text' => 'Existencias',
                     'icon'    => 'nav-icon fas fa-edit',
                     'url'  => 'existencias',
+                    'can'   => 'ventas.existencias'
                 ]
             ],
         ],
         [
             'text'    => 'Reportes',
-            'icon'    => 'fas fa-fw fa-file-pdf',
+            'icon'    => 'fas fa-fw fa-file-pdf',            
+            'can'   => 'reporte.control_stock',
             'submenu' => [
                 [
                     'text' => 'Control de stock',
                     'icon'    => 'fas fa-fw fa-file-text',
                     'url'  => 'stock',
+                    'can'   => 'reporte.control_stock'
                 ],         
                 // [
                 //     'text' => 'Stock',
@@ -423,6 +427,7 @@ return [
                     'text' => 'Valoracion de inventarios',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'reporte_valoracion',
+                    'can'   => 'reporte.valoracion'
                 ]
             ],
         ],

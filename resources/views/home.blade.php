@@ -143,7 +143,7 @@
             <div class="inner" bis_skin_checked="1">
               <!-- <h3>74<sup style="font-size: 20px">%</sup></h3> -->
               <h3>{{ $existencia_adq }}</h3>
-              <p>Metros de tela adquirida</p>
+              <p>Unidades de productos adquirida</p>
             </div>
             <div class="icon" bis_skin_checked="1">
               <i class="fas fa-fw fa-box" aria-hidden="true"></i>
@@ -157,7 +157,7 @@
           <div class="small-box bg-fuchsia" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
               <h3>{{$existencia_ven}}</h3>
-              <p>Metros de tela vendida</p>
+              <p>Unidades de productos vendida</p>
             </div>
             <div class="icon" bis_skin_checked="1">
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -171,7 +171,7 @@
           <div class="small-box bg-primary" bis_skin_checked="1">
             <div class="inner" bis_skin_checked="1">
               <h3>{{$existencia_adq - $existencia_ven}}</h3>
-              <p>Metros de tela en existencia</p>
+              <p>Unidades de productos en existencia</p>
             </div>
             <div class="icon" bis_skin_checked="1">
               <i class="fas fa-fw fa-check" aria-hidden="true"></i>

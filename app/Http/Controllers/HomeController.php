@@ -40,13 +40,13 @@ class HomeController extends Controller
         ->join('categorias','productos.id_categoria','=','categorias.id')
         ->where('compra_detalles.isDeleted','=',0)
         ->where('productos.isDeleted','=',0)
-        ->where('categorias.nombre','NOT LIKE','%Hilo%')
+        //->where('categorias.nombre','NOT LIKE','%Hilo%')
         ->sum('compra_detalles.cantidad');
         $existencia_vendida = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')        
         ->join('categorias','productos.id_categoria','=','categorias.id')
         ->where('venta_detalles.isDeleted','=',0)
         ->where('productos.isDeleted','=',0)
-        ->where('categorias.nombre','NOT LIKE','%Hilo%')
+        //->where('categorias.nombre','NOT LIKE','%Hilo%')
         ->sum('venta_detalles.cantidad');
         $proveedores = Proveedor::where('isDeleted','=',0)->count();
         $clientes = Cliente::count();

@@ -13,7 +13,7 @@
         @can('marcas.create')
         <a href="proveedores/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar proveedor</a>    
         @endcan
-        <a href="{{route('generar_reporte_proveedores')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a>    
+        <!-- <a href="{{route('generar_reporte_proveedores')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a>     -->
     </div>  
     <div class="table-responsive">
         <table id="proveedors" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">

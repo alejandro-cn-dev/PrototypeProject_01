@@ -46,7 +46,7 @@
                             <li class="list-group-item"><b>Categoria: </b>{{$producto->categoria}}</li>
                             <li class="list-group-item"><b>Color: </b>{{$producto->color}}</li>
                             @if($producto->existencia > 0)
-                            <li class="list-group-item"><b>Existencias: </b>{{$producto->existencia}} @if($producto->unidad_venta === 'unidad') unidad(es) @else metro(s) @endif</li>
+                            <li class="list-group-item"><b>Existencias: </b>{{$producto->existencia}} @if($producto->unidad_venta === 'unidad') unidad(es) @elseif($producto->unidad_venta === 'rollo') rollo(s) @else metro(s)@endif</li>
                             @endif                            
                         </ul>
                     </p>

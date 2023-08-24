@@ -61,11 +61,24 @@ class ProductoSeeder extends Seeder
             'descripcion' => 'Tela con relieve tipo alfombra y con un toque de terciopelo',
             'color' => 'rojo',            
             'id_usuario' => '1',
-            'unidad'  =>  'metro',
+            'unidad'  =>  'rollo',
             'precio_compra' =>  '10.00',
             'precio_venta'  =>  '11.00',
             'id_categoria'  =>  '2',
             'id_almacen'    =>  '3',
+            'id_marca'      =>  '1'
+        ]);
+        Producto::create([
+            'item_producto' => 'TC-001',
+            'nombre' => 'Tela Popelina 1,15m',
+            'descripcion' => 'Tela con relieve tipo alfombra y con un toque de terciopelo',
+            'color' => 'rojo',            
+            'id_usuario' => '1',
+            'unidad'  =>  'rollo',
+            'precio_compra' =>  '10.00',
+            'precio_venta'  =>  '11.00',
+            'id_categoria'  =>  '1',
+            'id_almacen'    =>  '2',
             'id_marca'      =>  '1'
         ]);
     }

@@ -113,7 +113,7 @@
                     <div class="col-md-4 text-white">
                         <h3>Redes Sociales</h3>
                         <a href="https://www.facebook.com/telasbolivia"><img src="/favicons/facebook-logo-0.png" alt="Facebook logo" style="width:40px; height:40px;"></a>
-                        <a href="https://www.tiktok.com/@Telas.Comercial.Presitex"><img src="/favicons/tiktok-logo-0-1.png" alt="TikTok logo" style="width:40px; height:40px;"></a>
+                        <a href="https://www.tiktok.com/@telas.bolivia"><img src="/favicons/tiktok-logo-0-1.png" alt="TikTok logo" style="width:40px; height:40px;"></a>
                     </div>
                 </div>
                 
