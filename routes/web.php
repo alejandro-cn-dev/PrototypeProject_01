@@ -47,6 +47,7 @@ Route::get('detalle/producto/{id}', [PageController::class,'producto'])->name('d
 Route::any('/buscar',[PageController::class,'buscar']);
 //Route::get('/home', function () { return view('home');});
 Route::get('empleados/perfil',[EmpleadoController::class,'perfil'])->middleware('auth')->name('ver_perfil');
+Route::get('reporte_test',[PageController::class,'reporte_test'])->name('reporte_test');
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');

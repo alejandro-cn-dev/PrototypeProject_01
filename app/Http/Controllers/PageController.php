@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Imagen;
 use DB;
+use PDF;
 
 class PageController extends Controller
 {
@@ -90,5 +91,13 @@ class PageController extends Controller
             //return view('vitrina.product')->withDetails($result)->withQuery ( $product );
             return view('vitrina.lista')->with('productos',$result)->with('term',$product)->with('imagenes',$imagenes);
         else return view ('vitrina.lista')->with('productos',null);
-        }
+    }
+    //Para probar los nuevos reportes (borrar luego)
+    public function reporte_test()
+    {
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('reporte/test',compact('fecha'));
+        return $pdf->download('test_000000_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+    }
 }
