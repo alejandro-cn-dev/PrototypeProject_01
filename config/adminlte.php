@@ -336,6 +336,7 @@ return [
         [
             'text'    => 'Gestion de productos',
             'icon'    => 'fas fa-fw fa-box',
+            'can'   => 'productos.index',
             'submenu' => [
                 [
                     'text' => 'Productos',

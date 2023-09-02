@@ -25,7 +25,7 @@
         </div>
         <div class="mb-3">
             <label for="imagen" class="form-label">Imagen de producto</label>
-            <input type="file" id="imagen" name="imagen" class="form-control">
+            <input type="file" id="imagen" name="imagen" class="form-control" accept="image/png, image/gif, image/jpeg">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Color</label>
