@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Imagen;
+use Carbon\Carbon;
 use DB;
 use PDF;
 
@@ -95,9 +96,17 @@ class PageController extends Controller
     //Para probar los nuevos reportes (borrar luego)
     public function reporte_test()
     {
-        $fecha_actual = date_create(date('d-m-Y'));
-        $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('reporte/test',compact('fecha'));
-        return $pdf->download('test_000000_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        // Para conseguir fecha en español
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+        $fecha = Carbon::now();
+        $mes = $meses[($fecha->format('n')) - 1];
+        $dia = $dias[$fecha->format('w')];
+        $fecha_actual = $dia . ', '.$fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
+        //$fecha_actual = date_create(date('d-m-Y'));
+        //$fecha = date_format($fecha_actual,'d-m-Y');
+        $hora_actual = $fecha->format('H:i:s');
+        $pdf = PDF::loadView('reporte/test3',compact('fecha_actual','hora_actual'));
+        return $pdf->download('test_000000_'.date_format($fecha,"Y-m-d").'.pdf');
     }
 }
