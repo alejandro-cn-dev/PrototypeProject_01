@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
+use App\Models\Marca;
 
 class ProveedorController extends Controller
 {
@@ -22,7 +23,9 @@ class ProveedorController extends Controller
     
     public function index()
     {
-        $provedores = Proveedor::where('isDeleted','=',0)->get();
+        $provedores = Proveedor::join('marcas','proveedors.id_marca','=','marcas.id')
+        ->select('proveedors.id','proveedors.nombre','proveedors.telefono','marcas.detalle AS marca')
+        ->where('proveedors.isDeleted','=',0)->get();
         return view('proveedor.index')->with('proveedors',$provedores);
     }
 
@@ -33,7 +36,8 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        return view('proveedor.create');
+        $marcas = Marca::where('isDeleted','=',0)->get();
+        return view('proveedor.create')->with('marcas',$marcas);
     }
 
     /**
@@ -47,6 +51,7 @@ class ProveedorController extends Controller
         $provedor = new Proveedor();
         $provedor->nombre = $request->get('nombre');
         $provedor->telefono = $request->get('telefono');
+        $provedor->id_marca = $request->get('marca');
         $provedor->id_usuario = auth()->user()->id;
         $provedor->save();
 
@@ -73,7 +78,8 @@ class ProveedorController extends Controller
     public function edit($id)
     {
         $provedor = Proveedor::find($id);
-        return view('proveedor.edit')->with('proveedor',$provedor);
+        $marcas = Marca::where('isDeleted','=',0)->get();
+        return view('proveedor.edit')->with('proveedor',$provedor)->with('marcas',$marcas);
     }
 
     /**
@@ -88,6 +94,7 @@ class ProveedorController extends Controller
         $provedor = Proveedor::find($id);
         $provedor->nombre = $request->get('nombre');
         $provedor->telefono = $request->get('telefono');
+        $provedor->id_marca = $request->get('marca');
         $provedor->id_usuario = auth()->user()->id;
         $provedor->save();
 

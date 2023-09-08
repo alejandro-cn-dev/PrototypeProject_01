@@ -16,24 +16,28 @@ class ProveedorSeeder extends Seeder
     public function run()
     {
         Proveedor::create([
-            'nombre' => 'Fernando Cora - ASATEX',
+            'nombre' => 'Fernando Cora',
             'telefono' => '60291828',
-            'id_usuario' => '1'
+            'id_usuario' => '1',
+            'id_marca' => '1'
         ]);
         Proveedor::create([
-            'nombre' => 'Gabriel Araujo - ASATEX',
+            'nombre' => 'Gabriel Araujo',
             'telefono' => '69800166',
-            'id_usuario' => '1'
+            'id_usuario' => '1',
+            'id_marca' => '1'
         ]);
         Proveedor::create([
-            'nombre' => 'Vicente Mallorca - TEXBOL',
+            'nombre' => 'Vicente Mallorca',
             'telefono' => '70583801',
-            'id_usuario' => '1'
+            'id_usuario' => '1',
+            'id_marca' => '2'
         ]);
         Proveedor::create([
             'nombre' => 'Juan Jose Arancibia - TEXTILON',
             'telefono' => '67050121',
-            'id_usuario' => '1'
+            'id_usuario' => '1',
+            'id_marca' => '3'
         ]);
     }
 }

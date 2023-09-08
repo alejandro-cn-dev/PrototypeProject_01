@@ -10,7 +10,7 @@
 <img src="{{ asset('img/proveedor_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo proveedores">
 <div class="hadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        @can('marcas.create')
+        @can('proveedores.create')
         <a href="proveedores/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar proveedor</a>    
         @endcan
         <!-- <a href="{{route('generar_reporte_proveedores')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a>     -->
@@ -22,6 +22,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Telefono</th>
+                    <th scope="col">Marca</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -31,13 +32,14 @@
                     <td>{{$proveedor->id}}</td>
                     <td>{{$proveedor->nombre}}</td>
                     <td>{{$proveedor->telefono}}</td>
+                    <td>{{$proveedor->marca}}</td>
                     <td>
                         <!-- <form action="{{route('proveedores.destroy',$proveedor->id)}}" method="POST"> -->
-                            @can('marcas.edit')
+                            @can('proveedores.edit')
                             <a href="/proveedores/{{$proveedor->id}}/edit " class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                             @endcan
                             @csrf  
-                            @can('marcas.delete')                          
+                            @can('proveedores.delete')                          
                             @method('DELETE')
                             <!-- <button type="submit" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Anular</button> -->
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$proveedor->id}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
