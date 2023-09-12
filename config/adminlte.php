@@ -437,6 +437,13 @@ return [
             'url'         => 'inicio',
             'icon'    => 'fas fa-fw fa-undo'
         ],
+        ['header' => 'Configuracion de parámetros'],
+        [
+            'text'        => 'Parámetros',
+            'url'         => 'params',
+            'icon'    => 'fas fa-fw fa-settings',
+            'can'   => 'panel-config-admin'
+        ]
     ],
 
     /*

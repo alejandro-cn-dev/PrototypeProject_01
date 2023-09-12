@@ -22,6 +22,7 @@ class RoleSeeder extends Seeder
         $acomodador = Role::create(['name' => 'acomodador']);
         $cobrador = Role::create(['name' => 'cobrador']);
 
+        Permission::create(['name' => 'panel-config-admin'])->syncRoles([$admin]);
         Permission::create(['name' => 'dashboard'])->syncRoles([$admin,$vendedor,$acomodador]);
         Permission::create(['name' => 'admin-dashboard'])->syncRoles([$admin]);
 
