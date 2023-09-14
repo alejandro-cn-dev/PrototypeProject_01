@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('parametros', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('valor');
+            $table->boolean('isDeleted')->default(0);
             $table->timestamps();
         });
     }
