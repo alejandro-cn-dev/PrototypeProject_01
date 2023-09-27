@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Parametro;
+use App\Models\Parametro;
 
 class ConfigController extends Controller
 {
@@ -14,6 +14,11 @@ class ConfigController extends Controller
     }
     public function up_params(Request $request)
     {
-        
+        $parametro = new Parametro();
+        $parametro->nombre = $request->get('nombre');
+        $parametro->valor = $request->get('valor');
+        $parametro->save();
+
+        return redirect('/params');
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\EmpleadoController;
