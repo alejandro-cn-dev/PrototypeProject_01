@@ -1,7 +1,10 @@
 <?php
+use Data\DatosClass;
 
-return [
-
+// $parametros = new MyClass();
+// $nombre->obtenerDatos();
+// $sistema = $nombre->value('nombre_sistema');
+return [    
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -13,8 +16,10 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-
-    'title' => 'Sistema Web | Presitex | v6.1',
+    
+    //'title' => 'Sistema Web | '.$sistema.' | v6.1',
+    'title' => 'Sistema Web | '.DatosClass::obtenerDatos().' | v7',
+    
     'title_prefix' => '',
     'title_postfix' => '',
 
