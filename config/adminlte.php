@@ -1,9 +1,13 @@
 <?php
 use Data\DatosClass;
+use App\Models\Parametro;
 
-// $parametros = new MyClass();
+$b = json_decode(file_get_contents('app/SystemValues.json'), true);
 // $nombre->obtenerDatos();
 // $sistema = $nombre->value('nombre_sistema');
+// $sistema = app(App\Models\GlobalSettings::class);
+//$a = new SystemValuesService();
+//$b = Parametro::where('name','=','nombre_sistema')->get();
 return [    
     /*
     |--------------------------------------------------------------------------
@@ -17,8 +21,15 @@ return [
     |
     */
     
-    //'title' => 'Sistema Web | '.$sistema.' | v6.1',
-    'title' => 'Sistema Web | '.DatosClass::obtenerDatos().' | v7',
+    //'title' => 'Sistema Web | '.$sistema->get('nombre_sistema').' | v6.1',
+    'title' => 'Sistema Web | '.$b['nombre_sistema'].' | v6.1',
+    //'title' => 'Sistema Web | '.$a->getValues()->value('nombre_sistema').' | v6.1',
+    //'title' => 'Sistema Web | '.DatosClass::obtenerDatos().' | v7',
+    //'title' => function () {
+    //     //return new SystemValuesService();
+    //     $systemValuesService = app()->make('SystemValuesService');
+    //     return $systemValuesService->getValues();
+    // },
     
     'title_prefix' => '',
     'title_postfix' => '',
