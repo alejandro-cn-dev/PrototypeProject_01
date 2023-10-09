@@ -25,8 +25,9 @@ class SysParameterServiceProvider extends ServiceProvider
         //     return new GlobalSettings(Parametro::all());
         // });
         // Intento #2 (espero que el último)
+        //$a = 'app/SystemValues.json';
         $this->app->singleton('SystemValuesService', function () {
-            return new SystemValuesService(DB::connection());
+            return new SystemValuesService();
         });
     }
 
@@ -35,7 +36,7 @@ class SysParameterServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(GlobalSettings $settinsInstance)
+    public function boot(SystemValuesService $settinsInstance)
     {
         // $this->app->singleton('nombre_sistema', function ($app) {
         //     return new ManageParameters().getValues()->value('nombre_sistema');
@@ -43,30 +44,25 @@ class SysParameterServiceProvider extends ServiceProvider
         //Recuperar el nombre del sistema
         // $val1 = Parametro::where('isDeleted','=',0)->where('nombre','=','nombre_sistema')->get();
         // $nombre_sistema = $val1->last()->valor;
-        //View::share('globalsettings', $settinsInstance);
+        View::share('globalsettings', $settinsInstance);
     }
 }
 
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
 class SystemValuesService
 {
-    public function __construct(DB $db)
+    protected $configValues;
+    protected $pathParams;
+    public function __construct()
     {
-        $this->db = $db;
+        $this->pathParams = env('APP_PATH_PARAMS', false);
+        //$this->pathParams = 'app/Parameters/SystemValues.json';
+        $this->configValues = json_decode(file_get_contents($this->pathParams), true);
+        config($this->configValues);
     }
-    public function getValues()
-    {
-        //return $this->db->table('parametros')->get();
-        $values = DB::table('values')->get();
-        return $values->toArray();
+    public function getConfigValue($nombre)
+    {        
+        return $this->configValues[$nombre];
     }
-    // public function getValues()
-    // {
-    //     return DB::table('parametros')->get();
-    // }
-    // public function getName()
-    // {
-    //     return DB::table('parametros')->get()->value('nombre_sistema');
-    // }
 }

@@ -1,13 +1,7 @@
 <?php
-use Data\DatosClass;
-use App\Models\Parametro;
 
-$b = json_decode(file_get_contents('app/SystemValues.json'), true);
-// $nombre->obtenerDatos();
-// $sistema = $nombre->value('nombre_sistema');
-// $sistema = app(App\Models\GlobalSettings::class);
-//$a = new SystemValuesService();
-//$b = Parametro::where('name','=','nombre_sistema')->get();
+//$aux = SystemValuesService::class;
+//$configValues = json_decode(file_get_contents('C:\xampp\htdocs\WMS_WebSystem_01\app\SystemValues.json'), true);
 return [    
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +16,9 @@ return [
     */
     
     //'title' => 'Sistema Web | '.$sistema->get('nombre_sistema').' | v6.1',
-    'title' => 'Sistema Web | '.$b['nombre_sistema'].' | v6.1',
+    //'title' => 'Sistema Web | '.$b['nombre_sistema'].' | v6.1',
+    'title' => 'Sistema Web | '.config('nombre_sistema').' | v7',
+    //'title' => 'Sistema Web | '.$configValues['nombre_sistema'].' | v7',
     //'title' => 'Sistema Web | '.$a->getValues()->value('nombre_sistema').' | v6.1',
     //'title' => 'Sistema Web | '.DatosClass::obtenerDatos().' | v7',
     //'title' => function () {
