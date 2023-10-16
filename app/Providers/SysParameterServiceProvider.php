@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use App\Models\Parametro;
 use App\Models\GlobalSettings;
+use Cache;
 
 class SysParameterServiceProvider extends ServiceProvider
 {
@@ -26,9 +27,9 @@ class SysParameterServiceProvider extends ServiceProvider
         // });
         // Intento #2 (espero que el último)
         //$a = 'app/SystemValues.json';
-        $this->app->singleton('SystemValuesService', function () {
-            return new SystemValuesService();
-        });
+        // $this->app->singleton('SystemValuesService', function () {
+        //     return new SystemValuesService();
+        // });
     }
 
     /**
@@ -42,8 +43,16 @@ class SysParameterServiceProvider extends ServiceProvider
         //     return new ManageParameters().getValues()->value('nombre_sistema');
         // });
         //Recuperar el nombre del sistema
-        // $val1 = Parametro::where('isDeleted','=',0)->where('nombre','=','nombre_sistema')->get();
-        // $nombre_sistema = $val1->last()->valor;
+        //$val1 = Parametro::where('isDeleted','=',0)->where('nombre','=','nombre_sistema')->get();
+        $parametros = Parametro::where('isDeleted','=',0)->get();
+        $nombre = $parametros->where('nombre','=','nombre_sistema')->last()->valor;
+        $version = $parametros->where('nombre','=','version_sistema')->last()->valor;
+        config(['adminlte.title' => 'Sistema Web | '.$nombre.' | '.$version]);
+        config(['adminlte.logo' => '<b>'.$nombre.'</b>']);        
+        config(['system_name' => $nombre]);
+        config(['system_version' => $version]);
+        // Cache::forever('settings', \App\Models\Parametro::all());
+        // Cache::forever('nom', 'AA');
         View::share('globalsettings', $settinsInstance);
     }
 }
@@ -57,9 +66,10 @@ class SystemValuesService
     public function __construct()
     {
         $this->pathParams = env('APP_PATH_PARAMS', false);
-        //$this->pathParams = 'app/Parameters/SystemValues.json';
+        $this->pathParams = 'C:\xampp\htdocs\WMS_WebSystem_01\app\SystemValues.json';
         $this->configValues = json_decode(file_get_contents($this->pathParams), true);
-        config($this->configValues);
+        //config($this->configValues);
+        config(['nombre_sistema' => 'AAAAAAAAAA']);
     }
     public function getConfigValue($nombre)
     {        

@@ -1,5 +1,6 @@
 <?php
-
+// use Cache;
+// use App\Helpers;
 //$aux = SystemValuesService::class;
 //$configValues = json_decode(file_get_contents('C:\xampp\htdocs\WMS_WebSystem_01\app\SystemValues.json'), true);
 return [    
@@ -17,7 +18,8 @@ return [
     
     //'title' => 'Sistema Web | '.$sistema->get('nombre_sistema').' | v6.1',
     //'title' => 'Sistema Web | '.$b['nombre_sistema'].' | v6.1',
-    'title' => 'Sistema Web | '.config('nombre_sistema').' | v7',
+    //'XD' => 'NOO',
+    //'title' => 'Presitex',
     //'title' => 'Sistema Web | '.$configValues['nombre_sistema'].' | v7',
     //'title' => 'Sistema Web | '.$a->getValues()->value('nombre_sistema').' | v6.1',
     //'title' => 'Sistema Web | '.DatosClass::obtenerDatos().' | v7',
@@ -75,7 +77,7 @@ return [
     |
     */
 
-    'logo' => '<b>Presitex</b>',
+    //'logo' => '<b>Presitex</b>',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img' => 'img/logo_p.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
@@ -453,7 +455,7 @@ return [
         [
             'text'        => 'Parámetros',
             'url'         => 'params',
-            'icon'    => 'fas fa-fw fa-settings',
+            'icon'    => 'fas fa-fw fa-cog',
             'can'   => 'panel-config-admin'
         ]
     ],

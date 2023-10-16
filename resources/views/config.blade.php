@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Parámetros | Presitex Panel Admin')
+@section('title')
+    Parámetros | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Parámetros del sistema</h1>
@@ -8,7 +10,7 @@
 
 @section('content')
 <div class="shadow-none p-3 bg-white rounded">
-    <img src="img/valores_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo valores">
+    <img src="{{ asset('img/valores_main_logo.png') }}" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo valores">
     <div class="hadow-none p-3 bg-white rounded">        
         <div class="table-responsive">
             <table id="valores" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">

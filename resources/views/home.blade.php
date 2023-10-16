@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard | Presitex Panel Admin')
+@section('title')
+  Dashboard | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <div style="background-color: #343a40; color: white; text-align: center; padding: 10px; border-radius: 10px;">  
