@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Categorias | Presitex Panel Admin')
+@section('title')
+  Categorias | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Listado de categorias</h1>

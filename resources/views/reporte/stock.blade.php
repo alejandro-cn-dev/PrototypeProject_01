@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Reporte de stock | Presitex Panel Admin')
+@section('title')
+  Reporte de stock | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Reporte de Stock</h1>

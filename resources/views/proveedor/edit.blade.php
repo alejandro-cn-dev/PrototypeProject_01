@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Proveedor')
+@section('title')
+  Editar Proveedor | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Editar Proveedor</h1>

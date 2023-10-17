@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Marcas | Presitex Panel Admin')
+@section('title')
+  Marcas | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Listado de marcas</h1>

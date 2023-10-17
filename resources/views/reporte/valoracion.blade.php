@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Valoración de inventarios | Presitex Panel Admin')
+@section('title')
+  Valoración de inventarios | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Reporte de Valoracion de inventarios</h1>

@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Movimiento de inventario | Presitex Panel Admin')
+@section('title')
+  Movimiento de inventario | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Movimiento de inventarios</h1>

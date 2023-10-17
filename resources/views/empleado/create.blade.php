@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Registrar usuario | Presitex Panel Admin')
+@section('title')
+  Registrar usuario | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Registrar Empleado</h1>

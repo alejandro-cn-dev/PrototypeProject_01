@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Ventas | Presitex Panel Admin')
+@section('title')
+  Ventas | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Listado de registros de ventas</h1>

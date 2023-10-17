@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Cambio de Contraseña | Presitex Panel Admin')
+@section('title')
+  Cambio de Contraseña | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Cambio de contraseña de Empleado</h1>

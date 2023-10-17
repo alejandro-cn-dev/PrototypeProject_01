@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalle de Venta | Presitex Panel Admin')
+@section('title')
+  Detalle de Venta | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Detalle de Venta N° {{$cabecera->id}} - {{$cabecera->nombre}} - {{$cabecera->fecha_emision}}</h1>

@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Generación de reportes')
+@section('title')
+  Generación de reportes | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Generación de reportes</h1>

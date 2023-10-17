@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Registro compra | Presitex Panel Admin')
+@section('title')
+  Registro compra | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Crear Registro de compra</h1>

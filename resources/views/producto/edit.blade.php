@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Producto | Presitex Panel Admin')
+@section('title')
+  Editar Producto | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Editar Registro de Producto</h1>

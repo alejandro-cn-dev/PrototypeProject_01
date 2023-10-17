@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Control de inventario | Presitex Panel Admin')
+@section('title')
+  Control de inventario | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Control de inventario</h1>

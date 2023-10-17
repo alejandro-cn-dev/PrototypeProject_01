@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Salida')
+@section('title')
+  Editar Salida | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Editar Registro N° {{$salida->id}} - {{$salida->nombre}} - {{$salida->fecha_emision}}</h1>

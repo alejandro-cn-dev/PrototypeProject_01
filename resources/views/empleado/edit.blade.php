@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar registro | Presitex Panel Admin')
+@section('title')
+  Editar registro | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Editar Registro de Empleado</h1>

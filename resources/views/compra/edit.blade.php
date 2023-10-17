@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Compra Entrada')
+@section('title')
+  Editar Compra Entrada | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Editar Registro N° {{$entrada->id}} - {{$entrada->fecha_compra}}</h1>

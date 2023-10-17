@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios | Presitex Panel Admin')
+@section('title')
+  Usuarios | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Listado de empleados</h1>

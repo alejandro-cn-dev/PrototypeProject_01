@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Compras o adquisiciones | Presitex Panel Admin')
+@section('title')
+  Compras o adquisiciones | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Listado de registros de compras</h1>

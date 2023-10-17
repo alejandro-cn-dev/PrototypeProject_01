@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Productos | Presitex Panel Admin')
+@section('title')
+  Productos | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Listado de productos</h1>

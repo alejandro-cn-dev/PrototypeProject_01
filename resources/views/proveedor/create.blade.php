@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Registro de proveedor | Presitex Panel Admin')
+@section('title')
+  Registro de proveedor | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Crear registro de proveedor</h1>

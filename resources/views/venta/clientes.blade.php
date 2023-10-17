@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Clientes | Presitex Panel Admin')
+@section('title')
+  Clientes | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Listado de clientes de ventas</h1>

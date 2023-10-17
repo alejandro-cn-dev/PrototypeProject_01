@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Almacen | Presitex Panel Admin')
+@section('title')
+  Editar Almacen | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Editar Registro de Almacén</h1>

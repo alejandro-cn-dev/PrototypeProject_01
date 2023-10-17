@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Categoria | Presitex Panel Admin')
+@section('title')
+  Editar Categoria | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Editar Categoria</h1>

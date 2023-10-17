@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Registrar marca | Presitex Panel Admin')
+@section('title')
+  Registrar marca | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Crear registro de marca</h1>

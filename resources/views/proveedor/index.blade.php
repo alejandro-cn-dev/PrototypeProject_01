@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Proveedores | Presitex Panel Admin')
+@section('title')
+  Proveedores | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
 <h1>Listado de Proveedores</h1>

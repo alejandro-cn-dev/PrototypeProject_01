@@ -1,6 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Existencias | Presitex Panel Admin')
+@section('title')
+  Existencias | {{config('system_name')}} Panel Admin
+@stop
 
 @section('content_header')
     <h1>Existencia de productos</h1>
