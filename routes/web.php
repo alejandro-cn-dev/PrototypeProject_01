@@ -50,8 +50,9 @@ Route::any('/buscar',[PageController::class,'buscar']);
 Route::get('empleados/perfil',[EmpleadoController::class,'perfil'])->middleware('auth')->name('ver_perfil');
 Route::get('reporte_test',[PageController::class,'reporte_test'])->name('reporte_test');
 
-Route::get('params',[ConfigController::class,'get_params'])->name('params');
-Route::post('update_params',[ConfigController::class,'up_params'])->name('update_params');
+Route::get('config',[ConfigController::class,'get_params'])->name('params');
+Route::get('config/{id}',[ConfigController::class,'get_param'])->name('param');
+Route::post('update_params/{id}',[ConfigController::class,'up_params'])->name('update_params');
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');

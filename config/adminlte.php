@@ -454,7 +454,7 @@ return [
         ['header' => 'Configuracion de parámetros'],
         [
             'text'        => 'Parámetros',
-            'url'         => 'params',
+            'url'         => 'config',
             'icon'    => 'fas fa-fw fa-cog',
             'can'   => 'panel-config-admin'
         ]

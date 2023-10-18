@@ -26,8 +26,8 @@
                     <tr>
                         <td>{{$valor->nombre}}</td>
                         <td>{{$valor->valor}}</td>
-                        <td>                            
-                            <a href="#" class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>                            
+                        <td>
+                            <a href="/config/{{$valor->id}}" class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                         </td>
                     </tr>
                     @endforeach

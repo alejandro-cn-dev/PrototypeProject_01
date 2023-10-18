@@ -12,13 +12,19 @@ class ConfigController extends Controller
         $valores = Parametro::all();
         return view('config')->with('valores',$valores);
     }
-    public function up_params(Request $request)
+    public function get_param($id)
     {
-        $parametro = new Parametro();
-        $parametro->nombre = $request->get('nombre');
+        $valor = Parametro::find($id);
+        return view('setconfig')->with('config',$valor);
+    }
+    public function up_params(Request $request,$id)
+    {
+        //$parametro = new Parametro();
+        $parametro = Parametro::find($id);
+        //$parametro->nombre = $request->get('nombre');
         $parametro->valor = $request->get('valor');
         $parametro->save();
 
-        return redirect('/params');
+        return redirect('/config');
     }
 }
