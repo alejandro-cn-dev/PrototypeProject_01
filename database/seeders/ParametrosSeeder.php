@@ -52,5 +52,21 @@ class ParametrosSeeder extends Seeder
             'nombre' => 'vision',
             'valor' => 'Ser una empresa líder entre el sector textil reconocida por su calidad y servicio a nivel nacional, promoviéndose siempre como una oportunidad para asociarse con cualquier otra industria y describiéndose como un lugar extraordinario para emprender su negocio.'
         ]);
+        Parametro::create([
+            'nombre' => 'direccion_empresa',
+            'valor' => 'PresitexCalle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia'
+        ]);
+        Parametro::create([
+            'nombre' => 'correo_empresa',
+            'valor' => 'presitex.tex@gmail.com'
+        ]);
+        Parametro::create([
+            'nombre' => 'telefono_empresa',
+            'valor' => '2-460674'
+        ]);
+        Parametro::create([
+            'nombre' => 'telefono_contacto',
+            'valor' => '73238038,71996788'
+        ]);
     }
 }

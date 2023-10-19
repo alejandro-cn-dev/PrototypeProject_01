@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Imagen;
+use App\Models\Parametro;
 use Carbon\Carbon;
 use DB;
 use PDF;
@@ -32,7 +33,8 @@ class PageController extends Controller
 
     // Vista de la mision y vision
     public function info(){
-        return view('vitrina.info');
+        $info = Parametro::select('nombre','valor')->whereIn('nombre',['mision','vision','descripción_empresa'])->get();
+        return view('vitrina.info')->with('info',$info);
     }
 
     // Listado de todos los productos
