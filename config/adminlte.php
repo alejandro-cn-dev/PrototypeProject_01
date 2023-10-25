@@ -443,6 +443,12 @@ return [
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'url'  => 'reporte_valoracion',
                     'can'   => 'reporte.valoracion'
+                ],
+                [
+                    'text' => 'Reporte de ventas',
+                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'url'  => 'reporte_ventas',
+                    'can'   => ''
                 ]
             ],
         ],
@@ -451,7 +457,7 @@ return [
             'url'         => 'inicio',
             'icon'    => 'fas fa-fw fa-undo'
         ],
-        ['header' => 'Configuracion de parámetros'],
+        // ['header' => 'Configuracion de parámetros', 'can' => 'panel-config-admin'],
         [
             'text'        => 'Parámetros',
             'url'         => 'config',

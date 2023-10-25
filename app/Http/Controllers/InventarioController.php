@@ -210,4 +210,12 @@ class InventarioController extends Controller
 
         return view('inventario.valoracion')->with('valoraciones',$valoraciones);
     }
+    public function reporte_ventas()
+    {
+        //$ventas = Venta_cabecera::where()->get();
+        $ventas = Venta_detalle::where('id','=',1)->get();
+
+        return view('inventario.ventas')->with('ventas',$ventas);
+        //return response()->json(['ventas'=>$ventas]);
+    }
 }
