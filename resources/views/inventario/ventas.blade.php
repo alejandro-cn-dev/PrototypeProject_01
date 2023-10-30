@@ -93,15 +93,12 @@
         });
     });    
     function recargar_tabla(){
-        let inicio = document.getElementById("fecha_inicio").value;
-        let final = document.getElementById("fecha_final").value;
+        let criterio = document.getElementById("criterio").value;
         $.ajax({
-            url: "{{ route('stock_fecha') }}",
+            url: "{{ route('reporte_ventas') }}"+'/'+criterio,
             type: "POST",
             data: {
-                _token: "{{ csrf_token() }}",
-                fecha_inicio: inicio,
-                fecha_final: final,
+                _token: "{{ csrf_token() }}"
             },
             success: function(result){
                 console.log(result);

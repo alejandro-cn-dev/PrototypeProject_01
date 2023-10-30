@@ -218,4 +218,24 @@ class InventarioController extends Controller
         return view('inventario.ventas')->with('ventas',$ventas);
         //return response()->json(['ventas'=>$ventas]);
     }
+    public function reporte_ventas_criterio($criterio)
+    {
+        $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
+        ->join('productos','venta_detalles.id_producto','=','productos.id')
+        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario',count('venta_detalles.id'));
+//        ->get();
+        switch($criterio){
+            case 'hoy':
+                $ventas->where('venta_cabeceras.fecha_venta','<=',)->get();
+                break;
+            case 'sem':
+                $ventas->where('venta_cabeceras.fecha_venta','<=',)->get();
+                break;
+            case 'mes':
+                $ventas->where('venta_cabeceras.fecha_venta','<=',)->get();
+                break;
+            default:
+                break;
+        }
+    }
 }
