@@ -14,7 +14,7 @@
     <div class="row">
         <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
         <div class="col-sm-8">
-            <select name="criterio" id="criterio" class="form-control" onchange="cargar_tabla();">
+            <select name="criterio" id="criterio" class="form-control">
                 <option value="" selected>Mostrar todos las ventas</option>
                 <option value="hoy">Hoy</option>
                 <option value="sem">La última semana</option>
@@ -25,7 +25,7 @@
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded"> 
-    <table id="stock" class="table table-striped table-bordered mt-4" style="width: 100%;">
+    <table id="ventas" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
                 <th scope="col">producto</th>
@@ -35,7 +35,7 @@
                 <th scope="col">Total</th>
             </tr>
         </thead>
-        <tbody id="datos_stock">
+        <tbody id="datos_ventas">
             @foreach ($ventas as $venta)
                 <tr>
                     <td>{{ $venta->id_producto }}</td>
@@ -57,7 +57,7 @@
 @section('js')
 <script>
     $(document).ready(function(){        
-        $('#stock').DataTable({
+        $('#ventas').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             buttons: [
@@ -95,9 +95,10 @@
     function recargar_tabla(){
         let criterio = document.getElementById("criterio").value;
         $.ajax({
-            url: "{{ route('reporte_ventas') }}"+'/'+criterio,
+            url: "{{ route('reporte_ventas') }}",
             type: "POST",
             data: {
+                param: criterio,
                 _token: "{{ csrf_token() }}"
             },
             success: function(result){
@@ -130,8 +131,9 @@
         });
     }
     function cargar_datos(resultado){
-        $('#stock tbody tr').detach();
-        tbody = document.getElementById("datos_stock");        
+        $('#ventas tbody tr').detach();
+        tbody = document.getElementById("datos_ventas");  
+        console.log(resultado);
         resultado.forEach(function(fila){
             if(fila.entradas === null){
                 fila.entradas = 0;
@@ -140,7 +142,7 @@
                 fila.salidas = 0;
             }
             let tr = document.createElement("tr");
-            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_venta+"</td><td>"+fila.precio_compra+"</td><td>"+fila.precio_venta+"</td><td>"+fila.stock_inicial+"</td><td>"+fila.entradas+"</td><td>"+fila.salidas+"</td><td>"+((parseInt(fila.stock_inicial,10)) - (parseInt(fila.salidas,10)) + (parseInt(fila.entradas,10)))+"</td></tr>";            
+            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_producto+"</td><td>"+fila.precio_unitario+"</td><td>"+fila.ventas_totales+"</td><td>"+((parseInt(fila.precio_unitario,10)) * (parseInt(fila.ventas_totales,10)))+"</td></tr>";
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
         });

@@ -8,6 +8,7 @@ use App\Models\Venta_detalle;
 use App\Models\Compra_cabecera;
 use App\Models\Venta_cabecera;
 use App\Models\Producto;
+use Carbon\Carbon;
 use DB;
 
 class InventarioController extends Controller
@@ -218,24 +219,29 @@ class InventarioController extends Controller
         return view('inventario.ventas')->with('ventas',$ventas);
         //return response()->json(['ventas'=>$ventas]);
     }
-    public function reporte_ventas_criterio($criterio)
+    public function reporte_ventas_criterio(Request $request)
     {
         $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
         ->join('productos','venta_detalles.id_producto','=','productos.id')
-        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario',count('venta_detalles.id'));
+        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario','venta_detalles.id AS ventas_totales');
 //        ->get();
-        switch($criterio){
+        $fecha_actual = Carbon::now();
+        switch($request->param){
             case 'hoy':
-                $ventas->where('venta_cabeceras.fecha_venta','<=',)->get();
+                $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
+                ->join('productos','venta_detalles.id_producto','=','productos.id')
+                ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario','venta_detalles.id AS ventas_totales')
+                ->where('venta_cabeceras.fecha_venta','<',$fecha_actual)->get();
                 break;
             case 'sem':
-                $ventas->where('venta_cabeceras.fecha_venta','<=',)->get();
+                $ventas->where('venta_cabeceras.fecha_venta','>=',$fecha_actual->subDay(7))->get();
                 break;
             case 'mes':
-                $ventas->where('venta_cabeceras.fecha_venta','<=',)->get();
+                $ventas->where('venta_cabeceras.fecha_venta','>=',$fecha_actual->subMonth())->get();
                 break;
             default:
                 break;
         }
+        return response()->json(['respuesta'=>$ventas]);
     }
 }
