@@ -221,27 +221,28 @@ class InventarioController extends Controller
     }
     public function reporte_ventas_criterio(Request $request)
     {
-        $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
-        ->join('productos','venta_detalles.id_producto','=','productos.id')
-        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario','venta_detalles.id AS ventas_totales');
-//        ->get();
         $fecha_actual = Carbon::now();
+        $fecha_busqueda = '';
         switch($request->param){
             case 'hoy':
-                $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
-                ->join('productos','venta_detalles.id_producto','=','productos.id')
-                ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario','venta_detalles.id AS ventas_totales')
-                ->where('venta_cabeceras.fecha_venta','<',$fecha_actual)->get();
+                $fecha_busqueda = $fecha_actual;
                 break;
             case 'sem':
-                $ventas->where('venta_cabeceras.fecha_venta','>=',$fecha_actual->subDay(7))->get();
+                $fecha_busqueda = $fecha_actual->subDay(7);
                 break;
             case 'mes':
-                $ventas->where('venta_cabeceras.fecha_venta','>=',$fecha_actual->subMonth())->get();
+                $fecha_busqueda = $fecha_actual->subMonth();
                 break;
             default:
+                $fecha_busqueda = $fecha_actual;
                 break;
         }
+
+        $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
+        ->join('productos','venta_detalles.id_producto','=','productos.id')
+        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario','venta_detalles.id AS ventas_totales',DB::raw('(venta_detalles.id * venta_detalles.precio_unitario) AS total'))
+        ->where('venta_cabeceras.fecha_venta','>=',$fecha_busqueda)->get();
+
         return response()->json(['respuesta'=>$ventas]);
     }
 }

@@ -28,7 +28,7 @@
     <table id="ventas" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
-                <th scope="col">producto</th>
+                <th scope="col">Producto</th>
                 <th scope="col">Item</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Ventas</th>
@@ -87,13 +87,21 @@
                     titleAttr: 'Imprimir'
                 }
             ],
+            columnDefs: [
+                {"targets": [0],"data":"nombre"},
+                {"targets": [1],"data":"item_producto"},
+                {"targets": [2],"data":"precio_unitario"},
+                {"targets": [3],"data":"ventas_totales"},
+                {"targets": [4],"data":"total"},
+            ],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-            }
+            },
         });
     });    
     function recargar_tabla(){
         let criterio = document.getElementById("criterio").value;
+        var tabla = $('#ventas').DataTable();
         $.ajax({
             url: "{{ route('reporte_ventas') }}",
             type: "POST",
@@ -103,8 +111,13 @@
             },
             success: function(result){
                 console.log(result);
-                if(result){
-                    cargar_datos(result.respuesta);
+                if(result.respuesta.length > 0){
+                    //cargar_datos(result.respuesta);
+                    tabla.clear().rows.add(result.respuesta).draw();
+                }else{
+                    console.log('Sin resultados: '+result.respuesta.length);
+                    //$('#ventas tbody tr').detach();
+                    tabla.clear().draw();
                 }
                 if(result.errors){
                     swal("Ocurrio un error", {
@@ -132,6 +145,7 @@
     }
     function cargar_datos(resultado){
         $('#ventas tbody tr').detach();
+        
         tbody = document.getElementById("datos_ventas");  
         console.log(resultado);
         resultado.forEach(function(fila){
