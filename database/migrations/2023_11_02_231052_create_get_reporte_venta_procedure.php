@@ -13,9 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        $procedimiento = "DROP PROCEDURE IF EXISTS `get_reporte_venta_by_arg`; CREATE PROCEDURE `get_reporte_venta_by_arg` () 
+        $procedimiento = "DROP PROCEDURE IF EXISTS `get_reporte_venta_by_arg`; 
+        CREATE PROCEDURE `get_reporte_venta_by_arg`(IN `ARG` VARCHAR(25)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
         BEGIN 
-        SELECT a.id, a.item_producto, a.descripcion, b.detalle AS categoria, d.detalle AS marca, a.color, a.unidad, a.precio_compra, a.precio_venta, ((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE id_producto = a.id) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE id_producto = a.id)) AS existencias FROM `productos` AS a INNER JOIN `categorias` AS b ON b.id = a.id_categoria INNER JOIN `almacens` AS c ON c.id = a.id_almacen INNER JOIN `marcas` AS d ON d.id = a.id_marca WHERE a.isDeleted = 0; 
+        SET fecha_hoy = SELECT CURDATE();
+        IF ARG == 'hoy' THEN
+            SET fecha = fecha_hoy;
+        END IF;
+        IF ARG == 'sem' THEN
+            SET fecha = SELECT DATE_SUB(fecha_hoy, INTERVAL 7 DAY);
+        END IF;
+        IF ARG == 'mes' THEN
+            SET fecha = SELECT DATE_SUB(fecha_hoy, INTERVAL 1 MONTH);
+        END IF;
+        
+        SELECT productos.nombre, productos.item_producto, venta_detalles.precio_unitario, SUM(venta_detalles.cantidad) AS ventas_totales, (venta_detalles.precio_unitario * (SUM(venta_detalles.cantidad))) AS total FROM `venta_detalles` JOIN `venta_cabeceras` ON `venta_detalles`.`id_venta` = `venta_cabeceras`.`id` JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` WHERE `venta_cabeceras`.`fecha_venta` >= fecha AND `venta_detalles`.`isDeleted` = 0; 
         END";
         DB::unprepared($procedimiento);
     }

@@ -240,8 +240,12 @@ class InventarioController extends Controller
 
         $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
         ->join('productos','venta_detalles.id_producto','=','productos.id')
-        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario','venta_detalles.id AS ventas_totales',DB::raw('(venta_detalles.id * venta_detalles.precio_unitario) AS total'))
-        ->where('venta_cabeceras.fecha_venta','>=',$fecha_busqueda)->get();
+        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario',DB::raw('SUM(venta_detalles.cantidad) AS ventas_totales'),DB::raw('(venta_detalles.id * venta_detalles.precio_unitario) AS total'))
+        //->select(['productos.nombre','productos.item_producto','(SUM(venta_detalles.precio_unitario * venta_detalles.cantidad)) AS precio_unitario','COUNT(venta_detalles.cantidad) AS ventas_totales','venta_detalles.cantidad AS total'])
+        ->where('venta_cabeceras.fecha_venta','>=',$fecha_busqueda)
+        ->where('venta_cabeceras.isDeleted','=',0)
+        ->groupBy('productos.id')
+        ->get();
 
         return response()->json(['respuesta'=>$ventas]);
     }
