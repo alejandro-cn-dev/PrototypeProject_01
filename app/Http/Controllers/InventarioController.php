@@ -214,39 +214,14 @@ class InventarioController extends Controller
     public function reporte_ventas()
     {
         //$ventas = Venta_cabecera::where()->get();
-        $ventas = Venta_detalle::where('id','=',1)->get();
+        $ventas = Venta_detalle::where('isDeleted','=',0)->get();
 
         return view('inventario.ventas')->with('ventas',$ventas);
         //return response()->json(['ventas'=>$ventas]);
     }
     public function reporte_ventas_criterio(Request $request)
-    {
-        $fecha_actual = Carbon::now();
-        $fecha_busqueda = '';
-        switch($request->param){
-            case 'hoy':
-                $fecha_busqueda = $fecha_actual;
-                break;
-            case 'sem':
-                $fecha_busqueda = $fecha_actual->subDay(7);
-                break;
-            case 'mes':
-                $fecha_busqueda = $fecha_actual->subMonth();
-                break;
-            default:
-                $fecha_busqueda = $fecha_actual;
-                break;
-        }
-
-        $ventas = Venta_detalle::join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
-        ->join('productos','venta_detalles.id_producto','=','productos.id')
-        ->select('productos.nombre','productos.item_producto','venta_detalles.precio_unitario',DB::raw('SUM(venta_detalles.cantidad) AS ventas_totales'),DB::raw('(venta_detalles.id * venta_detalles.precio_unitario) AS total'))
-        //->select(['productos.nombre','productos.item_producto','(SUM(venta_detalles.precio_unitario * venta_detalles.cantidad)) AS precio_unitario','COUNT(venta_detalles.cantidad) AS ventas_totales','venta_detalles.cantidad AS total'])
-        ->where('venta_cabeceras.fecha_venta','>=',$fecha_busqueda)
-        ->where('venta_cabeceras.isDeleted','=',0)
-        ->groupBy('productos.id')
-        ->get();
-
+    {     
+        $ventas = DB::select("CALL get_reporte_venta_by_arg ('".$request->param."')");
         return response()->json(['respuesta'=>$ventas]);
     }
 }
