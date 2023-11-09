@@ -13,9 +13,15 @@
 <div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
     <div class="row">
         <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
+        <input type="text" id="min" value="{min}" display="none">
+        <input type="text" id="max" value="{max}" display="none">
         <div class="col-sm-8">
             <select name="criterio" id="criterio" class="form-control" onchange="cargar_tabla();">
                 <option value="" selected>Mostrar todos los productos</option>
+                <!-- <option value="min">Agotados</option>
+                <option value="amin">Por agotarse</option>
+                <option value="amax">Cerca del tope máximo</option>
+                <option value="max">En el tope máximo</option> -->
                 <option value="min">Agotados</option>
                 <option value="amin">Por agotarse</option>
                 <option value="amax">Cerca del tope máximo</option>

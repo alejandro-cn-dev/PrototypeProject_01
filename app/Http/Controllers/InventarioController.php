@@ -109,8 +109,8 @@ class InventarioController extends Controller
         ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
         ->where('productos.isDeleted','=',0)->get();
         $parametros = Parametro::select('nombre','valor')->whereIn('nombre',['existencias_max','existencias_min'])->get();
-        $min = $parametros->contains('nombre','existencias_min');
-        $max = $parametros->contains('nombre','existencias_max');
+        $min = $parametros->contains('nombre','existencias_min')->valor;
+        $max = $parametros->contains('nombre','existencias_max')->valor;
         return view('inventario.existencias')->with('productos',$productos)->with('min',$min)->with('max',$max);
     }
     public function existencias_select($select)

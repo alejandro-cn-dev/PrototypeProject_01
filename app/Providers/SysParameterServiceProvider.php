@@ -37,7 +37,7 @@ class SysParameterServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(SystemValuesService $settinsInstance)
+    public function boot()
     {
         // $this->app->singleton('nombre_sistema', function ($app) {
         //     return new ManageParameters().getValues()->value('nombre_sistema');
@@ -45,9 +45,14 @@ class SysParameterServiceProvider extends ServiceProvider
         //Recuperar el nombre del sistema
         //$val1 = Parametro::where('isDeleted','=',0)->where('nombre','=','nombre_sistema')->get();
         if (\Schema::hasTable('parametros')) {
-            $parametros = Parametro::where('isDeleted','=',0)->get();
-            $nombre = $parametros->where('nombre','=','nombre_sistema')->last()->valor;
-            $version = $parametros->where('nombre','=','version_sistema')->last()->valor;
+            $parametros = Parametro::whereIn('nombre',['nombre_sistema','version_sistema'])->where('isDeleted','=',0)->get();
+            $nombre = 'Default';
+            $version = 'Default';
+            if(!empty($parametros->contains('nombre','version_sistema')->valor) && !empty($parametros->contains('nombre','nombre_sistema')->valor))
+            {
+                $nombre = $parametros->contains('nombre','nombre_sistema')->valor;
+                $version = $parametros->contains('nombre','version_sistema')->valor;
+            }            
             config(['adminlte.title' => 'Sistema Web | '.$nombre.' | '.$version]);
             config(['adminlte.logo' => '<b>'.$nombre.'</b>']);        
             config(['system_name' => $nombre]);
@@ -55,7 +60,7 @@ class SysParameterServiceProvider extends ServiceProvider
         }
         // Cache::forever('settings', \App\Models\Parametro::all());
         // Cache::forever('nom', 'AA');
-        View::share('globalsettings', $settinsInstance);
+        //View::share('globalsettings', $settinsInstance);
     }
 }
 
