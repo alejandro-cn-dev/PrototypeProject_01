@@ -108,7 +108,20 @@ class InventarioController extends Controller
         ->join('marcas','productos.id_marca','=','marcas.id')
         ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
         ->where('productos.isDeleted','=',0)->get();
-        return view('inventario.existencias')->with('productos',$productos);
+        $parametros = Parametro::select('nombre','valor')->whereIn('nombre',['existencias_max','existencias_min'])->get();
+        $min = $parametros->contains('nombre','existencias_min');
+        $max = $parametros->contains('nombre','existencias_max');
+        return view('inventario.existencias')->with('productos',$productos)->with('min',$min)->with('max',$max);
+    }
+    public function existencias_select($select)
+    {
+        $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
+        ->where('productos.isDeleted','=',0)->get();
+
+        return response()->json(['response'=>$productos]);
     }
     public function get_movimientos(Request $request)
     {

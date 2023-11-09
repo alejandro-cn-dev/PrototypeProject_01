@@ -71,7 +71,7 @@
 @section('js')
 <script>
     $(document).ready(function(){        
-        $('#existencias').DataTable({
+        var table = $('#existencias').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             buttons: [
@@ -105,6 +105,26 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
         });
-    });    
+        $('#criterio').on('change',function() {
+            table.draw();
+        });
+    });  
+    /* Custom filtering function which will search data in column four between two values */
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            //var criterio = parseInt( $('#criterio').val(), 10 );
+            var criterio = $('#criterio').val();
+            var existencias = parseFloat( data[8] ) || 0; // use data for the age column
+            if (existencias )
+            if ( ( isNaN( criterio ) ) ||
+                ( isNaN( criterio ) && age <= max ) ||
+                ( min <= age   && age <= max ) )
+            {
+                return true;
+            }
+            return false;
+        }
+    );
+   
 </script>
 @stop
