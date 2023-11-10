@@ -13,17 +13,17 @@
 <div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
     <div class="row">
         <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
-        <input type="text" id="min" value="{min}" display="none">
-        <input type="text" id="max" value="{max}" display="none">
+        <input type="text" id="min" value="{{$min}}" style="display: none;">
+        <input type="text" id="max" value="{{$max}}" style="display: none;">
         <div class="col-sm-8">
-            <select name="criterio" id="criterio" class="form-control" onchange="cargar_tabla();">
-                <option value="" selected>Mostrar todos los productos</option>
+            <select name="criterio" id="criterio" class="form-control">
+                <option value="all" selected>Mostrar todos los productos</option>
                 <!-- <option value="min">Agotados</option>
                 <option value="amin">Por agotarse</option>
                 <option value="amax">Cerca del tope máximo</option>
                 <option value="max">En el tope máximo</option> -->
-                <option value="min">Agotados</option>
-                <option value="amin">Por agotarse</option>
+                <option value="zero">Agotados</option>
+                <option value="min">Por agotarse</option>
                 <option value="amax">Cerca del tope máximo</option>
                 <option value="max">En el tope máximo</option>
             </select>
@@ -121,16 +121,43 @@
             //var criterio = parseInt( $('#criterio').val(), 10 );
             var criterio = $('#criterio').val();
             var existencias = parseFloat( data[8] ) || 0; // use data for the age column
-            if (existencias )
-            if ( ( isNaN( criterio ) ) ||
-                ( isNaN( criterio ) && age <= max ) ||
-                ( min <= age   && age <= max ) )
+            if (verificar_criterio(criterio,existencias))
             {
                 return true;
             }
             return false;
         }
     );
-   
+    function verificar_criterio(criterio,valor){
+        var flag = false;
+        let min_val = parseInt($("#min").val());
+        let max_val = parseInt($("#max").val());
+        switch (criterio){
+            case 'zero':
+                if(valor == 0){
+                    flag = true;
+                }
+                break;
+            case 'min':
+                if(valor <= min_val){
+                    flag = true;
+                }
+                break;
+            case 'amax':
+                if(valor < max_val && valor >= (max_val - 10)){
+                    flag = true;
+                }
+                break;
+            case 'max':
+                if(valor == max){
+                    flag = true;
+                }
+                break;
+            case 'all':
+                flag = true;
+                break;
+        }
+        return flag;
+    }
 </script>
 @stop

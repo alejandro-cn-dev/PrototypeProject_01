@@ -45,13 +45,13 @@ class SysParameterServiceProvider extends ServiceProvider
         //Recuperar el nombre del sistema
         //$val1 = Parametro::where('isDeleted','=',0)->where('nombre','=','nombre_sistema')->get();
         if (\Schema::hasTable('parametros')) {
-            $parametros = Parametro::whereIn('nombre',['nombre_sistema','version_sistema'])->where('isDeleted','=',0)->get();
+            $parametros = Parametro::select('valor')->whereIn('nombre',['nombre_sistema','version_sistema'])->where('isDeleted','=',0)->get();
             $nombre = 'Default';
             $version = 'Default';
-            if(!empty($parametros->contains('nombre','version_sistema')->valor) && !empty($parametros->contains('nombre','nombre_sistema')->valor))
+            if(!empty($parametros[0]->valor) && !empty($parametros[1]->valor))
             {
-                $nombre = $parametros->contains('nombre','nombre_sistema')->valor;
-                $version = $parametros->contains('nombre','version_sistema')->valor;
+                $nombre = $parametros[0]->valor;
+                $version = $parametros[1]->valor;
             }            
             config(['adminlte.title' => 'Sistema Web | '.$nombre.' | '.$version]);
             config(['adminlte.logo' => '<b>'.$nombre.'</b>']);        
