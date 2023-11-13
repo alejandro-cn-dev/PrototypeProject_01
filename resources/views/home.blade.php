@@ -210,5 +210,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Bienvenido al dashboard de presitex! (mensaje para los devs)'); </script>
+    <script> console.log("%c Bienvenido al dashboard! (mensaje para los devs)","color:green; background-color: lightblue; border:solid");</script>
 @stop
