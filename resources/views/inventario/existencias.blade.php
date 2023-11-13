@@ -139,12 +139,12 @@
                 }
                 break;
             case 'min':
-                if(valor <= min_val){
+                if(valor > 0 && valor <= min_val){
                     flag = true;
                 }
                 break;
             case 'amax':
-                if(valor < max_val && valor >= (max_val - 10)){
+                if(valor < max_val && valor >= (max_val-10)){
                     flag = true;
                 }
                 break;
