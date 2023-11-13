@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('numeracion');
             $table->date('fecha_compra');
             $table->unsignedBigInteger('id_proveedor');
-            $table->decimal('monto_total',5,2);
+            $table->decimal('monto_total',6,2);
             $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
 
