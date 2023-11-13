@@ -60,8 +60,14 @@
                     <td>{{ $producto->unidad }}</td>
                     @if(empty($producto->existencias)) 
                         <td><span class="badge bg-danger">0</span></td>
-                    @else
-                        <td><span @if(($producto->existencias) < 5) class="badge bg-warning" @else class="badge bg-success" @endif>{{ $producto->existencias }}</span></td>
+                    @elseif($producto->existencias <= $min)
+                        <td><span class="badge bg-warning">{{$producto->existencias}}</span></td>
+                    @elseif($producto->existencias < $max && $producto->existencias >= ($max - 10))
+                        <td><span class="badge bg-warning">{{ $producto->existencias }}</span></td>
+                    @elseif($producto->existencias < ($max - 10) && $producto->existencias > $min)
+                        <td><span class="badge bg-success">{{$producto->existencias}}</span></td>
+                    @elseif($producto->existencias == $max)
+                        <td><span class="badge bg-danger">{{$producto->existencias}}</span></td>
                     @endif                    
                 </tr>
             @endforeach
@@ -149,7 +155,7 @@
                 }
                 break;
             case 'max':
-                if(valor == max){
+                if(valor == max_val){
                     flag = true;
                 }
                 break;
