@@ -206,63 +206,17 @@
     <!-- SEGUNDA SECCION -->
     <div class="container-fluid">
         <div class="row">
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Productos mas vendidos</h3>
-                        <a href="#">Ver reporte de ventas</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="shadow-none p-3 bg-white rounded"> 
-                        <table id="ventas" class="table table-striped table-bordered mt-4" style="width: 100%;">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">Item</th>
-                                    <th scope="col"># ventas</th>
-                                </tr>
-                            </thead>
-                            <tbody id="datos_ventas">
-                                <tr>
-                                    <td>Hilo Cruzado</td>
-                                    <td>HI-531</td>
-                                    <td>201</td>
-                                </tr>
-                                <tr>
-                                    <td>Tela de prueba</td>
-                                    <td>TE-321</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Tela Cuiz xd</td>
-                                    <td>XD-000</td>
-                                    <td>1</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="d-flex flex-row justify-content-end">
-                    <span class="mr-2">
-                        <i class="fas fa-square text-primary"></i> This Week
-                    </span>
-                    <span>
-                        <i class="fas fa-square text-gray"></i> Last Week
-                    </span>
-                </div>
-                </div>
-                
-            <div class="card">
+            <div class="col-md-6">
+                <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Stock Agotado</h3>
-                            <a href="#">Ver existencias</a>
+                            <h3 class="card-title">Productos mas vendidos</h3>
+                            <a href="#">Ver reporte de ventas</a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="shadow-none p-3 bg-white rounded"> 
-                            <table id="ventas" class="table table-striped table-bordered mt-4" style="width: 100%;">
+                        <div class="shadow-none bg-white rounded"> 
+                            <table id="ventas" class="table table-striped table-bordered" style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>
@@ -287,20 +241,63 @@
                                         <td>1</td>
                                     </tr>
                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="d-flex flex-row justify-content-end">
+                        <span class="mr-2">
+                            <i class="fas fa-square text-primary"></i> This Week
+                        </span>
+                        <span>
+                            <i class="fas fa-square text-gray"></i> Last Week
+                        </span>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Stock Agotado</h3>
+                            <a href="#">Ver existencias</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded"> 
+                            <table id="ventas" class="table table-striped table-bordered" style="width: 100%;">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Color</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datos_ventas">
+                                    @foreach($aux as $producto)
+                                        <tr>
+                                            <td>{{$producto->nombre}}</td>
+                                            <td>{{$producto->item_producto}}</td>
+                                            <td>{{$producto->marca}}</td>
+                                            <td>{{$producto->color}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row justify-content-end">
+                            <!-- <div class="d-flex flex-row justify-content-end">
                                 <span class="mr-2">
                                     <i class="fas fa-square text-primary"></i> This Week
                                 </span>
                                 <span>
                                     <i class="fas fa-square text-gray"></i> Last Week
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-            
+                </div>
+            </div>
         </div>
     </div>
     <!-- FIN SEGUNDA SECCION -->
