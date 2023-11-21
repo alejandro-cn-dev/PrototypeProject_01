@@ -57,4 +57,15 @@ class User extends Authenticatable
     public function getName(){
         return 'nombre';
     }
+
+    //AdminLTE navbar config values
+    public function adminlte_image(){
+        return "https://cdn-icons-png.flaticon.com/512/233/233992.png";
+    }
+    public function adminlte_desc(){
+        return auth()->user()->roles->pluck('name')[0];
+    }
+    public function adminlte_profile_url(){
+        return "empleados/perfil";
+    }
 }
