@@ -144,7 +144,7 @@ class EmpleadoController extends Controller
 
     //Funciones propias
     public function reporte(){
-        $empleados = User::where('empleados.isDeleted','=',0)->get();
+        $empleados = User::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'));
