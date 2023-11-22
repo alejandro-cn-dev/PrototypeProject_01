@@ -121,7 +121,6 @@
          <tbody>
             <tr>
                <td>
-                  <p><strong>&iexcl; GRACIAS POR SU PREFERENCIA !</strong></p>
                   <p>&nbsp;</p>
                   <p>&nbsp;</p>
                   <p><strong>EMPRESA COMERCIAL "PRESITEX"</strong></p>
