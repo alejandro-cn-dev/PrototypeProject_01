@@ -19,17 +19,7 @@ class SysParameterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Intento #1
-        // //App::singleton('App\GlobalSettings', function($app){
-        // App::singleton(GlobalSettings::class, function($app){
-        // //$this->app->singleton(GlobalSettings::class, function ($app) {
-        //     return new GlobalSettings(Parametro::all());
-        // });
-        // Intento #2 (espero que el último)
-        //$a = 'app/SystemValues.json';
-        // $this->app->singleton('SystemValuesService', function () {
-        //     return new SystemValuesService();
-        // });
+
     }
 
     /**
@@ -39,11 +29,6 @@ class SysParameterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->app->singleton('nombre_sistema', function ($app) {
-        //     return new ManageParameters().getValues()->value('nombre_sistema');
-        // });
-        //Recuperar el nombre del sistema
-        //$val1 = Parametro::where('isDeleted','=',0)->where('nombre','=','nombre_sistema')->get();
         if (\Schema::hasTable('parametros')) {
             $parametros = Parametro::select('valor')->whereIn('nombre',['nombre_sistema','version_sistema'])->where('isDeleted','=',0)->get();
             $nombre = 'Default';
@@ -58,28 +43,5 @@ class SysParameterServiceProvider extends ServiceProvider
             config(['system_name' => $nombre]);
             config(['system_version' => $version]);
         }
-        // Cache::forever('settings', \App\Models\Parametro::all());
-        // Cache::forever('nom', 'AA');
-        //View::share('globalsettings', $settinsInstance);
-    }
-}
-
-//use Illuminate\Support\Facades\DB;
-
-class SystemValuesService
-{
-    protected $configValues;
-    protected $pathParams;
-    public function __construct()
-    {
-        $this->pathParams = env('APP_PATH_PARAMS', false);
-        $this->pathParams = 'C:\xampp\htdocs\WMS_WebSystem_01\app\SystemValues.json';
-        $this->configValues = json_decode(file_get_contents($this->pathParams), true);
-        //config($this->configValues);
-        config(['nombre_sistema' => 'AAAAAAAAAA']);
-    }
-    public function getConfigValue($nombre)
-    {        
-        return $this->configValues[$nombre];
     }
 }
