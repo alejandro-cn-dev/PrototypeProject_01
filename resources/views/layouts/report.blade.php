@@ -7,9 +7,16 @@
         * {
             font-family: Verdana, Arial, sans-serif;
         }
+        @page { margin: 100px 25px; }
         header, footer{
             background-color: lavender;
-        border-radius: 8px;
+            border-radius: 8px;
+            position: fixed;
+        }
+        header{
+            top: -90px; 
+            left: 0px; 
+            right: 0px;
         }
         main{
             margin-top: 20px;
@@ -17,9 +24,13 @@
         }
         footer{
             font-size: 10px;
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
+            /* display: flex; */
+            /* justify-content: space-between; */
+            /* padding: 10px; */
+            position: fixed; 
+            bottom: -90px; 
+            left: 0px; 
+            right: 0px;
         }
         table{
             font-size: 12px;
@@ -67,14 +78,14 @@
                 </td>
             </tr>
         </table>
-    </header>
-    <main>
-        <h3 align="center">@yield('cabecera')</h3>
-        @yield('content')  
-    </main>
+    </header>    
     <footer>
         <p> <b>Dirección:</b> Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104), La Paz.</p>
         <p><b>Teléfono:</b> (+591) 719-96-788</p>
     </footer>
+    <main>
+        <h3 align="center">@yield('cabecera')</h3>
+        @yield('content')  
+    </main>
 </body>
 </html>
