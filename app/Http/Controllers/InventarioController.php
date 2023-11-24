@@ -124,6 +124,10 @@ class InventarioController extends Controller
 
         return response()->json(['response'=>$productos]);
     }
+    public function export_reporte_existencias ($arg)
+    {
+        dd($arg);
+    }
     public function get_movimientos(Request $request)
     {
         if($request->criterio != 'ventas' && $request->criterio != 'compras'){
@@ -237,5 +241,9 @@ class InventarioController extends Controller
     {     
         $ventas = DB::select("CALL get_reporte_venta_by_arg ('".$request->param."')");
         return response()->json(['respuesta'=>$ventas]);
+    }
+    public function export_reporte_ventas($arg)
+    {
+        dd($arg);
     }
 }

@@ -33,6 +33,7 @@
 </div>
 
 <div class="shadow-none p-3 bg-white rounded"> 
+    <a href="#" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de Ventas</a>    
     <table id="existencias" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -164,6 +165,19 @@
                 break;
         }
         return flag;
+    }
+    function enviar_param(){
+        let arg = $('#criterio').find(":selected").val();
+        //let rout = "route('export_reporte_existencias',X)";
+        $.ajax({
+            url: "{{route('generar_reporte_existencias',1)}}",
+            success: function(result){
+                location.href = "{{ route('inventario.existencias') }}";
+            },
+            error: function(response){
+                console.log(response);
+            }
+        });
     }
 </script>
 @stop
