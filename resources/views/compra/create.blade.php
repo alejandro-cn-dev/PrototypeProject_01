@@ -348,7 +348,7 @@
                                                         });                                        
                                                 }else{
                                                         $('#alert1').hide();
-                                                        location.href = "{{ route('compras.index') }}"                                                
+                                                        location.href = "{{ route('compras.index') }}";
                                                 }
                                                 console.log(result);
                                         },
