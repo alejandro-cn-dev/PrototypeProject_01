@@ -25,7 +25,7 @@
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded"> 
-<a href="{{route('generar_reporte_ventas')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>    
+<a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de ventas</a>    
     <table id="ventas" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>

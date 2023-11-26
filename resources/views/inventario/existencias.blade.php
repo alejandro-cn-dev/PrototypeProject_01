@@ -15,7 +15,7 @@
         <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
         <input type="text" id="min" value="{{$min}}" style="display: none;">
         <input type="text" id="max" value="{{$max}}" style="display: none;">
-        <div class="col-sm-8">
+        <div class="col-sm-10">
             <select name="criterio" id="criterio" class="form-control">
                 <option value="all" selected>Mostrar todos los productos</option>
                 <!-- <option value="min">Agotados</option>
@@ -28,12 +28,12 @@
                 <option value="max">En el tope máximo</option>
             </select>
         </div>
-        <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>
+        <!-- <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a> -->
     </div>
 </div>
 
 <div class="shadow-none p-3 bg-white rounded"> 
-    <a href="#" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de Ventas</a>    
+    <a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>    
     <table id="existencias" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -169,13 +169,24 @@
     function enviar_param(){
         let arg = $('#criterio').find(":selected").val();
         //let rout = "route('export_reporte_existencias',X)";
+        let url = "{{route('generar_reporte_existencias',':id')}}";
+        url = url.replace(':id',arg);
         $.ajax({
-            url: "{{route('generar_reporte_existencias',1)}}",
-            success: function(result){
-                location.href = "{{ route('inventario.existencias') }}";
+            url: url,
+            type: 'GET',
+            xhrFields: {
+                responseType: 'blob'
             },
-            error: function(response){
-                console.log(response);
+            success: function(data){
+                var blob = new Blob([data]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "existencias_reporte.pdf";
+                link.click();
+                console.warn('PDF creado.');
+            },
+            error: function(blob){
+                console.log(blob);
             }
         });
     }

@@ -10,6 +10,7 @@ use App\Models\Venta_cabecera;
 use App\Models\Producto;
 use App\Models\Parametro;
 use Carbon\Carbon;
+use PDF;
 use DB;
 
 class InventarioController extends Controller
@@ -126,7 +127,31 @@ class InventarioController extends Controller
     }
     public function export_reporte_existencias ($arg)
     {
-        dd($arg);
+        $repuesta = collect();
+        $cabecera = "";
+        $parametros = Parametro::select('valor')->whereIn('nombre',['existencias_max','existencias_min'])->get();
+        $min = $parametros[0]->valor;
+        $max = $parametros[1]->valor;
+        $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
+        ->where('productos.isDeleted','=',0)->get();
+        // $repuesta = $productos->filter(function ($producto){
+        //     return in_array($producto->existencias,'==',0);
+        // });
+        if($arg == 'all'){ $respuesta = $productos; $cabecera = "Existencias de todos los productos";}
+        if($arg == 'zero'){ $respuesta = $productos->where('existencias','==',0); $cabecera = "Productos agotados";}
+        if($arg == 'min'){ $respuesta = $productos->where('existencias','>',0)->where('existencias','<=',$min); $cabecera = "Productos por agotarse";}
+        if($arg == 'amax'){ $respuesta = $productos->where('existencias','<',$max)->where('existencias','>=',($max-10)); $cabecera = "Productos cerca del límite de stock máximo";}
+        if($arg == 'max'){ $respuesta = $productos->where('existencias','==',$max); $cabecera = "Productos en stock máximo";}
+
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('inventario/pdf_existencias',compact('respuesta','fecha','cabecera'));
+        return $pdf->download();
+
+        //return response()->json(['data'=>$respuesta]);
     }
     public function get_movimientos(Request $request)
     {
