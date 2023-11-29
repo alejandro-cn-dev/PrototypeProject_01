@@ -60,7 +60,8 @@ class User extends Authenticatable
 
     //AdminLTE navbar config values
     public function adminlte_image(){
-        return "https://cdn-icons-png.flaticon.com/512/233/233992.png";
+        //return "https://cdn-icons-png.flaticon.com/512/233/233992.png";
+        return asset('img/default_user.png');
     }
     public function adminlte_desc(){
         return auth()->user()->roles->pluck('name')[0];
