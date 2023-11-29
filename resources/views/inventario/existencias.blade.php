@@ -10,9 +10,9 @@
 
 @section('content')
 <img src="{{ asset('img/existencias_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
-<div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
+<div class="shadow-none p-3 bg-white rounded mt-2 mb-2">
     <div class="row">
-        <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
+        <label for="criterio" class="col-form-label col-sm-2">Seleccione criterio: </label>
         <input type="text" id="min" value="{{$min}}" style="display: none;">
         <input type="text" id="max" value="{{$max}}" style="display: none;">
         <div class="col-sm-10">
@@ -32,8 +32,8 @@
     </div>
 </div>
 
-<div class="shadow-none p-3 bg-white rounded"> 
-    <a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>    
+<div class="shadow-none p-3 bg-white rounded">
+    <a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>
     <table id="existencias" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -59,7 +59,7 @@
                     <td>{{ $producto->precio_compra }}</td>
                     <td>{{ $producto->precio_venta }}</td>
                     <td>{{ $producto->unidad }}</td>
-                    @if(empty($producto->existencias)) 
+                    @if(empty($producto->existencias))
                         <td><span class="badge bg-danger">0</span></td>
                     @elseif($producto->existencias <= $min)
                         <td><span class="badge bg-warning">{{$producto->existencias}}</span></td>
@@ -69,7 +69,7 @@
                         <td><span class="badge bg-success">{{$producto->existencias}}</span></td>
                     @elseif($producto->existencias == $max)
                         <td><span class="badge bg-danger">{{$producto->existencias}}</span></td>
-                    @endif                    
+                    @endif
                 </tr>
             @endforeach
         </tbody>
@@ -83,7 +83,7 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){        
+    $(document).ready(function(){
         var table = $('#existencias').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -121,7 +121,7 @@
         $('#criterio').on('change',function() {
             table.draw();
         });
-    });  
+    });
     /* Custom filtering function which will search data in column four between two values */
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {

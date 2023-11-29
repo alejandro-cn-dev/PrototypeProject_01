@@ -10,8 +10,8 @@ use App\Models\Venta_cabecera;
 use App\Models\Producto;
 use App\Models\Parametro;
 use Carbon\Carbon;
-use PDF;
-use DB;
+use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\DB;
 
 class InventarioController extends Controller
 {
@@ -166,11 +166,11 @@ class InventarioController extends Controller
             ->select('costo_compra AS costo','cantidad','id_producto','compra_cabeceras.fecha_compra AS fecha','productos.nombre AS producto','productos.item_producto',DB::raw("'entrada' AS tipo"))
             ->where('compra_detalles.isDeleted','=',0)
             //->where('compra_cabeceras.isDeleted','=',0)
-            ->union($ventas1)->get();            
+            ->union($ventas1)->get();
             //->get();
             //$respuesta = $compras1->merge($ventas1);
             $respuesta = $compras1;
-        }        
+        }
         if($request->criterio == 'ventas'){
             $respuesta = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
             ->join('venta_cabeceras','venta_detalles.id_venta','=','venta_cabeceras.id')
@@ -196,7 +196,7 @@ class InventarioController extends Controller
         return view('inventario.control_stock')->with('productos',$productos);
     }
     public function stock_fecha(Request $request)
-    {        
+    {
         // reglas de validación
         $rules = [
             'fecha_inicio'     => 'required',
@@ -226,7 +226,7 @@ class InventarioController extends Controller
             DB::raw($stock_inicial))
         ->where('isDeleted','=',0)
         ->get();
-        
+
         return response()->json(['respuesta'=>$respuesta]);
     }
     public function reporte_stock()
@@ -257,18 +257,28 @@ class InventarioController extends Controller
     public function reporte_ventas()
     {
         //$ventas = Venta_cabecera::where()->get();
-        $ventas = Venta_detalle::where('isDeleted','=',0)->get();
-
+        //$ventas = Venta_detalle::where('isDeleted','=',0)->get();
+        $ventas = DB::select("CALL get_reporte_venta_by_arg ('all')");
         return view('inventario.ventas')->with('ventas',$ventas);
         //return response()->json(['ventas'=>$ventas]);
     }
     public function reporte_ventas_criterio(Request $request)
-    {     
+    {
         $ventas = DB::select("CALL get_reporte_venta_by_arg ('".$request->param."')");
         return response()->json(['respuesta'=>$ventas]);
     }
     public function export_reporte_ventas($arg)
     {
-        dd($arg);
+        $repuesta = collect();
+        $cabecera = "";
+        if($arg == ''){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";}
+        if($arg == 'hoy'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";}
+        if($arg == 'sem'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";}
+        if($arg == 'mes'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";}
+
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('inventario/pdf_ventas',compact('respuesta','fecha','cabecera'));
+        return $pdf->download();
     }
 }
