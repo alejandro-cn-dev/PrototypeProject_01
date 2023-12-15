@@ -3,7 +3,7 @@
 // use App\Helpers;
 //$aux = SystemValuesService::class;
 //$configValues = json_decode(file_get_contents('C:\xampp\htdocs\WMS_WebSystem_01\app\SystemValues.json'), true);
-return [    
+return [
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -15,7 +15,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-    
+
     //'title' => 'Sistema Web | '.$sistema->get('nombre_sistema').' | v6.1',
     //'title' => 'Sistema Web | '.$b['nombre_sistema'].' | v6.1',
     //'XD' => 'NOO',
@@ -28,7 +28,7 @@ return [
     //     $systemValuesService = app()->make('SystemValuesService');
     //     return $systemValuesService->getValues();
     // },
-    
+
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -79,7 +79,7 @@ return [
 
     //'logo' => '<b>Presitex</b>',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img' => 'img/logo_p.png',
+    //'logo_img' => 'img/logo_p.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -101,7 +101,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'img/logo_p.png',
+            //'path' => 'img/logo_p.png',
             'alt' => 'System Logo',
             'class' => '',
             'width' => 50,
@@ -346,7 +346,7 @@ return [
             'text'        => 'Inicio del panel',
             'url'         => 'home',
             'icon'    => 'fas fa-fw fa-home',
-        ], 
+        ],
         [
             'text'    => 'Gestion de productos',
             'icon'    => 'fas fa-fw fa-box',
@@ -357,7 +357,7 @@ return [
                     'url'  => 'productos',
                     'icon'    => 'fas fa-fw fa-box',
                     'can'   => 'productos.index'
-                ],                
+                ],
                 [
                     'text' => 'Categorias',
                     'icon'    => 'fas fa-fw fa-tags',
@@ -376,7 +376,7 @@ return [
                     'url'  => 'almacenes',
                     'can'   => 'almacens.index'
                 ],
-                
+
                 [
                     'text' => 'Proveedores',
                     'icon'    => 'fas fa-fw fa-users',
@@ -384,17 +384,17 @@ return [
                     'can'   => 'proveedores.index'
                 ],
             ],
-        ],        
+        ],
         [
             'text'        => 'Gestion de Usuarios',
             'url'         => 'empleados',
             'icon'    => 'fas fa-fw fa-users',
             'can'   => 'empleados.index',
-        ],  
+        ],
         [
             'text'    => 'Gestion de Inventario',
             'icon'    => 'fas fa-fw fa-book',
-            'submenu' => [             
+            'submenu' => [
                 [
                     'text' => 'Gestion de compras',
                     'icon'    => 'fas fa-fw fa-arrow-down',
@@ -423,7 +423,7 @@ return [
         ],
         [
             'text'    => 'Reportes',
-            'icon'    => 'fas fa-fw fa-file-pdf',            
+            'icon'    => 'fas fa-fw fa-file-pdf',
             'can'   => 'reporte.control_stock',
             'submenu' => [
                 [
@@ -431,7 +431,7 @@ return [
                     'icon'    => 'fas fa-fw fa-file-text',
                     'url'  => 'stock',
                     'can'   => 'reporte.control_stock'
-                ],         
+                ],
                 // [
                 //     'text' => 'Stock',
                 //     'icon'    => 'fas fa-fw fa-list-alt',
