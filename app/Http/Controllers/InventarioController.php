@@ -271,7 +271,7 @@ class InventarioController extends Controller
     {
         $repuesta = collect();
         $cabecera = "";
-        if($arg == ''){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";}
+        if($arg == 'all'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";}
         if($arg == 'hoy'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";}
         if($arg == 'sem'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";}
         if($arg == 'mes'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";}

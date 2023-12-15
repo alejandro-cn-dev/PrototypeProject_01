@@ -15,7 +15,7 @@
         <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
         <div class="col-sm-8">
             <select name="criterio" id="criterio" class="form-control">
-                <option value="" selected>Mostrar todos las ventas</option>
+                <option value="all" selected>Mostrar todos las ventas</option>
                 <option value="hoy">Hoy</option>
                 <option value="sem">La última semana</option>
                 <option value="mes">El último mes</option>
