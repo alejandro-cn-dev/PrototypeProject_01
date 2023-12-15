@@ -9,13 +9,13 @@
         }
         @page { margin: 100px 25px; }
         header, footer{
-            background-color: lavender;
+            /* background-color: lavender; */
             border-radius: 8px;
             position: fixed;
         }
         header{
-            top: -90px; 
-            left: 0px; 
+            top: -90px;
+            left: 0px;
             right: 0px;
         }
         main{
@@ -27,9 +27,9 @@
             /* display: flex; */
             /* justify-content: space-between; */
             /* padding: 10px; */
-            position: fixed; 
-            bottom: -90px; 
-            left: 0px; 
+            position: fixed;
+            bottom: -90px;
+            left: 0px;
             right: 0px;
         }
         table{
@@ -65,7 +65,7 @@
 <body>
     <header>
         <table style="border: none; width: 100%">
-            <tr>        
+            <tr>
                 <td valign="top" style="vertical-align: middle;	text-align-last: center; ">
                     <img src="{{ public_path('img/logo_report.jpg') }}" alt="" style="width: 75px;"/>
                 </td>
@@ -78,14 +78,16 @@
                 </td>
             </tr>
         </table>
-    </header>    
+        <hr size="3" color="black" />
+    </header>
     <footer>
+        <hr size="3" color="black" />
         <p> <b>Dirección:</b> Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104), La Paz.</p>
         <p><b>Teléfono:</b> (+591) 719-96-788</p>
     </footer>
     <main>
         <h3 align="center">@yield('cabecera')</h3>
-        @yield('content')  
+        @yield('content')
     </main>
 </body>
 </html>
