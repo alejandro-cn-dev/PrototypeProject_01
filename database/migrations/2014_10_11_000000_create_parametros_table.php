@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('valor');
+            $table->text('descripcion')->nullable();
             $table->boolean('isDeleted')->default(0);
             $table->timestamps();
         });
