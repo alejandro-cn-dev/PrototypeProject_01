@@ -10,7 +10,8 @@ class ConfigController extends Controller
     public function get_params()
     {
         $valores = Parametro::all();
-        return view('config')->with('valores',$valores);
+        $ruta_icono = Parametro::where('nombre','=','logo_sistema_path')->get()[0]->valor;
+        return view('config')->with('valores',$valores)->with('ruta_icono',$ruta_icono);
     }
     public function get_param($id)
     {

@@ -10,34 +10,38 @@
 
 @section('content')
 <img src="{{ asset('img/valores_main_logo.png') }}" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo valores">
-<div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
+<div class="shadow-none p-3 bg-white rounded mt-2 mb-2">
     <div class="row">
-        <label for="fecha_inicio" class="col-form-label col-sm-2">Seleccione criterio: </label>
+        <label class="col-form-label col-sm-2">Icono del sistema: </label>
         <div class="col-sm-8">
-            <input type="datetime" name="" id="">
+            <img src="{{ $ruta_icono }}" alt="logo sistema" width="50px" height="50px">
         </div>
-        <a class="btn btn-info form-control col-sm-2""><i class="fas fa-fw fa-search"></i> Buscar</a>
+        <a class="btn btn-info form-control col-sm-2""><i class="fas fa-fw fa-edit"></i> Cambiar icono</a>
     </div>
-</div>  
-<div class="shadow-none p-3 bg-white rounded">        
+</div>
+<div class="shadow-none p-3 bg-white rounded">
     <div class="table-responsive">
         <table id="valores" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Valor</th>                        
+                    {{-- <th scope="col">Descripción</th> --}}
+                    <th scope="col">Valor</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($valores as $valor)
-                <tr>
-                    <td>{{$valor->nombre}}</td>
-                    <td>{{$valor->valor}}</td>
-                    <td>
-                        <a href="/config/{{$valor->id}}" class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
-                    </td>
-                </tr>
+                @if ($valor->nombre != 'logo_sistema_path')
+                    <tr>
+                        <td>{{$valor->nombre}}</td>
+                        {{-- <td>{{$valor->descripcion}}</td> --}}
+                        <td>{{$valor->valor}}</td>
+                        <td>
+                            <a href="/config/{{$valor->id}}" class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
+                        </td>
+                    </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>
