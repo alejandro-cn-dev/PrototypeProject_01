@@ -32,6 +32,9 @@
             left: 0px;
             right: 0px;
         }
+        hr.separator{
+            border-top: 3px double #000000;
+        }
         table{
             font-size: 12px;
             border: 1px solid #CCC;
@@ -78,10 +81,10 @@
                 </td>
             </tr>
         </table>
-        <hr size="3" color="black" />
+        <hr class="separator" />
     </header>
     <footer>
-        <hr size="3" color="black" />
+        <hr class="separator"/>
         <p> <b>Dirección:</b> Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104), La Paz.</p>
         <p><b>Teléfono:</b> (+591) 719-96-788</p>
     </footer>
