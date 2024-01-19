@@ -216,7 +216,7 @@
                     </div>
                     <div class="card-body">
                         <div class="shadow-none bg-white rounded"> 
-                            <table id="ventas" class="table table-striped table-bordered" style="width: 100%;">
+                            <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>
@@ -264,7 +264,7 @@
                     </div>
                     <div class="card-body">
                         <div class="shadow-none bg-white rounded"> 
-                            <table id="ventas" class="table table-striped table-bordered" style="width: 100%;">
+                            <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>

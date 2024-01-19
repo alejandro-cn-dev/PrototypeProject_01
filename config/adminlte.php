@@ -348,6 +348,25 @@ return [
             'icon'    => 'fas fa-fw fa-home',
         ],
         [
+            'text'        => 'Administración',
+            'icon'    => 'fas fa-fw fa-lock',
+            'can'   =>  'empleados.index',
+            'submenu'   => [
+                [
+                    'text'        => 'Usuarios',
+                    'url'         => 'empleados',
+                    'icon'    => 'fas fa-fw fa-users',
+                    //'can'   => 'empleados.index',
+                ],
+                [
+                    'text'        => 'Parámetros',
+                    'url'         => 'config',
+                    'icon'    => 'fas fa-fw fa-cog',
+                    'can'   => 'panel-config-admin'
+                ]
+            ],
+        ],
+        [
             'text'    => 'Gestion de productos',
             'icon'    => 'fas fa-fw fa-box',
             'can'   => 'productos.index',
@@ -385,12 +404,12 @@ return [
                 ],
             ],
         ],
-        [
-            'text'        => 'Gestion de Usuarios',
-            'url'         => 'empleados',
-            'icon'    => 'fas fa-fw fa-users',
-            'can'   => 'empleados.index',
-        ],
+        // [
+        //     'text'        => 'Gestion de Usuarios',
+        //     'url'         => 'empleados',
+        //     'icon'    => 'fas fa-fw fa-users',
+        //     'can'   => 'empleados.index',
+        // ],
         [
             'text'    => 'Gestion de Inventario',
             'icon'    => 'fas fa-fw fa-book',
@@ -458,12 +477,12 @@ return [
             'icon'    => 'fas fa-fw fa-undo'
         ],
         // ['header' => 'Configuracion de parámetros', 'can' => 'panel-config-admin'],
-        [
-            'text'        => 'Parámetros',
-            'url'         => 'config',
-            'icon'    => 'fas fa-fw fa-cog',
-            'can'   => 'panel-config-admin'
-        ]
+        // [
+        //     'text'        => 'Parámetros',
+        //     'url'         => 'config',
+        //     'icon'    => 'fas fa-fw fa-cog',
+        //     'can'   => 'panel-config-admin'
+        // ]
     ],
 
     /*
