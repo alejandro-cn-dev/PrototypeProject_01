@@ -66,8 +66,8 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        $productos = new Producto();                        
+    {
+        $productos = new Producto();
         $productos->nombre = $request->get('nombre');
         $productos->descripcion = $request->get('descripcion');
         $color = $request->get('color');
@@ -90,7 +90,7 @@ class ProductoController extends Controller
         //$last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortByDesc()->get();
         //$last_id = Producto::orderBy('id','DESC')->where('item_producto','LIKE',$prefijo_matricula.'%')->where('isDeleted','=',1)->first();
         //$grupo_productos = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->get();
-        $num_item = Producto::where('id_categoria','=',$categoria->id)->where('isDeleted','=',0)->get();        
+        $num_item = Producto::where('id_categoria','=',$categoria->id)->where('isDeleted','=',0)->get();
         $productos->item_producto = $categoria->sufijo_categoria.'-'.str_pad(($num_item->count() + 1), 3, '0', STR_PAD_LEFT);
         $productos->save();
 
@@ -110,7 +110,7 @@ class ProductoController extends Controller
             $datos_imagen->nombre_imagen = $nombre;
             $datos_imagen->ubicacion = storage_path('images');
             $datos_imagen->save();
-        }        
+        }
 
         return redirect('/productos');
     }
@@ -194,7 +194,7 @@ class ProductoController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color',
+        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color', 'productos.nombre',
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
