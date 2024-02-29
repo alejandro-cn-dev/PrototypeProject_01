@@ -16,7 +16,7 @@
             </div>
             @csrf
             <div id="alert1" class="alert alert-danger" style="display:none"></div>
-            <div class="mb-3"><label for="" class="form-label">Proveedor</label>
+            <div class="mb-3"><label for="id_proveedor" class="form-label">Proveedor</label>
                 <select name="id_proveedor" id="id_proveedor" class="form-control" required>
                     <option value="">Seleccione un proveedor...</option>
                     @foreach ($proveedores as $proveedor)
@@ -24,7 +24,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mb-3"><label for="" class="form-label">Fecha de compra</label><input id="fecha_compra"
+            <div class="mb-3"><label for="fecha_compra" class="form-label">Fecha de compra</label><input id="fecha_compra"
                     name="fecha_compra" type="date" class="form-control" max="{{ $fecha_actual }}" tabindex="7" />
             </div>
             <div class="border border-dark p-3">
@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <label for="producto" class="form-label">Producto</label>
                                 <!-- <select name="producto" id="producto" style="width: 100%;" onchange="cargar_precio_unidad();"> -->
-                                <select name="producto" id="producto" style="width: 100%;" required>
+                                <select name="producto" id="producto" style="width: 100%;" data-init-plugin="select2" required>
                                     <option value="">Seleccione un producto...</option>
                                     @foreach ($productos as $producto)
                                         <option
