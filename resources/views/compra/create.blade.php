@@ -185,7 +185,7 @@
                         break;
                     case "precio_compra":
                         //celda = document.createTextNode((formato_precio(document.getElementById("precio_compra").value)).toFixed(2) + " Bs");
-                        celda = document.createTextNode(($("#precio_compra").val()) + " Bs");
+                        celda = document.createTextNode(($("#precio_compra").val()));
                         break;
                     case "subtotal":
                         //celda = document.createTextNode(parseFloat($("#precio_compra").val()*$("#cantidad").val()).toFixed(2));
