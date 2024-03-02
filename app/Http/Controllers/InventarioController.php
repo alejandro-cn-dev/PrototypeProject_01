@@ -12,6 +12,7 @@ use App\Models\Parametro;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Arg;
 
 class InventarioController extends Controller
 {
@@ -271,10 +272,23 @@ class InventarioController extends Controller
     {
         $repuesta = collect();
         $cabecera = "";
-        if($arg == 'all'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";}
-        if($arg == 'hoy'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";}
-        if($arg == 'sem'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";}
-        if($arg == 'mes'){ $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";}
+        switch($arg){
+            case 'all':
+                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";
+                break;
+            case 'hoy':
+                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";
+                break;
+            case 'sem':
+                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";
+                break;
+            case 'mes':
+                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";
+                break;
+            default:
+                if($arg.contains('-')){$repuesta = DB::select("CALL get_reporte_venta_by_date ("+$arg+")"); $cabecera = "Ventas del dia: "+$arg;}
+                break;
+        }
 
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
