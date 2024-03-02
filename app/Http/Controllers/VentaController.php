@@ -8,11 +8,11 @@ use App\Models\Venta_detalle;
 use App\Models\Producto;
 use App\Models\Cliente;
 use Carbon\Carbon;
-use PDF;
-use DB;
+use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
-{    
+{
     private $tabla_salidas = [];
     private $fila = 0;
     private $total = 0;
@@ -60,7 +60,7 @@ class VentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {
         //return redirect('/salidas');
     }
 
@@ -84,7 +84,7 @@ class VentaController extends Controller
     public function edit($id)
     {
         $ventas = Venta_cabecera::find($id);
-        // $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
+        // $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));
         return view('venta.edit')->with('venta',$ventas);
     }
 
@@ -129,7 +129,7 @@ class VentaController extends Controller
             'status' => 'success',
             'msg' => 'listo',
         );
-        return response()->json($response); 
+        return response()->json($response);
         //return redirect('/ventas');
     }
 
@@ -141,7 +141,7 @@ class VentaController extends Controller
         ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.ap_paterno','users.ap_materno','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
         $productos = Producto::all();
-        return view('venta.detalle_venta')->with('cabecera',$cabecera)->with('salidas',$ventas)->with('productos',$productos);        
+        return view('venta.detalle_venta')->with('cabecera',$cabecera)->with('salidas',$ventas)->with('productos',$productos);
     }
     public function agregar(Request $request){
         // reglas de validación
@@ -164,7 +164,7 @@ class VentaController extends Controller
         $id_producto = json_decode($request->producto);
         DB::select("CALL get_stock_by_productid (".$id_producto->id.", @p1)");
         $existencias = DB::select('select @p1 as stock');
-        return response()->json(['existencias' => $existencias]);        
+        return response()->json(['existencias' => $existencias]);
     }
     public function reporte(){
         //$salidas = Venta_cabecera::where('isDeleted','=',0)->get();
@@ -175,14 +175,14 @@ class VentaController extends Controller
         ->get();
         $total = Venta_cabecera::where('isDeleted','=',0)->sum('monto_total');
 
-        //Conseguir fecha actual y brindarle formato        
+        //Conseguir fecha actual y brindarle formato
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
         $fecha_actual = Carbon::now();
         $mes = $meses[($fecha_actual->format('n')) - 1];
         $dia = $dias[$fecha_actual->format('w')];
         $fecha = $dia . ', '.$fecha_actual->format('d') . ' de ' . $mes . ' de ' . $fecha_actual->format('Y');
-        
+
         $pdf = PDF::loadView('venta/pdf_venta',compact('salidas','total','fecha'));
         return $pdf->download('reporte_ventas_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return view('venta/pdf_salida',compact('salidas','total','fecha'));
@@ -196,7 +196,7 @@ class VentaController extends Controller
         $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
 
-        //Conseguir fecha actual y brindarle formato        
+        //Conseguir fecha actual y brindarle formato
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
         $fecha_actual = Carbon::now();
@@ -224,7 +224,7 @@ class VentaController extends Controller
         $mes = $meses[($fecha->format('n')) - 1];
         $dia = $dias[$fecha->format('w')];
         $fecha_nota = $dia . ', '.$fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
-        
+
         $pdf = PDF::loadView('venta/pdf_nota_venta',compact('cabecera','salidas','productos','fecha_nota'));
         return $pdf->download('nota_venta_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
@@ -234,7 +234,7 @@ class VentaController extends Controller
         //Sumar total
         $total = 0;
         $filas_tabla = json_decode($request->tabla);
-        
+
         foreach($filas_tabla as $fila){
             $total = $total + (($fila->precio_venta)*($fila->cantidad));
         }
@@ -248,18 +248,18 @@ class VentaController extends Controller
             $cliente->ci = $request->ci;
             $cliente->telefono = $request->telefono;
             $cliente->email = $request->email;
-            $cliente->direccion = $request->direccion;        
+            $cliente->direccion = $request->direccion;
             $cliente->save();
             $cliente_identi = $cliente->id;
         }else{
             $verificar_ci->nombre = $request->nombre;
             $verificar_ci->telefono = $request->telefono;
             $verificar_ci->email = $request->email;
-            $verificar_ci->direccion = $request->direccion;        
+            $verificar_ci->direccion = $request->direccion;
             $verificar_ci->save();
             $cliente_identi = $verificar_ci->id;
         }
-        
+
 
         //insertar cabecera
         $cabecera = new Venta_cabecera();
@@ -285,7 +285,7 @@ class VentaController extends Controller
             //$producto = Producto::where('descripcion','=',$fila->producto)->first();
             $salida->id_venta = $cabecera->id;
             $salida->precio_unitario = $fila->precio_venta;
-            $salida->cantidad = $fila->cantidad;        
+            $salida->cantidad = $fila->cantidad;
             $salida->id_producto = $fila->producto;
             $salida->save();
         }

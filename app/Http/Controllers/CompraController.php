@@ -9,7 +9,8 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\User;
 use Carbon\Carbon;
-use PDF;
+use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\Validator;
 
 class CompraController extends Controller
 {
@@ -84,7 +85,7 @@ class CompraController extends Controller
     {
         $compras = Compra_cabecera::find($id);
         $proveedores = Proveedor::all();
-        // $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));        
+        // $denominacion = array(array('id'=>"recibo",'value'=>"Recibo"),array("id"=>"factura","value"=>"Factura"),array("id"=>"nota de venta","value"=>"Nota de venta"));
         return view('compra.edit')->with('entrada',$compras)->with('proveedores',$proveedores);
     }
 
@@ -122,12 +123,12 @@ class CompraController extends Controller
 
         //Anulando registros de compra
         $affectedRows = Compra_detalle::where("id_compra", $id)->update(["isDeleted" => true]);
-        
+
         $response = array(
             'status' => 'success',
             'msg' => 'listo',
         );
-        return response()->json($response); 
+        return response()->json($response);
         //return redirect('/compras');
     }
 
@@ -147,7 +148,7 @@ class CompraController extends Controller
         ->with('usuario',$usuario);
     }
     public function agregar(Request $request){
-        $validator = \Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'producto'          => 'required',
             'precio_compra'      => 'required',
             'unidad'      => 'required',
@@ -158,15 +159,15 @@ class CompraController extends Controller
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
         $last_id_cabecera = Compra_cabecera::latest('id')->first();
-        
+
         //$this->fila = $this->fila + 1;
-        
+
         array_push($this->tabla_salidas,array(
-            //"id" => $this->fila, 
-            "producto" => $request->producto, 
-            "precio_compra" => $request->precio_compra, 
-            "unidad" => $request->unidad, 
-            "cantidad" => $request->cantidad            
+            //"id" => $this->fila,
+            "producto" => $request->producto,
+            "precio_compra" => $request->precio_compra,
+            "unidad" => $request->unidad,
+            "cantidad" => $request->cantidad
         ));
         //return response()->json(['success'=>'Data is successfully added']);
         return response()->json(['success'=>$this->tabla_salidas]);
@@ -189,7 +190,7 @@ class CompraController extends Controller
         $proveedor = Proveedor::all();
         $fecha_actual = date_create(date('d-m-Y'));
 
-        //Conseguir fecha actual y brindarle formato        
+        //Conseguir fecha actual y brindarle formato
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
         $fecha_actual = Carbon::now();
@@ -230,7 +231,7 @@ class CompraController extends Controller
         $mes = $meses[($fecha->format('n')) - 1];
         $dia = $dias[$fecha->format('w')];
         $fecha_recibo = $dia . ', '.$fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
-        
+
         //tamaño personalizado de hoja de recibo
         $customPaper = array(0,0,567.00,450.00);
 
@@ -252,7 +253,7 @@ class CompraController extends Controller
         //Sumar total
         $filas_tabla = json_decode($request->tabla);
         //$filas_tabla = $request->tabla;
-        
+
         foreach($filas_tabla as $fila){
             $total = $total + (($fila->precio_compra)*($fila->cantidad));
         }
@@ -274,13 +275,13 @@ class CompraController extends Controller
         }
         $cabecera->fecha_compra = $fecha;
         $cabecera->save();
-        
+
         $filas_tabla = json_decode($request->tabla);
 
-        foreach($filas_tabla as $fila){            
+        foreach($filas_tabla as $fila){
             $entrada = new Compra_detalle();
-            //$producto = Producto::where('descripcion','=',$fila->producto)->first();  
-            $entrada->id_compra = $cabecera->id;      
+            //$producto = Producto::where('descripcion','=',$fila->producto)->first();
+            $entrada->id_compra = $cabecera->id;
             $entrada->costo_compra = $fila->precio_compra;   // Añadir variable a la tabla
             $entrada->cantidad = $fila->cantidad;
             $entrada->id_producto = $fila->producto;

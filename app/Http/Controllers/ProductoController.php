@@ -9,7 +9,9 @@ use App\Models\Almacen;
 use App\Models\Marca;
 use App\Models\Empleado;
 use App\Models\Imagen;
-use PDF;
+use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ProductoController extends Controller
 {
@@ -101,7 +103,7 @@ class ProductoController extends Controller
             //obtenemos el nombre del archivo
             $nombre =  time()."_"."producto_".$productos->id.".".$imagen->extension();
             //indicamos que queremos guardar un nuevo archivo en el disco local
-            \Storage::disk('images')->put($nombre,  \File::get($imagen));
+            Storage::disk('images')->put($nombre,  File::get($imagen));
 
             // guardar referencias a imagen
             $datos_imagen = new Imagen();

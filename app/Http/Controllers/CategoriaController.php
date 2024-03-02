@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Empleado;
-use PDF;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class CategoriaController extends Controller
 {
@@ -126,7 +126,7 @@ class CategoriaController extends Controller
             'status' => 'success',
             'msg' => 'listo',
         );
-        return response()->json($response); 
+        return response()->json($response);
         //return redirect('/categorias');
     }
 

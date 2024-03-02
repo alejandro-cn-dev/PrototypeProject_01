@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Almacen;
 use App\Models\Empleado;
-use PDF;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class AlmacenController extends Controller
 {
@@ -104,7 +104,7 @@ class AlmacenController extends Controller
      */
     public function destroy($id)
     {
-        $almacen = Almacen::find($id);        
+        $almacen = Almacen::find($id);
         $almacen->isDeleted = true;
         $almacen->save();
         //$almacen->delete();
@@ -112,7 +112,7 @@ class AlmacenController extends Controller
             'status' => 'success',
             'msg' => 'listo',
         );
-        return response()->json($response); 
+        return response()->json($response);
         //return redirect('/almacenes');
     }
 

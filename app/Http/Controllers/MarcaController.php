@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Marca;
 use App\Models\Empleado;
-use PDF;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class MarcaController extends Controller
 {
@@ -49,7 +49,7 @@ class MarcaController extends Controller
     {
         $marcas = new Marca();
         $detalle = $request->get('detalle');
-        $marcas->detalle = $detalle;       
+        $marcas->detalle = $detalle;
         $marcas->id_usuario = auth()->user()->id;
         $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
 
@@ -77,7 +77,7 @@ class MarcaController extends Controller
      */
     public function edit($id)
     {
-        $marca = Marca::find($id);     
+        $marca = Marca::find($id);
         return view('marca.edit')->with('marca',$marca);
     }
 

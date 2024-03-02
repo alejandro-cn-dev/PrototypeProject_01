@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
-use PDF;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +37,7 @@ class EmpleadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
+    {
         $roles =  Role::all();
         return view('empleado.create')->with('roles',$roles);
     }
@@ -98,11 +98,11 @@ class EmpleadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         //$id_rol = $request->get('id_rol');
         //$id_user = $request->get('id_user');
         //$roles = Rol::where('id','=',$id_rol)->first();
-        
+
         // $usuario = User::find($id_user);
         // $usuario->name = $nombre;
         // $usuario->save();
@@ -177,17 +177,17 @@ class EmpleadoController extends Controller
         ];
         // Validacion de Request
         $validator = $this->validate($request,$rules,$custom_messages);
-    
+
         // Inicio de procesos de actualización de contraseña nueva
         $usuario = User::find($request->id_usuario);
         $usuario->password = $request->get('nueva1');
         $usuario->save();
-        
+
         $response = array(
             'status' => 'success',
             'msg' => 'listo',
         );
-        return response()->json($response); 
+        return response()->json($response);
     }
     public function perfil(){
         $usuario = User::find(auth()->user()->id);

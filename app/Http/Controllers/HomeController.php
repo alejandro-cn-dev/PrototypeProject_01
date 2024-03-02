@@ -12,7 +12,7 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Cliente;
 use App\Models\Rol;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -37,13 +37,13 @@ class HomeController extends Controller
         $compras = Compra_cabecera::where('isDeleted','=',0)->count();
         $empleados = User::where('isDeleted','=',0)->count();
         $productos = Producto::where('isDeleted','=',0)->count();
-        $existencia_adquirida = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')        
+        $existencia_adquirida = Compra_detalle::join('productos','compra_detalles.id_producto','=','productos.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
         ->where('compra_detalles.isDeleted','=',0)
         ->where('productos.isDeleted','=',0)
         //->where('categorias.nombre','NOT LIKE','%Hilo%')
         ->sum('compra_detalles.cantidad');
-        $existencia_vendida = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')        
+        $existencia_vendida = Venta_detalle::join('productos','venta_detalles.id_producto','=','productos.id')
         ->join('categorias','productos.id_categoria','=','categorias.id')
         ->where('venta_detalles.isDeleted','=',0)
         ->where('productos.isDeleted','=',0)
@@ -60,7 +60,7 @@ class HomeController extends Controller
             $ganancias_totales = 0;
         }else{
             $ganancias_totales = (($total_ventas - $total_compras) / $total_ventas) * 100;
-        }        
+        }
         $ganancias_totales = number_format($ganancias_totales, 2, ',', ' ');
 
         // Para cargar la tabla de productos mas vendidos
