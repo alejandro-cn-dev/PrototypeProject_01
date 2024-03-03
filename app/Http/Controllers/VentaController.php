@@ -271,7 +271,7 @@ class VentaController extends Controller
         $cabecera->id_usuario = auth()->user()->id;
         $cabecera->monto_total = $total;
         // Si no se introdujo ninguna fecha, se establece la fecha actual
-        if($request->fecha_venta !== ''){
+        if(empty($request->fecha_venta)){
             $fecha = date('Y-m-d', strtotime(Carbon::now()));
         }else{
             $fecha = $request->fecha_venta;

@@ -268,7 +268,7 @@ class CompraController extends Controller
         $cabecera->id_usuario = auth()->user()->id;
 
         // Si no se introdujo ninguna fecha, se establece la fecha actual
-        if($request->fecha_compra !== ''){
+        if(empty($request->fecha_compra)){
             $fecha = date('Y-m-d', strtotime(Carbon::now()));
         }else{
             $fecha = $request->fecha_compra;
