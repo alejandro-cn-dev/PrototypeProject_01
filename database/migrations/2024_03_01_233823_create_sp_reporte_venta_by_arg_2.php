@@ -16,7 +16,7 @@ return new class extends Migration
     {
         // cambiar esto para que muestre un listado de todas las compras no agrupadas por producto
         $procedimiento = "DROP PROCEDURE IF EXISTS `get_reporte_venta_by_arg_2`;
-        CREATE PROCEDURE `get_reporte_venta_by_arg`(IN `ARG` VARCHAR(25)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER
+        CREATE PROCEDURE `get_reporte_venta_by_arg_2`(IN `ARG` VARCHAR(25)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER
         BEGIN
             DECLARE fecha_hoy DATE DEFAULT '2023-01-01';
             DECLARE fecha DATE;
