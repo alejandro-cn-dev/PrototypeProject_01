@@ -459,14 +459,20 @@ return [
                 // ],
                 [
                     'text' => 'Valoracion de inventarios',
-                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'icon'    => 'fas fa-fw fa-file-alt',
                     'url'  => 'reporte_valoracion',
                     'can'   => 'reporte.valoracion'
                 ],
                 [
-                    'text' => 'Reporte de ventas',
-                    'icon'    => 'fas fa-fw fa-list-alt',
+                    'text' => 'Ventas por productos',
+                    'icon'    => 'fas fa-fw fa-file-alt',
                     'url'  => 'reporte_ventas',
+                    'can'   => ''
+                ],
+                [
+                    'text' => 'Todas las ventas',
+                    'icon'    => 'fas fa-fw fa-file-alt',
+                    'url'  => 'reporte_ventas_todo',
                     'can'   => ''
                 ]
             ],
