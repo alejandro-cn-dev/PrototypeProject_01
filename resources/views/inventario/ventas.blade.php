@@ -19,9 +19,16 @@
                 <option value="hoy">Hoy</option>
                 <option value="sem">La última semana</option>
                 <option value="mes">El último mes</option>
+                <option value="fecha">Por fecha...</option>
             </select>
         </div>
         <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>
+    </div>
+    <div class="row" id="campo_fecha" style="display: none;">
+        <label for="buscar_fecha" class="col-form-label col-sm-2">Fecha a buscar:</label>
+        <div class="col-sm-8">
+            <input type="date" class="form-control" id="buscar_fecha" name="buscar_fecha"/>
+        </div>
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded">
@@ -99,6 +106,13 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
         });
+    });
+    $("#criterio").change(function(){
+        if($(this).val() == 'fecha'){
+            $("#campo_fecha").show();
+        }else{
+            $("#campo_fecha").hide();
+        }
     });
     function recargar_tabla(){
         let criterio = document.getElementById("criterio").value;
