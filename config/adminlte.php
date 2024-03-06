@@ -472,7 +472,7 @@ return [
                 [
                     'text' => 'Todas las ventas',
                     'icon'    => 'fas fa-fw fa-file-alt',
-                    'url'  => 'reporte_ventas_todo',
+                    'url'  => 'reporte_ventas_detalle',
                     'can'   => ''
                 ]
             ],

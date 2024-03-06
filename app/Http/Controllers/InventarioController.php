@@ -260,7 +260,15 @@ class InventarioController extends Controller
         //$ventas = Venta_cabecera::where()->get();
         //$ventas = Venta_detalle::where('isDeleted','=',0)->get();
         $ventas = DB::select("CALL get_reporte_venta_by_arg ('all')");
-        return view('inventario.ventas')->with('ventas',$ventas);
+        return view('inventario.ventas_producto')->with('ventas',$ventas);
+        //return response()->json(['ventas'=>$ventas]);
+    }
+    public function reporte_ventas_detalle()
+    {
+        //$ventas = Venta_cabecera::where()->get();
+        //$ventas = Venta_detalle::where('isDeleted','=',0)->get();
+        $ventas = DB::select("CALL get_reporte_venta_by_arg_2 ('all')");
+        return view('inventario.ventas_detalle')->with('ventas',$ventas);
         //return response()->json(['ventas'=>$ventas]);
     }
     public function reporte_ventas_criterio(Request $request)
@@ -292,7 +300,7 @@ class InventarioController extends Controller
 
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('inventario/pdf_ventas',compact('respuesta','fecha','cabecera'));
+        $pdf = PDF::loadView('inventario/pdf_ventas_producto',compact('respuesta','fecha','cabecera'));
         return $pdf->download();
     }
 }

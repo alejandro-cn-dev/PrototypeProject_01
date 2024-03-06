@@ -32,10 +32,10 @@
                 <tr>
                     <td>{{ $venta->item_producto }}</td>
                     <td>{{ $venta->nombre }}</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                    <td>{{ $venta->marca }}</td>
+                    <td>{{ $venta->medida }}</td>
+                    <td>{{ $venta->calidad }}</td>
+                    <td>{{ $venta->unidad }}</td>
                     {{-- <td>{{ $venta->marca? '':'-' }}</td>
                     <td>{{ $venta->medida? '':'-' }}</td>
                     <td>{{ $venta->calidad? '':'-' }}</td>
@@ -49,7 +49,7 @@
         <tfoot>
             <tr style="border: 1px solid black;">
                 <td colspan="8" style="font-size: 15px; background-color: #ffcc00;">
-                    TOTAL
+                    TOTAL Bs.
                 </td>
                 <td style="font-size: 15px; background-color: #ffcc00; text-align: right;">
                     {{number_format($total_final, 2)}}

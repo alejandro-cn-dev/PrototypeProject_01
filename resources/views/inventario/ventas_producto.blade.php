@@ -5,7 +5,7 @@
 @stop
 
 @section('content_header')
-    <h1>Reporte de ventas</h1>
+    <h1>Reporte de ventas por producto</h1>
 @stop
 
 @section('content')
@@ -25,9 +25,13 @@
         <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>
     </div>
     <div class="row" id="campo_fecha" style="display: none;">
-        <label for="buscar_fecha" class="col-form-label col-sm-2">Fecha a buscar:</label>
-        <div class="col-sm-8">
-            <input type="date" class="form-control" id="buscar_fecha" name="buscar_fecha"/>
+        <label for="buscar_fecha_min" class="col-form-label col-sm-2">Fecha inicio:</label>
+        <div class="col-sm-3">
+            <input type="date" class="form-control" id="buscar_fecha_min" name="buscar_fecha_min"/>
+        </div>
+        <label for="buscar_fecha_max" class="col-form-label col-sm-2">Fecha fin:</label>
+        <div class="col-sm-3">
+            <input type="date" class="form-control" name="buscar_fecha_max" id="buscar_fecha_max"/>
         </div>
     </div>
 </div>
@@ -38,6 +42,10 @@
             <tr>
                 <th scope="col">Item</th>
                 <th scope="col">Producto</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Medida</th>
+                <th scope="col">Calidad</th>
+                <th scope="col">Unidad</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Ventas</th>
                 <th scope="col">Total</th>
@@ -48,6 +56,10 @@
                 <tr>
                     <td>{{ $venta->item_producto }}</td>
                     <td>{{ $venta->nombre }}</td>
+                    <td>{{ $venta->marca }}</td>
+                    <td>{{ $venta->medida }}</td>
+                    <td>{{ $venta->calidad }}</td>
+                    <td>{{ $venta->unidad }}</td>
                     <td>{{ $venta->precio_unitario }}</td>
                     <td>{{ $venta->ventas_totales }}</td>
                     <td>{{ $venta->total}}</td>
@@ -96,11 +108,15 @@
                 }
             ],
             columnDefs: [
-                {"targets": [0],"data":"nombre"},
-                {"targets": [1],"data":"item_producto"},
-                {"targets": [2],"data":"precio_unitario"},
-                {"targets": [3],"data":"ventas_totales"},
-                {"targets": [4],"data":"total"},
+                {"targets": [0],"data":"item_producto"},
+                {"targets": [1],"data":"nombre"},
+                {"targets": [2],"data":"marca"},
+                {"targets": [3],"data":"medida"},
+                {"targets": [4],"data":"calidad"},
+                {"targets": [5],"data":"unidad"},
+                {"targets": [6],"data":"precio_unitario"},
+                {"targets": [7],"data":"ventas_totales"},
+                {"targets": [8],"data":"total"},
             ],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
@@ -171,7 +187,7 @@
                 fila.salidas = 0;
             }
             let tr = document.createElement("tr");
-            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_producto+"</td><td>"+fila.precio_unitario+"</td><td>"+fila.ventas_totales+"</td><td>"+((parseInt(fila.precio_unitario,10)) * (parseInt(fila.ventas_totales,10)))+"</td></tr>";
+            let fila_tabla = "<tr><td>"+fila.item_producto+"</td><td>"+fila.nombre+"</td><td>"+fila.marca+"</td><td>"+fila.medida+"</td><td>"+fila.calidad+"</td><td>"+fila.unidad+"</td><td>"+fila.precio_unitario+"</td><td>"+fila.ventas_totales+"</td><td>"+((parseInt(fila.precio_unitario,10)) * (parseInt(fila.ventas_totales,10)))+"</td></tr>";
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
         });
