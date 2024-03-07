@@ -270,8 +270,10 @@ class CompraController extends Controller
         // Si no se introdujo ninguna fecha, se establece la fecha actual
         if(empty($request->fecha_compra)){
             $fecha = date('Y-m-d', strtotime(Carbon::now()));
+            $cabecera->hora_compra = date('H:i a', strtotime(Carbon::now()));
         }else{
             $fecha = $request->fecha_compra;
+
         }
         $cabecera->fecha_compra = $fecha;
         $cabecera->save();

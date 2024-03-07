@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('venta_cabeceras', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
             $table->double('numeracion');
             $table->date('fecha_venta')->nullable();
+            $table->string('hora_venta',8)->default('00:00 am');
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_usuario');
             $table->decimal('monto_total',6,2);

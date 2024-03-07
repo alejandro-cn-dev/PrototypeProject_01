@@ -10,6 +10,7 @@ use App\Models\Cliente;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\DB;
+use JeroenNoten\LaravelAdminLte\View\Components\Widget\Card;
 
 class VentaController extends Controller
 {
@@ -273,6 +274,7 @@ class VentaController extends Controller
         // Si no se introdujo ninguna fecha, se establece la fecha actual
         if(empty($request->fecha_venta)){
             $fecha = date('Y-m-d', strtotime(Carbon::now()));
+            $cabecera->hora_venta = date('H:i a',strtotime(Carbon::now()));
         }else{
             $fecha = $request->fecha_venta;
         }
