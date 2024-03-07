@@ -273,7 +273,12 @@ class InventarioController extends Controller
     }
     public function reporte_ventas_criterio(Request $request)
     {
-        $ventas = DB::select("CALL get_reporte_venta_by_arg ('".$request->param."')");
+        if($request->param == 'fecha'){
+            $ventas = DB::select("CALL get_reporte_venta_by_date ('".$request->fecha_inicio."','".$request->fecha_fin."')");
+            //$ventas = DB::select("SET @p0='".$request->fecha_inicio."'; SET @p1='".$request->fecha_fin."'; CALL `get_reporte_venta_by_date`(@p0, @p1);");
+        }else{
+            $ventas = DB::select("CALL get_reporte_venta_by_arg ('".$request->param."')");
+        }
         return response()->json(['respuesta'=>$ventas]);
     }
     public function export_reporte_ventas($arg)

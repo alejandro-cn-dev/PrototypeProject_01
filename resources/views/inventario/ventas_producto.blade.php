@@ -122,6 +122,7 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
         });
+        buscar_fecha_max.max = new Date().toISOString().split("T")[0];
     });
     $("#criterio").change(function(){
         if($(this).val() == 'fecha'){
@@ -131,13 +132,26 @@
         }
     });
     function recargar_tabla(){
-        let criterio = document.getElementById("criterio").value;
+        let criterio = $("#criterio").val();
+        let fecha_min = $("#buscar_fecha_min").val();
+        let fecha_max = $("#buscar_fecha_max").val();
         var tabla = $('#ventas').DataTable();
+        if(criterio == 'fecha'){
+            if(fecha_min == '' && fecha_max == ''){
+                alert('Seleccione un rango de fechas');
+            }
+            if(fecha_min == '' || fecha_max == ''){
+                if(fecha_min == ''){fecha_min=fecha_max;}
+                if(fecha_max == ''){fecha_max=fecha_min;}
+            }
+        }
         $.ajax({
             url: "{{ route('reporte_ventas') }}",
             type: "POST",
             data: {
                 param: criterio,
+                fecha_inicio: fecha_min,
+                fecha_fin: fecha_max,
                 _token: "{{ csrf_token() }}"
             },
             success: function(result){
