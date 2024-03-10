@@ -139,6 +139,7 @@
         if(criterio == 'fecha'){
             if(fecha_min == '' && fecha_max == ''){
                 alert('Seleccione un rango de fechas');
+                return;
             }
             if(fecha_min == '' || fecha_max == ''){
                 if(fecha_min == ''){fecha_min=fecha_max;}
@@ -208,9 +209,20 @@
     }
     function enviar_param(){
         let arg = $('#criterio').find(":selected").val();
+        let fecha_min = $('#buscar_fecha_min').val();
+        let fecha_max = $('#buscar_fecha_max').val();
+        let url = "";
         //let rout = "route('export_reporte_existencias',X)";
-        let url = "{{route('generar_reporte_ventas',':id')}}";
-        url = url.replace(':id',arg);
+        if(arg == 'fecha'){
+            url = "{{route('generar_reporte_ventas_date',':date')}}";
+            arg = "producto|"+fecha_min+"|"+fecha_max;
+            url = url.replace(':date',arg);
+            console.warn(arg);
+        }else{
+            url = "{{route('generar_reporte_ventas_arg',':arg')}}";
+            url = url.replace(':arg',arg);
+            console.log(arg);
+        }
         $.ajax({
             url: url,
             type: 'GET',
@@ -221,9 +233,9 @@
                 var blob = new Blob([data]);
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "ventas_reporte.pdf";
+                link.download = "ventas_producto_reporte.pdf";
                 link.click();
-                console.warn('PDF creado.');
+                console.warn('PDF creado exitosamente.');
             },
             error: function(blob){
                 console.log(blob);
