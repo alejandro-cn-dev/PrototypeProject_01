@@ -214,6 +214,10 @@
         let url = "";
         //let rout = "route('export_reporte_existencias',X)";
         if(arg == 'fecha'){
+            if(fecha_min == '' || fecha_max == ''){
+                if(fecha_min == ''){fecha_min=fecha_max;}
+                if(fecha_max == ''){fecha_max=fecha_min;}
+            }
             url = "{{route('generar_reporte_ventas_date',':date')}}";
             arg = "producto|"+fecha_min+"|"+fecha_max;
             url = url.replace(':date',arg);

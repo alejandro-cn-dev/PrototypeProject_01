@@ -281,24 +281,53 @@ class InventarioController extends Controller
         }
         return response()->json(['respuesta'=>$ventas]);
     }
+    public function reporte_ventas_criterio_2(Request $request)
+    {
+        if($request->param == 'fecha'){
+            $ventas = DB::select("CALL get_reporte_venta_by_date_2 ('".$request->fecha_inicio."','".$request->fecha_fin."')");
+            //$ventas = DB::select("SET @p0='".$request->fecha_inicio."'; SET @p1='".$request->fecha_fin."'; CALL `get_reporte_venta_by_date`(@p0, @p1);");
+        }else{
+            $ventas = DB::select("CALL get_reporte_venta_by_arg_2 ('".$request->param."')");
+        }
+        return response()->json(['respuesta'=>$ventas]);
+    }
     public function export_reporte_ventas_by_arg($arg)
     {
         $repuesta = collect();
         $cabecera = "";
-        switch($arg){
-            case 'all':
-                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";
-                break;
-            case 'hoy':
-                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";
-                break;
-            case 'sem':
-                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";
-                break;
-            case 'mes':
-                $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";
-                break;
+        $args = explode('|',$arg);
+        if($args[0] == 'producto'){
+            switch($args[1]){
+                case 'all':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";
+                    break;
+                case 'hoy':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";
+                    break;
+                case 'sem':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";
+                    break;
+                case 'mes':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";
+                    break;
+            }
+        }else if($args[0] == 'detalle'){
+            switch($args[1]){
+                case 'all':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('all')"); $cabecera = "Ventas de todos los productos";
+                    break;
+                case 'hoy':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('hoy')"); $cabecera = "Ventas de hoy";
+                    break;
+                case 'sem':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('sem')"); $cabecera = "Ventas de la semana";
+                    break;
+                case 'mes':
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('mes')"); $cabecera = "Ventas del mes";
+                    break;
+            }
         }
+
 
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');

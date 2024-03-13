@@ -34,7 +34,7 @@ return new class extends Migration
                 SET fecha = DATE_SUB(fecha_hoy, INTERVAL 1 MONTH);
             END IF;
 
-            SELECT productos.nombre, productos.item_producto, venta_detalles.precio_unitario, marcas.detalle AS marca,productos.medida,productos.calidad,productos.calidad,SUM(venta_detalles.cantidad) AS ventas_totales, (venta_detalles.precio_unitario * (SUM(venta_detalles.cantidad))) AS total FROM `venta_detalles` JOIN `venta_cabeceras` ON `venta_detalles`.`id_venta` = `venta_cabeceras`.`id` JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` JOIN `marcas` ON `productos`.`id_marca` = `marcas`.`id` WHERE `venta_cabeceras`.`fecha_venta` >= fecha AND `venta_detalles`.`isDeleted` = 0 GROUP BY `productos`.`nombre`;
+            SELECT venta_cabeceras.hora_venta, venta_cabeceras.numeracion, productos.item_producto, productos.nombre, marcas.detalle, productos.medida, productos.calidad, venta_detalles.precio_unitario, venta_detalles.cantidad, (venta_detalles.precio_unitario * venta_detalles.cantidad) AS total FROM venta_detalles JOIN venta_cabeceras on venta_detalles.id_venta = venta_cabeceras.id JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` JOIN `marcas` ON `productos`.`id_marca` = `marcas`.`id` WHERE `venta_detalles`.`isDeleted` = 0 AND `venta_cabeceras`.`fecha_venta` >= fecha GROUP BY venta_detalles.id;
         END;";
         DB::unprepared($procedimiento);
     }
