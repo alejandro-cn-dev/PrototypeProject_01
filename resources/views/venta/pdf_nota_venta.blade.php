@@ -36,7 +36,7 @@
             #detalle tfoot tr td{
                 border: 1px solid black;
             }
-            #contacto{               
+            #contacto{
                align-content: center;
                text-align: center;
             }
@@ -49,12 +49,12 @@
       <table>
          <tbody>
             <tr>
-               <td width="70%" width="50%">                                  
-                  <img src="{{ public_path('img/logo.jpg') }}" alt="" width="80"/>              
+               <td width="70%" width="50%">
+                  <img src="{{ public_path('img/logo.jpg') }}" alt="" width="80"/>
                </td>
                <td width="30%">
-                  <!-- <h1 style="text-align: right; font-size: 20px;">NOTA DE VENTA</h1> -->
-                  <h1 style="text-align: right; font-size: 20px;">FACTURA</h1>
+                  <h1 style="text-align: right; font-size: 20px;">NOTA DE VENTA</h1>
+                  {{-- <h1 style="text-align: right; font-size: 20px;">FACTURA</h1> --}}
                </td>
             </tr>
             <tr>
@@ -116,7 +116,7 @@
                   @endforeach
                   <td>{{$salida->precio_unitario}}</td>
                   <td>{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
-              @endforeach 
+              @endforeach
                 </tr>
             <tfoot>
                 <tr>
@@ -138,7 +138,7 @@
                      <p>{{$cabecera->monto_total}}</p>
                   </td>
                 </tr>
-            </tfoot>            
+            </tfoot>
          </tbody>
       </table>
       <p>&nbsp;</p>
