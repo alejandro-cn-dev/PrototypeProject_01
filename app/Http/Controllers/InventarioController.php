@@ -331,7 +331,12 @@ class InventarioController extends Controller
 
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('inventario/pdf_ventas_producto',compact('respuesta','fecha','cabecera'));
+        if($args[0] == 'detalle'){
+            $pdf = PDF::loadView('inventario/pdf_ventas_detalle',compact('respuesta','fecha','cabecera'));
+        }else{
+            $pdf = PDF::loadView('inventario/pdf_ventas_producto',compact('respuesta','fecha','cabecera'));
+        }
+
         return $pdf->download();
     }
     public function export_reporte_ventas_by_date($date)

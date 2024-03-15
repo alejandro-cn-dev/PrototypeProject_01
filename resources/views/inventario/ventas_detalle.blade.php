@@ -51,15 +51,15 @@
         <tbody id="datos_ventas">
             @foreach ($ventas as $venta)
                 <tr>
-                    <td>00:00am</td>
-                    <td>000000000000</td>
+                    <td>@if($venta->hora_venta == '') 00:00 am @else {{$cabecera->telefono}} @endif</td>
+                    <td>{{str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
                     <td>{{ $venta->item_producto }}</td>
                     <td>{{ $venta->nombre }}</td>
                     <td>{{ $venta->marca }}</td>
                     <td>{{ $venta->medida }}</td>
                     <td>{{ $venta->calidad }}</td>
                     <td>{{ $venta->precio_unitario }}</td>
-                    <td>{{ $venta->ventas_totales }}</td>
+                    <td>{{ $venta->cantidad }}</td>
                     <td>{{ $venta->total}}</td>
                 </tr>
             @endforeach
@@ -106,11 +106,16 @@
                 }
             ],
             columnDefs: [
-                {"targets": [0],"data":"nombre"},
-                {"targets": [1],"data":"item_producto"},
-                {"targets": [2],"data":"precio_unitario"},
-                {"targets": [3],"data":"ventas_totales"},
-                {"targets": [4],"data":"total"},
+                {"targets": [0],"data":"hora_venta"},
+                {"targets": [1],"data":"numeracion"},
+                {"targets": [2],"data":"item_producto"},
+                {"targets": [3],"data":"nombre"},
+                {"targets": [4],"data":"marca"},
+                {"targets": [5],"data":"medida"},
+                {"targets": [6],"data":"calidad"},
+                {"targets": [7],"data":"precio_unitario"},
+                {"targets": [8],"data":"cantidad"},
+                {"targets": [9],"data":"total"},
             ],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
@@ -125,10 +130,22 @@
         }
     });
     function recargar_tabla(){
-        let criterio = document.getElementById("criterio").value;
+        let fecha_min = $("#buscar_fecha_min").val();
+        let fecha_max = $("#buscar_fecha_max").val();
         var tabla = $('#ventas').DataTable();
+        if(criterio == 'fecha'){
+            if(fecha_min == '' && fecha_max == ''){
+                alert('Seleccione un rango de fechas');
+                return;
+            }
+            if(fecha_min == '' || fecha_max == ''){
+                if(fecha_min == ''){fecha_min=fecha_max;}
+                if(fecha_max == ''){fecha_max=fecha_min;}
+            }
+        }
+        let datos;
         $.ajax({
-            url: "{{ route('reporte_ventas') }}",
+            url: "{{ route('reporte_ventas_detalle') }}",
             type: "POST",
             data: {
                 param: criterio,
@@ -138,7 +155,15 @@
                 console.log(result);
                 if(result.respuesta.length > 0){
                     //cargar_datos(result.respuesta);
-                    tabla.clear().rows.add(result.respuesta).draw();
+                    console.log(result.respuesta);
+                    datos = result.respuesta;
+                    datos.forEach((element) => {
+                        if(element.hora_venta == null){
+                            element.hora_venta = "00:00 am";
+                        }
+                        element.numeracion = element.numeracion.toString().padStart(8, '0');
+                    });
+                    tabla.clear().rows.add(datos).draw();
                 }else{
                     console.log('Sin resultados: '+result.respuesta.length);
                     //$('#ventas tbody tr').detach();
@@ -188,9 +213,24 @@
     }
     function enviar_param(){
         let arg = $('#criterio').find(":selected").val();
+        let fecha_min = $('#buscar_fecha_min').val();
+        let fecha_max = $('#buscar_fecha_max').val();
+        let url = "";
         //let rout = "route('export_reporte_existencias',X)";
-        let url = "{{route('generar_reporte_ventas',':id')}}";
-        url = url.replace(':id',arg);
+        if(arg == 'fecha'){
+            if(fecha_min == '' || fecha_max == ''){
+                if(fecha_min == ''){fecha_min=fecha_max;}
+                if(fecha_max == ''){fecha_max=fecha_min;}
+            }
+            url = "{{route('generar_reporte_ventas_date',':date')}}";
+            arg = "detalle|"+fecha_min+"|"+fecha_max;
+            url = url.replace(':date',arg);
+            console.warn(arg);
+        }else{
+            url = "{{route('generar_reporte_ventas_arg',':arg')}}";
+            url = url.replace(':arg',"detalle|"+arg);
+            console.log(arg);
+        }
         $.ajax({
             url: url,
             type: 'GET',
@@ -201,7 +241,7 @@
                 var blob = new Blob([data]);
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "ventas_reporte.pdf";
+                link.download = "ventas_detalle_reporte.pdf";
                 link.click();
                 console.warn('PDF creado.');
             },

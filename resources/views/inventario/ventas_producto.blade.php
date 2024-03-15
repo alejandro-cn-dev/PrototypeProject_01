@@ -224,7 +224,7 @@
             console.warn(arg);
         }else{
             url = "{{route('generar_reporte_ventas_arg',':arg')}}";
-            url = url.replace(':arg',arg);
+            url = url.replace(':arg',"producto|"+arg);
             console.log(arg);
         }
         $.ajax({
