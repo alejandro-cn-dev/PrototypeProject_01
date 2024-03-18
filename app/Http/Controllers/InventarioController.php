@@ -295,26 +295,26 @@ class InventarioController extends Controller
     {
         $repuesta = collect();
         $cabecera = "";
-        $args = explode('|',$arg);
+        $args = explode("|",$arg);
         if($args[0] == 'producto'){
             switch($args[1]){
                 case 'all':
                     $respuesta = DB::select("CALL get_reporte_venta_by_arg ('all')"); $cabecera = "Ventas de todos los productos";
                     break;
                 case 'hoy':
-                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy";
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('hoy')"); $cabecera = "Ventas de hoy por producto";
                     break;
                 case 'sem':
-                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana";
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('sem')"); $cabecera = "Ventas de la semana por producto";
                     break;
                 case 'mes':
-                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes";
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg ('mes')"); $cabecera = "Ventas del mes por producto";
                     break;
             }
         }else if($args[0] == 'detalle'){
             switch($args[1]){
                 case 'all':
-                    $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('all')"); $cabecera = "Ventas de todos los productos";
+                    $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('all')"); $cabecera = "Todas las ventas";
                     break;
                 case 'hoy':
                     $respuesta = DB::select("CALL get_reporte_venta_by_arg_2 ('hoy')"); $cabecera = "Ventas de hoy";

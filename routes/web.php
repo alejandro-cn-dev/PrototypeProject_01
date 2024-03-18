@@ -105,8 +105,8 @@ Route::get('reporte_stock',[InventarioController::class,'reporte_stock'])->middl
 Route::get('reporte_valoracion',[InventarioController::class,'reporte_valoracion'])->middleware('auth')->name('inventario.reporte_valoracion');
 Route::get('reporte_ventas',[InventarioController::class,'reporte_ventas'])->middleware('auth')->name('inventario.reporte_ventas');
 Route::get('reporte_ventas_detalle',[InventarioController::class,'reporte_ventas_detalle'])->middleware('auth')->name('inventario.reporte_ventas_detalle');
-Route::post('reporte_ventas/fecha',[InventarioController::class,'reporte_ventas_criterio'])->middleware('auth')->name('reporte_ventas');
-Route::post('reporte_ventas_detalle/fecha',[InventarioController::class,'reporte_ventas_criterio_2'])->middleware('auth')->name('reporte_ventas_detalle');
-Route::get('export_reporte_ventas_by_arg/{arg}',[InventarioController::class,'export_reporte_ventas_by_arg'])->middleware('auth')->name('generar_reporte_ventas_arg');
-Route::get('export_reporte_ventas_by_date/{date}',[InventarioController::class,'export_reporte_ventas_by_date'])->middleware('auth')->name('generar_reporte_ventas_date');
+Route::post('reporte_ventas/fecha',[InventarioController::class,'reporte_ventas_criterio'])->middleware('auth')->name('json_reporte_ventas_producto');
+Route::post('reporte_ventas_detalle/fecha',[InventarioController::class,'reporte_ventas_criterio_2'])->middleware('auth')->name('json_reporte_ventas_detalle');
+Route::get('export_reporte_ventas_by_arg/{arg}',[InventarioController::class,'export_reporte_ventas_by_arg'])->middleware('auth')->name('pdf_reporte_ventas_arg');
+Route::get('export_reporte_ventas_by_date/{date}',[InventarioController::class,'export_reporte_ventas_by_date'])->middleware('auth')->name('pdf_reporte_ventas_date');
 //Route::get('entradas/reporte',[CompraController::class,'reporte'])->middleware('auth')->name('generar_reporte_entradas');

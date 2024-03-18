@@ -54,7 +54,7 @@ class ParametrosSeeder extends Seeder
         ]);
         Parametro::create([
             'nombre' => 'localidad_empresa',
-            'valor' => 'La Paz'
+                'valor' => 'La Paz'
         ]);
         Parametro::create([
             'nombre' => 'direccion_empresa',

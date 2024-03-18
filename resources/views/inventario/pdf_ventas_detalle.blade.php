@@ -16,12 +16,13 @@
     <table id="contenido" width="100%">
         <thead style="background-color: lightgray;">
             <tr>
+                <th>Hora</th>
+                <th>Comprobante</th>
                 <th>Item</th>
                 <th>Nombre</th>
                 <th>Marca</th>
                 <th>Medida</th>
                 <th>Calidad</th>
-                <th>Unidad</th>
                 <th>Precio</th>
                 <th>#Ventas</th>
                 <th>Total</th>
@@ -30,25 +31,22 @@
         <tbody>
             @foreach ($respuesta as $venta)
                 <tr>
+                    <td>@if($venta->hora_venta == '') 00:00 am @else {{$cabecera->telefono}} @endif</td>
+                    <td>{{str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
                     <td>{{ $venta->item_producto }}</td>
                     <td>{{ $venta->nombre }}</td>
                     <td>{{ $venta->marca }}</td>
                     <td>{{ $venta->medida }}</td>
                     <td>{{ $venta->calidad }}</td>
-                    <td>{{ $venta->unidad }}</td>
-                    {{-- <td>{{ $venta->marca? '':'-' }}</td>
-                    <td>{{ $venta->medida? '':'-' }}</td>
-                    <td>{{ $venta->calidad? '':'-' }}</td>
-                    <td>{{ $venta->unidad? '':'-' }}</td> --}}
                     <td style="text-align: right;">{{ $venta->precio_unitario }}</td>
-                    <td style="text-align: right;">{{ $venta->ventas_totales }}</td>
+                    <td style="text-align: right;">{{ $venta->cantidad }}</td>
                     <td style="text-align: right;">{{ $venta->total, $total_final = ($total_final + $venta->total) }}</td>
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr style="border: 1px solid black;">
-                <td colspan="8" style="font-size: 15px; background-color: #ffcc00;">
+                <td colspan="9" style="font-size: 15px; background-color: #ffcc00;">
                     TOTAL Bs.
                 </td>
                 <td style="font-size: 15px; background-color: #ffcc00; text-align: right;">
