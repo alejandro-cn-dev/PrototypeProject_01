@@ -345,6 +345,9 @@ class InventarioController extends Controller
         $cabecera = "";
         $fechas = explode("|",$date);
 
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+
         if($fechas[0] == 'producto'){
             $respuesta = DB::select("CALL get_reporte_venta_by_date ('".$fechas[1]."','".$fechas[2]."')");
             if($fechas[1] == $fechas[2]){
@@ -352,20 +355,18 @@ class InventarioController extends Controller
             }else{
                 $cabecera = "Ventas desde ".$fechas[1]." al ".$fechas[2];
             }
+            $pdf = PDF::loadView('inventario/pdf_ventas_producto',compact('respuesta','fecha','cabecera'));
 
         }else if($fechas[0] == 'detalle'){
-            $respuesta = DB::select("CALL get_reporte_venta_by_date_2 ('all')");
+            $respuesta = DB::select("CALL get_reporte_venta_by_date_2 ('".$fechas[1]."','".$fechas[2]."')");
             if($fechas[1] == $fechas[2]){
                 $cabecera = "Ventas del dia ".$fechas[1];
             }else{
                 $cabecera = "Ventas desde ".$fechas[1]." al ".$fechas[2];
             }
+            $pdf = PDF::loadView('inventario/pdf_ventas_detalle',compact('respuesta','fecha','cabecera'));
         }
 
-
-        $fecha_actual = date_create(date('d-m-Y'));
-        $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('inventario/pdf_ventas_producto',compact('respuesta','fecha','cabecera'));
         return $pdf->download();
     }
 }
