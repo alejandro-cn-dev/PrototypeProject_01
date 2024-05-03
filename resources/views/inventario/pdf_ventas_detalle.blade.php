@@ -31,7 +31,7 @@
         <tbody>
             @foreach ($respuesta as $venta)
                 <tr>
-                    <td>@if($venta->hora_venta == '') 00:00 am @else {{$cabecera->telefono}} @endif</td>
+                    <td>@if($venta->hora_venta == '') 00:00 am @else {{$venta->hora_venta}} @endif</td>
                     <td>{{str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
                     <td>{{ $venta->item_producto }}</td>
                     <td>{{ $venta->nombre }}</td>
