@@ -49,7 +49,7 @@
                             </ul>
                         </li>                         -->
                         <!-- Test de reportes - Quitar luego -->
-                        <li class="nav-item"><a class="nav-link" href="/reporte_test">TEST</a></li>
+                        {{-- <li class="nav-item"><a class="nav-link" href="/reporte_test">TEST</a></li> --}}
                         <li class="nav-item"><a class="nav-link" href="/info">Sobre nosotros</a></li>
                     </ul>
                     <!-- <div class="d-flex">

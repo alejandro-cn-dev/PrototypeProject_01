@@ -69,6 +69,8 @@
                         <td><span class="badge bg-success">{{$producto->existencias}}</span></td>
                     @elseif($producto->existencias == $max)
                         <td><span class="badge bg-danger">{{$producto->existencias}}</span></td>
+                    @else
+                        <td><span class="badge bg-danger">{{$producto->existencias}}</span></td>
                     @endif
                 </tr>
             @endforeach
@@ -156,7 +158,7 @@
                 }
                 break;
             case 'max':
-                if(valor == max_val){
+                if(valor >= max_val){
                     flag = true;
                 }
                 break;

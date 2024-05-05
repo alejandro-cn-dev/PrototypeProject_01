@@ -25,8 +25,8 @@
             <thead class="table-dark">
                 <tr>
                     <th scope="col">Nombre</th>
-                    {{-- <th scope="col">Descripción</th> --}}
                     <th scope="col">Valor</th>
+                    <th scope="col">Descripción</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -35,8 +35,8 @@
                 @if ($valor->nombre != 'logo_sistema_path')
                     <tr>
                         <td>{{$valor->nombre}}</td>
-                        {{-- <td>{{$valor->descripcion}}</td> --}}
                         <td>{{$valor->valor}}</td>
+                        <td>{{$valor->descripcion}}</td>
                         <td>
                             <a href="/config/{{$valor->id}}" class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
                         </td>

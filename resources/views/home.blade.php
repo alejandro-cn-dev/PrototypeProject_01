@@ -69,7 +69,7 @@
                     <div class="icon" bis_skin_checked="1">
                         <i class="fa fa-usd" aria-hidden="true"></i>
                     </div>
-                    <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="/inventario" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
                 <div class="icon" bis_skin_checked="1">
                     <i class="fas fa-fw fa-box" aria-hidden="true"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/existencias" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- Tarjeta #6 -->
@@ -165,7 +165,7 @@
                 <div class="icon" bis_skin_checked="1">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/existencias" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- Tarjeta #7 -->
@@ -215,7 +215,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="shadow-none bg-white rounded"> 
+                        <div class="shadow-none bg-white rounded">
                             <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
@@ -263,7 +263,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="shadow-none bg-white rounded"> 
+                        <div class="shadow-none bg-white rounded">
                             <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
