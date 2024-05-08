@@ -205,13 +205,14 @@
 
     <!-- SEGUNDA SECCION -->
     <div class="container-fluid">
+        {{-- PRIMERA FILA --}}
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Productos mas vendidos</h3>
-                            <a href="#">Ver reporte de ventas</a>
+                            <a href="/reporte_ventas">Ver reporte de ventas</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -225,21 +226,18 @@
                                     </tr>
                                 </thead>
                                 <tbody id="datos_ventas">
-                                    <tr>
-                                        <td>Hilo Cruzado</td>
-                                        <td>HI-531</td>
-                                        <td>201</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tela de prueba</td>
-                                        <td>TE-321</td>
-                                        <td>100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tela Cuiz xd</td>
-                                        <td>XD-000</td>
-                                        <td>1</td>
-                                    </tr>
+                                    @if (empty($mas_vendidos))
+                                        <tr><td colspan="2">(Sin registros)</td></tr>
+                                    @else
+                                        @foreach ($mas_vendidos as $item)
+                                            <tr>
+                                                <td>{{ $item->nombre }}</td>
+                                                <td>{{ $item->item_producto }}</td>
+                                                <td>{{ $item->ventas_totales }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>
@@ -259,7 +257,7 @@
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Stock Agotado</h3>
-                            <a href="#">Ver existencias</a>
+                            <a href="/existencias">Ver existencias</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -274,14 +272,119 @@
                                     </tr>
                                 </thead>
                                 <tbody id="datos_ventas">
-                                    @foreach($aux as $producto)
-                                        <tr>
-                                            <td>{{$producto->nombre}}</td>
-                                            <td>{{$producto->item_producto}}</td>
-                                            <td>{{$producto->marca}}</td>
-                                            <td>{{$producto->color}}</td>
-                                        </tr>
-                                    @endforeach
+                                    @if ($aux == [])
+                                        <tr><td colspan="3">(Sin registros)</td></tr>
+                                    @else
+                                        @foreach($aux as $producto)
+                                            <tr>
+                                                <td>{{$producto->nombre}}</td>
+                                                <td>{{$producto->item_producto}}</td>
+                                                <td>{{$producto->marca}}</td>
+                                                <td>{{$producto->color}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- <div class="d-flex flex-row justify-content-end">
+                                <span class="mr-2">
+                                    <i class="fas fa-square text-primary"></i> This Week
+                                </span>
+                                <span>
+                                    <i class="fas fa-square text-gray"></i> Last Week
+                                </span>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- SEGUNDA FILA --}}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Productos casi agotados</h3>
+                            <a href="/existencias">Ver existencias</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <table id="casi_agotado" class="table table-sm table-striped table-bordered" style="width: 100%;">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">Existencias</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datos_ventas">
+                                    @if ($casi_agotado == [])
+                                        <tr><td colspan="3">(Sin registros)</td></tr>
+                                    @else
+                                        @foreach($casi_agotado as $producto)
+                                            <tr>
+                                                <td>{{$producto->nombre}}</td>
+                                                <td>{{$producto->item_producto}}</td>
+                                                <td>{{$producto->marca}}</td>
+                                                <td>{{$producto->color}}</td>
+                                                <td>{{$producto->existencias}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="d-flex flex-row justify-content-end">
+                        <span class="mr-2">
+                            <i class="fas fa-square text-primary"></i> This Week
+                        </span>
+                        <span>
+                            <i class="fas fa-square text-gray"></i> Last Week
+                        </span>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Cerca de stock máximo</h3>
+                            <a href="/existencias">Ver existencias</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">Existencias</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datos_ventas">
+                                    @if ($casi_tope == [])
+                                        <tr><td colspan="3">(Sin registros)</td></tr>
+                                    @else
+                                        @foreach($casi_tope as $producto)
+                                            <tr>
+                                                <td>{{$producto->nombre}}</td>
+                                                <td>{{$producto->item_producto}}</td>
+                                                <td>{{$producto->marca}}</td>
+                                                <td>{{$producto->color}}</td>
+                                                <td>{{$producto->existencias}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                                     </table>
                                 </div>

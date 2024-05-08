@@ -448,7 +448,7 @@ return [
                 [
                     'text' => 'Control de stock',
                     'icon'    => 'fas fa-fw fa-file-text',
-                    'url'  => 'stock',
+                    'url'  => 'kardex',
                     'can'   => 'reporte.control_stock'
                 ],
                 // [

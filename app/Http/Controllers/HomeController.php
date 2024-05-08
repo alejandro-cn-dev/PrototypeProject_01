@@ -10,6 +10,7 @@ use App\Models\Compra_detalle;
 use App\Models\User;
 use App\Models\Producto;
 use App\Models\Proveedor;
+use App\Models\Parametro;
 use App\Models\Cliente;
 use App\Models\Rol;
 use Illuminate\Support\Facades\DB;
@@ -64,14 +65,21 @@ class HomeController extends Controller
         $ganancias_totales = number_format($ganancias_totales, 2, ',', ' ');
 
         // Para cargar la tabla de productos mas vendidos
-        $mas_vendidos = DB::raw("SELECT TOP(5) productos.nombre, productos.item_producto, venta_detalles.precio_unitario, SUM(venta_detalles.cantidad) AS ventas_totales, (venta_detalles.precio_unitario * (SUM(venta_detalles.cantidad))) AS total FROM `venta_detalles` JOIN `venta_cabeceras` ON `venta_detalles`.`id_venta` = `venta_cabeceras`.`id` JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` WHERE venta_detalles.isDeleted = 0 GROUP BY productos.nombre,productos.item_producto");
+        $mas_vendidos = DB::select("SELECT productos.nombre, productos.item_producto, venta_detalles.precio_unitario, SUM(venta_detalles.cantidad) AS ventas_totales, (venta_detalles.precio_unitario * (SUM(venta_detalles.cantidad))) AS total FROM `venta_detalles` JOIN `venta_cabeceras` ON `venta_detalles`.`id_venta` = `venta_cabeceras`.`id` JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` WHERE venta_detalles.isDeleted = 0 GROUP BY productos.nombre,productos.item_producto,venta_detalles.precio_unitario ORDER BY ventas_totales DESC LIMIT 5");
         // Para cargar la tabla de productos agotados
         $agotados = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
         ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS `existencias`"))
         ->where('productos.isDeleted','=',0)->get();
+
+        $parametros = Parametro::select('valor')->whereIn('nombre',['existencias_max','existencias_min'])->get();
+        $min = $parametros[0]->valor;
+        $max = $parametros[1]->valor;
+
         $aux = $agotados->where('existencias','=',0)->take(5);
+        $aux1 = $agotados->where('existencias','<=',((int)$min+5))->take(5);
+        $aux2 = $agotados->where('existencias','>=',((int)$max-5))->take(5);
 
         return view('home')
         ->with('ventas',$ventas)
@@ -86,6 +94,8 @@ class HomeController extends Controller
         ->with('total_ventas',$total_ventas)
         ->with('ganancias', $ganancias_totales)
         ->with('mas_vendidos',$mas_vendidos)
-        ->with('aux',$aux);
+        ->with('aux',$aux)
+        ->with('casi_agotado',$aux1)
+        ->with('casi_tope',$aux2);
     }
 }

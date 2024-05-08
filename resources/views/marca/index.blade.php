@@ -11,12 +11,13 @@
 @section('content')
 <img src="img/marcas_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo marcas">
 <div class="hadow-none p-3 bg-white rounded">
-    <div class="bg-transparent">
+    {{-- Antiguo boton de reporte --}}
+    {{-- <div class="bg-transparent">
         @can('marcas.create')
-        <a href="marcas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Marca</a>    
+        <a href="marcas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Marca</a>
         @endcan
-        <a href="{{route('generar_reporte_marca',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>    
-    </div>  
+        <a href="{{route('generar_reporte_marca',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>
+    </div>   --}}
     <div class="table-responsive">
         <table id="marcas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -60,7 +61,7 @@
 
 @section('js')
 <script>
-$(document).ready(function(){        
+$(document).ready(function(){
         $('#marcas').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -145,17 +146,17 @@ $(document).ready(function(){
                             icon: "warning",
                         });
                         console.log(response);
-                    }                    
-                });                
+                    }
+                });
             } else {
                 swal("Eliminación cancelada",{
                     icon: 'info',
                     buttons: false,
                     timer: 1500,
                 });
-                
+
             }
         });
-    }   
+    }
 </script>
 @stop

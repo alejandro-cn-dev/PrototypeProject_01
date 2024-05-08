@@ -11,12 +11,13 @@
 @section('content')
 <img src="img/categorias_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo categorias">
 <div class="shadow-none p-3 bg-white rounded">
-    <div class="bg-transparent">
+    {{-- Antiguo boton de reporte --}}
+    {{-- <div class="bg-transparent">
             @can('categorias.create')
-            <a href="categorias/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Categoria</a>    
+            <a href="categorias/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Categoria</a>
             @endcan
-            <a href="{{route('generar_reporte_categoria',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Categorias</a>    
-    </div>  
+            <a href="{{route('generar_reporte_categoria',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Categorias</a>
+    </div>   --}}
     <div class="table-responsive">
         <table id="categorias" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -64,7 +65,7 @@
 
 @section('js')
 <script>
-$(document).ready(function(){        
+$(document).ready(function(){
         $('#categorias').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -146,17 +147,17 @@ $(document).ready(function(){
                             icon: "warning",
                         });
                         console.log(response);
-                    }                    
-                });                
+                    }
+                });
             } else {
                 swal("Eliminación cancelada",{
                     icon: 'info',
                     buttons: false,
                     timer: 1500,
                 });
-                
+
             }
         });
-    }    
+    }
 </script>
 @stop
