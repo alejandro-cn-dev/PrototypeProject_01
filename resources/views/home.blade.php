@@ -151,7 +151,8 @@
                 <div class="icon" bis_skin_checked="1">
                     <i class="fas fa-fw fa-box" aria-hidden="true"></i>
                 </div>
-                <a href="/existencias" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/existencias" class="small-box-footer">Más información <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- Tarjeta #6 -->
@@ -165,7 +166,8 @@
                 <div class="icon" bis_skin_checked="1">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </div>
-                <a href="/existencias" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/existencias" class="small-box-footer">Más información <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- Tarjeta #7 -->
@@ -204,8 +206,8 @@
     <!-- FIN PRIMERA SECCION -->
 
     <!-- SEGUNDA SECCION -->
+    {{-- PRIMERA FILA --}}
     <div class="container-fluid">
-        {{-- PRIMERA FILA --}}
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
@@ -217,7 +219,8 @@
                     </div>
                     <div class="card-body">
                         <div class="shadow-none bg-white rounded">
-                            <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
+                            <table id="ventas" class="table table-sm table-striped table-bordered"
+                                style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>
@@ -227,7 +230,9 @@
                                 </thead>
                                 <tbody id="datos_ventas">
                                     @if (empty($mas_vendidos))
-                                        <tr><td colspan="2">(Sin registros)</td></tr>
+                                        <tr>
+                                            <td colspan="2">(Sin registros)</td>
+                                        </tr>
                                     @else
                                         @foreach ($mas_vendidos as $item)
                                             <tr>
@@ -243,13 +248,13 @@
                         </div>
                     </div>
                     <!-- <div class="d-flex flex-row justify-content-end">
-                        <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> This Week
-                        </span>
-                        <span>
-                            <i class="fas fa-square text-gray"></i> Last Week
-                        </span>
-                    </div> -->
+                            <span class="mr-2">
+                                <i class="fas fa-square text-primary"></i> This Week
+                            </span>
+                            <span>
+                                <i class="fas fa-square text-gray"></i> Last Week
+                            </span>
+                        </div> -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -262,7 +267,8 @@
                     </div>
                     <div class="card-body">
                         <div class="shadow-none bg-white rounded">
-                            <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
+                            <table id="ventas" class="table table-sm table-striped table-bordered"
+                                style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>
@@ -272,36 +278,38 @@
                                     </tr>
                                 </thead>
                                 <tbody id="datos_ventas">
-                                    @if ($aux == [])
-                                        <tr><td colspan="3">(Sin registros)</td></tr>
+                                    @if ($aux->isEmpty())
+                                        <tr>
+                                            <td colspan="4">(Sin registros)</td>
+                                        </tr>
                                     @else
-                                        @foreach($aux as $producto)
+                                        @foreach ($aux as $producto)
                                             <tr>
-                                                <td>{{$producto->nombre}}</td>
-                                                <td>{{$producto->item_producto}}</td>
-                                                <td>{{$producto->marca}}</td>
-                                                <td>{{$producto->color}}</td>
+                                                <td>{{ $producto->nombre }}</td>
+                                                <td>{{ $producto->item_producto }}</td>
+                                                <td>{{ $producto->marca }}</td>
+                                                <td>{{ $producto->color }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- <div class="d-flex flex-row justify-content-end">
-                                <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This Week
-                                </span>
-                                <span>
-                                    <i class="fas fa-square text-gray"></i> Last Week
-                                </span>
-                            </div> -->
+                            </table>
                         </div>
                     </div>
+                    <!-- <div class="d-flex flex-row justify-content-end">
+                                    <span class="mr-2">
+                                        <i class="fas fa-square text-primary"></i> This Week
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-square text-gray"></i> Last Week
+                                    </span>
+                                </div> -->
                 </div>
             </div>
         </div>
-        {{-- SEGUNDA FILA --}}
+    </div>
+    {{-- SEGUNDA FILA --}}
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
@@ -313,7 +321,8 @@
                     </div>
                     <div class="card-body">
                         <div class="shadow-none bg-white rounded">
-                            <table id="casi_agotado" class="table table-sm table-striped table-bordered" style="width: 100%;">
+                            <table id="casi_agotado" class="table table-sm table-striped table-bordered"
+                                style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>
@@ -323,17 +332,19 @@
                                         <th scope="col">Existencias</th>
                                     </tr>
                                 </thead>
-                                <tbody id="datos_ventas">
-                                    @if ($casi_agotado == [])
-                                        <tr><td colspan="3">(Sin registros)</td></tr>
+                                <tbody>
+                                    @if ($casi_agotado->isEmpty())
+                                        <tr>
+                                            <td colspan="5">(Sin resultados)</td>
+                                        </tr>
                                     @else
-                                        @foreach($casi_agotado as $producto)
+                                        @foreach ($casi_agotado as $producto)
                                             <tr>
-                                                <td>{{$producto->nombre}}</td>
-                                                <td>{{$producto->item_producto}}</td>
-                                                <td>{{$producto->marca}}</td>
-                                                <td>{{$producto->color}}</td>
-                                                <td>{{$producto->existencias}}</td>
+                                                <td>{{ $producto->nombre }}</td>
+                                                <td>{{ $producto->item_producto }}</td>
+                                                <td>{{ $producto->marca }}</td>
+                                                <td>{{ $producto->color }}</td>
+                                                <td>{{ $producto->existencias }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -342,13 +353,13 @@
                         </div>
                     </div>
                     <!-- <div class="d-flex flex-row justify-content-end">
-                        <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> This Week
-                        </span>
-                        <span>
-                            <i class="fas fa-square text-gray"></i> Last Week
-                        </span>
-                    </div> -->
+                                <span class="mr-2">
+                                    <i class="fas fa-square text-primary"></i> This Week
+                                </span>
+                                <span>
+                                    <i class="fas fa-square text-gray"></i> Last Week
+                                </span>
+                            </div> -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -371,38 +382,39 @@
                                         <th scope="col">Existencias</th>
                                     </tr>
                                 </thead>
-                                <tbody id="datos_ventas">
-                                    @if ($casi_tope == [])
-                                        <tr><td colspan="3">(Sin registros)</td></tr>
+                                <tbody>
+                                    @if ($casi_tope->isEmpty())
+                                        <tr>
+                                            <td colspan="5">(Sin resultados)</td>
+                                        </tr>
                                     @else
-                                        @foreach($casi_tope as $producto)
+                                        @foreach ($casi_tope as $producto)
                                             <tr>
-                                                <td>{{$producto->nombre}}</td>
-                                                <td>{{$producto->item_producto}}</td>
-                                                <td>{{$producto->marca}}</td>
-                                                <td>{{$producto->color}}</td>
-                                                <td>{{$producto->existencias}}</td>
+                                                <td>{{ $producto->nombre }}</td>
+                                                <td>{{ $producto->item_producto }}</td>
+                                                <td>{{ $producto->marca }}</td>
+                                                <td>{{ $producto->color }}</td>
+                                                <td>{{ $producto->existencias }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
                                 </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- <div class="d-flex flex-row justify-content-end">
-                                <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This Week
-                                </span>
-                                <span>
-                                    <i class="fas fa-square text-gray"></i> Last Week
-                                </span>
-                            </div> -->
+                            </table>
                         </div>
                     </div>
+                    <!-- <div class="d-flex flex-row justify-content-end">
+                        <span class="mr-2">
+                            <i class="fas fa-square text-primary"></i> This Week
+                        </span>
+                        <span>
+                            <i class="fas fa-square text-gray"></i> Last Week
+                        </span>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
+
     <!-- FIN SEGUNDA SECCION -->
 @stop
 
