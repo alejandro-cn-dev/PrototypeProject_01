@@ -196,6 +196,14 @@ class InventarioController extends Controller
 
         return view('inventario.control_stock')->with('productos',$productos);
     }
+    public function ficha_kardex()
+    {
+        $productos = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE (id_producto = productos.id)AND (isDeleted = 0)) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) AS salidas"))
+        ->where('isDeleted','=',0)
+        ->get();
+
+        return view('inventario.ficha_kardex')->with('productos',$productos);
+    }
     public function stock_fecha(Request $request)
     {
         // reglas de validación

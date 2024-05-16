@@ -451,6 +451,12 @@ return [
                     'url'  => 'kardex',
                     'can'   => 'reporte.control_stock'
                 ],
+                [
+                    'text' => 'Ficha kardex',
+                    'icon'    => 'fas fa-fw fa-book',
+                    'url'  => 'ficha_kardex',
+                    'can'   => 'reporte.control_stock'
+                ],
                 // [
                 //     'text' => 'Stock',
                 //     'icon'    => 'fas fa-fw fa-list-alt',

@@ -5,7 +5,7 @@
 @stop
 
 @section('content_header')
-    <h1>Control de kardex</h1>
+    <h1>Ficha kardex</h1>
 @stop
 
 @section('content')
@@ -35,38 +35,35 @@
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded">
-    <table id="stock" class="table table-striped table-bordered mt-4" style="width: 100%;">
+    <table id="producto">
+        <tr>
+            <td><label for="name">Producto: </label> <input type="text"></td>
+            <td><label for="name">Ubicacion: </label> <input type="text"></td>
+        </tr>
+        <tr>
+            <td><label for="name">Marca: </label> <input type="text"></td>
+            <td><label for="name">Categoria: </label> <input type="text"></td>
+        </tr>
+        <tr>
+            <td><label for="name">Ubicacion: </label> <input type="text"></td>
+        </tr>
+    </table>
+    <table id="ficha" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Item</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Documento / Descripcion</th>
                 <!-- <th scope="col">Descipción</th> -->
-                <th scope="col">Precio unitario</th>
+                <th scope="col">Inv. inicial</th>
                 <!-- <th scope="col"> % IVA </th> -->
-                <th scope="col">Precio final</th>
-                <th scope="col">Stock inicial</th>
-                <th scope="col">Entradas</th>
-                <th scope="col">Salidas</th>
-                <th scope="col">Stock actual</th>
+                <th scope="col">Coste unitario</th>
+                <th scope="col">Entrada</th>
+                <th scope="col">Salida</th>
+                <th scope="col">Inv Final</th>
                 <!-- <th scope="col">Fecha</th> -->
             </tr>
         </thead>
-        <tbody id="datos_stock">
-            @foreach ($productos as $producto)
-                <tr>
-                    <td>{{ $producto->nombre }}</td>
-                    <td>{{ $producto->item_producto }}</td>
-                    <td>{{ $producto->precio_compra }}</td>
-                    <td>{{ $producto->precio_venta }}</td>
-                    <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif - @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->
-                    <!-- <td>{{$producto->entradas - $producto->salidas}}</td> -->
-                    <td>0</td>
-                    <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif</td>
-                    <td>@if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td>
-                    <!-- <td>@if(empty($producto->entradas)) 0 @else {{$producto->entradas}} @endif + @if(empty($producto->salidas)) 0 @else {{$producto->salidas}} @endif</td> -->
-                    <td>{{$producto->entradas - $producto->salidas}}</td>
-                </tr>
-            @endforeach
+        <tbody id="datos_ficha">
         </tbody>
     </table>
 </div>
@@ -79,7 +76,7 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        $('#stock').DataTable({
+        $('#ficha').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
             buttons: [
@@ -114,49 +111,49 @@
             }
         });
     });
-    function recargar_tabla(){
-        let inicio = document.getElementById("fecha_inicio").value;
-        let final = document.getElementById("fecha_final").value;
-        $.ajax({
-            url: "{{ route('stock_fecha') }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                fecha_inicio: inicio,
-                fecha_final: final,
-            },
-            success: function(result){
-                console.log(result);
-                if(result){
-                    cargar_datos(result.respuesta);
-                }
-                if(result.errors){
-                    swal("Ocurrio un error", {
-                        icon: "warning",
-                    });
-                }
-            },
-            error: function(response){
-                console.log(response);
-                if(response.responseJSON){
-                    if(response.responseJSON.errors){
-                        let errores = "";
-                        $.each(response.responseJSON.errors,function(key,value){
-                            errores = value+',' + errores;
-                        });
-                        swal({
-                            title: "Error",
-                            icon: "error",
-                            text: errores,
-                        });
-                    }
-                }
-            }
-        });
-    }
+    // function recargar_tabla(){
+    //     let inicio = document.getElementById("fecha_inicio").value;
+    //     let final = document.getElementById("fecha_final").value;
+    //     $.ajax({
+    //         url: "{{ route('stock_fecha') }}",
+    //         type: "POST",
+    //         data: {
+    //             _token: "{{ csrf_token() }}",
+    //             fecha_inicio: inicio,
+    //             fecha_final: final,
+    //         },
+    //         success: function(result){
+    //             console.log(result);
+    //             if(result){
+    //                 cargar_datos(result.respuesta);
+    //             }
+    //             if(result.errors){
+    //                 swal("Ocurrio un error", {
+    //                     icon: "warning",
+    //                 });
+    //             }
+    //         },
+    //         error: function(response){
+    //             console.log(response);
+    //             if(response.responseJSON){
+    //                 if(response.responseJSON.errors){
+    //                     let errores = "";
+    //                     $.each(response.responseJSON.errors,function(key,value){
+    //                         errores = value+',' + errores;
+    //                     });
+    //                     swal({
+    //                         title: "Error",
+    //                         icon: "error",
+    //                         text: errores,
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
     function cargar_datos(resultado){
-        $('#stock tbody tr').detach();
-        tbody = document.getElementById("datos_stock");
+        $('#ficha tbody tr').detach();
+        tbody = document.getElementById("datos_ficha");
         resultado.forEach(function(fila){
             if(fila.entradas === null){
                 fila.entradas = 0;
