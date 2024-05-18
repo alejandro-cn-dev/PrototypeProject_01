@@ -35,19 +35,40 @@
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded">
-    <table id="producto">
-        <tr>
-            <td><label for="name">Producto: </label> <input type="text"></td>
-            <td><label for="name">Ubicacion: </label> <input type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="name">Marca: </label> <input type="text"></td>
-            <td><label for="name">Categoria: </label> <input type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="name">Ubicacion: </label> <input type="text"></td>
-        </tr>
-    </table>
+    <div class="bg-transparent">
+        <a href="#" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Generar reporte</a>
+    </div>
+    <div>
+        <h2>TARJETA KARDEX    N°0000</h2>
+    </div>
+    <div id="producto">
+        <div class="row mb-2">
+            <label for="name" class="col-md-2 col-form-label">Producto: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="nombre" name="nombre" disabled>
+            </div>
+            <label for="name" class="col-md-2 col-form-label">Ubicacion: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="ubicacion" name="ubicacion" disabled>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="name" class="col-md-2 col-form-label">Categoria: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="categoria" name="categoria" disabled>
+            </div>
+            <label for="name" class="col-md-2 col-form-label">Marca: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="marca" name="marca" disabled>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="name" class="col-md-2 col-form-label">Saldos: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="saldo" name="saldo" disabled>
+            </div>
+        </div>
+    </div>
     <table id="ficha" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -75,42 +96,6 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){
-        $('#ficha').DataTable({
-            dom: 'Bfrtip',
-            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            buttons: [
-                {
-                    extend: 'copyHtml5',
-                    text: '<i class="fas fa-copy"></i> Copiar',
-                    titleAttr: 'Copy'
-                },
-                {
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i> Excel',
-                    titleAttr: 'Excel'
-                },
-                {
-                    extend: 'csvHtml5',
-                    text: '<i class="fas fa-file-csv"></i> CSV',
-                    titleAttr: 'CSV'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i> PDF',
-                    titleAttr: 'PDF'
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="fas fa-print"></i> Imprimir',
-                    titleAttr: 'Imprimir'
-                }
-            ],
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-            }
-        });
-    });
     // function recargar_tabla(){
     //     let inicio = document.getElementById("fecha_inicio").value;
     //     let final = document.getElementById("fecha_final").value;

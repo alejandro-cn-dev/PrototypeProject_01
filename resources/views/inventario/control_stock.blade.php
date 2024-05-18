@@ -22,7 +22,7 @@
         </div>
         <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>
     </div>
-    <div class="row mt-2">
+    {{-- <div class="row mt-2">
         <label for="producto" class="col-sm-1">Producto: </label>
         <div class="col-sm-9">
             <select name="producto" id="producto" class="form-control">
@@ -32,7 +32,7 @@
                 @endforeach
             </select>
         </div>
-    </div>
+    </div> --}}
 </div>
 <div class="shadow-none p-3 bg-white rounded">
     <table id="stock" class="table table-striped table-bordered mt-4" style="width: 100%;">
