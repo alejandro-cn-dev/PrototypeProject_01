@@ -204,6 +204,29 @@ class InventarioController extends Controller
 
         return view('inventario.ficha_kardex')->with('productos',$productos);
     }
+    public function ficha_kardex_fecha(Request $request)
+    {
+        // reglas de validación
+        $rules = [
+            'fecha_inicio'     => 'required',
+            'fecha_final'      => 'required|after_or_equal:fecha_inicio'
+        ];
+        // Mensajes de error personalizados
+        $custom_messages = [
+            'fecha_inicio.required' => 'Debe escribir una fecha inicial',
+            'fecha_final.required' => 'Debe escribir una fecha final',
+            'fecha_final.after_or_equal' => 'La fecha final no debe ser mayor a la inicial'
+        ];
+        // Validacion de Request
+        $validator = $this->validate($request,$rules,$custom_messages);
+
+        // Proceso
+        $producto = Producto::find($request->id);
+        //$detalle_ficha = DB::select("CALL sp_get_detalle_ficha_kardex");
+        $detalle_ficha = "Test1";
+
+        return response()->json(['producto'=>$producto, 'detalle'=>$detalle_ficha]);
+    }
     public function stock_fecha(Request $request)
     {
         // reglas de validación

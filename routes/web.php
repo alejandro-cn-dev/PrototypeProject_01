@@ -101,6 +101,7 @@ Route::get('export_reporte_existencias/{arg}',[InventarioController::class,'expo
 Route::post('get_movimientos',[InventarioController::class,'get_movimientos'])->middleware('auth')->name('inventario.get_movimientos');
 Route::get('kardex',[InventarioController::class,'stock'])->middleware('auth')->name('inventario.kardex');
 Route::get('ficha_kardex',[InventarioController::class,'ficha_kardex'])->middleware('auth')->name('inventario.ficha_kardex');
+Route::post('stock/ficha',[InventarioController::class,'ficha_kardex_fecha'])->middleware('auth')->name('ficha_kardex_fecha');
 Route::post('stock/fecha',[InventarioController::class,'stock_fecha'])->middleware('auth')->name('stock_fecha');
 Route::get('reporte_stock',[InventarioController::class,'reporte_stock'])->middleware('auth')->name('inventario.reporte_stock');
 Route::get('reporte_valoracion',[InventarioController::class,'reporte_valoracion'])->middleware('auth')->name('inventario.reporte_valoracion');

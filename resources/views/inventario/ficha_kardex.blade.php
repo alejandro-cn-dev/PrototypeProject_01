@@ -38,10 +38,11 @@
     <div class="bg-transparent">
         <a href="#" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Generar reporte</a>
     </div>
-    <div>
-        <h2>TARJETA KARDEX    N°0000</h2>
+    <div class="row bg-danger bg-gradient pt-2">
+        <h2 class="col-md-10 text-center">TARJETA KARDEX</h2>
+        <h2 class="col-md-2 bg-warning text-center"> N° 0000</h2>
     </div>
-    <div id="producto">
+    <div id="producto" class="p-3">
         <div class="row mb-2">
             <label for="name" class="col-md-2 col-form-label">Producto: </label>
             <div class="col-md-4">
@@ -85,6 +86,7 @@
             </tr>
         </thead>
         <tbody id="datos_ficha">
+            <tr><td colspan="7">(Sin resultados)</td></tr>
         </tbody>
     </table>
 </div>
@@ -96,46 +98,52 @@
 
 @section('js')
 <script>
-    // function recargar_tabla(){
-    //     let inicio = document.getElementById("fecha_inicio").value;
-    //     let final = document.getElementById("fecha_final").value;
-    //     $.ajax({
-    //         url: "{{ route('stock_fecha') }}",
-    //         type: "POST",
-    //         data: {
-    //             _token: "{{ csrf_token() }}",
-    //             fecha_inicio: inicio,
-    //             fecha_final: final,
-    //         },
-    //         success: function(result){
-    //             console.log(result);
-    //             if(result){
-    //                 cargar_datos(result.respuesta);
-    //             }
-    //             if(result.errors){
-    //                 swal("Ocurrio un error", {
-    //                     icon: "warning",
-    //                 });
-    //             }
-    //         },
-    //         error: function(response){
-    //             console.log(response);
-    //             if(response.responseJSON){
-    //                 if(response.responseJSON.errors){
-    //                     let errores = "";
-    //                     $.each(response.responseJSON.errors,function(key,value){
-    //                         errores = value+',' + errores;
-    //                     });
-    //                     swal({
-    //                         title: "Error",
-    //                         icon: "error",
-    //                         text: errores,
-    //                     });
-    //                 }
-    //             }
-    //         }
-    //     });
-    // }
+    function recargar_tabla(){
+        let inicio = document.getElementById("fecha_inicio").value;
+        let final = document.getElementById("fecha_final").value;
+        let producto = document.getElementById("producto").value;
+        $.ajax({
+            url: "{{ route('ficha_kardex_fecha') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                fecha_inicio: inicio,
+                fecha_final: final,
+                id: producto
+            },
+            success: function(result){
+                console.log(result);
+                if(!(result.producto == null) && !(result.detalle == null)){
+                    cargar_datos(result.respuesta);
+                }else{
+                    swal("Ocurrio un error", {
+                        icon: "warning",
+                    });
+                }
+                if(result.errors){
+                    swal("Ocurrio un error", {
+                        icon: "warning",
+                    });
+                }
+            },
+            error: function(response){
+                console.log(response);
+                if(response.responseJSON){
+                    if(response.responseJSON.errors){
+                        let errores = "";
+                        $.each(response.responseJSON.errors,function(key,value){
+                            errores = value+',' + errores;
+                        });
+                        swal({
+                            title: "Error",
+                            icon: "error",
+                            text: errores,
+                        });
+                    }
+                }
+            }
+        });
+    }
     function cargar_datos(resultado){
         $('#ficha tbody tr').detach();
         tbody = document.getElementById("datos_ficha");
