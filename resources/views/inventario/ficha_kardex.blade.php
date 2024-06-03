@@ -40,33 +40,37 @@
     </div>
     <div class="row bg-danger bg-gradient pt-2">
         <h2 class="col-md-10 text-center">TARJETA KARDEX</h2>
-        <h2 class="col-md-2 bg-warning text-center"> N° 0000</h2>
+        <h2 class="col-md-2 bg-warning text-center"> N° <label id="id_producto">0000</label></h2>
     </div>
     <div id="producto" class="p-3">
         <div class="row mb-2">
-            <label for="name" class="col-md-2 col-form-label">Producto: </label>
+            <label for="nombre" class="col-md-2 col-form-label">Producto: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="nombre" name="nombre" disabled>
             </div>
-            <label for="name" class="col-md-2 col-form-label">Ubicacion: </label>
+            <label for="ubicacion" class="col-md-2 col-form-label">Ubicacion: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="ubicacion" name="ubicacion" disabled>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="name" class="col-md-2 col-form-label">Categoria: </label>
+            <label for="categoria" class="col-md-2 col-form-label">Categoria: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="categoria" name="categoria" disabled>
             </div>
-            <label for="name" class="col-md-2 col-form-label">Marca: </label>
+            <label for="marca" class="col-md-2 col-form-label">Marca: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="marca" name="marca" disabled>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="name" class="col-md-2 col-form-label">Saldos: </label>
+            <label for="saldo" class="col-md-2 col-form-label">Saldos: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="saldo" name="saldo" disabled>
+            </div>
+            <label for="item_producto" class="col-md-2 col-form-label">ITEM: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="item_producto" name="item_producto" disabled>
             </div>
         </div>
     </div>
@@ -109,12 +113,12 @@
                 _token: "{{ csrf_token() }}",
                 fecha_inicio: inicio,
                 fecha_final: final,
-                id: producto
+                producto: producto
             },
             success: function(result){
                 console.log(result);
                 if(!(result.producto == null) && !(result.detalle == null)){
-                    cargar_datos(result.respuesta);
+                    cargar_datos(result);
                 }else{
                     swal("Ocurrio un error", {
                         icon: "warning",
@@ -145,20 +149,16 @@
         });
     }
     function cargar_datos(resultado){
-        $('#ficha tbody tr').detach();
-        tbody = document.getElementById("datos_ficha");
-        resultado.forEach(function(fila){
-            if(fila.entradas === null){
-                fila.entradas = 0;
-            }
-            if(fila.salidas === null){
-                fila.salidas = 0;
-            }
-            let tr = document.createElement("tr");
-            let fila_tabla = "<tr><td>"+fila.nombre+"</td><td>"+fila.item_producto+"</td><td>"+fila.precio_compra+"</td><td>"+fila.precio_venta+"</td><td>"+fila.stock_inicial+"</td><td>"+fila.entradas+"</td><td>"+fila.salidas+"</td><td>"+((parseInt(fila.stock_inicial,10)) - (parseInt(fila.salidas,10)) + (parseInt(fila.entradas,10)))+"</td></tr>";
-            tr.innerHTML = fila_tabla;
-            tbody.appendChild(tr);
-        });
+        //$('#ficha tbody tr').detach();
+        //resultado.producto.forEach(function(product_data){
+        document.getElementById('id_producto').innerHTML = (resultado.producto.id).toString().padStart(4, '0');
+        document.getElementById('nombre').value = resultado.producto.nombre;
+        document.getElementById('ubicacion').value = resultado.producto.ubicacion;
+        document.getElementById('categoria').value = resultado.producto.categoria;
+        document.getElementById('marca').value = resultado.producto.marca;
+        document.getElementById('saldo').value = resultado.producto.marca;
+        document.getElementById('item_producto').value = resultado.producto.item_producto;
+        //});
     }
 </script>
 @stop

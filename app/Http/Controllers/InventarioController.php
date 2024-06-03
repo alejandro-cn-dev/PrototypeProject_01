@@ -198,7 +198,7 @@ class InventarioController extends Controller
     }
     public function ficha_kardex()
     {
-        $productos = Producto::select('nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE (id_producto = productos.id)AND (isDeleted = 0)) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) AS salidas"))
+        $productos = Producto::select('id','nombre','item_producto','precio_compra','precio_venta',DB::raw("(SELECT SUM(cantidad) FROM compra_detalles WHERE (id_producto = productos.id)AND (isDeleted = 0)) AS entradas"),DB::raw("(SELECT SUM(cantidad) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) AS salidas"))
         ->where('isDeleted','=',0)
         ->get();
 
@@ -208,20 +208,28 @@ class InventarioController extends Controller
     {
         // reglas de validación
         $rules = [
-            'fecha_inicio'     => 'required',
-            'fecha_final'      => 'required|after_or_equal:fecha_inicio'
+            'producto'         => 'required'
         ];
         // Mensajes de error personalizados
         $custom_messages = [
-            'fecha_inicio.required' => 'Debe escribir una fecha inicial',
-            'fecha_final.required' => 'Debe escribir una fecha final',
-            'fecha_final.after_or_equal' => 'La fecha final no debe ser mayor a la inicial'
+            'producto.required' => 'Debe escoger algun producto para mostrar el detalle'
         ];
         // Validacion de Request
         $validator = $this->validate($request,$rules,$custom_messages);
 
         // Proceso
-        $producto = Producto::find($request->id);
+        //$producto = Producto::find($request->producto);
+        $producto = Producto::join('categorias','productos.id_categoria','=','categorias.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
+        ->where('productos.isDeleted','=',0)->where('productos.id','=',$request->producto)->first();
+
+        // $entradas = Compra_detalle::join('compra_cabeceras','compra_detalles.id_compra','=','compra_cabeceras.id')
+        // ->select('compra_cabeceras.fecha_compra AS fecha','("COMPRAS") + compra_cabeceras.numeracion AS descripcion','0 AS inv_inicial','compra_detalles.costo_compra AS costo_unitario','')
+        // ->where('compra_detalles.isDeleted','=',0)->where('compra_detalles.id_producto','=',$request->producto)
+        // ->get();
+
         //$detalle_ficha = DB::select("CALL sp_get_detalle_ficha_kardex");
         $detalle_ficha = "Test1";
 
