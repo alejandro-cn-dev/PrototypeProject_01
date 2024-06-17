@@ -231,7 +231,7 @@
                                 <tbody id="datos_ventas">
                                     @if (empty($mas_vendidos))
                                         <tr>
-                                            <td colspan="2">(Sin registros)</td>
+                                            <td colspan="3">(Sin registros)</td>
                                         </tr>
                                     @else
                                         @foreach ($mas_vendidos as $item)
