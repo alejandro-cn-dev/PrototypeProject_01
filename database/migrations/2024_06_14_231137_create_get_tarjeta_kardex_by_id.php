@@ -25,16 +25,18 @@ return new class extends Migration
                 SELECT id, fecha, descripcion, numeracion, costo_unitario,
                   CASE
                     WHEN descripcion = 'COMPRA' THEN
-                		@INV_FINAL = @INV_FINAL + cantidad
+                		@INV_FINAL := @INV_FINAL + cantidad
                     WHEN descripcion = 'VENTA' THEN
-                		@INV_FINAL = @INV_FINAL - cantidad
-                  END AS inv_final,
+                		@INV_FINAL := @INV_FINAL - cantidad
+                  END,
+                  @INV_FINAL AS inv_final,
                   CASE
                     WHEN descripcion = 'COMPRA' THEN
-                		@INV_INICIAL = @INV_FINAL - cantidad
+                		@INV_INICIAL := @INV_FINAL - cantidad
                     WHEN descripcion = 'VENTA' THEN
-                		@INV_INICIAL = @INV_FINAL + cantidad
-                  END AS inv_inicial,
+                		@INV_INICIAL := @INV_FINAL + cantidad
+                  END,
+                  @INV_INICIAL AS inv_inicial,
                   IF(descripcion = 'COMPRA',cantidad,'') AS entrada,
                   IF(descripcion = 'VENTA',cantidad,'') AS salida
                 FROM (

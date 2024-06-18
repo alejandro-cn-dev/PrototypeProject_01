@@ -158,7 +158,15 @@
         document.getElementById('marca').value = resultado.producto.marca;
         document.getElementById('saldo').value = resultado.producto.marca;
         document.getElementById('item_producto').value = resultado.producto.item_producto;
-        //});
+
+        $('#ficha tbody tr').detach();
+        tbody = document.getElementById("datos_ficha");
+        resultado.detalle.forEach(function(fila){
+            let tr = document.createElement("tr");
+            let fila_tabla = "<tr><td>"+fila.fecha+"</td><td>"+(fila.descripcion+" "+(fila.numeracion.toString()).padStart(6,'0'))+"</td><td>"+fila.inv_inicial+"</td><td>"+fila.costo_unitario+"</td><td>"+fila.entrada+"</td><td>"+fila.salida+"</td><td>"+fila.inv_final+"</td>";
+            tr.innerHTML = fila_tabla;
+            tbody.appendChild(tr);
+        });
     }
 </script>
 @stop

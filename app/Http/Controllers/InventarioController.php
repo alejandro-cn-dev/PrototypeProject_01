@@ -230,8 +230,8 @@ class InventarioController extends Controller
         // ->where('compra_detalles.isDeleted','=',0)->where('compra_detalles.id_producto','=',$request->producto)
         // ->get();
 
-        //$detalle_ficha = DB::select("CALL sp_get_detalle_ficha_kardex");
-        $detalle_ficha = "Test1";
+        $detalle_ficha = DB::select("CALL sp_get_detalle_ficha_kardex (".$request->producto.")");
+        //$detalle_ficha = "Test1";
 
         return response()->json(['producto'=>$producto, 'detalle'=>$detalle_ficha]);
     }
