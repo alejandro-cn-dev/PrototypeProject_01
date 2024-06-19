@@ -96,6 +96,7 @@ class HomeController extends Controller
         ->with('mas_vendidos',$mas_vendidos)
         ->with('aux',$aux)
         ->with('casi_agotado',$aux1)
-        ->with('casi_tope',$aux2);
+        ->with('casi_tope',$aux2)
+        ->with('parametros',$parametros);
     }
 }
