@@ -208,11 +208,12 @@ class InventarioController extends Controller
     {
         // reglas de validación
         $rules = [
-            'producto'         => 'required'
+            'producto'         => 'required|integer'
         ];
         // Mensajes de error personalizados
         $custom_messages = [
-            'producto.required' => 'Debe escoger algun producto para mostrar el detalle'
+            'producto.required' => 'Debe escoger algun producto para mostrar el detalle',
+            'producto.integer' => 'Hubo un problema con la identificación del producto'
         ];
         // Validacion de Request
         $validator = $this->validate($request,$rules,$custom_messages);

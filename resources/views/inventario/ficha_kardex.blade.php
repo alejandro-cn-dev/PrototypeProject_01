@@ -11,7 +11,7 @@
 @section('content')
 <img src="{{ asset('img/stock_main_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
 <div class="shadow-none p-3 bg-white rounded mt-2 mb-2">
-    <div class="row">
+    {{-- <div class="row">
         <label for="fecha_inicio" class="col-sm-1 col-form-label">Desde: </label>
         <div class="col-sm-4">
             <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
@@ -21,10 +21,10 @@
             <input type="date" name="fecha_final" id="fecha_final" class="form-control">
         </div>
         <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>
-    </div>
-    <div class="row mt-2">
-        <label for="producto" class="col-sm-1">Producto: </label>
-        <div class="col-sm-9">
+    </div> --}}
+    <div class="row">
+        <label for="producto" class="col-sm-2">Producto: </label>
+        <div class="col-sm-8">
             <select name="producto" id="producto" class="form-control">
                 <option value="">(Seleccione un producto)</option>
                 @foreach ($productos as $producto)
@@ -32,6 +32,7 @@
                 @endforeach
             </select>
         </div>
+        <a class="btn btn-info form-control col-sm-2" onclick="recargar_tabla();"><i class="fas fa-fw fa-search"></i> Buscar</a>
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded">
@@ -103,16 +104,16 @@
 @section('js')
 <script>
     function recargar_tabla(){
-        let inicio = document.getElementById("fecha_inicio").value;
-        let final = document.getElementById("fecha_final").value;
+        // let inicio = document.getElementById("fecha_inicio").value;
+        // let final = document.getElementById("fecha_final").value;
         let producto = document.getElementById("producto").value;
         $.ajax({
             url: "{{ route('ficha_kardex_fecha') }}",
             type: "POST",
             data: {
                 _token: "{{ csrf_token() }}",
-                fecha_inicio: inicio,
-                fecha_final: final,
+                // fecha_inicio: inicio,
+                // fecha_final: final,
                 producto: producto
             },
             success: function(result){
@@ -161,6 +162,12 @@
 
         $('#ficha tbody tr').detach();
         tbody = document.getElementById("datos_ficha");
+        if(resultado.detalle == ""){
+            let tr = document.createElement("tr");
+            let fila_tabla = " <tr><td colspan='7'>(Sin resultados)</td></tr>";
+            tr.innerHTML = fila_tabla;
+            tbody.appendChild(tr);
+        }
         resultado.detalle.forEach(function(fila){
             let tr = document.createElement("tr");
             let fila_tabla = "<tr><td>"+fila.fecha+"</td><td>"+(fila.descripcion+" "+(fila.numeracion.toString()).padStart(6,'0'))+"</td><td>"+fila.inv_inicial+"</td><td>"+fila.costo_unitario+"</td><td>"+fila.entrada+"</td><td>"+fila.salida+"</td><td>"+fila.inv_final+"</td>";
