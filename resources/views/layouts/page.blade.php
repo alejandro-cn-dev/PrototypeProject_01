@@ -110,16 +110,19 @@
                     <div class="col-md-4 text-white">
                         <h3>Telefonos y correo</h3>
                         <ul class="m-0">
-                            <li>Telefonos: (+591) 2-460674 </li>
-                            <li>(+591) 73238038</li>
-                            <li>(+591) 71996788</li>
-                            <li>Correo: presitex.tex@gmail.com </li>
+                            @foreach ( explode('|', config('system_phone_contact')) as $telefono)
+                                <li>{{ $telefono }}</li>
+                            @endforeach
+                            @foreach ( explode('|', config('system_email')) as $email )
+                                <li>{{ $email }}</li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="col-md-4 text-white">
                         <h3>Dirección</h3>
-                        <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 -
-                            104) La Paz, Bolivia, Bolivia</p>
+                        {{-- <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 -
+                            104) La Paz, Bolivia, Bolivia</p> --}}
+                        <p>{{ config('system_address') }}</p>
                     </div>
                     <div class="col-md-4 text-white">
                         <h3>Redes Sociales</h3>
@@ -132,7 +135,7 @@
 
                 Contacto:
 
-                <p class="m-0 text-white">&copy; 2023 Presitex - Todos los derechos reservados</p>
+                <p class="m-0 text-white">&copy; 2024 Alejandro Conde - Todos los derechos reservados</p>
             </div>
         </footer>
     </div>
