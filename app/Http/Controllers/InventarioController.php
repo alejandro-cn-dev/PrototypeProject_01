@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Arg;
+use Svg\Tag\Rect;
 
 class InventarioController extends Controller
 {
@@ -235,6 +236,10 @@ class InventarioController extends Controller
         //$detalle_ficha = "Test1";
 
         return response()->json(['producto'=>$producto, 'detalle'=>$detalle_ficha]);
+    }
+    public function reporte_ficha_kardex(Request $request)
+    {
+        return response()->json(['test'=>'XDDDD']);
     }
     public function stock_fecha(Request $request)
     {

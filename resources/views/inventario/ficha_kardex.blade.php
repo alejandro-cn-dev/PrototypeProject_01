@@ -37,7 +37,7 @@
 </div>
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        <a href="#" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Generar reporte</a>
+        <a href="{{route('reporte_ficha_kardex')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Generar reporte</a>
     </div>
     <div class="row bg-danger bg-gradient pt-2">
         <h2 class="col-md-10 text-center">TARJETA KARDEX</h2>
@@ -77,6 +77,10 @@
     </div>
     <table id="ficha" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
+            <tr>
+                <th colspan="2"></th>
+                <th colspan="5" class="text-center">UNIDADES</th>
+            </tr>
             <tr>
                 <th scope="col">Fecha</th>
                 <th scope="col">Documento / Descripcion</th>
