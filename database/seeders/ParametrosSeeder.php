@@ -44,6 +44,11 @@ class ParametrosSeeder extends Seeder
             'descripcion' => 'Número de existencias máximas de productos'
         ]);
         Parametro::create([
+            'nombre' => 'mensaje_bienvenida',
+            'valor' => 'Somos una empresa comercial especializada en material textil, ¡Disfrute su estancia!',
+            'descripcion' => 'Mensaje de bienvenida de página principal'
+        ]);
+        Parametro::create([
             'nombre' => 'descripción_empresa',
             'valor' => 'En nuestra empresa puedes disfrutar de un excelente Servicio de Atención al Cliente y de un amplio surtido de material textil, herramientas textiles, asesoramiento, etc. Todo lo que necesites para la manufactura textil lo puedes encontrar en Presitex.',
             'descripcion' => 'Descripción de la empresa que se muestra en la Home page del sistema'
