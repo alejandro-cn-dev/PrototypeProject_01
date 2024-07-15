@@ -237,19 +237,20 @@ class InventarioController extends Controller
 
         return response()->json(['producto'=>$producto, 'detalle'=>$detalle_ficha]);
     }
-    public function reporte_ficha_kardex(Request $request)
+    public function reporte_ficha_kardex($id)
     {
         $producto = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
         ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
-        ->where('productos.isDeleted','=',0)->where('productos.id','=',$request->producto)->first();
-        $detalle = DB::select("CALL sp_get_detalle_ficha_kardex (".$request->producto.")");
+        ->where('productos.isDeleted','=',0)->where('productos.id','=',$id)->first();
+        $detalle = DB::select("CALL sp_get_detalle_ficha_kardex (".$id.")");
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('inventario/pdf_tarjeta_kardex',compact('producto','detalle','fecha'));
-        return $pdf->download('tarjeta_kardex_'.$request->item.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
-        return response()->json(['test'=>'XDDDD']);
+        return $pdf->download();
+        //return $pdf->download('tarjeta_kardex_'.$producto->item_producto.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return response()->json(['test'=>'XDDDD']);
     }
     public function stock_fecha(Request $request)
     {

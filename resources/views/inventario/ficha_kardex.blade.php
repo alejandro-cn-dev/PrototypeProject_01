@@ -37,7 +37,7 @@
 </div>
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        <a href="{{route('reporte_ficha_kardex')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Generar reporte</a>
+        <a class="btn btn-warning mb-3" role="button" onclick="generar_reporte();"><i class="fas fa-fw fa-print"></i> Generar reporte</a>
     </div>
     <div class="row bg-danger bg-gradient pt-2">
         <h2 class="col-md-10 text-center">TARJETA KARDEX</h2>
@@ -177,6 +177,29 @@
             let fila_tabla = "<tr><td>"+fila.fecha+"</td><td>"+(fila.descripcion+" "+(fila.numeracion.toString()).padStart(6,'0'))+"</td><td>"+fila.inv_inicial+"</td><td>"+fila.costo_unitario+"</td><td>"+fila.entrada+"</td><td>"+fila.salida+"</td><td>"+fila.inv_final+"</td>";
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
+        });
+    }
+    function generar_reporte(){
+        let id = document.getElementById("producto").value;
+        let url = "{{route('reporte_ficha_kardex',3)}}";
+        //url = url.replace(':id',id);
+        $.ajax({
+            url: url,
+            type: 'GET',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function(data){
+                var blob = new Blob([data]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "tarjeta_kardex.pdf";
+                link.click();
+                console.warn('PDF creado.');
+            },
+            error: function(blob){
+                console.log(blob);
+            }
         });
     }
 </script>
