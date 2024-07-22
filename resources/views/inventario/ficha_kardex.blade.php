@@ -198,7 +198,7 @@
                 console.warn('PDF creado.');
             },
             error: function(blob){
-                console.log(blob);
+                console.log(blob.id);
             }
         });
     }

@@ -64,6 +64,7 @@
         border: 1px solid black;
         }
     </style>
+    @yield('css')
 </head>
 <body>
     <header>
@@ -93,4 +94,7 @@
         @yield('content')
     </main>
 </body>
+<script>
+    @yield('scripts')
+</script>
 </html>
