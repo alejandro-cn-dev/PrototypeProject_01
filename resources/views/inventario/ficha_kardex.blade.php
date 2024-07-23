@@ -181,8 +181,8 @@
     }
     function generar_reporte(){
         let id = document.getElementById("producto").value;
-        let url = "{{route('reporte_ficha_kardex',3)}}";
-        //url = url.replace(':id',id);
+        let url = "{{route('reporte_ficha_kardex',0)}}";
+        url = url.replace('0',id);
         $.ajax({
             url: url,
             type: 'GET',

@@ -28,19 +28,21 @@
 		}
 		#cabecera_kardex_num{
 			color: rgb(255, 255, 255);
-			border-bottom-style: dotted;
+			/* border-bottom-style: dotted; */
             align-self: right;
 		}
 		#tabla_producto{
-			width: -webkit-fill-available;
+			/* width: -webkit-fill-available; */
+            width: 100%;
 			padding: 30px;
 			border-collapse: separate;
 			font-size: 14px;
 			border: 0;
+            margin-left: 20px;
 		}
 		#tabla_producto input{
 			background-color: lemonchiffon;
-			height: 25px;
+			height: 30px;
 		}
 		#ficha th, #ficha td{
 			border: 1px solid black;
@@ -57,10 +59,12 @@
 @stop
 @section('content')
     <div style="background-color: ghostwhite;">
-        <div id="cabecera_kardex">
-            <h2 id="cabecera_kardex_titulo">TARJETA KARDEX</h2>
-            <h2 id="cabecera_kardex_num"> N° <label id="id_producto">{{ str_pad($producto->id, 8, '0', STR_PAD_LEFT) }}</label></h2>
-        </div>
+        <table style="width: 100%;">
+            <tr style="background-color: rgb(241 36 36);">
+            <th style="width: 80%;"><h2 id="cabecera_kardex_titulo">TARJETA KARDEX</h2></th>
+            <th style="width: 20%"><h2 id="cabecera_kardex_num"> N° <label>{{ str_pad($producto->id, 8, '0', STR_PAD_LEFT) }}</label></h2></th>
+            </tr>
+        </table>
         <table id="tabla_producto">
             <tr>
                 <td>Producto: </td>
@@ -101,8 +105,8 @@
                 @foreach ($detalle as $fila)
                     <tr>
                         <td>{{ $fila->fecha }}</td>
-                        <td>{{ $fila->fecha }}</td>
-                        {{-- <td>{{ $fila->descripcion + str_pad($fila->numeracion, 6, '0', STR_PAD_LEFT)}}</td> --}}
+                        {{-- <td>{{ $fila->fecha }}</td> --}}
+                        <td>{{ $fila->descripcion}} - {{str_pad($fila->numeracion, 6, '0', STR_PAD_LEFT)}}</td>
                         <td>{{ $fila->inv_inicial }}</td>
                         <td>{{ $fila->costo_unitario }}</td>
                         <td>{{ $fila->entrada }}</td>
