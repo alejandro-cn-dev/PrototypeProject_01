@@ -92,9 +92,4 @@
     <main>
         <h3 align="center">@yield('cabecera')</h3>
         @yield('content')
-    </main>
-</body>
-<script>
-    @yield('scripts')
-</script>
-</html>
+    </main></body></html>
