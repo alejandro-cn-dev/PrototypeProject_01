@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
+    {
         User::create([
             'ap_paterno' => 'Valencia',
             'ap_materno' => 'Palacios',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'telefono' => '69612471',
             'matricula' => 'GVP83610041LP',
             'email' => 'gpalacios@admin.com',
-            'password' => 'admin_admin'            
+            'password' => 'admin_admin'
         ])->assignRole('administrador');
         User::create([
             'ap_paterno' => 'Conde',
@@ -35,8 +35,8 @@ class UserSeeder extends Seeder
             'telefono' => '61115903',
             'matricula' => 'ACP4889167LP',
             'email' => 'aconde@admin.com',
-            'password' => 'admin_admin'            
-        ])->assignRole('administrador');
+            'password' => 'admin_admin'
+        ])->assignRole('desarrollador');
         User::create([
             'ap_paterno' => 'Apaza',
             'ap_materno' => 'Colima',
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'telefono' => '1100100',
             'matricula' => 'ECV2969372LP',
             'email' => 'vendedor1@admin.com',
-            'password' => 'admin_admin'            
+            'password' => 'admin_admin'
         ])->assignRole('vendedor');
         User::create([
             'ap_paterno' => 'Luque',
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             'telefono' => '6325222',
             'matricula' => 'OCL64973110CB',
             'email' => 'acomodador1@admin.com',
-            'password' => 'admin_admin'            
+            'password' => 'admin_admin'
         ])->assignRole('acomodador');
         User::create([
             'ap_paterno' => 'Huanca',
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
             'telefono' => '325236',
             'matricula' => 'BFH93462514LP',
             'email' => 'cobrador1@admin.com',
-            'password' => 'admin_admin'            
+            'password' => 'admin_admin'
         ])->assignRole('cobrador');
     }
 }

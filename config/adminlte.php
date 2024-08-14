@@ -363,7 +363,20 @@ return [
                     'url'         => 'config',
                     'icon'    => 'fas fa-fw fa-cog',
                     'can'   => 'panel-config-admin'
+                ],
+                [
+                    'text'        => 'Copia de seguridad',
+                    'url'         => 'backup',
+                    'icon'    => 'fas fa-file-archive',
+                    'can'   => 'panel-backup-admin'
+                ],
+                [
+                    'text'        => 'Opciones avanzadas',
+                    'url'         => 'config_dev',
+                    'icon'    => 'fas fa fa-window-restore',
+                    'can'   => 'panel-config-dev'
                 ]
+
             ],
         ],
         [
