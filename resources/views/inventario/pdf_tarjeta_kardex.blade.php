@@ -6,7 +6,7 @@
 @section('fecha')
     {{ $fecha }}
 @stop
-@section('cabecera','Tarjeta kardex')
+{{-- @section('cabecera','Tarjeta kardex') --}}
 @section('css')
     <style>
         #producto{
@@ -79,8 +79,8 @@
                 <td><input type="text" id="marca" name="marca" value="{{ $producto->marca }}" disabled></td>
             </tr>
             <tr>
-                <td>Saldo: </td>
-                <td><input type="text" id="saldo" name="saldo" value="{{ $producto->marca }}" disabled></td>
+                {{-- <td>Saldo: </td>
+                <td><input type="text" id="saldo" name="saldo" value="{{ $producto->marca }}" disabled></td> --}}
                 <td>Item: </td>
                 <td><input type="text" id="item" name="item" value="{{ $producto->item_producto }}" disabled></td>
             </tr>

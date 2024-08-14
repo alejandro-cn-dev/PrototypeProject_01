@@ -65,10 +65,10 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="saldo" class="col-md-2 col-form-label">Saldos: </label>
+            {{-- <label for="saldo" class="col-md-2 col-form-label">Saldos: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="saldo" name="saldo" disabled>
-            </div>
+            </div> --}}
             <label for="item_producto" class="col-md-2 col-form-label">ITEM: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="item_producto" name="item_producto" disabled>
@@ -161,7 +161,7 @@
         document.getElementById('ubicacion').value = resultado.producto.ubicacion;
         document.getElementById('categoria').value = resultado.producto.categoria;
         document.getElementById('marca').value = resultado.producto.marca;
-        document.getElementById('saldo').value = resultado.producto.marca;
+        // document.getElementById('saldo').value = resultado.producto.marca;
         document.getElementById('item_producto').value = resultado.producto.item_producto;
 
         $('#ficha tbody tr').detach();
@@ -181,8 +181,16 @@
     }
     function generar_reporte(){
         let id = document.getElementById("producto").value;
-        let url = "{{route('reporte_ficha_kardex',0)}}";
-        url = url.replace('0',id);
+        if(id == '')
+        {
+            swal("Debe seleccionar un producto antes para generar el reporte", {
+                icon: "warning",
+            });
+            console.warn('Error de seleccion de productos');
+            return;
+        }
+        let url = "{{route('reporte_ficha_kardex','id')}}";
+        url = url.replace('id',id);
         $.ajax({
             url: url,
             type: 'GET',
