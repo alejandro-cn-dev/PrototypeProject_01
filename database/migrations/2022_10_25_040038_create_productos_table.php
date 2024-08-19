@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('nombre',100);
             $table->mediumText('descripcion',150);
             $table->string('color',20)->nullable();
-            $table->string('medida',30)->nullable();
-            $table->string('calidad',15)->nullable();
+            $table->string('medida',30)->default('[N/A]');
+            $table->string('calidad',15)->default('Estandar');
             //$table->unsignedBigInteger('id_empleado');
             $table->unsignedBigInteger('id_usuario');
 
