@@ -5,7 +5,7 @@
 @stop
 
 @section('content_header')
-    <h1>Listado de empleados</h1>
+    <h1>Listado de usuarios</h1>
 @stop
 
 @section('content')
@@ -13,10 +13,10 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('empleados.create')
-        <a href="empleados/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Empleado</a>    
+        <a href="empleados/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Usuario nuevo</a>
         @endcan
-        <a href="{{route('generar_reporte_empleado',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Empleados</a>
-    </div>  
+        <a href="{{route('generar_reporte_empleado',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Usuarios</a>
+    </div>
     <div class="table-responsive">
         <table id="empleados" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -68,7 +68,7 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){        
+    $(document).ready(function(){
         $('#empleados').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -153,17 +153,17 @@
                             icon: "warning",
                         });
                         console.log(response);
-                    }                    
-                });                
+                    }
+                });
             } else {
                 swal("Eliminación cancelada",{
                     icon: 'info',
                     buttons: false,
                     timer: 1500,
                 });
-                
+
             }
         });
-    }  
+    }
 </script>
 @stop

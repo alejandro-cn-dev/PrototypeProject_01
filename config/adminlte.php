@@ -367,13 +367,13 @@ return [
                 [
                     'text'        => 'Copia de seguridad',
                     'url'         => 'backup',
-                    'icon'    => 'fas fa-file-archive',
+                    'icon'    => 'fa fa-database',
                     'can'   => 'panel-backup-admin'
                 ],
                 [
                     'text'        => 'Opciones avanzadas',
                     'url'         => 'config_dev',
-                    'icon'    => 'fas fa fa-window-restore',
+                    'icon'    => 'fa fa-gamepad',
                     'can'   => 'panel-config-dev'
                 ]
 
@@ -424,7 +424,7 @@ return [
         //     'can'   => 'empleados.index',
         // ],
         [
-            'text'    => 'Gestion de Inventario',
+            'text'    => 'Compras y ventas',
             'icon'    => 'fas fa-fw fa-book',
             'submenu' => [
                 [
@@ -438,7 +438,13 @@ return [
                     'icon'    => 'fas fa-fw fa-arrow-up',
                     'url'  => 'ventas',
                     'can'   => 'ventas.index'
-                ],
+                ]
+            ],
+        ],
+        [
+            'text'    => 'Control de stock',
+            'icon'    => 'fa fa-check-square',
+            'submenu' => [
                 [
                     'text' => 'Movimientos de inventario',
                     'icon'    => 'fas fa-fw fa-list-alt',
@@ -447,7 +453,7 @@ return [
                 ],
                 [
                     'text' => 'Existencias',
-                    'icon'    => 'nav-icon fas fa-edit',
+                    'icon'    => 'fas fa-edit',
                     'url'  => 'existencias',
                     'can'   => 'ventas.existencias'
                 ]
@@ -459,7 +465,7 @@ return [
             'can'   => 'reporte.control_stock',
             'submenu' => [
                 [
-                    'text' => 'Control de stock',
+                    'text' => 'Control kardex',
                     'icon'    => 'fas fa-fw fa-file-text',
                     'url'  => 'kardex',
                     'can'   => 'reporte.control_stock'
