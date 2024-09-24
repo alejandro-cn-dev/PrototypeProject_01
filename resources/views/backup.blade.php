@@ -9,13 +9,20 @@
 @stop
 
 @section('content')
-<img src="{{ asset('img/database_backup_logo.png') }}" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo valores">
+<img src="{{ asset('img/database_backup_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo copia de seguridad">
 
 <div class="shadow-none p-3 bg-white rounded">
+    <div class="bg-transparent">
+        {{-- @can('backup.create') --}}
+        <a href="#" class="btn btn-primary" role="button"><i class="fas fa-fw fa-plus"></i> Crear copia</a>
+        <a href="#" class="btn btn-secondary" role="button"><i class="fa fa-database"></i> Crear copia solo de BD</a>
+        {{-- @endcan --}}
+    </div>
     <div class="table-responsive">
-        <table id="backups" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+        <table id="backups" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
                 <tr>
+                    {{-- <th scope="col">ID</th> --}}
                     <th scope="col">Archivo</th>
                     <th scope="col">Tamaño</th>
                     <th scope="col">Fecha</th>
@@ -26,16 +33,18 @@
             <tbody>
                 @foreach ($respuesta as $fila)
                     <tr>
-                        <td>{{$fila->file_name}}</td>
-                        <td>{{$fila->file_size}}</td>
-                        <td>{{$fila->last_modified}}</td>
-                        <td>{{$fila->last_modified}}</td>
+                        {{-- <td>{{$fila['id']}}</td> --}}
+                        <td>{{$fila['file_name']}}</td>
+                        <td>{{$fila['file_size']}}</td>
+                        <td>{{$fila['last_modified']}}</td>
+                        <td>{{$fila['last_modified']}}</td>
                         <td>
-                            <a class="btn btn-info" href="#" ><i class="fas fa-fw fa-edit"></i> Descargar</a>
-                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$fila->id}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
+                            <a class="btn btn-info" href="{{$fila['file_path']}}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
+                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$fila['id']}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                         </td>
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
     </div>
