@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\BackupController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -54,6 +55,7 @@ Route::get('reporte_test',[PageController::class,'reporte_test'])->name('reporte
 Route::get('config',[ConfigController::class,'get_params'])->name('params');
 Route::get('config/{id}',[ConfigController::class,'get_param'])->name('param');
 Route::post('update_params/{id}',[ConfigController::class,'up_params'])->name('update_params');
+Route::get('backup',[BackupController::class,'index'])->name('backup.index');
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');
