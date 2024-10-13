@@ -8,17 +8,18 @@ use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class BackupController extends Controller
 {
     public function index()
     {
-        $disk = Storage::disk(config('laravel-backup.backup.destination.disks'));
+        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         $respuesta = [];
-        $backup_id = 0;
-        if($disk != null)
-        {
-            $files = $disk->files(config('laravel-backup.backup.name'));
+        $backup_id = 1;
+        // if($disk != null)
+        // {
+            $files = $disk->files(config('backup.backup.name'));
             // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
                 // only take the zip files into account
@@ -26,9 +27,11 @@ class BackupController extends Controller
                     $respuesta[] = [
                         'id' => $backup_id,
                         'file_path' => $f,
-                        'file_name' => str_replace(config('laravel-backup.backup.name') . '/', '', $f),
+                        'file_name' => str_replace(config('backup.backup.name') . '/', '', $f),
                         'file_size' => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
+                        //'last_modified' => Carbon::hasFormat($disk->lastModified($f), 'MMMM DD Y H:m'),
+                        //'create_from_date' => Carbon::createFromDate($disk->lastModified($f))->age
                     ];
                     $backup_id = $backup_id + 1;
                 }
@@ -36,9 +39,9 @@ class BackupController extends Controller
             // reverse the backups, so the newest one would be on top
             $respuesta = array_reverse($respuesta);
 
-        }
-
+        // }
         return view("backup")->with(compact('respuesta'));
+        //return dd($respuesta);
     }
 
     public function create()

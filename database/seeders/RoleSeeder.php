@@ -26,6 +26,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'panel-config-admin'])->syncRoles([$dev,$admin]);
         Permission::create(['name' => 'panel-config-dev'])->syncRoles([$dev]);
         Permission::create(['name' => 'panel-backup-admin'])->syncRoles([$dev,$admin]);
+        Permission::create(['name' => 'backup.create'])->syncRoles([$dev,$admin]);
         Permission::create(['name' => 'dashboard'])->syncRoles([$dev,$admin,$vendedor,$acomodador]);
         Permission::create(['name' => 'admin-dashboard'])->syncRoles([$dev,$admin]);
 

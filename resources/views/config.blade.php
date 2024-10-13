@@ -16,12 +16,12 @@
         <div class="col-sm-8">
             <img src="{{ $ruta_icono }}" alt="logo sistema" width="50px" height="50px">
         </div>
-        <a class="btn btn-info form-control col-sm-2""><i class="fas fa-fw fa-edit"></i> Cambiar icono</a>
+        <a class="btn btn-info form-control col-sm-2"><i class="fas fa-fw fa-edit"></i> Cambiar icono</a>
     </div>
 </div>
 <div class="shadow-none p-3 bg-white rounded">
     <div class="table-responsive">
-        <table id="valores" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+        <table id="valores" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">Nombre</th>
