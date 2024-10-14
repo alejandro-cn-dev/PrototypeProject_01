@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use JeroenNoten\LaravelAdminLte\View\Components\Widget\Alert as WidgetAlert;
 
 class BackupController extends Controller
 {
@@ -17,6 +18,9 @@ class BackupController extends Controller
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         $respuesta = [];
         $backup_id = 1;
+        $date = "";
+        $today_date = Carbon::now();
+        Carbon::setLocale('es');
         // if($disk != null)
         // {
             $files = $disk->files(config('backup.backup.name'));
@@ -24,12 +28,15 @@ class BackupController extends Controller
             foreach ($files as $k => $f) {
                 // only take the zip files into account
                 if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+                    $date = Carbon::createFromTimestamp($disk->lastModified($f));
                     $respuesta[] = [
                         'id' => $backup_id,
                         'file_path' => $f,
                         'file_name' => str_replace(config('backup.backup.name') . '/', '', $f),
                         'file_size' => $disk->size($f),
-                        'last_modified' => $disk->lastModified($f),
+                        'create_date' => $date->toDayDateTimeString(),
+                        'difference_date' => $date->diffForHumans(),
+                        // 'create_date' => $disk->lastModified($f),
                         //'last_modified' => Carbon::hasFormat($disk->lastModified($f), 'MMMM DD Y H:m'),
                         //'create_from_date' => Carbon::createFromDate($disk->lastModified($f))->age
                     ];
@@ -54,6 +61,7 @@ class BackupController extends Controller
             Log::info("Backpack\BackupManager -- new backup started from admin interface \r\n" . $output);
             // return the results as a response to the ajax call
             //Alert::success('New backup created');
+
             return redirect()->back();
         } catch (Exception $e) {
             //Flash::error($e->getMessage());

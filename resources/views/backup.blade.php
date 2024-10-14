@@ -14,8 +14,8 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         {{-- @can('backup.create') --}}
-        <a href="#" class="btn btn-primary" role="button"><i class="fas fa-fw fa-plus"></i> Crear copia</a>
-        <a href="#" class="btn btn-secondary" role="button"><i class="fa fa-database"></i> Crear copia solo de BD</a>
+        <a href="#"  class="btn btn-primary"role="button"><i class="fa fa-database"></i> Crear copia de BD</a>
+        {{-- <a href="#" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-plus"></i> Crear copia de Todo</a> --}}
         {{-- @endcan --}}
     </div>
     <div class="table-responsive">
@@ -35,9 +35,10 @@
                     <tr>
                         {{-- <td>{{$fila['id']}}</td> --}}
                         <td>{{$fila['file_name']}}</td>
-                        <td>{{$fila['file_size']}}</td>
-                        <td>{{$fila['last_modified']}}</td>
-                        <td>{{$fila['last_modified']}}</td>
+                        <td align="right">{{ bcdiv($fila['file_size'],"1024",2) ." KB" }}</td>
+                        {{-- <td>{{$fila['file_size']}}</td> --}}
+                        <td>{{$fila['create_date']}}</td>
+                        <td>{{$fila['difference_date']}}</td>
                         <td>
                             <a class="btn btn-info" href="{{$fila['file_path']}}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$fila['id']}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
