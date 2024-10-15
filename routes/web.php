@@ -55,7 +55,8 @@ Route::get('reporte_test',[PageController::class,'reporte_test'])->name('reporte
 Route::get('config',[ConfigController::class,'get_params'])->name('params');
 Route::get('config/{id}',[ConfigController::class,'get_param'])->name('param');
 Route::post('update_params/{id}',[ConfigController::class,'up_params'])->name('update_params');
-Route::get('backup',[BackupController::class,'index'])->name('backup.index');
+Route::get('backup',[BackupController::class,'index'])->middleware('auth')->name('backup.index');
+Route::get('download_backup/{file_name}',[BackupController::class,'download'])->middleware('auth')->name('download_backup_a');
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');

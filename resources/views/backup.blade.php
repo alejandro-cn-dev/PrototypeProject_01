@@ -7,7 +7,7 @@
 @section('content_header')
     <h1>Copia de seguridad</h1>
 @stop
-
+@section('plugins.Sweetalert2', true)
 @section('content')
 <img src="{{ asset('img/database_backup_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo copia de seguridad">
 
@@ -40,7 +40,7 @@
                         <td>{{$fila['create_date']}}</td>
                         <td>{{$fila['difference_date']}}</td>
                         <td>
-                            <a class="btn btn-info" href="{{$fila['file_path']}}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
+                            <a class="btn btn-info" href="{{ url("download_backup/".$fila['file_name']) }}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$fila['id']}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                         </td>
                     </tr>
@@ -51,7 +51,6 @@
     </div>
 </div>
 @stop
-
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop

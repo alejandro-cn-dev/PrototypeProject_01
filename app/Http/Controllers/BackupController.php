@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Console\View\Components\Alert;
+use Illuminate\Http\Response;
 use App\Http\Requests;
 use Exception;
 use Illuminate\Support\Facades\Artisan;
@@ -76,22 +77,24 @@ class BackupController extends Controller
      */
     public function download($file_name)
     {
-        $file = config('laravel-backup.backup.name') . '/' . $file_name;
-        $disk = Storage::disk(config('laravel-backup.backup.destination.disks')[0]);
-        if ($disk->exists($file)) {
-            //$fs = Storage::disk(config('laravel-backup.backup.destination.disks')[0])->getDriver();
-            //$stream = $fs->readStream($file);
+        $file = config('backup.backup.name') . '/' . $file_name;
+        // $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+        // if ($disk->exists($file)) {
+        //     $fs = Storage::disk(config('backup.backup.destination.disks'))->getDriver();
+        //     $stream = $fs->readStream($file);
 
-            // return Response::stream(function () use ($stream) {
-            //     fpassthru($stream);
-            // }, 200, [
-            //     "Content-Type" => $fs->getMimetype($file),
-            //     "Content-Length" => $fs->getSize($file),
-            //     "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
-            // ]);
-        } else {
-            abort(404, "The backup file doesn't exist.");
-        }
+        //     return Response::stream(function () use ($stream) {
+        //         fpassthru($stream);
+        //     }, 200, [
+        //         "Content-Type" => $fs->mime_content_type($file),
+        //         "Content-Length" => $fs->getSize($file),
+        //         "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
+        //     ]);
+        // } else {
+        //     abort(401, "The backup file doesn't exist.");
+        // }
+        return Storage::download($file);
+        // return dd("A");
     }
 
     /**
