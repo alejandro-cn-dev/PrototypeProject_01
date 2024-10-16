@@ -14,7 +14,7 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         {{-- @can('backup.create') --}}
-        <a href="#"  class="btn btn-primary"role="button"><i class="fa fa-database"></i> Crear copia de BD</a>
+        <a class="btn btn-primary" role="button" onclick="crear_copia();"><i class="fa fa-database"></i> Crear copia de BD</a>
         {{-- <a href="#" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-plus"></i> Crear copia de Todo</a> --}}
         {{-- @endcan --}}
     </div>
@@ -41,7 +41,7 @@
                         <td>{{$fila['difference_date']}}</td>
                         <td>
                             <a class="btn btn-info" href="{{ url("download_backup/".$fila['file_name']) }}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
-                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{$fila['id']}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
+                            <a class="btn btn-danger" id="anular" onclick="confirma_anular({{strval('"'.$fila['file_name'].'"')}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                         </td>
                     </tr>
                 @endforeach
@@ -56,5 +56,80 @@
 @stop
 
 @section('js')
+    <script>
+        function confirma_anular(nombre_archivo){
+            let ruta = "{{route('delete_backup')}}";
+            swal({
+                    title: "Está seguro?",
+                    text: "Una vez eliminado no será posible recuperarlo",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        method: 'POST',
+                        url: ruta,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            file_name: nombre_archivo,
+                            //_method: 'DELETE',
+                            //contentType: 'application/json',
+                        },
+                        //dataType: 'JSON',
+                        success: function(data){
+                            swal(data.msg, {
+                                icon: "success",
+                                timer: 1500,
+                            });
+                            location.reload();
+                        },
+                        error: function(response){
+                            swal(response.msg, {
+                                icon: "warning",
+                            });
+                            console.log(response);
+                        }
+                    });
+                } else {
+                    swal("Eliminación cancelada",{
+                        icon: 'info',
+                        buttons: false,
+                        timer: 1500,
+                    });
 
+                }
+            });
+        }
+        function crear_copia(){
+            $.ajax({
+                method: 'GET',
+                url: "{{route('create_backup')}}",
+
+                //data: {
+                    //_token: "{{ csrf_token() }}",
+                    //file_name: nombre_archivo,
+                    //_method: 'DELETE',
+                    //contentType: 'application/json',
+                //},
+                //dataType: 'JSON',
+                success: function(data){
+                    console.log(data.status);
+                    swal(data.msg, {
+                        icon: "success",
+                        timer: 1500,
+                    });
+                    //location.reload();
+                },
+                error: function(response){
+                    console.log('C');
+                    swal(response.msg, {
+                        icon: "warning",
+                    });
+                    console.log(response);
+                }
+            });
+        }
+    </script>
 @stop

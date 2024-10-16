@@ -34,7 +34,7 @@ class ProductoController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','productos.descripcion','productos.color','productos.unidad',
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.descripcion','productos.color','productos.medida','productos.calidad','productos.unidad',
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
@@ -77,6 +77,13 @@ class ProductoController extends Controller
             $color = 'Sin color';
         }
         $productos->color = $color;
+        if(!empty($request->get('calidad'))){
+            $productos->calidad = $request->get('calidad');
+        }
+        if(!empty($request->get('medida'))){
+            $productos->medida = $request->get('medida');
+        }
+
         $productos->id_almacen = $request->get('id_almacen');
 
         $productos->precio_compra = $request->get('precio_compra');
@@ -165,6 +172,16 @@ class ProductoController extends Controller
         $producto->precio_compra = $request->get('precio_compra');
         $producto->precio_venta = $request->get('precio_venta');
         $producto->unidad = $request->get('unidad');
+        if(!empty($request->get('calidad'))){
+            $producto->calidad = $request->get('calidad');
+        }else{
+            $producto->calidad = 'Estandar';
+        }
+        if(!empty($request->get('medida'))){
+            $producto->medida = $request->get('medida');
+        }else{
+            $producto->medida = '[N/A]';
+        }
 
         $producto->save();
 

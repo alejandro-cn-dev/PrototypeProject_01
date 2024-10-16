@@ -370,12 +370,12 @@ return [
                     'icon'    => 'fa fa-database',
                     'can'   => 'panel-backup-admin'
                 ],
-                [
-                    'text'        => 'Opciones avanzadas',
-                    'url'         => 'config_dev',
-                    'icon'    => 'fa fa-gamepad',
-                    'can'   => 'panel-config-dev'
-                ]
+                // [
+                //     'text'        => 'Opciones avanzadas',
+                //     'url'         => 'config_dev',
+                //     'icon'    => 'fa fa-gamepad',
+                //     'can'   => 'panel-config-dev'
+                // ]
 
             ],
         ],

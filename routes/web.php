@@ -57,6 +57,8 @@ Route::get('config/{id}',[ConfigController::class,'get_param'])->name('param');
 Route::post('update_params/{id}',[ConfigController::class,'up_params'])->name('update_params');
 Route::get('backup',[BackupController::class,'index'])->middleware('auth')->name('backup.index');
 Route::get('download_backup/{file_name}',[BackupController::class,'download'])->middleware('auth')->name('download_backup_a');
+Route::get('create_backup',[BackupController::class,'create'])->middleware('auth')->name('create_backup');
+Route::post('delete_backup',[BackupController::class,'delete'])->middleware('auth')->name('delete_backup');
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use JeroenNoten\LaravelAdminLte\View\Components\Widget\Alert as WidgetAlert;
 
 class BackupController extends Controller
@@ -21,13 +22,10 @@ class BackupController extends Controller
         $backup_id = 1;
         $date = "";
         $today_date = Carbon::now();
-        Carbon::setLocale('es');
-        // if($disk != null)
-        // {
+        //Carbon::setLocale('es');
+        if ($disk != null) {
             $files = $disk->files(config('backup.backup.name'));
-            // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
-                // only take the zip files into account
                 if (substr($f, -4) == '.zip' && $disk->exists($f)) {
                     $date = Carbon::createFromTimestamp($disk->lastModified($f));
                     $respuesta[] = [
@@ -37,37 +35,27 @@ class BackupController extends Controller
                         'file_size' => $disk->size($f),
                         'create_date' => $date->toDayDateTimeString(),
                         'difference_date' => $date->diffForHumans(),
-                        // 'create_date' => $disk->lastModified($f),
-                        //'last_modified' => Carbon::hasFormat($disk->lastModified($f), 'MMMM DD Y H:m'),
-                        //'create_from_date' => Carbon::createFromDate($disk->lastModified($f))->age
                     ];
                     $backup_id = $backup_id + 1;
                 }
             }
-            // reverse the backups, so the newest one would be on top
             $respuesta = array_reverse($respuesta);
-
-        // }
+        }
         return view("backup")->with(compact('respuesta'));
         //return dd($respuesta);
     }
 
     public function create()
     {
-        try {
-            // start the backup process
-            Artisan::call('backup:run');
+        // try {
+            //Artisan::call("backup:run --only-db --disable-notifications");
+            Artisan::queue('backup:run', ['--only-db' => true,'--disable-notifications'=>true]);
             $output = Artisan::output();
-            // log the results
-            Log::info("Backpack\BackupManager -- new backup started from admin interface \r\n" . $output);
-            // return the results as a response to the ajax call
-            //Alert::success('New backup created');
-
-            return redirect()->back();
-        } catch (Exception $e) {
-            //Flash::error($e->getMessage());
-            return redirect()->back();
-        }
+            //return dd(Artisan::output());
+            return response()->json(['msg' => 'Copia creada satisfactoriamente', 'status' => $output]);
+        // } catch (Exception $e) {
+        //     return response()->json(['msg' => 'Error', 'status' => $e]);
+        // }
     }
 
     /**
@@ -78,36 +66,21 @@ class BackupController extends Controller
     public function download($file_name)
     {
         $file = config('backup.backup.name') . '/' . $file_name;
-        // $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-        // if ($disk->exists($file)) {
-        //     $fs = Storage::disk(config('backup.backup.destination.disks'))->getDriver();
-        //     $stream = $fs->readStream($file);
-
-        //     return Response::stream(function () use ($stream) {
-        //         fpassthru($stream);
-        //     }, 200, [
-        //         "Content-Type" => $fs->mime_content_type($file),
-        //         "Content-Length" => $fs->getSize($file),
-        //         "Content-disposition" => "attachment; filename=\"" . basename($file) . "\"",
-        //     ]);
-        // } else {
-        //     abort(401, "The backup file doesn't exist.");
-        // }
         return Storage::download($file);
-        // return dd("A");
     }
 
     /**
      * Deletes a backup file.
      */
-    public function delete($file_name)
+    public function delete(Request $request)
     {
-        $disk = Storage::disk(config('laravel-backup.backup.destination.disks')[0]);
-        if ($disk->exists(config('laravel-backup.backup.name') . '/' . $file_name)) {
-            $disk->delete(config('laravel-backup.backup.name') . '/' . $file_name);
-            return redirect()->back();
+        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+        if ($disk->exists(config('backup.backup.name') . '/' . $request->get('file_name')))
+        {
+            $disk->delete(config('backup.backup.name') . '/' . $request->get('file_name'));
+            return response()->json(['msg' => 'Copia eliminada satisfactoriamente', 'status' => 'ok']);
         } else {
-            abort(404, "The backup file doesn't exist.");
+            return response()->json(['msg' => 'El archivo no existe', 'status' => 'error']);
         }
     }
 }

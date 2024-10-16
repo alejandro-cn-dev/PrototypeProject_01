@@ -21,7 +21,7 @@
                 <label for="" class="form-label">Apellido Materno</label>
                 <input id="ap_materno" name="ap_materno" type="text" class="form-control" tabindex="2"/>
             </div>
-        </div>        
+        </div>
         <div class="mb-3">
             <label for="" class="form-label">Nombre</label>
             <input id="nombre" name="nombre" type="text" class="form-control" tabindex="3" required />
@@ -47,22 +47,22 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="mb-3">
             <label for="" class="form-label">Telefono</label>
-            <input id="telefono" name="telefono" type="text" class="form-control" placeholder="000-00-000" tabindex="6" />
+            <input id="telefono" name="telefono" type="text" class="form-control" placeholder="000-00-000" tabindex="6" required/>
         </div>
         <div class="row g-2 border border-dark p-2">
             <div class="col-md-6">
                 <label for="" class="form-label">Email</label>
-                <input id="email" name="email" type="text" class="form-control" placeholder="example@demo.com" tabindex="7" required />
+                <input id="email" name="email" type="email" class="form-control" placeholder="example@demo.com" tabindex="7"  required />
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label">Contraseña</label>
                 <input id="password" name="password" type="password" class="form-control" tabindex="8" required />
             </div>
         </div>
-        
+
         <!--REVISAR LA CREACION DEL USUARIO ANTES Y NO COLOCAR ESTE CAMPO MANUALMENTE-->
         <!--<div class="mb-3">
             <label for="" class="form-label">Usuario</label>
@@ -71,13 +71,13 @@
         <div class="mb-3">
             <label for="" class="form-label">Rol</label>
             @foreach ($roles as $role)
-            <div class="form-check">               
+            <div class="form-check">
                 <input type="radio" class="form-check-input" name="role" value="{{$role->name}}" required>
                 <label class="form-check-label" for="flexRadioDefault1">
                     {{ $role->name }}
                 </label>
             </div>
-            @endforeach 
+            @endforeach
         </div>
         <a href="/empleados" class="btn btn-secondary" tabindex="10">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="11">Guardar</button>
@@ -91,10 +91,10 @@
 
 @section('js')
 <script type="text/javascript">
-    $(document).ready(function(){ 
-        $("#expedido").select2({
-            placeholder: 'Expedido en...',
-        });
+    $(document).ready(function(){
+        //$("#expedido").select2({
+            //placeholder: 'Expedido en...',
+        //});
         $("#ci").inputmask({
             alias: 'numeric',
             mask: '999999999',

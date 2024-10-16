@@ -64,17 +64,17 @@
             <label for="" class="form-label">Contraseña</label>
             <input id="password" name="password" type="password" class="form-control" value="" />
         </div> -->
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="" class="form-label">Rol</label>
             @foreach ($roles as $role)
-            <div class="form-check">               
+            <div class="form-check">
                 <input type="radio" class="form-check-input" id="role" name="role" value="{{$role->name}}" required>
                 <label class="form-check-label" for="flexRadioDefault1">
                     {{ $role->name }}
                 </label>
             </div>
-            @endforeach 
-        </div>
+            @endforeach
+        </div> --}}
         <a href="/empleados" class="btn btn-secondary" tabindex="5">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="6">Guardar</button>
     </form>
@@ -87,7 +87,7 @@
 
 @section('js')
 <script type="text/javascript">
-    $(document).ready(function(){ 
+    $(document).ready(function(){
         // $("#expedido").select2({
         //     placeholder: 'Expedido en...',
         // });

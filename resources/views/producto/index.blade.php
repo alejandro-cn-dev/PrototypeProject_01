@@ -19,10 +19,10 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('productos.create')
-        <a href="productos/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Producto</a>    
+        <a href="productos/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Producto</a>
         @endcan
-        <a href="{{route('generar_reporte_producto',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte listado de productos</a>    
-    </div>      
+        <a href="{{route('generar_reporte_producto',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte listado de productos</a>
+    </div>
     <div class="table-responsive">
         <table id="productos" class="table table-striped table-bordered mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -32,6 +32,8 @@
                     <!-- <th scope="col">Nombre</th> -->
                     <th scope="col">Nombre</th>
                     <th scope="col">Color</th>
+                    <th scope="col">Medida</th>
+                    <th scope="col">Calida</th>
                     <th scope="col">Unidad</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Imagen</th>
@@ -47,6 +49,8 @@
                         <!-- <td>{{$producto->nombre}}</td> -->
                         <td>{{$producto->nombre}}</td>
                         <td>{{$producto->color}}</td>
+                        <td>{{$producto->medida}}</td>
+                        <td>{{$producto->calidad}}</td>
                         <td>{{$producto->unidad}}</td>
                         <td>{{$producto->id_almacen}}</td>
                         <td>
@@ -54,8 +58,8 @@
                         @foreach ($imagenes as $imagen)
                             @if(($imagen->id_registro) == ($producto->id))
                                 @php($ruta_img = str_replace('name',$imagen->nombre_imagen,$ruta2))
-                            @endif                   
-                        @endforeach                        
+                            @endif
+                        @endforeach
                         <img src="{{asset($ruta_img)}}" alt="imagen producto {{$producto->nombre}}" style="width: 100px; height: 100px;">
                         <td>{{$producto->id_marca}}</td>
                         <td>
@@ -85,7 +89,7 @@
 
 @section('js')
 <script>
-$(document).ready(function(){        
+$(document).ready(function(){
         $('#productos').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -170,17 +174,17 @@ $(document).ready(function(){
                             icon: "warning",
                         });
                         console.log(response);
-                    }                    
-                });                
+                    }
+                });
             } else {
                 swal("Eliminación cancelada",{
                     icon: 'info',
                     buttons: false,
                     timer: 1500,
                 });
-                
+
             }
         });
-    }  
+    }
 </script>
 @stop

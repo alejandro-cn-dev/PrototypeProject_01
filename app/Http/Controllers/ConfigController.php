@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Parametro;
+use Illuminate\Support\Facades\DB;
 
 class ConfigController extends Controller
 {
     public function get_params()
     {
-        $valores = Parametro::all();
+        //$valores = Parametro::all();
+        $valores = DB::table('parametros')
+            ->select(DB::raw('id, nombre, LEFT(valor, 20) AS valor_mini, descripcion'))
+            ->get();
         $ruta_icono = Parametro::where('nombre','=','logo_sistema_path')->get()[0]->valor;
         return view('config')->with('valores',$valores)->with('ruta_icono',$ruta_icono);
     }

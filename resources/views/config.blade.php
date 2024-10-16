@@ -35,7 +35,7 @@
                 @if ($valor->nombre != 'logo_sistema_path')
                     <tr>
                         <td>{{$valor->nombre}}</td>
-                        <td>{{$valor->valor}}</td>
+                        <td>{{$valor->valor_mini}}...</td>
                         <td>{{$valor->descripcion}}</td>
                         <td>
                             <a href="/config/{{$valor->id}}" class="btn btn-info"><i class="fas fa-fw fa-edit"></i> Editar</a>
