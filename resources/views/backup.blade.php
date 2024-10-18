@@ -120,7 +120,7 @@
                         icon: "success",
                         timer: 1500,
                     });
-                    //location.reload();
+                    location.reload();
                 },
                 error: function(response){
                     console.log('C');
