@@ -21,7 +21,7 @@ Se deben seguir las siguientes intrucciones:
 ## Instalación
 - Clonar el repositorio con :
 ```
-git clone "[https://github.com/alejandro-cn-dev/examen_php_61115903.git](https://github.com/alejandro-cn-dev/PrototypeProject_01)"
+git clone "https://github.com/alejandro-cn-dev/PrototypeProject_01"
 ```
 -  Abrir la carpeta con Visual Studio Code
 -  Cambiar el nombre de '.env.example' a '.env'
