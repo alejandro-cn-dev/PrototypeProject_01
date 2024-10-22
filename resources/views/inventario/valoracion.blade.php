@@ -5,13 +5,13 @@
 @stop
 
 @section('content_header')
-    <h1>Valoración de inventarios de promedio ponderado</h1>
+    <h1>Valoración de inventario</h1>
 @stop
 
 @section('content')
 <img src="{{ asset('img/inventory_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
 
-<div class="shadow-none p-3 bg-white rounded">    
+<div class="shadow-none p-3 bg-white rounded">
     <table id="valoracion" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -27,7 +27,7 @@
         </thead>
         <tbody id="lista_valoraciones">
             @foreach ($valoraciones as $valoracion)
-                <tr>                    
+                <tr>
                     <td>{{ $valoracion->item_producto }}</td>
                     <td>{{ $valoracion->nombre }}</td>
                     <td>{{ date('Y-m-d', strtotime($valoracion->created_at)) }}</td>
@@ -50,7 +50,7 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){  
+    $(document).ready(function(){
         $('#valoracion').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -84,7 +84,7 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
-        });  
+        });
     });
 </script>
 @stop
