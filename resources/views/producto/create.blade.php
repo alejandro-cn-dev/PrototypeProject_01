@@ -118,6 +118,7 @@
 
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <style>
     .flex {
     display: flex;
@@ -143,6 +144,7 @@
 
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
     $(document).ready(function(){
         // Formato de campos de precios
@@ -152,5 +154,13 @@
         //     placeholder: 'Elija una opción'
         // });
     });
+    // if({{ Session::get('status') == 'success'}}){
+        //toastr.success("{{ Session::get('message') }}",'Correcto!',{timeout:3000});
+        toastr.success("{{ Session::get('message') }}",'Correcto!',{timeout:3000});
+    // }
+    // if({{ Session::get('status') == 'error'}}){
+    //     toastr.info("{{ Session::get('message') }}");
+    // }
+
 </script>
 @stop

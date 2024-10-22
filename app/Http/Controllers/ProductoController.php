@@ -51,13 +51,19 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::select('id','nombre')->where('isDeleted','=',0)->get();
-        $marcas = Marca::select('id','detalle')->where('isDeleted','=',0)->get();
-        $almacenes = Almacen::select('id','nombre')->where('isDeleted','=',0)->get();
-        return view('producto.create')
-        ->with('categorias',$categorias)
-        ->with('marcas',$marcas)
-        ->with('almacenes',$almacenes);
+        try {
+            $categorias = Categoria::select('id','nombre')->where('isDeleted','=',0)->get();
+            $marcas = Marca::select('id','detalle')->where('isDeleted','=',0)->get();
+            $almacenes = Almacen::select('id','nombre')->where('isDeleted','=',0)->get();
+            return view('producto.create')
+            ->with('categorias',$categorias)
+            ->with('marcas',$marcas)
+            ->with('almacenes',$almacenes)
+            ->with('status','success')->with('message','Producto agregado correctamente');
+        } catch (\Throwable $th) {
+            return back()->with('status','error')->with('message',$th);
+        }
+
         //return view('producto.create');
     }
 

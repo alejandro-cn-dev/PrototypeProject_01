@@ -92,11 +92,9 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#productos').DataTable({
@@ -195,13 +193,5 @@
                     }
                 });
         }
-        // $(document).Toasts('create', {
-        //     title: 'Toast Title',
-        //     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-        //     position: 'bottomRight',
-        //     autohide: true,
-        //     icon: 'fas fa-exclamation-triangle',
-        // })
-        toastr.success("Prueba1");
     </script>
 @stop
