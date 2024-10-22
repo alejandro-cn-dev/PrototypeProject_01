@@ -73,9 +73,23 @@
             <div class="col-md-4">
                 <input type="text" class="form-control" id="item_producto" name="item_producto" disabled>
             </div>
+            <label for="saldo" class="col-md-2 col-form-label">Saldo: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" style="background-color: blanchedalmond; text-align: right;" id="saldo" name="saldo" disabled>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="nombre" class="col-md-2 col-form-label">Tipo de unidad: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="unidad" name="unidad" disabled>
+            </div>
+            {{-- <label for="ubicacion" class="col-md-2 col-form-label">Ubicacion: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="ubicacion" name="ubicacion" disabled>
+            </div> --}}
         </div>
     </div>
-    <table id="ficha" class="table table-striped table-bordered mt-4" style="width: 100%;">
+    <table id="ficha" class="table table-striped table-bordered mt-2" style="width: 100%;">
         <thead class="table-dark">
             <tr>
                 <th colspan="2"></th>
@@ -161,7 +175,8 @@
         document.getElementById('ubicacion').value = resultado.producto.ubicacion;
         document.getElementById('categoria').value = resultado.producto.categoria;
         document.getElementById('marca').value = resultado.producto.marca;
-        // document.getElementById('saldo').value = resultado.producto.marca;
+        document.getElementById('unidad').value = resultado.producto.unidad;
+        document.getElementById('saldo').value = resultado.saldo;
         document.getElementById('item_producto').value = resultado.producto.item_producto;
 
         $('#ficha tbody tr').detach();
@@ -174,7 +189,9 @@
         }
         resultado.detalle.forEach(function(fila){
             let tr = document.createElement("tr");
-            let fila_tabla = "<tr><td>"+fila.fecha+"</td><td>"+(fila.descripcion+" "+(fila.numeracion.toString()).padStart(6,'0'))+"</td><td>"+fila.inv_inicial+"</td><td>"+fila.costo_unitario+"</td><td>"+fila.entrada+"</td><td>"+fila.salida+"</td><td>"+fila.inv_final+"</td>";
+            if(fila.entrada == ''){ fila.entrada = '-' }
+            if(fila.salida == ''){ fila.salida = '-' }
+            let fila_tabla = "<tr><td>"+fila.fecha+"</td><td>"+(fila.descripcion+" "+(fila.numeracion.toString()).padStart(6,'0'))+"</td><td style='text-align: right;'>"+fila.inv_inicial+"</td><td style='text-align: right;'>"+fila.costo_unitario+"</td><td style='text-align: right;'>"+fila.entrada+"</td><td style='text-align: right;'>"+fila.salida+"</td><td style='text-align: right;'>"+fila.inv_final+"</td>";
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
         });

@@ -37,72 +37,6 @@ class InventarioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * Funciones propias
      */
     public function existencias()
@@ -227,6 +161,10 @@ class InventarioController extends Controller
         ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
         ->where('productos.isDeleted','=',0)->where('productos.id','=',$request->producto)->first();
 
+        $entradas = Compra_detalle::where('isDeleted','=',0)->where('id_producto','=',$request->producto)->sum('cantidad');
+        $salidas = Venta_detalle::where('isDeleted','=',0)->where('id_producto','=',$request->producto)->sum('cantidad');
+
+        $saldo = $entradas-$salidas;
         // $entradas = Compra_detalle::join('compra_cabeceras','compra_detalles.id_compra','=','compra_cabeceras.id')
         // ->select('compra_cabeceras.fecha_compra AS fecha','("COMPRAS") + compra_cabeceras.numeracion AS descripcion','0 AS inv_inicial','compra_detalles.costo_compra AS costo_unitario','')
         // ->where('compra_detalles.isDeleted','=',0)->where('compra_detalles.id_producto','=',$request->producto)
@@ -235,7 +173,7 @@ class InventarioController extends Controller
         $detalle_ficha = DB::select("CALL sp_get_detalle_ficha_kardex (".$request->producto.")");
         //$detalle_ficha = "Test1";
 
-        return response()->json(['producto'=>$producto, 'detalle'=>$detalle_ficha]);
+        return response()->json(['producto'=>$producto, 'detalle'=>$detalle_ficha, 'saldo'=>$saldo]);
     }
     public function reporte_ficha_kardex($id)
     {
