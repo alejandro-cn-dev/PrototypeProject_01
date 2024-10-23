@@ -17,11 +17,11 @@
             <input id="nombre" name="nombre" type="text" class="form-control" required/>
         </div> -->
         <div class="mb-3">
-            <label for="" class="form-label">Nombre</label>
+            <label for="nombre" class="form-label">Nombre</label>
             <input id="nombre" name="nombre" type="text" class="form-control" tabindex="1" required/>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label">Descripcion</label>
+            <label for="descripcion" class="form-label">Descripcion</label>
             <!-- <input id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required/> -->
             <textarea id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required></textarea>
         </div>
@@ -30,7 +30,7 @@
             <input type="file" id="imagen" name="imagen" class="form-control" accept="image/png, image/gif, image/jpeg" tabindex="3">
         </div>
         <div class="mb-3">
-            <label for="" class="form-label">Color</label>
+            <label for="color" class="form-label">Color</label>
             <input id="color" name="color" type="text" class="form-control" tabindex="4" placeholder="(Sin color)"/>
         </div>
         <div class="row g-2 mb-3">
@@ -54,7 +54,7 @@
         </div>
         <div class="row g-3 mb-3">
             <div class="col-md-4">
-                <label for="" class="form-label">Categoria</label>
+                <label for="id_categoria" class="form-label">Categoria</label>
                 <select class="form-control entidades" id="id_categoria" name="id_categoria" tabindex="7" required>
                     <option value="" selected>Elegir categoria...</option>
                     @foreach ($categorias as $categoria)
@@ -63,7 +63,7 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="" class="form-label">Ubicación</label>
+                <label for="id_almacen" class="form-label">Ubicación</label>
                 <select class="form-control entidades" id="id_almacen" name="id_almacen" tabindex="8" required>
                     <option value="" selected>Elegir ubicación...</option>
                     @foreach ($almacenes as $almacen)
@@ -72,7 +72,7 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="" class="form-label">Marca</label>
+                <label for="id_marca" class="form-label">Marca</label>
                 <select class="form-control entidades" id="id_marca" name="id_marca" tabindex="9" required>
                     <option value="" selected>Elegir marca...</option>
                     @foreach ($marcas as $marca)
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label">Unidad de medida</label>
+            <label for="unidad" class="form-label">Unidad de medida</label>
             <select class="form-control" name="unidad" id="unidad" tabindex="10" required>
                 <option value="0">Seleccione unidad</option>
                 <option value="unidad">Unidad</option>
@@ -93,14 +93,14 @@
         </div>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
-                <label for="" class="form-label">Precio de Compra por unidad sugerido</label>
+                <label for="precio_compra" class="form-label">Precio de Compra por unidad sugerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
                     <input class="precio" type="text" id="precio_compra" name="precio_compra" tabindex="11" required/>
                 </div>
             </div>
             <div class="col-md-6">
-                <label for="" class="form-label">Precio de Venta por unidad suguerido</label>
+                <label for="precio_venta" class="form-label">Precio de Venta por unidad suguerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
                     <input class="precio" type="text" id="precio_venta" name="precio_venta" tabindex="12" required/>
@@ -118,7 +118,6 @@
 
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <style>
     .flex {
     display: flex;
@@ -144,7 +143,6 @@
 
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
     $(document).ready(function(){
         // Formato de campos de precios
@@ -156,7 +154,7 @@
     });
     // if({{ Session::get('status') == 'success'}}){
         //toastr.success("{{ Session::get('message') }}",'Correcto!',{timeout:3000});
-        toastr.success("{{ Session::get('message') }}",'Correcto!',{timeout:3000});
+       // toastr.success("{{ Session::get('message') }}",'Correcto!',{timeout:3000});
     // }
     // if({{ Session::get('status') == 'error'}}){
     //     toastr.info("{{ Session::get('message') }}");
