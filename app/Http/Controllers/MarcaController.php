@@ -47,15 +47,20 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        $marcas = new Marca();
-        $detalle = $request->get('detalle');
-        $marcas->detalle = $detalle;
-        $marcas->id_usuario = auth()->user()->id;
-        $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
+        try {
+            $marcas = new Marca();
+            $detalle = $request->get('detalle');
+            $marcas->detalle = $detalle;
+            $marcas->id_usuario = auth()->user()->id;
+            $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
 
-        $marcas->save();
+            $marcas->save();
 
-        return redirect('/marcas');
+            return redirect('/marcas')->with('status','success')->with('message','Marca agregada correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/marcas')->with('status','error')->with('message',$th);
+        }
+
     }
 
     /**
@@ -90,13 +95,18 @@ class MarcaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $marcas = Marca::find($id);
-        $detalle = $request->get('detalle');
-        $marcas->detalle = $detalle;
-        $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
-        $marcas->save();
+        try {
+            $marcas = Marca::find($id);
+            $detalle = $request->get('detalle');
+            $marcas->detalle = $detalle;
+            $marcas->sufijo_marca = strtoupper(substr($detalle,0,2));
+            $marcas->save();
 
-        return redirect('/marcas');
+            return redirect('/marcas')->with('status','success')->with('message','Marca actualizada correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/marcas')->with('status','error')->with('message',$th);
+        }
+
     }
 
     /**

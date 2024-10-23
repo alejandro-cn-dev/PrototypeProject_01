@@ -11,13 +11,13 @@
 @section('content')
 <img src="img/marcas_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo marcas">
 <div class="hadow-none p-3 bg-white rounded">
-    {{-- Antiguo boton de reporte --}}
-    {{-- <div class="bg-transparent">
+    <div class="bg-transparent">
         @can('marcas.create')
         <a href="marcas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Marca</a>
         @endcan
-        <a href="{{route('generar_reporte_marca',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a>
-    </div>   --}}
+        {{-- Antiguo boton de reporte --}}
+        {{-- <a href="{{route('generar_reporte_marca',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Marcas</a> --}}
+    </div>
     <div class="table-responsive">
         <table id="marcas" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
             <thead class="table-dark">
@@ -57,9 +57,11 @@
 
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
 $(document).ready(function(){
         $('#marcas').DataTable({
@@ -159,4 +161,14 @@ $(document).ready(function(){
         });
     }
 </script>
+@if (Session::has('status') && (Session::get('status') == 'success'))
+    <script>
+        toastr.success("{{ Session::get('message') }}","Correcto");
+    </script>
+@endif
+@if (Session::has('status') && (Session::get('status') == 'error'))
+    <script>
+        toastr.error("{{ Session::get('message') }}","Algo salió mal");
+    </script>
+@endif
 @stop

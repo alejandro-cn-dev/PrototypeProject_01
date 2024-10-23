@@ -20,7 +20,7 @@ class ProveedorController extends Controller
         $this->middleware('can:proveedores.edit')->only('edit','update');
         $this->middleware('can:proveedores.delete')->only('destroy');
     }
-    
+
     public function index()
     {
         $provedores = Proveedor::join('marcas','proveedors.id_marca','=','marcas.id')
@@ -48,14 +48,19 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        $provedor = new Proveedor();
-        $provedor->nombre = $request->get('nombre');
-        $provedor->telefono = $request->get('telefono');
-        $provedor->id_marca = $request->get('marca');
-        $provedor->id_usuario = auth()->user()->id;
-        $provedor->save();
+        try {
+            $provedor = new Proveedor();
+            $provedor->nombre = $request->get('nombre');
+            $provedor->telefono = $request->get('telefono');
+            $provedor->id_marca = $request->get('marca');
+            $provedor->id_usuario = auth()->user()->id;
+            $provedor->save();
 
-        return redirect('/proveedores');
+            return redirect('/proveedores')->with('status','success')->with('message','Proveedor agregado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/proveedores')->with('status','error')->with('message',$th);
+        }
+
     }
 
     /**
@@ -91,14 +96,19 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $provedor = Proveedor::find($id);
-        $provedor->nombre = $request->get('nombre');
-        $provedor->telefono = $request->get('telefono');
-        $provedor->id_marca = $request->get('marca');
-        $provedor->id_usuario = auth()->user()->id;
-        $provedor->save();
+        try {
+            $provedor = Proveedor::find($id);
+            $provedor->nombre = $request->get('nombre');
+            $provedor->telefono = $request->get('telefono');
+            $provedor->id_marca = $request->get('marca');
+            $provedor->id_usuario = auth()->user()->id;
+            $provedor->save();
 
-        return redirect('/proveedores');
+            return redirect('/proveedores')->with('status','success')->with('message','Proveedor actualizado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/proveedores')->with('status','error')->with('message',$th);
+        }
+
     }
 
     /**

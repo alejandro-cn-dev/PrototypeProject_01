@@ -13,10 +13,10 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('almacens.create')
-        <a href="almacenes/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacén</a>    
+        <a href="almacenes/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Almacén</a>
         @endcan
-        <a href="{{route('generar_reporte_almacenes',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Almacenes</a>    
-    </div>  
+        <a href="{{route('generar_reporte_almacenes',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Almacenes</a>
+    </div>
     <table id="almacenes" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -55,11 +55,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
-    $(document).ready(function(){    
+    $(document).ready(function(){
         $('#almacenes').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -109,7 +111,7 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
         });
-    });  
+    });
     function confirma_anular(numero){
         let ruta = "{{route('almacenes.destroy',':id')}}";
         ruta = ruta.replace(':id',numero);
@@ -144,17 +146,27 @@
                             icon: "warning",
                         });
                         console.log(response);
-                    }                    
-                });                
+                    }
+                });
             } else {
                 swal("Eliminación cancelada",{
                     icon: 'info',
                     buttons: false,
                     timer: 1500,
                 });
-                
+
             }
         });
-    }  
+    }
 </script>
+@if (Session::has('status') && (Session::get('status') == 'success'))
+    <script>
+        toastr.success("{{ Session::get('message') }}","Correcto");
+    </script>
+@endif
+@if (Session::has('status') && (Session::get('status') == 'error'))
+    <script>
+        toastr.error("{{ Session::get('message') }}","Algo salió mal");
+    </script>
+@endif
 @stop

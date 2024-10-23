@@ -42,15 +42,19 @@ class AlmacenController extends Controller
      */
     public function store(Request $request)
     {
-        $almacenes = new Almacen();
-        $nombre = $request->get('nombre');
-        $almacenes->nombre = $nombre;
-        $almacenes->tipo = $request->get('tipo');
-        $almacenes->id_usuario = auth()->user()->id;
-        $almacenes->sufijo_almacen = strtoupper(substr($nombre,0,2));
-        $almacenes->save();
+        try {
+            $almacenes = new Almacen();
+            $nombre = $request->get('nombre');
+            $almacenes->nombre = $nombre;
+            $almacenes->tipo = $request->get('tipo');
+            $almacenes->id_usuario = auth()->user()->id;
+            $almacenes->sufijo_almacen = strtoupper(substr($nombre,0,2));
+            $almacenes->save();
 
-        return redirect('/almacenes');
+            return redirect('/almacenes')->with('status','success')->with('message','Almacén agregado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/almacenes')->with('status','error')->with('message',$th);
+        }
     }
 
     /**
@@ -85,15 +89,20 @@ class AlmacenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $almacen = Almacen::find($id);
-        $nombre = $request->get('nombre');
-        $almacen->nombre = $nombre;
-        $almacen->tipo = $request->get('tipo');
-        $almacen->sufijo_almacen = strtoupper(substr($nombre,0,2));
+        try {
+            $almacen = Almacen::find($id);
+            $nombre = $request->get('nombre');
+            $almacen->nombre = $nombre;
+            $almacen->tipo = $request->get('tipo');
+            $almacen->sufijo_almacen = strtoupper(substr($nombre,0,2));
 
-        $almacen->save();
+            $almacen->save();
 
-        return redirect('/almacenes');
+            return redirect('/almacenes')->with('status','success')->with('message','Almacén actualizado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/almacenes')->with('status','error')->with('message',$th);
+        }
+
     }
 
     /**

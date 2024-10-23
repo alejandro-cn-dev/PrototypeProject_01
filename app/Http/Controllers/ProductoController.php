@@ -125,7 +125,7 @@ class ProductoController extends Controller
             return redirect('/productos')->with('status','success')->with('message','Producto agregado correctamente');
             //return back()->with('status','success')->with('message','Producto agregado correctamente');
         } catch (\Throwable $th) {
-            return back()->with('status','error')->with('message',$th);
+            return redirect('/productos')->with('status','error')->with('message',$th);
         }
 
     }
@@ -169,29 +169,34 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $producto = Producto::find($id);
-        $producto->descripcion = $request->get('descripcion');
-        $producto->color = $request->get('color');
-        //$producto->id_categoria = $request->get('id_categoria');
-        $producto->id_almacen = $request->get('id_almacen');
-        //$producto->id_marca = $request->get('id_marca');
-        $producto->precio_compra = $request->get('precio_compra');
-        $producto->precio_venta = $request->get('precio_venta');
-        $producto->unidad = $request->get('unidad');
-        if(!empty($request->get('calidad'))){
-            $producto->calidad = $request->get('calidad');
-        }else{
-            $producto->calidad = 'Estandar';
-        }
-        if(!empty($request->get('medida'))){
-            $producto->medida = $request->get('medida');
-        }else{
-            $producto->medida = '[N/A]';
+        try {
+            $producto = Producto::find($id);
+            $producto->descripcion = $request->get('descripcion');
+            $producto->color = $request->get('color');
+            //$producto->id_categoria = $request->get('id_categoria');
+            $producto->id_almacen = $request->get('id_almacen');
+            //$producto->id_marca = $request->get('id_marca');
+            $producto->precio_compra = $request->get('precio_compra');
+            $producto->precio_venta = $request->get('precio_venta');
+            $producto->unidad = $request->get('unidad');
+            if(!empty($request->get('calidad'))){
+                $producto->calidad = $request->get('calidad');
+            }else{
+                $producto->calidad = 'Estandar';
+            }
+            if(!empty($request->get('medida'))){
+                $producto->medida = $request->get('medida');
+            }else{
+                $producto->medida = '[N/A]';
+            }
+
+            $producto->save();
+
+            return redirect('/productos')->with('status','success')->with('message','Producto actualizado correctamente');;
+        } catch (\Throwable $th) {
+            return redirect('/productos')->with('status','error')->with('message',$th);
         }
 
-        $producto->save();
-
-        return redirect('/productos');
     }
 
     /**

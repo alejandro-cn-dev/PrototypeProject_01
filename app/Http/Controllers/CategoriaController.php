@@ -47,25 +47,30 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        $categorias = new Categoria();
-        $categorias->nombre = $nombre = $request->get('nombre');
-        $categorias->detalle = $request->get('detalle');
-        $categorias->id_usuario = auth()->user()->id;
-        //$categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
-        // Obteniendo las letras iniciales de las palabras de la categoria
-        $sufijo = preg_replace('/\b(\w)[^\s]*\s*/m', '$1', $nombre);
-        // Estableciendo valor
-        $categorias->sufijo_categoria = $sufijo;
-        // En caso de existir el mismo sufijo se debe añadir un numero al final para evitar repeticiones
-        $sufijos = Categoria::orderBy('created_at','desc')->where('sufijo_categoria','LIKE','%'.$sufijo.'%')->first();
-        // Si existe un sufijo igual o parecido se procesa uno nuevo
-        if(!empty($sufijos)){
-            // Obteniendo el numero del sufijo para sumar en +1 el nuevo sufijo
-            $num = (int) filter_var($sufijos->sufijo_categoria, FILTER_SANITIZE_NUMBER_INT);
-            $categorias->sufijo_categoria = $sufijo.($num + 1);
+        try {
+            $categorias = new Categoria();
+            $categorias->nombre = $nombre = $request->get('nombre');
+            $categorias->detalle = $request->get('detalle');
+            $categorias->id_usuario = auth()->user()->id;
+            //$categorias->sufijo_categoria = strtoupper(substr($nombre,0,2));
+            // Obteniendo las letras iniciales de las palabras de la categoria
+            $sufijo = preg_replace('/\b(\w)[^\s]*\s*/m', '$1', $nombre);
+            // Estableciendo valor
+            $categorias->sufijo_categoria = $sufijo;
+            // En caso de existir el mismo sufijo se debe añadir un numero al final para evitar repeticiones
+            $sufijos = Categoria::orderBy('created_at','desc')->where('sufijo_categoria','LIKE','%'.$sufijo.'%')->first();
+            // Si existe un sufijo igual o parecido se procesa uno nuevo
+            if(!empty($sufijos)){
+                // Obteniendo el numero del sufijo para sumar en +1 el nuevo sufijo
+                $num = (int) filter_var($sufijos->sufijo_categoria, FILTER_SANITIZE_NUMBER_INT);
+                $categorias->sufijo_categoria = $sufijo.($num + 1);
+            }
+            $categorias->save();
+            return redirect('/categorias')->with('status','success')->with('message','Categoria agregada correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/productos')->with('status','error')->with('message',$th);
         }
-        $categorias->save();
-        return redirect('/categorias');
+
     }
 
     /**
@@ -100,14 +105,19 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categoria = Categoria::find($id);
-        $nombre = $request->get('nombre');
-        $categoria->nombre = $nombre;
-        $categoria->detalle = $request->get('detalle');
-        $categoria->sufijo_categoria = strtoupper(substr($nombre,0,2));
+        try {
+            $categoria = Categoria::find($id);
+            $nombre = $request->get('nombre');
+            $categoria->nombre = $nombre;
+            $categoria->detalle = $request->get('detalle');
+            $categoria->sufijo_categoria = strtoupper(substr($nombre,0,2));
 
-        $categoria->save();
-        return redirect('/categorias');
+            $categoria->save();
+            return redirect('/categorias')->with('status','success')->with('message','Categoria actualizada correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/categorias')->with('status','error')->with('message',$th);
+        }
+
     }
 
     /**
