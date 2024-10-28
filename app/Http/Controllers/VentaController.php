@@ -230,71 +230,74 @@ class VentaController extends Controller
         return $pdf->download('nota_venta_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
-        $fecha = '';
-        $cliente_identi = '';
-        //Sumar total
-        $total = 0;
-        $filas_tabla = json_decode($request->tabla);
+        try {
+            $fecha = '';
+            $cliente_identi = '';
+            //Sumar total
+            $total = 0;
+            $filas_tabla = json_decode($request->tabla);
 
-        foreach($filas_tabla as $fila){
-            $total = $total + (($fila->precio_venta)*($fila->cantidad));
+            foreach($filas_tabla as $fila){
+                $total = $total + (($fila->precio_venta)*($fila->cantidad));
+            }
+
+            //Proceso
+            //Insertar cliente
+            $verificar_ci = Cliente::where('ci','=',$request->ci)->first();
+            if(($verificar_ci) == null){
+                $cliente = new Cliente();
+                $cliente->nombre = $request->nombre;
+                $cliente->ci = $request->ci;
+                $cliente->telefono = $request->telefono;
+                $cliente->email = $request->email;
+                $cliente->direccion = $request->direccion;
+                $cliente->save();
+                $cliente_identi = $cliente->id;
+            }else{
+                $verificar_ci->nombre = $request->nombre;
+                $verificar_ci->telefono = $request->telefono;
+                $verificar_ci->email = $request->email;
+                $verificar_ci->direccion = $request->direccion;
+                $verificar_ci->save();
+                $cliente_identi = $verificar_ci->id;
+            }
+
+
+            //insertar cabecera
+            $cabecera = new Venta_cabecera();
+            //$cabecera->numeracion = $numero_nota_venta;
+            // Obtener último número de nota de venta
+            $last = Venta_cabecera::max('numeracion');
+            $cabecera->numeracion = $last + 1;
+            $cabecera->id_cliente = $cliente_identi;
+            $cabecera->id_usuario = auth()->user()->id;
+            $cabecera->monto_total = $total;
+            // Si no se introdujo ninguna fecha, se establece la fecha actual
+            if(empty($request->fecha_venta)){
+                $fecha = date('Y-m-d', strtotime(Carbon::now()));
+                $cabecera->hora_venta = date('H:i a',strtotime(Carbon::now()));
+            }else{
+                $fecha = $request->fecha_venta;
+            }
+            $cabecera->fecha_venta = $fecha;
+            $cabecera->save();
+
+            //insertar detalle
+            foreach($filas_tabla as $fila){
+                $salida = new Venta_detalle();
+                //$producto = Producto::where('descripcion','=',$fila->producto)->first();
+                $salida->id_venta = $cabecera->id;
+                $salida->precio_unitario = $fila->precio_venta;
+                $salida->cantidad = $fila->cantidad;
+                $salida->id_producto = $fila->producto;
+                $salida->save();
+            }
+            return response()->json(['success'=>'Data is successfully added']);
+            //return redirect('/ventas')->with('status','success')->with('message','Venta registrada correctamente');
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>$th]);
+            //return redirect('/ventas')->with('status','error')->with('message',$th);
         }
-
-        //Proceso
-        //Insertar cliente
-        $verificar_ci = Cliente::where('ci','=',$request->ci)->first();
-        if(($verificar_ci) == null){
-            $cliente = new Cliente();
-            $cliente->nombre = $request->nombre;
-            $cliente->ci = $request->ci;
-            $cliente->telefono = $request->telefono;
-            $cliente->email = $request->email;
-            $cliente->direccion = $request->direccion;
-            $cliente->save();
-            $cliente_identi = $cliente->id;
-        }else{
-            $verificar_ci->nombre = $request->nombre;
-            $verificar_ci->telefono = $request->telefono;
-            $verificar_ci->email = $request->email;
-            $verificar_ci->direccion = $request->direccion;
-            $verificar_ci->save();
-            $cliente_identi = $verificar_ci->id;
-        }
-
-
-        //insertar cabecera
-        $cabecera = new Venta_cabecera();
-        //$cabecera->numeracion = $numero_nota_venta;
-        // Obtener último número de nota de venta
-        $last = Venta_cabecera::max('numeracion');
-        $cabecera->numeracion = $last + 1;
-        $cabecera->id_cliente = $cliente_identi;
-        $cabecera->id_usuario = auth()->user()->id;
-        $cabecera->monto_total = $total;
-        // Si no se introdujo ninguna fecha, se establece la fecha actual
-        if(empty($request->fecha_venta)){
-            $fecha = date('Y-m-d', strtotime(Carbon::now()));
-            $cabecera->hora_venta = date('H:i a',strtotime(Carbon::now()));
-        }else{
-            $fecha = $request->fecha_venta;
-        }
-        $cabecera->fecha_venta = $fecha;
-        $cabecera->save();
-
-        //insertar detalle
-        foreach($filas_tabla as $fila){
-            $salida = new Venta_detalle();
-            //$producto = Producto::where('descripcion','=',$fila->producto)->first();
-            $salida->id_venta = $cabecera->id;
-            $salida->precio_unitario = $fila->precio_venta;
-            $salida->cantidad = $fila->cantidad;
-            $salida->id_producto = $fila->producto;
-            $salida->save();
-        }
-
-
-        return response()->json(['success'=>'Data is successfully added']);
-        //return response()->json(['success'=>$filas_tabla]);
     }
     public function clientes(){
         $clientes = Cliente::all();

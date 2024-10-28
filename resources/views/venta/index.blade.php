@@ -13,12 +13,12 @@
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('ventas.create')
-        <a href="/ventas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Venta</a>    
+        <a href="/ventas/create" class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Registrar Venta</a>
         @endcan
-        <a href="{{route('generar_reporte_ventas',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Ventas</a>    
-        <a href="/ventas/clientes" class="btn btn-danger mb-3" role="button"><i class="fa fa-user"></i> Ver clientes</a>    
-    </div>    
-    <div class="table-responsive">        
+        <a href="{{route('generar_reporte_ventas',1)}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de Ventas</a>
+        <a href="/ventas/clientes" class="btn btn-danger mb-3" role="button"><i class="fa fa-user"></i> Ver clientes</a>
+    </div>
+    <div class="table-responsive">
         <table id="salidas" class="table table-striped table-bordered mt-4">
             <thead class="table-dark">
                 <tr>
@@ -54,19 +54,21 @@
                 @endforeach
             </tbody>
         </table>
-    </div>    
+    </div>
 </div>
 @stop
 
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
 var salidas = new Array()
 
-$(document).ready(function(){        
+$(document).ready(function(){
         $('#salidas').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -151,17 +153,27 @@ $(document).ready(function(){
                             icon: "warning",
                         });
                         console.log(response);
-                    }                    
-                });                
+                    }
+                });
             } else {
                 swal("Eliminación cancelada",{
                     icon: 'info',
                     buttons: false,
                     timer: 1500,
                 });
-                
+
             }
         });
-    }  
+    }
 </script>
+@if (Session::has('status') && (Session::get('status') == 'success'))
+    <script>
+        toastr.success("{{ Session::get('message') }}","Correcto");
+    </script>
+    @endif
+    @if (Session::has('status') && (Session::get('status') == 'error'))
+        <script>
+            toastr.error("{{ Session::get('message') }}","Algo salió mal");
+        </script>
+    @endif
 @stop

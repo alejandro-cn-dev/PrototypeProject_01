@@ -473,7 +473,7 @@
                                 });
                             } else {
                                 $('#alert1').hide();
-                                location.href = "{{ route('ventas.index') }}"
+                                location.href = "{{ route('ventas.index')}}"
                             }
                             console.log(result);
                         },
