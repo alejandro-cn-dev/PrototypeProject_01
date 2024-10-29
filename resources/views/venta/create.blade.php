@@ -148,11 +148,12 @@
 @stop
 
 @section('css')
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script type="text/javascript">
         var tabla_salidas = [];
         var auto_id = 1;
@@ -465,17 +466,28 @@
                             tabla: JSON.stringify(ventas)
                         },
                         success: function(result) {
-                            if (result.errors) {
-                                $('#alert1').html('');
-                                $.each(result.errors, function(key, value) {
-                                    $('#alert1').show();
-                                    $('#alert1').append('<li>' + value + '</li>');
-                                });
-                            } else {
-                                $('#alert1').hide();
-                                location.href = "{{ route('ventas.index')}}"
-                            }
+                            // if (result.errors) {
+                            //     $('#alert1').html('');
+                            //     $.each(result.errors, function(key, value) {
+                            //         $('#alert1').show();
+                            //         $('#alert1').append('<li>' + value + '</li>');
+                            //     });
+                            // } else {
+                            //     $('#alert1').hide();
+                            //     //location.href = "{{ route('ventas.index')}}"
+                            // }
                             console.log(result);
+                            if (result.status == 'success') {
+                                toastr.success(result.message,'Correcto!',3000);
+                                setTimeout(() => {
+                                    location.href = "{{ route('ventas.index')}}"
+                                }, 3000);
+                            }else if(result.status == 'error'){
+                                // toastr.error(result.message,'Error',3000);
+                                toastr.error('Ocurrió un error inesperado vuelva a intentarlo','Error',3000);
+                            }else{
+                                toastr.info(result.message,'Error',3000);
+                            }
                         },
                         error: function(response) {
                             console.log(response);

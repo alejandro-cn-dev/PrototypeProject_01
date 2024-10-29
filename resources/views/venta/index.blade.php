@@ -166,14 +166,4 @@ $(document).ready(function(){
         });
     }
 </script>
-@if (Session::has('status') && (Session::get('status') == 'success'))
-    <script>
-        toastr.success("{{ Session::get('message') }}","Correcto");
-    </script>
-    @endif
-    @if (Session::has('status') && (Session::get('status') == 'error'))
-        <script>
-            toastr.error("{{ Session::get('message') }}","Algo salió mal");
-        </script>
-    @endif
 @stop

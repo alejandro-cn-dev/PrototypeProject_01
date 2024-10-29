@@ -292,10 +292,10 @@ class VentaController extends Controller
                 $salida->id_producto = $fila->producto;
                 $salida->save();
             }
-            return response()->json(['success'=>'Data is successfully added']);
+            return response()->json(['status'=>'success','message'=>'Venta registrada correctamente']);
             //return redirect('/ventas')->with('status','success')->with('message','Venta registrada correctamente');
         } catch (\Throwable $th) {
-            return response()->json(['error'=>$th]);
+            return response()->json(['status'=>'error','message'=>$th]);
             //return redirect('/ventas')->with('status','error')->with('message',$th);
         }
     }
