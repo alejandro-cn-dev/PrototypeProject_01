@@ -240,58 +240,61 @@ class CompraController extends Controller
         return $pdf->download('recibo_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
-        $total = 0;
-        $fecha = '';
-        // $validator = \Validator::make($request->all(), [
-        //     'id_proveedor'          => 'required',
-        //     'fecha_compra'            => 'required',
-        // ]);
-        // if ($validator->fails())
-        // {
-        //     return response()->json(['errors'=>$validator->errors()->all()]);
-        // }
-        //Sumar total
-        $filas_tabla = json_decode($request->tabla);
-        //$filas_tabla = $request->tabla;
+        try {
+            $total = 0;
+            $fecha = '';
+            // $validator = \Validator::make($request->all(), [
+            //     'id_proveedor'          => 'required',
+            //     'fecha_compra'            => 'required',
+            // ]);
+            // if ($validator->fails())
+            // {
+            //     return response()->json(['errors'=>$validator->errors()->all()]);
+            // }
+            //Sumar total
+            $filas_tabla = json_decode($request->tabla);
+            //$filas_tabla = $request->tabla;
 
-        foreach($filas_tabla as $fila){
-            $total = $total + (($fila->precio_compra)*($fila->cantidad));
+            foreach($filas_tabla as $fila){
+                $total = $total + (($fila->precio_compra)*($fila->cantidad));
+            }
+            // Ultimo numero de recibo
+            $last = Compra_cabecera::max('numeracion');
+            //Proceso
+            $cabecera = new Compra_cabecera();
+            //$cabecera->nit_ci = $request->nit_ci;
+            $cabecera->numeracion = $last + 1;
+            $cabecera->id_proveedor = $request->id_proveedor;
+            $cabecera->monto_total = $total;
+            $cabecera->id_usuario = auth()->user()->id;
+
+            // Si no se introdujo ninguna fecha, se establece la fecha actual
+            if(empty($request->fecha_compra)){
+                $fecha = date('Y-m-d', strtotime(Carbon::now()));
+                $cabecera->hora_compra = date('H:i a', strtotime(Carbon::now()));
+            }else{
+                $fecha = $request->fecha_compra;
+
+            }
+            $cabecera->fecha_compra = $fecha;
+            $cabecera->save();
+
+            $filas_tabla = json_decode($request->tabla);
+
+            foreach($filas_tabla as $fila){
+                $entrada = new Compra_detalle();
+                //$producto = Producto::where('descripcion','=',$fila->producto)->first();
+                $entrada->id_compra = $cabecera->id;
+                $entrada->costo_compra = $fila->precio_compra;   // Añadir variable a la tabla
+                $entrada->cantidad = $fila->cantidad;
+                $entrada->id_producto = $fila->producto;
+                $entrada->save();
+            }
+            // return response()->json(['success'=>'Data is successfully added']);
+            // return response()->json(['success'=>$filas_tabla]);
+            return response()->json(['status'=>'success','message'=>'Compra registrada correctamente']);
+        } catch (\Throwable $th) {
+            return response()->json(['status'=>'error','message'=>$th]);
         }
-        // Ultimo numero de recibo
-        $last = Compra_cabecera::max('numeracion');
-        //Proceso
-        $cabecera = new Compra_cabecera();
-        //$cabecera->nit_ci = $request->nit_ci;
-        $cabecera->numeracion = $last + 1;
-        $cabecera->id_proveedor = $request->id_proveedor;
-        $cabecera->monto_total = $total;
-        $cabecera->id_usuario = auth()->user()->id;
-
-        // Si no se introdujo ninguna fecha, se establece la fecha actual
-        if(empty($request->fecha_compra)){
-            $fecha = date('Y-m-d', strtotime(Carbon::now()));
-            $cabecera->hora_compra = date('H:i a', strtotime(Carbon::now()));
-        }else{
-            $fecha = $request->fecha_compra;
-
-        }
-        $cabecera->fecha_compra = $fecha;
-        $cabecera->save();
-
-        $filas_tabla = json_decode($request->tabla);
-
-        foreach($filas_tabla as $fila){
-            $entrada = new Compra_detalle();
-            //$producto = Producto::where('descripcion','=',$fila->producto)->first();
-            $entrada->id_compra = $cabecera->id;
-            $entrada->costo_compra = $fila->precio_compra;   // Añadir variable a la tabla
-            $entrada->cantidad = $fila->cantidad;
-            $entrada->id_producto = $fila->producto;
-            $entrada->save();
-        }
-
-
-        return response()->json(['success'=>'Data is successfully added']);
-        return response()->json(['success'=>$filas_tabla]);
     }
 }
