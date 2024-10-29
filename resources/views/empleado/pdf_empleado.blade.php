@@ -6,7 +6,7 @@
 @section('fecha')
   {{$fecha}}
 @stop
-@section('cabecera','Listado de empleados')
+@section('cabecera','Listado de usuarios')
 @section('content')
 <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
@@ -28,14 +28,14 @@
         <th scope="row">{{$empleado->id}}</th>
         <td>{{$empleado->ap_paterno}}</td>
         <td>{{$empleado->ap_materno}}</td>
-        <td>{{$empleado->nombre}}</td>
+        <td>{{$empleado->name}}</td>
         <td>{{$empleado->ci}}</td>
         <td>{{$empleado->matricula}}</td>
         <td>{{$empleado->telefono}}</td>
         <td>{{$empleado->email}}</td>
-        <td>{{$empleado->detalle}}</td>
+        <td>{{$empleado->getRoleNames()[0]}}</td>
       </tr>
       @endforeach
-    </tbody>  
+    </tbody>
   </table>
 @stop

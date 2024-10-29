@@ -147,8 +147,10 @@ class EmpleadoController extends Controller
         $empleados = User::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'));
+        $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'),['status'=>'success']);
         return $pdf->download('empleados_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        //return response()->json(['status'=>'success']);
+        //return response()->with('status','success');
         //return view('empleado/pdf_empleado',compact('empleados','fecha'));
     }
     public function form_cambio_contraseña($id){
