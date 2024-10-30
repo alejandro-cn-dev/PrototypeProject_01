@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Spatie\DbDumper\Databases\MySql;
+use Spatie\DbDumper\Compressors\GzipCompressor;
 use JeroenNoten\LaravelAdminLte\View\Components\Widget\Alert as WidgetAlert;
 
 class BackupController extends Controller
@@ -26,7 +28,8 @@ class BackupController extends Controller
         if ($disk != null) {
             $files = $disk->files(config('backup.backup.name'));
             foreach ($files as $k => $f) {
-                if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+                //if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+                if ((substr($f, -4) == '.zip' || substr($f, -3) == '.gz') && $disk->exists($f)) {
                     $date = Carbon::createFromTimestamp($disk->lastModified($f));
                     $respuesta[] = [
                         'id' => $backup_id,
@@ -47,19 +50,26 @@ class BackupController extends Controller
 
     public function create()
     {
-        // try {
-            Artisan::call("backup:run --only-db --disable-notifications");
-            //Artisan::queue('backup:run', ['--only-db' => true,'--disable-notifications'=>true]);
-            $output = Artisan::output();
-            //return dd(Artisan::output());
-            // if(function_exists('shell_exec')) {
-            //     $output= "shell_exec is enabled";
-            // }
-            //$output = shell_exec("C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqldump -h localhost -u root test > C:\laragon\www\WMS_WebSystem_01\storage\app\Laravel\main.sql");
-            return response()->json(['msg' => 'Copia creada satisfactoriamente', 'status' => $output]);
-        // } catch (Exception $e) {
-        //     return response()->json(['msg' => 'Error', 'status' => $e]);
-        // }
+        try {
+            // Copia mediante comandos Artisan
+            // Artisan::call("backup:run --only-db --disable-notifications");
+            // $output = Artisan::output();
+
+            // Copia mediante libreria db-dump
+            $db_name = env('DB_DATABASE','wms_websystem_01');
+            $fecha = Carbon::now()->format('Y-m-d-H-i-s');
+            $output = MySql::create()
+            ->setDbName($db_name)
+            ->setUserName('root')
+            ->setPassword('')
+            ->addExtraOption('--routines')
+            ->useCompressor(new GzipCompressor())
+            ->dumpToFile(storage_path('app/Laravel').'/'.'backup-'.$fecha.'.sql.gz');
+
+            return response()->json(['status' => 'success', 'msg' => $output]);
+        } catch (Exception $e) {
+             return response()->json(['status' => 'error', 'msg' => $e]);
+        }
     }
 
     /**

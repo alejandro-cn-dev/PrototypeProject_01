@@ -106,25 +106,23 @@
             $.ajax({
                 method: 'GET',
                 url: "{{route('create_backup')}}",
-
-                //data: {
-                    //_token: "{{ csrf_token() }}",
-                    //file_name: nombre_archivo,
-                    //_method: 'DELETE',
-                    //contentType: 'application/json',
-                //},
-                //dataType: 'JSON',
                 success: function(data){
-                    console.log(data.status);
-                    swal(data.msg, {
-                        icon: "success",
-                        timer: 1500,
-                    });
-                    location.reload();
+                    console.log(data);
+                    if(data.status == 'success'){
+                        swal('Copia creada correctamente', {
+                            icon: "success",
+                            timer: 2000,
+                        });
+                        location.reload();
+                    }else{
+                        swal('Algo salió mal', {
+                            icon: "warning",
+                            timer: 2000,
+                        });
+                    }
                 },
                 error: function(response){
-                    console.log('C');
-                    swal(response.msg, {
+                    swal('Error', {
                         icon: "warning",
                     });
                     console.log(response);
