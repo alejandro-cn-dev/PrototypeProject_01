@@ -22,9 +22,9 @@
             <select id="tipo" name="tipo" class="form-control" required>
                 <option value="">Elegir tipo...</option>
                 <option value="deposito" @if(($almacen->tipo)=="deposito"){ selected } @endif>Deposito</option>
-                <option value="almacen pequeño" @if(($almacen->tipo)=="almacen_pequenio"){ selected } @endif>Almacén pequeño</option>
-            </select>            
-        </div>    
+                <option value="almacen pequeño" @if(($almacen->tipo)=="almacen pequeño"){ selected } @endif>Almacén pequeño</option>
+            </select>
+        </div>
         <a href="/almacenes" class="btn btn-secondary"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
         <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-save"></i> Guardar</button>
     </form>

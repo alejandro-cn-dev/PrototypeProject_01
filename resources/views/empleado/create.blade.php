@@ -68,7 +68,7 @@
             <label for="" class="form-label">Usuario</label>
             <input id="id_user" name="id_user" type="text" class="form-control" tabindex="8" />
         </div>    -->
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="" class="form-label">Rol</label>
             @foreach ($roles as $role)
             <div class="form-check">
@@ -78,6 +78,16 @@
                 </label>
             </div>
             @endforeach
+        </div> --}}
+        <div class="mb-3 mt-4">
+            <label for="" class="form-label">Rol</label>
+            <div class="form-control btn-group btn-group-toggle h-100" data-toggle="buttons">
+                @foreach ($roles as $role)
+                <label class="btn bg-secondary">
+                    <input type="radio" name="role" id="role" value="{{ $role->name }}" autocomplete="off" required> {{ $role->name }}
+                </label>
+                @endforeach
+            </div>
         </div>
         <a href="/empleados" class="btn btn-secondary" tabindex="10">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="11">Guardar</button>

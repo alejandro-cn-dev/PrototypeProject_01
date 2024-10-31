@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-<img src="img/empleados_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo empleados">
+<img src="img/empleados_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo usuarios">
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('empleados.create')
@@ -64,9 +64,11 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <!-- <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet"/> -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
     $(document).ready(function(){
         $('#empleados').DataTable({
@@ -166,4 +168,14 @@
         });
     }
 </script>
+@if (Session::has('status') && (Session::get('status') == 'success'))
+    <script>
+        toastr.success("{{ Session::get('message') }}","Correcto");
+    </script>
+@endif
+@if (Session::has('status') && (Session::get('status') == 'error'))
+    <script>
+        toastr.error("{{ Session::get('message') }}","Algo salió mal");
+    </script>
+@endif
 @stop

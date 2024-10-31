@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-    <img src="img/categorias_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block"
+    <img src="img/categorias_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block"
         alt="logo categorias">
     <div class="shadow-none p-3 bg-white rounded">
         <div class="bg-transparent">

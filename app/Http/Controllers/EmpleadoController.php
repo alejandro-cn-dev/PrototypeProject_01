@@ -50,20 +50,25 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        $usuario = new User();
-        $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
-        $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
-        $usuario->name = $nombre = $request->get('nombre');
-        $usuario->ci = $ci = $request->get('ci');
-        $usuario->expedido = $exp = $request->get('expedido');
-        $usuario->telefono = $request->get('telefono');
-        $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
-        $usuario->email = $request->get('email');
-        $usuario->password = $request->get('password');
-        $usuario->save();
-        $usuario->assignRole($request->get('role'));
+        try {
+            $usuario = new User();
+            $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
+            $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
+            $usuario->name = $nombre = $request->get('nombre');
+            $usuario->ci = $ci = $request->get('ci');
+            $usuario->expedido = $exp = $request->get('expedido');
+            $usuario->telefono = $request->get('telefono');
+            $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+            $usuario->email = $request->get('email');
+            $usuario->password = $request->get('password');
+            $usuario->save();
+            $usuario->assignRole($request->get('role'));
 
-        return redirect('/empleados');
+            // return redirect('/empleados');
+            return redirect('/empleados')->with('status','success')->with('message','Usuario registrado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/empleados')->with('status','error')->with('message',$th);
+        }
     }
 
     /**
@@ -99,27 +104,32 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$id_rol = $request->get('id_rol');
-        //$id_user = $request->get('id_user');
-        //$roles = Rol::where('id','=',$id_rol)->first();
+        try {
+                //$id_rol = $request->get('id_rol');
+            //$id_user = $request->get('id_user');
+            //$roles = Rol::where('id','=',$id_rol)->first();
 
-        // $usuario = User::find($id_user);
-        // $usuario->name = $nombre;
-        // $usuario->save();
-        $usuario = User::find($id);
-        $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
-        $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
-        $usuario->name = $nombre = $request->get('nombre');
-        $usuario->ci = $ci = $request->get('ci');
-        $usuario->expedido = $exp = $request->get('expedido');
-        $usuario->telefono = $request->get('telefono');
-        $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
-        // $usuario->email = $request->get('email');
-        // $usuario->password = $request->get('password');
-        $usuario->save();
-        $usuario->assignRole($request->get('role'));
+            // $usuario = User::find($id_user);
+            // $usuario->name = $nombre;
+            // $usuario->save();
+            $usuario = User::find($id);
+            $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
+            $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
+            $usuario->name = $nombre = $request->get('nombre');
+            $usuario->ci = $ci = $request->get('ci');
+            $usuario->expedido = $exp = $request->get('expedido');
+            $usuario->telefono = $request->get('telefono');
+            $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+            // $usuario->email = $request->get('email');
+            // $usuario->password = $request->get('password');
+            $usuario->save();
+            $usuario->assignRole($request->get('role'));
 
-        return redirect('/empleados');
+            //return redirect('/empleados');
+            return redirect('/empleados')->with('status','success')->with('message','Usuario actualizado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/empleados')->with('status','error')->with('message',$th);
+        }
     }
 
     /**

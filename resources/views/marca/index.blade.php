@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-<img src="img/marcas_main_logo.png" style="witdh:100px;height:100px;" class="rounded mx-auto d-block" alt="logo marcas">
+<img src="img/marcas_main_logo.png" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo marcas">
 <div class="hadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
         @can('marcas.create')

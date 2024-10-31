@@ -83,6 +83,7 @@
                 <option value="0">Seleccione unidad</option>
                 <option value="unidad" @if(($producto->unidad)== 'unidad'){ selected } @endif >Unidad</option>
                 <option value="metro" @if(($producto->unidad)=='metro'){ selected } @endif>Metro</option>
+                <option value="rollo" @if(($producto->unidad)=='rollo'){ selected } @endif>Rollo</option>
                 <!-- <option value="otro">Otro</option> -->
             </select>
         </div>
