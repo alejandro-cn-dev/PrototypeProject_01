@@ -102,6 +102,8 @@ Route::get('compras/recibo_ind/{id}',[CompraController::class,'recibo_ind'])->mi
 Route::get('inventario',[InventarioController::class,'index'])->middleware('auth')->name('inventario.index');
 Route::get('existencias',[InventarioController::class,'existencias'])->middleware('auth')->name('inventario.existencias');
 Route::post('existencias/{select}',[InventarioController::class,'existencias_select'])->middleware('auth')->name('existencias_select');
+Route::get('solicitud_reposicion',[InventarioController::class,'solicitud_repo'])->middleware('auth')->name('inventario.repo');
+Route::post('registrar_solicitud_repo',[InventarioController::class,'guardar_solicitud_repo'])->middleware('auth')->name('guardar_solicitud_repo');
 Route::get('export_reporte_existencias/{arg}',[InventarioController::class,'export_reporte_existencias'])->middleware('auth')->name('generar_reporte_existencias');
 Route::post('get_movimientos',[InventarioController::class,'get_movimientos'])->middleware('auth')->name('inventario.get_movimientos');
 Route::get('kardex',[InventarioController::class,'stock'])->middleware('auth')->name('inventario.kardex');

@@ -33,7 +33,12 @@
 </div>
 
 <div class="shadow-none p-3 bg-white rounded">
-    <a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>
+    <div class="bg-transparent">
+        {{-- @can('inventario.solicitud_reposicion') --}}
+        <a href="/solicitud_reposicion"  class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Solicitar reposición</a>
+        {{-- @endcan --}}
+        <a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>
+    </div>
     <table id="existencias" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>

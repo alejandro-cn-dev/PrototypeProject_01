@@ -363,4 +363,10 @@ class InventarioController extends Controller
 
         return $pdf->download();
     }
+    public function solicitud_repo(){
+        return view('inventario\solicitud_repo');
+    }
+    public function guardar_solicitud_repo(){
+
+    }
 }
