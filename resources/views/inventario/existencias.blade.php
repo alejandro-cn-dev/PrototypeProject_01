@@ -34,11 +34,34 @@
 
 <div class="shadow-none p-3 bg-white rounded">
     <div class="bg-transparent">
-        {{-- @can('inventario.solicitud_reposicion') --}}
-        <a href="/solicitud_reposicion"  class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Solicitar reposición</a>
-        {{-- @endcan --}}
+        @can('inventario.solicitud_reposicion')
+            {{-- <a href="/solicitud_reposicion"  class="btn btn-primary mb-3" role="button"><i class="fas fa-fw fa-plus"></i> Solicitar reposición</a> --}}
+            <x-adminlte-button label="Solicitar reposición" class="bg-primary mb-3" data-toggle="modal" data-target="#modalRepo" icon="fas fa-fw fa-plus"/>
+        @endcan
         <a role="link" aria-disabled="true" class="btn btn-warning mb-3" role="button" onclick="enviar_param();"><i class="fas fa-fw fa-print"></i> Reporte de existencias</a>
+
     </div>
+
+    {{-- Modal productos --}}
+    <x-adminlte-modal  action="{{route('guardar_solicitud_repo')}}" method="post" id="modalRepo" title="Productos a reponer" theme="purple" icon="fas fa-exclamation-triangle" size='lg'>
+        {{-- <form> --}}
+            @csrf
+            <div class="mb-3">
+                <label for="productos" class="form-label">Productos: </label>
+                <select id="productos" name="productos[]" label="Productos" class="form-control" multiple required>
+                    @foreach ($productos as $producto)
+                        <option value="{{$producto->id}}">{{$producto->nombre}} - {{$producto->marca}} - {{$producto->color}} - {{$producto->calidad}} - {{$producto->medida}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <x-slot name="footerSlot">
+                <x-adminlte-button class="btn-flat" onclick="" label="Limpiar" theme="warning" icon="fas fa-trash"/>
+                <x-adminlte-button class="btn-flat" onclick="alert($('#productos').select2([]));" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
+                <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" icon="fas fa-times-circle"/>
+            </x-slot>
+        {{-- </form> --}}
+    </x-adminlte-modal>
+
     <table id="existencias" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -128,6 +151,7 @@
         $('#criterio').on('change',function() {
             table.draw();
         });
+        $ ( "#productos" ). select2 ({ width: '100%' });
     });
     /* Custom filtering function which will search data in column four between two values */
     $.fn.dataTable.ext.search.push(
