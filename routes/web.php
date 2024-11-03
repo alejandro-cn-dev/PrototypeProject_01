@@ -13,6 +13,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\BackupController;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -62,6 +63,7 @@ Route::post('delete_backup',[BackupController::class,'delete'])->middleware('aut
 
 Route::resource('productos','App\Http\Controllers\ProductoController')->except('show');
 Route::get('productos/reporte/{id}',[ProductoController::class,'reporte'])->middleware('auth')->name('generar_reporte_producto');
+Route::get('productos/detalle/{id}',[ProductoController::class,'show'])->middleware('auth')->name('detalle_producto');
 Route::resource('empleados','App\Http\Controllers\EmpleadoController')->except('show');
 Route::get('empleados/reporte/{id}',[EmpleadoController::class,'reporte'])->middleware('auth')->name('generar_reporte_empleado');
 Route::get('empleados/restablecer/{id}',[EmpleadoController::class,'form_cambio_contraseña'])->middleware('auth')->name('form_cambio_contraseña');

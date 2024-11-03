@@ -37,7 +37,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Color</th>
                         <th scope="col">Medida</th>
-                        <th scope="col">Calida</th>
+                        <th scope="col">Calidad</th>
                         <th scope="col">Unidad</th>
                         <th scope="col">Ubicacion</th>
                         <th scope="col">Imagen</th>
@@ -68,7 +68,9 @@
                                     style="width: 100px; height: 100px;">
                             <td>{{ $producto->id_marca }}</td>
                             <td>
-                                <!-- <form action="{{ route('productos.destroy', $producto->id) }}" method="POST"> -->
+                                @can('productos.show')
+                                    <a class="btn btn-success" id="anular" href="/productos/detalle/{{$producto->id}}"><i class="fas fa-fw fa-eye"></i> Ver</a>
+                                @endcan
                                 @can('productos.edit')
                                     <a href="/productos/{{ $producto->id }}/edit " class="btn btn-info"><i
                                             class="fas fa-fw fa-edit"></i> Editar</a>

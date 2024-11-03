@@ -10,6 +10,7 @@ use App\Models\Marca;
 use App\Models\Empleado;
 use App\Models\Imagen;
 use Barryvdh\DomPDF\Facade\PDF;
+use FontLib\TrueType\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -138,7 +139,16 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto = Producto::find($id);
+        $imagenes = Imagen::select('nombre_imagen','ubicacion')->where('tabla','=','productos')->where('id_registro','=',$id)->first();
+        if(empty($imagenes)){
+            $imagen = 'product_generic_img_3.jpg';
+            $ubicacion = 'img/';
+        }else{
+            $imagen = $imagenes->nombre_imagen;
+            $ubicacion = 'storage/img/';
+        }
+        return view('producto.show', ['producto' => $producto, 'imagen' => $imagen, 'ubicacion' => $ubicacion]);
     }
 
     /**
