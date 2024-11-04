@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class ConfigController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:panel-config-admin')->only('get_params','get_param','up_params');
+        $this->middleware('can:panel-config-dev')->only('dev_params');
+    }
     public function get_params()
     {
         //$valores = Parametro::all();
@@ -31,5 +36,9 @@ class ConfigController extends Controller
         $parametro->save();
 
         return redirect('/config');
+    }
+    public function dev_params()
+    {
+        return view('dev_config');
     }
 }
