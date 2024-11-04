@@ -20,7 +20,7 @@
                 <select name="id_proveedor" id="id_proveedor" class="form-control" required>
                     <option value="">Seleccione un proveedor...</option>
                     @foreach ($proveedores as $proveedor)
-                        <option value='{{ $proveedor->id }}'>{{ $proveedor->nombre }}</option>
+                        <option value='{{ $proveedor->id }}'>{{ $proveedor->nombre.' - '.$proveedor->marca }}</option>
                     @endforeach
                 </select>
             </div>
@@ -61,7 +61,7 @@
             tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <!-- <form method="POST" action="{{ route('agregar_producto_compra') }}" class="modal fade" id="insert_form" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
             @csrf
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agregar producto</h5>
@@ -74,13 +74,13 @@
                         <div class="mb-3">
                             <div class="form-group">
                                 <label for="producto" class="form-label">Producto</label>
-                                <!-- <select name="producto" id="producto" style="width: 100%;" onchange="cargar_precio_unidad();"> -->
-                                <select name="producto" id="producto" style="width: 100%;" data-init-plugin="select2" required>
+                                <!-- <select name="producto" id="producto" style="width: 100%;" class="form-control w-100 h-100" onchange="cargar_precio_unidad();"> -->
+                                <select name="producto" id="producto"  style="width: 100%; heigth:100%;" data-init-plugin="select2" required>
                                     <option value="">Seleccione un producto...</option>
                                     @foreach ($productos as $producto)
                                         <option
                                             value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_compra }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
-                                            {{ $producto->nombre }}</option>
+                                            {{ $producto->nombre.'|'.$producto->color.'|'.$producto->calidad.'|'.$producto->medida }}</option>
                                     @endforeach
                                 </select>
                             </div>

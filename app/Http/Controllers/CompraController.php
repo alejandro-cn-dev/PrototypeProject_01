@@ -48,7 +48,8 @@ class CompraController extends Controller
     {
         $productos = Producto::where('isDeleted','=',0)->get();
         //$proveedores = Proveedor::where('isDeleted','=',1)->get();
-        $proveedores = Proveedor::all();
+        $proveedores = Proveedor::select('proveedors.id','proveedors.nombre','proveedors.telefono','marcas.detalle AS marca')
+        ->join('marcas','proveedors.id_marca','=','marcas.id')->where('proveedors.isDeleted','=',0)->get();
         $fecha_actual = date('Y-m-d', strtotime(Carbon::now()));
         return view('compra.create')->with('productos',$productos)->with('proveedores',$proveedores)->with("fecha_actual",$fecha_actual);
     }
