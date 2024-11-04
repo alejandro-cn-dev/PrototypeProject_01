@@ -18,6 +18,7 @@
                     proveedor</a>
             @endcan
             {{-- <a href="{{route('generar_reporte_proveedores')}}" class="btn btn-warning mb-3" role="button"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a> --}}
+            <a class="btn btn-warning mb-3" role="button" onclick="descargar_reporte();"><i class="fas fa-fw fa-print"></i> Reporte de proveedores</a>
         </div>
         <div class="table-responsive">
             <table id="proveedors" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
@@ -164,6 +165,31 @@
 
                     }
                 });
+        }
+        async function descargar_reporte(){
+            try {
+                const response = await fetch('{{route("generar_reporte_proveedores")}}');
+                if (!response.ok) {
+                    toastr.error('Error al descargar el PDF','Error');
+                    throw new Error('Error al descargar el PDF');
+                }
+                const blob = await response.blob();
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'proveedores.pdf';
+                document.body.appendChild(a);
+                a.click();
+
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                toastr.info('PDF descargado','Informe');
+            } catch (error) {
+                console.error('Error: ',error);
+                toastr.error('Ocurrió un error inesperado','Error');
+            }
         }
     </script>
     @if (Session::has('status') && (Session::get('status') == 'success'))

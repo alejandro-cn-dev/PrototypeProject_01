@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
 use App\Models\Marca;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class ProveedorController extends Controller
 {
@@ -129,5 +130,14 @@ class ProveedorController extends Controller
         );
         return response()->json($response);
         //return redirect('/proveedores');
+    }
+
+    public function reporte(){
+        $proveedores = Proveedor::select('proveedors.nombre','proveedors.telefono','marcas.detalle AS marca')
+        ->join('marcas','proveedors.id_marca','=','marcas.id')->where('proveedors.isDeleted','=',0)->get();
+        $fecha_actual = date_create(date('d-m-Y'));
+        $fecha = date_format($fecha_actual,'d-m-Y');
+        $pdf = PDF::loadView('proveedor/pdf_proveedor',compact('proveedores','fecha'));
+        return $pdf->download('proveedores'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
 }
