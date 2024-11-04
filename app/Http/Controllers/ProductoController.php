@@ -139,7 +139,15 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::find($id);
+        //$producto = Producto::find($id);
+        $producto = Producto::join('categorias','productos.id_categoria','=','categorias.id')
+        ->join('almacens','productos.id_almacen','=','almacens.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->select('productos.id','productos.item_producto','productos.descripcion','productos.color', 'productos.nombre', 'productos.medida','productos.calidad','productos.unidad','productos.precio_compra','productos.precio_venta',
+        'categorias.nombre as categoria',
+        'almacens.nombre as almacen',
+        'marcas.detalle as marca')
+        ->where('productos.isDeleted','=',0)->where('productos.id','=',$id)->first();
         $imagenes = Imagen::select('nombre_imagen','ubicacion')->where('tabla','=','productos')->where('id_registro','=',$id)->first();
         if(empty($imagenes)){
             $imagen = 'product_generic_img_3.jpg';
