@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('venta_detalles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_venta');
-            $table->decimal('precio_unitario',5,2);
+            $table->decimal('precio_unitario',6,2);
             $table->integer('cantidad');
             // $table->integer('stock_inicial')->default(0);
             // $table->integer('descuento')->default(0);

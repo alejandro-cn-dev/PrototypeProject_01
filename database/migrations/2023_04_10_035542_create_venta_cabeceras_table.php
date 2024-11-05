@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('hora_venta',8)->default('00:00 am');
             $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_usuario');
-            $table->decimal('monto_total',6,2);
+            $table->decimal('monto_total',8,2);
             $table->boolean('isDeleted')->default(0);
             $table->foreign('id_cliente')->references('id')->on('clientes');
             $table->foreign('id_usuario')->references('id')->on('users');

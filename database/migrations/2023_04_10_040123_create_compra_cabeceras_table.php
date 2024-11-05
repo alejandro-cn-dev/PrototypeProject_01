@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('fecha_compra');
             $table->string('hora_compra',8)->default('00:00 am');
             $table->unsignedBigInteger('id_proveedor');
-            $table->decimal('monto_total',6,2);
+            $table->decimal('monto_total',8,2);
             $table->boolean('isDeleted')->default(0);
             $table->unsignedBigInteger('id_usuario');
 
