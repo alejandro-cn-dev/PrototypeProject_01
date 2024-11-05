@@ -78,9 +78,9 @@
                                 <select name="producto" id="producto"  style="width: 100%; heigth:100%;" data-init-plugin="select2" required>
                                     <option value="">Seleccione un producto...</option>
                                     @foreach ($productos as $producto)
-                                        <option
-                                            value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_compra }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
-                                            {{ $producto->nombre.'|'.$producto->color.'|'.$producto->calidad.'|'.$producto->medida }}</option>
+                                        <option  value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_compra }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
+                                            {{ $producto->nombre.' | '.$producto->marca.' | '.$producto->color.' | '.$producto->calidad.' | '.$producto->medida }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -118,6 +118,11 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <style>
+        .select2-container .select2-selection--single{
+            height: auto;
+        }
+    </style>
 @stop
 
 @section('js')
@@ -390,7 +395,7 @@
                     });
                 } else {
                     e.preventDefault();
-                    alert('Debe insertar algun producto al detalle');
+                    toastr.warning('Debe insertar algun producto al detalle','Aviso');
                 }
             });
         });

@@ -20,12 +20,6 @@
                 <div class="col-md-6">
                     <label for="" class="form-label">CI</label>
                     <input id="ci" name="ci" type="text" class="form-control" tabindex="3" required />
-                    <!-- <select name="ci" id="ci" class="form-control" tabindex="3" required>
-                                            <option value="">Seleccione el CI...</option>
-                                            @foreach ($clientes as $cliente)
-    <option value='{"id":{{ $cliente->id }},"nombre":{{ $cliente->nombre }},"ci":"{{ $cliente->ci }}","telefono":"{{ $cliente->telefono }},"email":"{{ $cliente->email }},"direccion":"{{ $cliente->direccion }}"}'>{{ $cliente->ci }}</option>
-    @endforeach
-                                    </select> -->
                     <select class="form-select" id="clientes_ci" size="3" aria-label="size 3 select example"
                         onchage="alert('XD');">
                         <option value=""></option>
@@ -91,7 +85,7 @@
         <form method="POST" action="{{ route('agregar_producto_venta') }}" class="modal fade" id="insert_form"
             tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             @csrf
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agregar producto</h5>
@@ -107,9 +101,9 @@
                             <select name="producto" id="producto" class="form-control" style="width: 100%;" required>
                                 <option value="">Seleccione un producto...</option>
                                 @foreach ($productos as $producto)
-                                    <option
-                                        value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_venta }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
-                                        {{ $producto->nombre }}</option>
+                                <option  value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_venta }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
+                                    {{ $producto->nombre.' | '.$producto->marca.' | '.$producto->color.' | '.$producto->calidad.' | '.$producto->medida }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -149,6 +143,11 @@
 
 @section('css')
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<style>
+    .select2-container .select2-selection--single{
+        height: auto;
+    }
+</style>
 @stop
 
 @section('js')
@@ -495,7 +494,7 @@
                     });
                 } else {
                     e.preventDefault();
-                    alert('Debe insertar algun producto al detalle');
+                    toastr.warning('Debe insertar algun producto al detalle','Aviso');
                 }
             });
         });
