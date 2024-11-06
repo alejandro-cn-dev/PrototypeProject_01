@@ -67,6 +67,6 @@ class User extends Authenticatable
         return auth()->user()->roles->pluck('name')[0];
     }
     public function adminlte_profile_url(){
-        return "empleados/perfil";
+        return "usuario/perfil";
     }
 }

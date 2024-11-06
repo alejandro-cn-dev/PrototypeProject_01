@@ -9,6 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Svg\Tag\Rect;
 
 class EmpleadoController extends Controller
 {
@@ -17,18 +18,19 @@ class EmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->middleware('can:empleados.index')->only('index');
-        $this->middleware('can:empleados.create')->only('create','store');
-        $this->middleware('can:empleados.edit')->only('edit','update');
+        $this->middleware('can:empleados.create')->only('create', 'store');
+        $this->middleware('can:empleados.edit')->only('edit', 'update');
         $this->middleware('can:empleados.delete')->only('destroy');
     }
 
     public function index()
     {
-        $usuarios = User::where('isDeleted','=',0)->where('name','NOT LIKE',auth()->user()->name)->get();
-        return view('empleado.index')->with('empleados',$usuarios);
+        $usuarios = User::where('isDeleted', '=', 0)->where('name', 'NOT LIKE', auth()->user()->name)->get();
+        return view('empleado.index')->with('empleados', $usuarios);
     }
 
     /**
@@ -39,7 +41,7 @@ class EmpleadoController extends Controller
     public function create()
     {
         $roles =  Role::all();
-        return view('empleado.create')->with('roles',$roles);
+        return view('empleado.create')->with('roles', $roles);
     }
 
     /**
@@ -58,16 +60,16 @@ class EmpleadoController extends Controller
             $usuario->ci = $ci = $request->get('ci');
             $usuario->expedido = $exp = $request->get('expedido');
             $usuario->telefono = $request->get('telefono');
-            $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+            $usuario->matricula = strtoupper(substr($ap_paterno, 0, 1)) . strtoupper(substr($ap_materno, 0, 1)) . strtoupper(substr($nombre, 0, 1)) . $ci . $exp;
             $usuario->email = $request->get('email');
             $usuario->password = $request->get('password');
             $usuario->save();
             $usuario->assignRole($request->get('role'));
 
             // return redirect('/empleados');
-            return redirect('/empleados')->with('status','success')->with('message','Usuario registrado correctamente');
+            return redirect('/empleados')->with('status', 'success')->with('message', 'Usuario registrado correctamente');
         } catch (\Throwable $th) {
-            return redirect('/empleados')->with('status','error')->with('message',$th);
+            return redirect('/empleados')->with('status', 'error')->with('message', $th);
         }
     }
 
@@ -92,7 +94,7 @@ class EmpleadoController extends Controller
     {
         $empleado = User::find($id);
         $roles = Role::all();
-        return view('empleado.edit')->with('empleado',$empleado)->with('roles',$roles);
+        return view('empleado.edit')->with('empleado', $empleado)->with('roles', $roles);
     }
 
     /**
@@ -105,7 +107,7 @@ class EmpleadoController extends Controller
     public function update(Request $request, $id)
     {
         try {
-                //$id_rol = $request->get('id_rol');
+            //$id_rol = $request->get('id_rol');
             //$id_user = $request->get('id_user');
             //$roles = Rol::where('id','=',$id_rol)->first();
 
@@ -119,16 +121,16 @@ class EmpleadoController extends Controller
             $usuario->ci = $ci = $request->get('ci');
             $usuario->expedido = $exp = $request->get('expedido');
             $usuario->telefono = $request->get('telefono');
-            $usuario->matricula = strtoupper(substr($ap_paterno,0,1)).strtoupper(substr($ap_materno,0,1)).strtoupper(substr($nombre,0,1)).$ci.$exp;
+            $usuario->matricula = strtoupper(substr($ap_paterno, 0, 1)) . strtoupper(substr($ap_materno, 0, 1)) . strtoupper(substr($nombre, 0, 1)) . $ci . $exp;
             // $usuario->email = $request->get('email');
             // $usuario->password = $request->get('password');
             $usuario->save();
             $usuario->assignRole($request->get('role'));
 
             //return redirect('/empleados');
-            return redirect('/empleados')->with('status','success')->with('message','Usuario actualizado correctamente');
+            return redirect('/empleados')->with('status', 'success')->with('message', 'Usuario actualizado correctamente');
         } catch (\Throwable $th) {
-            return redirect('/empleados')->with('status','error')->with('message',$th);
+            return redirect('/empleados')->with('status', 'error')->with('message', $th);
         }
     }
 
@@ -153,24 +155,26 @@ class EmpleadoController extends Controller
     }
 
     //Funciones propias
-    public function reporte(){
-        $empleados = User::where('isDeleted','=',0)->get();
+    public function reporte()
+    {
+        $empleados = User::where('isDeleted', '=', 0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
-        $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('empleado/pdf_empleado',compact('empleados','fecha'),['status'=>'success']);
-        return $pdf->download('empleados_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        $fecha = date_format($fecha_actual, 'd-m-Y');
+        $pdf = PDF::loadView('empleado/pdf_empleado', compact('empleados', 'fecha'), ['status' => 'success']);
+        return $pdf->download('empleados_' . date_format($fecha_actual, "Y-m-d") . '.pdf');
         //return response()->json(['status'=>'success']);
         //return response()->with('status','success');
         //return view('empleado/pdf_empleado',compact('empleados','fecha'));
     }
-    public function form_cambio_contraseña($id){
+    public function form_cambio_contraseña($id)
+    {
         $usuario = User::find($id);
-        return view('empleado.cambio_contraseña')->with('empleado',$usuario);
+        return view('empleado.cambio_contraseña')->with('empleado', $usuario);
     }
-    public function cambio(Request $request){
+    public function cambio(Request $request)
+    {
         // Verificar que coincida la contraseña antes de cambiar por una nueva
-        if (!(Hash::check($request->antigua, Auth::user()->password)))
-        {
+        if (!(Hash::check($request->antigua, Auth::user()->password))) {
             return response()->json(['errors' => ['La contraseña anterior no coincide']]);
         }
         // reglas de validación
@@ -188,7 +192,7 @@ class EmpleadoController extends Controller
             'nueva2.same' => 'No coincide con la nueva contraseña'
         ];
         // Validacion de Request
-        $validator = $this->validate($request,$rules,$custom_messages);
+        $validator = $this->validate($request, $rules, $custom_messages);
 
         // Inicio de procesos de actualización de contraseña nueva
         $usuario = User::find($request->id_usuario);
@@ -201,8 +205,33 @@ class EmpleadoController extends Controller
         );
         return response()->json($response);
     }
-    public function perfil(){
+    public function perfil()
+    {
         $usuario = User::find(auth()->user()->id);
-        return view('empleado.perfil')->with('usuario',$usuario);
+        return view('empleado.perfil')->with('usuario', $usuario);
+    }
+    public function edit_usuario(Request $request)
+    {
+        $usuario = User::find($request->id);
+        return view('empleado.edit_usuario', ['empleado' => $usuario]);
+    }
+    public function guardar_edit_usuario(Request $request)
+    {
+        try {
+            $usuario = User::find($request->id);
+            $usuario->ap_paterno = $ap_paterno = $request->get('ap_paterno');
+            $usuario->ap_materno = $ap_materno = $request->get('ap_materno');
+            $usuario->name = $nombre = $request->get('nombre');
+            $usuario->ci = $ci = $request->get('ci');
+            $usuario->expedido = $exp = $request->get('expedido');
+            $usuario->telefono = $request->get('telefono');
+            $usuario->matricula = strtoupper(substr($ap_paterno, 0, 1)) . strtoupper(substr($ap_materno, 0, 1)) . strtoupper(substr($nombre, 0, 1)) . $ci . $exp;
+            $usuario->save();
+            $usuario->assignRole($request->get('role'));
+
+            return redirect('/usuario/perfil')->with('status', 'success')->with('message', 'Usuario actualizado correctamente');
+        } catch (\Throwable $th) {
+            return redirect('/usuario/perfil')->with('status', 'error')->with('message', $th);
+        }
     }
 }
