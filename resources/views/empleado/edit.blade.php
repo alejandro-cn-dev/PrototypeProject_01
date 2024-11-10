@@ -14,7 +14,7 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <input id="id_user" name="id_user" type="text" hidden class="form-control" value="{{$empleado->id_user}}" />
+            <input id="id" name="id" type="text" hidden class="form-control" value="{{$empleado->id}}" />
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Matricula</label>

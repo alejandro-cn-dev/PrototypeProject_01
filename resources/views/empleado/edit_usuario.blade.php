@@ -10,12 +10,15 @@
 
 @section('content')
     <div class="shadow-none p-3 bg-white rounded">
-        <form action="/empleados/{{ $empleado->id }}" method="POST">
+        <div class="text-right">
+            <a href="/usuario/perfil" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>
+        </div>
+        <form action="{{ route('guardar_edit_usuario') }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <input id="id_user" name="id_user" type="text" hidden class="form-control"
-                    value="{{ $empleado->id_user }}" />
+                <input id="id" name="id" type="text" hidden class="form-control"
+                    value="{{ $empleado->id }}" />
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Matricula</label>

@@ -52,6 +52,7 @@ Route::any('/buscar',[PageController::class,'buscar']);
 //Route::get('/home', function () { return view('home');});
 Route::get('usuario/perfil',[EmpleadoController::class,'perfil'])->middleware('auth')->name('ver_perfil');
 Route::post('usuario/perfil/editar',[EmpleadoController::class,'edit_usuario'])->middleware('auth')->name('editar_perfil');
+Route::put('usuario/perfil/guardar',[EmpleadoController::class,'guardar_edit_usuario'])->middleware('auth')->name('guardar_edit_usuario');
 Route::get('reporte_test',[PageController::class,'reporte_test'])->name('reporte_test');
 
 Route::get('config',[ConfigController::class,'get_params'])->name('params');

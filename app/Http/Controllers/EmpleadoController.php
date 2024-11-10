@@ -227,7 +227,6 @@ class EmpleadoController extends Controller
             $usuario->telefono = $request->get('telefono');
             $usuario->matricula = strtoupper(substr($ap_paterno, 0, 1)) . strtoupper(substr($ap_materno, 0, 1)) . strtoupper(substr($nombre, 0, 1)) . $ci . $exp;
             $usuario->save();
-            $usuario->assignRole($request->get('role'));
 
             return redirect('/usuario/perfil')->with('status', 'success')->with('message', 'Usuario actualizado correctamente');
         } catch (\Throwable $th) {
