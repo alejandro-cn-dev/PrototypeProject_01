@@ -17,6 +17,9 @@
         <a class="btn btn-primary" role="button" onclick="crear_copia();"><i class="fa fa-database"></i> Crear copia de BD</a>
         {{-- <a href="#" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-plus"></i> Crear copia de Todo</a> --}}
         {{-- @endcan --}}
+        @can('panel-config-dev')
+        <a class="btn btn-success" role="button" onclick=""><i class="fa fa-code"></i> Crear copia de la App + BD</a>
+        @endcan
     </div>
     <div class="table-responsive">
         <table id="backups" class="table table-striped table-bordered mt-4" style="width: 100%;">
