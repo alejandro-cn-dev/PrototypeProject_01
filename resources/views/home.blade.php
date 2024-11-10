@@ -11,6 +11,8 @@
     </div>
 @stop
 
+@section('plugins.chartJs', true)
+
 @section('content')
     <!-- PRIMERA SECCION -->
     <!-- Fila 0 de admin -->
@@ -248,13 +250,13 @@
                         </div>
                     </div>
                     <!-- <div class="d-flex flex-row justify-content-end">
-                            <span class="mr-2">
-                                <i class="fas fa-square text-primary"></i> This Week
-                            </span>
-                            <span>
-                                <i class="fas fa-square text-gray"></i> Last Week
-                            </span>
-                        </div> -->
+                                <span class="mr-2">
+                                    <i class="fas fa-square text-primary"></i> This Week
+                                </span>
+                                <span>
+                                    <i class="fas fa-square text-gray"></i> Last Week
+                                </span>
+                            </div> -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -297,13 +299,13 @@
                         </div>
                     </div>
                     <!-- <div class="d-flex flex-row justify-content-end">
-                                    <span class="mr-2">
-                                        <i class="fas fa-square text-primary"></i> This Week
-                                    </span>
-                                    <span>
-                                        <i class="fas fa-square text-gray"></i> Last Week
-                                    </span>
-                                </div> -->
+                                        <span class="mr-2">
+                                            <i class="fas fa-square text-primary"></i> This Week
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-square text-gray"></i> Last Week
+                                        </span>
+                                    </div> -->
                 </div>
             </div>
         </div>
@@ -353,13 +355,13 @@
                         </div>
                     </div>
                     <!-- <div class="d-flex flex-row justify-content-end">
-                                <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This Week
-                                </span>
-                                <span>
-                                    <i class="fas fa-square text-gray"></i> Last Week
-                                </span>
-                            </div> -->
+                                    <span class="mr-2">
+                                        <i class="fas fa-square text-primary"></i> This Week
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-square text-gray"></i> Last Week
+                                    </span>
+                                </div> -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -372,7 +374,8 @@
                     </div>
                     <div class="card-body">
                         <div class="shadow-none bg-white rounded">
-                            <table id="ventas" class="table table-sm table-striped table-bordered" style="width: 100%;">
+                            <table id="ventas" class="table table-sm table-striped table-bordered"
+                                style="width: 100%;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Producto</th>
@@ -403,18 +406,61 @@
                         </div>
                     </div>
                     <!-- <div class="d-flex flex-row justify-content-end">
-                        <span class="mr-2">
-                            <i class="fas fa-square text-primary"></i> This Week
-                        </span>
-                        <span>
-                            <i class="fas fa-square text-gray"></i> Last Week
-                        </span>
-                    </div> -->
+                            <span class="mr-2">
+                                <i class="fas fa-square text-primary"></i> This Week
+                            </span>
+                            <span>
+                                <i class="fas fa-square text-gray"></i> Last Week
+                            </span>
+                        </div> -->
                 </div>
             </div>
         </div>
     </div>
-
+    {{-- SEGUNDA FILA --}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Ventas por meses</h3>
+                            {{-- <a href="/existencias">Ver existencias</a> --}}
+                            <a onclick="generarGraficoVentasPorMes(); generarGraficoProductosMasVendidos();">Probar 1</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <canvas id="graficoVentasPorMes"></canvas>
+                        </div>
+                    </div>
+                    <!-- <div class="d-flex flex-row justify-content-end">
+                                    <span class="mr-2">
+                                        <i class="fas fa-square text-primary"></i> This Week
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-square text-gray"></i> Last Week
+                                    </span>
+                                </div> -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Productos mas vendidos</h3>
+                            {{-- <a href="/existencias">Ver existencias</a> --}}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <canvas id="graficoProductosMasVendidos"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- FIN SEGUNDA SECCION -->
 @stop
 
@@ -426,5 +472,82 @@
     <script>
         console.log("%c Bienvenido al dashboard! (mensaje para los devs)",
             "color:green; background-color: lightblue; border:solid");
+
+        // Gráfico de Ventas por Mes
+        async function generarGraficoVentasPorMes() {
+            // const response = await fetch('/ventas-por-mes');
+            // const data = await response.json();
+
+            // const labels = data.map(d => `Mes ${d.mes}`);
+            // const ventas = data.map(d => d.total);
+
+            const ctx = document.getElementById('graficoVentasPorMes').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    //labels: labels,
+                    labels: ['Enero','Febrero','Marzo'],
+                    datasets: [{
+                        label: 'Ventas por Mes ($)',
+                        //data: ventas,
+                        data: [24,10,10],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gráfico de Productos Más Vendidos
+        async function generarGraficoProductosMasVendidos() {
+            // const response = await fetch('/productos-mas-vendidos');
+            // const data = await response.json();
+
+            // const labels = data.map(d => `Producto ${d.id_producto}`);
+            // const cantidades = data.map(d => d.total_vendido);
+
+            const ctx = document.getElementById('graficoProductosMasVendidos').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    //labels: labels,
+                    labels: ['p1','p2','p3'],
+                    datasets: [{
+                        label: 'Productos Más Vendidos',
+                        //data: cantidades,
+                        data: [10,0,20],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        }
     </script>
 @stop

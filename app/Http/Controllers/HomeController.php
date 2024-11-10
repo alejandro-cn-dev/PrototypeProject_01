@@ -60,7 +60,7 @@ class HomeController extends Controller
         if($total_ventas == 0){
             $ganancias_totales = 0;
         }else{
-            $ganancias_totales = (($total_ventas - $total_compras) / $total_ventas) * 100;
+            $ganancias_totales = (($total_ventas - $total_compras) / $total_compras) * 100;
         }
         $ganancias_totales = number_format($ganancias_totales, 2, ',', ' ');
 
@@ -81,22 +81,22 @@ class HomeController extends Controller
         $aux1 = $agotados->where('existencias','<=',((int)$min+5))->take(5);
         $aux2 = $agotados->where('existencias','>=',((int)$max-5))->take(5);
 
-        return view('home')
-        ->with('ventas',$ventas)
-        ->with('compras',$compras)
-        ->with('empleados',$empleados)
-        ->with('productos',$productos)
-        ->with('existencia_adq',$existencia_adquirida)
-        ->with('existencia_ven',$existencia_vendida)
-        ->with('proveedores',$proveedores)
-        ->with('clientes',$clientes)
-        ->with('total_compras',$total_compras)
-        ->with('total_ventas',$total_ventas)
-        ->with('ganancias', $ganancias_totales)
-        ->with('mas_vendidos',$mas_vendidos)
-        ->with('aux',$aux)
-        ->with('casi_agotado',$aux1)
-        ->with('casi_tope',$aux2)
-        ->with('parametros',$parametros);
+        return view('home',
+        ['ventas'=>$ventas,
+        'compras'=>$compras,
+        'empleados'=>$empleados,
+        'productos'=>$productos,
+        'existencia_adq'=>$existencia_adquirida,
+        'existencia_ven'=>$existencia_vendida,
+        'proveedores'=>$proveedores,
+        'clientes'=>$clientes,
+        'total_compras'=>$total_compras,
+        'total_ventas'=>$total_ventas,
+        'ganancias'=>$ganancias_totales,
+        'mas_vendidos'=>$mas_vendidos,
+        'aux'=>$aux,
+        'casi_agotado'=>$aux1,
+        'casi_tope'=>$aux2,
+        'parametros'=>$parametros]);
     }
 }

@@ -17,11 +17,18 @@ class ParametrosSeeder extends Seeder
     {
         Parametro::create([
             'nombre' => 'nombre_sistema',
-            'valor' => 'Presitex'
+            'valor' => 'Presitex',
+            'descripcion' => 'Nombre que muestra el sistema'
+        ]);
+        Parametro::create([
+            'nombre' => 'razon_social',
+            'valor' => 'Empresa Comercial',
+            'descripcion' => 'Denominación social del propietario del sistema'
         ]);
         Parametro::create([
             'nombre' => 'version_sistema',
-            'valor' => 'v7'
+            'valor' => 'v7',
+            'descripcion' => 'Version del sistema'
         ]);
         // Parametro::create([
         //     'nombre' => 'logo_sistema',
