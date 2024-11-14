@@ -249,14 +249,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- <div class="d-flex flex-row justify-content-end">
-                                <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This Week
-                                </span>
-                                <span>
-                                    <i class="fas fa-square text-gray"></i> Last Week
-                                </span>
-                            </div> -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -298,14 +290,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- <div class="d-flex flex-row justify-content-end">
-                                        <span class="mr-2">
-                                            <i class="fas fa-square text-primary"></i> This Week
-                                        </span>
-                                        <span>
-                                            <i class="fas fa-square text-gray"></i> Last Week
-                                        </span>
-                                    </div> -->
                 </div>
             </div>
         </div>
@@ -354,14 +338,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- <div class="d-flex flex-row justify-content-end">
-                                    <span class="mr-2">
-                                        <i class="fas fa-square text-primary"></i> This Week
-                                    </span>
-                                    <span>
-                                        <i class="fas fa-square text-gray"></i> Last Week
-                                    </span>
-                                </div> -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -405,19 +381,13 @@
                             </table>
                         </div>
                     </div>
-                    <!-- <div class="d-flex flex-row justify-content-end">
-                            <span class="mr-2">
-                                <i class="fas fa-square text-primary"></i> This Week
-                            </span>
-                            <span>
-                                <i class="fas fa-square text-gray"></i> Last Week
-                            </span>
-                        </div> -->
                 </div>
             </div>
         </div>
     </div>
-    {{-- SEGUNDA FILA --}}
+    <!-- FIN SEGUNDA SECCION -->
+    <!-- TERCERA SECCION -->
+    {{-- PRIMERA FILA --}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
@@ -434,14 +404,14 @@
                             <canvas id="graficoVentasPorMes"></canvas>
                         </div>
                     </div>
-                    <!-- <div class="d-flex flex-row justify-content-end">
-                                    <span class="mr-2">
-                                        <i class="fas fa-square text-primary"></i> This Week
-                                    </span>
-                                    <span>
-                                        <i class="fas fa-square text-gray"></i> Last Week
-                                    </span>
-                                </div> -->
+                    <div class="d-flex flex-row justify-content-end">
+                        {{-- <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> This Week
+                    </span>
+                    <span>
+                        <i class="fas fa-square text-gray"></i> Last Week
+                    </span> --}}
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -461,7 +431,93 @@
             </div>
         </div>
     </div>
-    <!-- FIN SEGUNDA SECCION -->
+    {{-- SEGUNDA FILA --}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Ingresos vs. Gastos Mensuales</h3>
+                            {{-- <a href="/existencias">Ver existencias</a> --}}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <canvas id="graficoIngresosGastos"></canvas>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-end">
+                        {{-- <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> This Week
+                    </span>
+                    <span>
+                        <i class="fas fa-square text-gray"></i> Last Week
+                    </span> --}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Ventas por Categoría de Producto</h3>
+                            {{-- <a href="/existencias">Ver existencias</a> --}}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <canvas id="graficoCategoriaMasVendido"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- TERCERA FILA --}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Proyecciones de Ventas</h3>
+                            {{-- <a href="/existencias">Ver existencias</a> --}}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <canvas id="graficoProyeccionesVentas"></canvas>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-end">
+                        {{-- <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> This Week
+                    </span>
+                    <span>
+                        <i class="fas fa-square text-gray"></i> Last Week
+                    </span> --}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Horas Pico de Ventas</h3>
+                            {{-- <a href="/existencias">Ver existencias</a> --}}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shadow-none bg-white rounded">
+                            <canvas id="graficoHorasPicoVentas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TERCERA SECCION -->
 @stop
 
 @section('css')
@@ -475,22 +531,23 @@
 
         // Gráfico de Ventas por Mes
         async function generarGraficoVentasPorMes() {
-            // const response = await fetch('/ventas-por-mes');
-            // const data = await response.json();
+            let meses = [' ','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            const response = await fetch('/ventas-por-mes');
+            const data = await response.json();
 
-            // const labels = data.map(d => `Mes ${d.mes}`);
-            // const ventas = data.map(d => d.total);
+            const labels = data.map(d => `Mes ${meses[d.mes]}`);
+            const ventas = data.map(d => d.total);
 
             const ctx = document.getElementById('graficoVentasPorMes').getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    //labels: labels,
-                    labels: ['Enero','Febrero','Marzo'],
+                    labels: labels,
+                    //labels: ['Enero','Febrero','Marzo'],
                     datasets: [{
-                        label: 'Ventas por Mes ($)',
-                        //data: ventas,
-                        data: [24,10,10],
+                        label: 'Ventas por Mes (Bs)',
+                        data: ventas,
+                        //data: [24,10,10],
                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
@@ -509,22 +566,22 @@
 
         // Gráfico de Productos Más Vendidos
         async function generarGraficoProductosMasVendidos() {
-            // const response = await fetch('/productos-mas-vendidos');
-            // const data = await response.json();
+            const response = await fetch('/productos-mas-vendidos');
+            const data = await response.json();
 
-            // const labels = data.map(d => `Producto ${d.id_producto}`);
-            // const cantidades = data.map(d => d.total_vendido);
-
+            const labels = data.map(d => `${d.nombre}`);
+            const cantidades = data.map(d => d.total_vendido);
+            console.log(data);
             const ctx = document.getElementById('graficoProductosMasVendidos').getContext('2d');
             new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    //labels: labels,
-                    labels: ['p1','p2','p3'],
+                    labels: labels,
+                    //labels: ['p1','p2','p3'],
                     datasets: [{
                         label: 'Productos Más Vendidos',
-                        //data: cantidades,
-                        data: [10,0,20],
+                        data: cantidades,
+                        //data: [10,0,20],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.6)',
                             'rgba(54, 162, 235, 0.6)',
