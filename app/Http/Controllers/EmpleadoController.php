@@ -23,7 +23,7 @@ class EmpleadoController extends Controller
         $this->middleware('auth');
         $this->middleware('can:empleados.index')->only('index');
         $this->middleware('can:empleados.create')->only('create', 'store');
-        $this->middleware('can:empleados.edit')->only('edit', 'update');
+        $this->middleware('can:empleados.edit')->only('edit', 'update', 'edit_usuario', 'guardar_edit_usuario');
         $this->middleware('can:empleados.delete')->only('destroy');
     }
 
