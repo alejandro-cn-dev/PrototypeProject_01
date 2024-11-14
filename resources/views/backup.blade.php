@@ -18,7 +18,7 @@
         {{-- <a href="#" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-plus"></i> Crear copia de Todo</a> --}}
         {{-- @endcan --}}
         @can('panel-config-dev')
-        <a class="btn btn-success" role="button" onclick=""><i class="fa fa-code"></i> Crear copia de la App + BD</a>
+        <a class="btn btn-success" role="button" onclick="crear_copia_todo();"><i class="fa fa-code"></i> Crear copia de la App + BD</a>
         @endcan
     </div>
     <div class="table-responsive">
@@ -109,6 +109,33 @@
             $.ajax({
                 method: 'GET',
                 url: "{{route('create_backup')}}",
+                success: function(data){
+                    console.log(data);
+                    if(data.status == 'success'){
+                        swal('Copia creada correctamente', {
+                            icon: "success",
+                            timer: 2000,
+                        });
+                        location.reload();
+                    }else{
+                        swal('Algo salió mal', {
+                            icon: "warning",
+                            timer: 2000,
+                        });
+                    }
+                },
+                error: function(response){
+                    swal('Error', {
+                        icon: "warning",
+                    });
+                    console.log(response);
+                }
+            });
+        }
+        function crear_copia_todo(){
+            $.ajax({
+                method: 'GET',
+                url: "{{route('create_backup_all')}}",
                 success: function(data){
                     console.log(data);
                     if(data.status == 'success'){

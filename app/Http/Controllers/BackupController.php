@@ -72,6 +72,19 @@ class BackupController extends Controller
         }
     }
 
+    public function create_all()
+    {
+        try {
+            // Copia mediante comandos Artisan
+            Artisan::call("backup:run --disable-notifications");
+            $output = Artisan::output();
+
+            return response()->json(['status' => 'success', 'msg' => $output]);
+        } catch (Exception $e) {
+             return response()->json(['status' => 'error', 'msg' => $e]);
+        }
+    }
+
     /**
      * Downloads a backup zip file.
      *

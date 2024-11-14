@@ -66,6 +66,7 @@ Route::post('update_params/{id}',[ConfigController::class,'up_params'])->name('u
 Route::get('backup',[BackupController::class,'index'])->middleware('auth')->middleware('can:backup.create')->name('backup.index');
 Route::get('download_backup/{file_name}',[BackupController::class,'download'])->middleware('auth')->name('download_backup_a');
 Route::get('create_backup',[BackupController::class,'create'])->middleware('auth')->name('create_backup');
+Route::get('create_backup_all',[BackupController::class,'create_all'])->middleware('auth')->name('create_backup_all');
 Route::post('delete_backup',[BackupController::class,'delete'])->middleware('auth')->name('delete_backup');
 Route::get('dev',[ConfigController::class,'dev_params'])->middleware('auth')->name('dev');
 
