@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Parametro;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class ConfigController extends Controller
@@ -39,6 +40,29 @@ class ConfigController extends Controller
     }
     public function dev_params()
     {
-        return view('dev_config');
+        $titulo_comprobante = config('dev_opt_venta_report_title');
+        $campo_fecha = config('dev_opt_fecha_compra_venta');
+        return view('dev_config',['titulo_comprobante'=>$titulo_comprobante,'campo_fecha'=>$campo_fecha]);
+    }
+    public function set_dev_params(Request $request)
+    {
+        $mensaje = '';
+        try {
+            if ($request->get('name') == 'titulo_comprobante') {
+                config(['dev_opt_venta_report_title' => $request->get('value')]);
+                $mensaje = 'Ha cambiado el titulo de comprobante de venta';
+            }
+            if ($request->get('name') == 'campo_fecha') {
+                config(['dev_opt_fecha_compra_venta' => $request->get('value')]);
+                if($request->get('value') == true){
+                    $mensaje = 'El campo "fecha" aparece en los fomularios de compra y venta';
+                }else{
+                    $mensaje = 'El campo "fecha" ya no aparecerá en los formularios de compra y venta';
+                }
+            }
+            return response()->json(['status'=>'success','msg'=>$mensaje]);
+        } catch (Exception $th) {
+            return response()->json(['status'=>'error','msg'=>$th]);
+        }
     }
 }
