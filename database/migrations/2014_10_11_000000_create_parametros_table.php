@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->text('valor');
             $table->text('descripcion')->nullable();
+            $table->integer('access_level');
             $table->boolean('isDeleted')->default(0);
             $table->timestamps();
         });

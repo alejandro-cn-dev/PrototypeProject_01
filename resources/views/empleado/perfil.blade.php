@@ -100,7 +100,7 @@
 
 @section('js')
     <script>
-        function editar_usuario(id_usuario) {
+        async function editar_usuario(id_usuario) {
             try {
                 const response = await fetch("{{ route('editar_perfil') }}", {
                     method: 'POST',

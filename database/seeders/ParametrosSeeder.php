@@ -18,17 +18,20 @@ class ParametrosSeeder extends Seeder
         Parametro::create([
             'nombre' => 'nombre_sistema',
             'valor' => 'Presitex',
-            'descripcion' => 'Nombre que muestra el sistema'
+            'descripcion' => 'Nombre que muestra el sistema',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'razon_social',
             'valor' => 'Empresa Comercial',
-            'descripcion' => 'Denominación social del propietario del sistema'
+            'descripcion' => 'Denominación social del propietario del sistema',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'version_sistema',
             'valor' => 'v7',
-            'descripcion' => 'Version del sistema'
+            'descripcion' => 'Version del sistema',
+            'access_level' => 1
         ]);
         // Parametro::create([
         //     'nombre' => 'logo_sistema',
@@ -38,62 +41,86 @@ class ParametrosSeeder extends Seeder
             'nombre' => 'logo_sistema_path',
             //'valor' => 'favicons/favicon32x32.ico'
             'valor' => 'img/logo_p.png',
-            'descripcion' => 'logo del sistema'
+            'descripcion' => 'logo del sistema',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'existencias_min',
             'valor' => '10',
-            'descripcion' => 'Número de existencias minimas de productos'
+            'descripcion' => 'Número de existencias minimas de productos',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'existencias_max',
             'valor' => '200',
-            'descripcion' => 'Número de existencias máximas de productos'
+            'descripcion' => 'Número de existencias máximas de productos',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'mensaje_bienvenida',
             'valor' => 'Somos una empresa comercial especializada en material textil, ¡Disfrute su estancia!',
-            'descripcion' => 'Mensaje de bienvenida de página principal'
+            'descripcion' => 'Mensaje de bienvenida de página principal',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'descripción_empresa',
             'valor' => 'En nuestra empresa puedes disfrutar de un excelente Servicio de Atención al Cliente y de un amplio surtido de material textil, herramientas textiles, asesoramiento, etc. Todo lo que necesites para la manufactura textil lo puedes encontrar en Presitex.',
-            'descripcion' => 'Descripción de la empresa que se muestra en la Home page del sistema'
+            'descripcion' => 'Descripción de la empresa que se muestra en la Home page del sistema',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'mision',
             'valor' => 'Distribuir productos textiles e innovadores de alta calidad que cumplan con las necesidades de nuestros clientes, brindando siempre un servicio de excelencia, para así lograr la rentabilidad que permita el crecimiento de nuestra empresa como el de nuestros colaboradores.',
-            'descripcion' => 'Mision de la empresa que se muestra en la Home page del sistema'
+            'descripcion' => 'Mision de la empresa que se muestra en la Home page del sistema',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'vision',
             'valor' => 'Ser una empresa líder entre el sector textil reconocida por su calidad y servicio a nivel nacional, promoviéndose siempre como una oportunidad para asociarse con cualquier otra industria y describiéndose como un lugar extraordinario para emprender su negocio.',
-            'descripcion' => 'Vision de la empresa que se muestra en la Home page del sistema'
+            'descripcion' => 'Vision de la empresa que se muestra en la Home page del sistema',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'localidad_empresa',
             'valor' => 'La Paz',
-            'descripcion' => 'Cuidad donde opera la empresa'
+            'descripcion' => 'Cuidad donde opera la empresa',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'direccion_empresa',
             'valor' => 'Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia',
-            'descripcion' => 'Ubicación donde realiza actividades la empresa'
+            'descripcion' => 'Ubicación donde realiza actividades la empresa',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'correo_empresa',
             'valor' => 'presitex.tex@gmail.com',
-            'descripcion' => 'Correo de la empresa que se muestra en la Home page del sistema y en reportes'
+            'descripcion' => 'Correo de la empresa que se muestra en la Home page del sistema y en reportes',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'telefono_empresa',
             'valor' => '(+591)2-460674|(+591)65788201',
-            'descripcion' => 'Telefono de la personal de los propietarios de la empresa'
+            'descripcion' => 'Telefono de la personal de los propietarios de la empresa',
+            'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'telefono_contacto',
             'valor' => '(+591)2-460674|(+591)73238038|(+591)71996788',
-            'descripcion' => 'Numeros de contacto de la empresa que se muestra en la Home page del sistema y en reportes'
+            'descripcion' => 'Numeros de contacto de la empresa que se muestra en la Home page del sistema y en reportes',
+            'access_level' => 2
+        ]);
+        Parametro::create([
+            'nombre' => 'fecha_compra_venta',
+            'valor' => 'true',
+            'descripcion' => 'Campo Fecha para establecer manualmente en los forms de compra y venta',
+            'access_level' => 1
+        ]);
+        Parametro::create([
+            'nombre' => 'titulo_comprobante_venta',
+            'valor' => 'Nota de venta',
+            'descripcion' => 'Rotulo de titulo del comprobante de venta',
+            'access_level' => 1
         ]);
     }
 }
