@@ -110,7 +110,7 @@
                     <div class="col-md-4 text-white">
                         <h3>Telefonos y correo</h3>
                         <ul class="m-0">
-                            @foreach ( explode('|', config('system_phone_contact')) as $telefono)
+                            @foreach ( explode(',', config('system_phone_contact')) as $telefono)
                                 <li>{{ $telefono }}</li>
                             @endforeach
                             @foreach ( explode('|', config('system_email')) as $email )

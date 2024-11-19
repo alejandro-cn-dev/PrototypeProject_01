@@ -34,7 +34,7 @@
             #detalle tfoot tr td{
                 border: 1px solid black;
             }
-            #contacto{               
+            #contacto{
                align-content: center;
                text-align: center;
             }
@@ -45,18 +45,18 @@
          <tbody>
             <tr>
                <td width="70%" width="50%">
-                  <h1 style="font-size: 20px;">RECIBO</h1>              
+                  <h1 style="font-size: 20px;">RECIBO</h1>
                </td>
-               <td width="30%">                                  
-                  <img style="float: right;" src="{{ public_path('img/logo.jpg') }}" alt="" width="80"/>
+               <td width="30%">
+                  <img style="float: right;" src="{{ public_path(config('adminlte.logo_img')) }}" alt="" width="80"/>
                </td>
             </tr>
             <tr>
                 <td>
                     <h2 style="font-size: 15px;">DE:</h2>
-                    <p>Empresa Comercial "Presitex"</p>
+                    <p>{{config('system_name_denomination').' "'.config('system_name').'" '}}</p>
                     <p>Especializada en material textil</p>
-                    <p>C/Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo" Local 103 y 104</p>
+                    <p>{{config('system_address')}}</p>
                 </td>
                <td width="30%">
                   <p style="text-align: right;"><strong>N° DE RECIBO. {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</strong></p>
@@ -102,7 +102,7 @@
                   @endforeach
                   <td>{{$entrada->costo_compra}} Bs.</td>
                   <td>{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}} Bs.</td>
-              @endforeach 
+              @endforeach
                 </tr>
             <tfoot>
                 <tr>
@@ -113,7 +113,7 @@
                      {{$cabecera->monto_total}} Bs.
                   </td>
                 </tr>
-            </tfoot>           
+            </tfoot>
          </tbody>
       </table>
       <p>&nbsp;</p>
@@ -123,8 +123,8 @@
                <td>
                   <p>&nbsp;</p>
                   <p>&nbsp;</p>
-                  <p><strong>EMPRESA COMERCIAL "PRESITEX"</strong></p>
-                  <p><strong>Tel&eacute;fono: </strong>2460674<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Facebook:&nbsp;</strong>facebook.com/telasbolivia</p>
+                  <p><strong>{{config('system_name_denomination').' "'.config('system_name').'" '}}</strong></p>
+                  <p><strong>Tel&eacute;fono: </strong>{{ explode(',',config('system_phone_contact'))[1]}}<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Facebook:&nbsp;</strong>facebook.com/telasbolivia</p>
                </td>
             </tr>
          </tbody>

@@ -71,14 +71,14 @@
         <table style="border: none; width: 100%">
             <tr>
                 <td valign="top" style="vertical-align: middle;	text-align-last: center; ">
-                    <img src="{{ public_path('img/logo_report.jpg') }}" alt="" style="width: 75px;"/>
+                    <img src="{{ public_path(config('adminlte.logo_img')) }}" alt="" style="width: 75px;"/>
                 </td>
                 <td align="left">
-                <h2>@yield('empresa')</h2>
+                <h2>{{ config('system_name_denomination').' "'.config('system_name').'" '}}</h2>
             </td>
                 <td align="right">
                 <h3>Lugar y fecha:</h3>
-                <pre>La Paz, @yield('fecha')</pre>
+                <pre>{{config('system_location')}}, @yield('fecha')</pre>
                 </td>
             </tr>
         </table>
@@ -86,8 +86,8 @@
     </header>
     <footer>
         <hr class="separator"/>
-        <p> <b>Dirección:</b> Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104), La Paz.</p>
-        <p><b>Teléfono:</b> (+591) 719-96-788</p>
+        <p> <b>Dirección:</b> {{ config('system_address') }}.</p>
+        <p><b>Teléfono:</b> {{ config('system_phone_contact') }}</p>
     </footer>
     <main>
         <h3 align="center">@yield('cabecera')</h3>

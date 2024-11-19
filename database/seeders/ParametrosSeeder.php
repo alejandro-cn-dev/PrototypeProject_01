@@ -88,7 +88,7 @@ class ParametrosSeeder extends Seeder
         ]);
         Parametro::create([
             'nombre' => 'direccion_empresa',
-            'valor' => 'Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia',
+            'valor' => 'Calle Isaac Tamayo, Galería "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia',
             'descripcion' => 'Ubicación donde realiza actividades la empresa',
             'access_level' => 2
         ]);
@@ -100,13 +100,13 @@ class ParametrosSeeder extends Seeder
         ]);
         Parametro::create([
             'nombre' => 'telefono_empresa',
-            'valor' => '(+591)2-460674|(+591)65788201',
+            'valor' => '(+591) 2-460674,(+591) 65788201',
             'descripcion' => 'Telefono de la personal de los propietarios de la empresa',
             'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'telefono_contacto',
-            'valor' => '(+591)2-460674|(+591)73238038|(+591)71996788',
+            'valor' => '(+591) 2-460674,(+591) 73238038,(+591) 71996788',
             'descripcion' => 'Numeros de contacto de la empresa que se muestra en la Home page del sistema y en reportes',
             'access_level' => 2
         ]);
