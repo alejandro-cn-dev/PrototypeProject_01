@@ -1,8 +1,5 @@
 @extends('layouts.report')
 @section('tittle', 'Ventas')
-@section('empresa')
-  Empresa Comercial "Presitex"
-@stop
 @section('fecha')
   {{$fecha}}
 @stop
@@ -30,13 +27,13 @@
         <td align="right">{{$salida->monto_total}}</td>
       </tr>
       @endforeach
-    </tbody>  
+    </tbody>
     <tfoot>
       <tr>
           <td colspan="4"></td>
           <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$total}}</td>
       </tr>
-    </tfoot>  
+    </tfoot>
   </table>
 @stop

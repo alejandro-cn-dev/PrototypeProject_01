@@ -1,8 +1,5 @@
 @extends('layouts.report')
 @section('tittle', 'Empleados')
-@section('empresa')
-  Empresa Comercial "Presitex"
-@stop
 @section('fecha')
   {{$fecha}}
 @stop

@@ -13,28 +13,28 @@
 <div class="shadow-none p-3 bg-white rounded">
     <form action="" method="">
         <div class="text-right mb-5">
-            <a href="/ventas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>                    
-            <a href="{{route('generar_reporte_venta_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>                    
-            <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir nota de venta</a>            
+            <a href="/ventas" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>
+            <a href="{{route('generar_reporte_venta_ind',$cabecera->id)}}" class="btn btn-warning" role="button"><i class="fas fa-fw fa-print"></i> Crear reporte</a>
+            <a href="{{route('generar_nota_venta_ind',$cabecera->id)}}" class="btn btn-secondary" role="button"><i class="fas fa-fw fa-print"></i> Imprimir Comprobante</a>
         </div>
         @csrf
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->ap_paterno}} {{$cabecera->ap_materno}} {{$cabecera->name}}</p>            
+            <p class="text-center"> <label class="form-label">Usuario encargado:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->ap_paterno}} {{$cabecera->ap_materno}} {{$cabecera->name}}</p>
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Nota de venta Nro.:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</p>            
+            <p class="text-center"> <label class="form-label">Comprobante Nro.:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</p>
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Cliente:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->nombre}}</p>                        
+            <p class="text-center"> <label class="form-label">Cliente:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp{{$cabecera->nombre}}</p>
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">CI:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->ci}}</p>                        
+            <p class="text-center"> <label class="form-label">CI:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->ci}}</p>
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Fecha de emision:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->fecha_emision}}</p>                        
+            <p class="text-center"> <label class="form-label">Fecha de emision:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->fecha_emision}}</p>
         </div>
         <div class="mb-3">
-            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}} Bs.</p>                        
+            <p class="text-center"> <label class="form-label">Monto total:</label>  &nbsp&nbsp&nbsp&nbsp&nbsp {{$cabecera->monto_total}} Bs.</p>
         </div>
     </form>
 
@@ -60,9 +60,9 @@
                         </td>
                         <td>
                             {{$producto->unidad}}
-                        </td>                                
+                        </td>
                         @endif
-                    @endforeach                      
+                    @endforeach
                     <td align="right">{{$salida->cantidad}}</td>
                     <td align="right">{{$salida->precio_unitario}}</td>
                     <td align="right">{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
@@ -77,7 +77,7 @@
                 </tr>
             </tfoot>
         </table>
-    </div>    
+    </div>
 </div>
 @stop
 

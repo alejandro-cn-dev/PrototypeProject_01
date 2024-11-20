@@ -77,6 +77,9 @@
             <tr>
                <td><b>Tel&eacute;fono:</b>  @if($cabecera->telefono == '') (Sin teléfono) @else {{$cabecera->telefono}} @endif</td>
             </tr>
+            <tr>
+                <td><b>Fecha transacci&oacute;n: </b> {{$cabecera->fecha_compra .' '. $cabecera->hora_compra}} </td>
+             </tr>
          </tbody>
       </table>
       <p>&nbsp;</p>
@@ -123,7 +126,7 @@
                <td>
                   <p>&nbsp;</p>
                   <p>&nbsp;</p>
-                  <p><strong>{{config('system_name_denomination').' "'.config('system_name').'" '}}</strong></p>
+                  <p style="text-transform: uppercase;"><strong>{{config('system_name_denomination').' "'.config('system_name').'" '}}</strong></p>
                   <p><strong>Tel&eacute;fono: </strong>{{ explode(',',config('system_phone_contact'))[1]}}<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Facebook:&nbsp;</strong>facebook.com/telasbolivia</p>
                </td>
             </tr>

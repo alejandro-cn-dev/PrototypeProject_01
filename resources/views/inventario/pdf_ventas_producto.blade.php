@@ -1,8 +1,5 @@
 @extends('layouts.report')
 @section('tittle', 'Existencias')
-@section('empresa')
-    Empresa Comercial "{{ config('system_name') }}"
-@stop
 @section('fecha')
     {{ $fecha }}
 @stop

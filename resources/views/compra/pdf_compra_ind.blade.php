@@ -38,10 +38,10 @@
   <table width="100%">
     <tr>
         <!-- <td valign="top"><img src="{{public_path().'\\img\\logo.jpg'}}" alt="" width="150"/></td> -->
-        <td valign="top"><img src="{{ public_path('img/logo.jpg') }}" alt="" width="150"/></td>
+        <td valign="top"><img src="{{ public_path(config('adminlte.logo_img')) }}" alt="" width="150"/></td>
 
         <td align="left">
-            <h2>Tienda Textil "Presitex"</h2>
+            <h2>{{config('system_name_denomination').' "'.config('system_name').'" '}}</h2>
             <pre>
                 <b>Numero recibo: </b> {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}
                 <b>Usuario encargado: </b> {{$usuario->ap_paterno}} {{$usuario->ap_materno}} {{$usuario->name}}
@@ -52,7 +52,7 @@
 	      </td>
         <td align="right">
           <h3>Lugar y fecha:</h3>
-          <pre>La Paz, {{$fecha}}</pre>
+          <pre>{{config('system_location')}}, {{$fecha}}</pre>
         </td>
     </tr>
 
@@ -80,20 +80,20 @@
                             <td>{{$producto->nombre}}</td>
                             <td>{{$producto->unidad}}</td>
                             @endif
-                        @endforeach    
+                        @endforeach
         <td align="right">{{$entrada->cantidad}}</td>
         <td align="right">{{$entrada->costo_compra}}</td>
         <td align="right">{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}}</td>
       </tr>
       @endforeach
-    </tbody>  
+    </tbody>
     <tfoot>
       <tr>
           <td colspan="4"></td>
           <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>
-  </tfoot>  
+  </tfoot>
   </table>
 </body>
 </html>

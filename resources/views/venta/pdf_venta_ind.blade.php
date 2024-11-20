@@ -53,11 +53,11 @@
 <body>
 
   <div>
-    <h3 style="text-align: center">Empresa comercial textil "Presitex"</h3>
+    <h3 style="text-align: center">{{config('system_name_denomination').' "'.config('system_name').'" '}}</h3>
     <div class="col-3">
-      <img src="{{ public_path('img/logo.jpg') }}" alt="" width="150"/>
+      <img src="{{ public_path(config('adminlte.logo_img')) }}" alt="" width="150"/>
     </div>
-    <div class="col-4">      
+    <div class="col-4">
       <pre>
         <b>Nota de venta Nro. </b> {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}
         <b>Emitido por: </b> {{$cabecera->name}}
@@ -70,10 +70,10 @@
     <div class="col-3">
       <pre>
         <b>Lugar y fecha:</b>
-        La Paz, {{$fecha}}
+        {{config('system_location')}}, {{$fecha}}
       </pre>
     </div>
-  
+
     <br/>
     <br/>
     <br/>
@@ -82,13 +82,13 @@
     <br/>
     <br/>
     <br/>
-    
+
   </div>
   <table width="100%">
     <h3 style="text-align: center">Detalle de venta</h3>
     <hr size="3" color="black" />
   </table>
-  
+
   <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
       <tr>
@@ -113,20 +113,20 @@
                   {{$producto->unidad}}
               </td>
               @endif
-          @endforeach    
+          @endforeach
         <td align="right">{{$salida->cantidad}}</td>
         <td align="right">{{$salida->precio_unitario}}</td>
         <td align="right">{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
       </tr>
       @endforeach
-    </tbody>  
+    </tbody>
     <tfoot>
       <tr>
           <td colspan="4"></td>
           <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>
-  </tfoot>  
+  </tfoot>
   </table>
 </body>
 </html>

@@ -219,7 +219,7 @@ class CompraController extends Controller
     public function recibo_ind($id){
         $cabecera = Compra_cabecera::join('proveedors','compra_cabeceras.id_proveedor','=','proveedors.id')
         ->join('users','compra_cabeceras.id_usuario','=','users.id')
-        ->select('compra_cabeceras.id','compra_cabeceras.numeracion','proveedors.nombre','proveedors.telefono','users.name','compra_cabeceras.created_at as fecha_emision','compra_cabeceras.monto_total')
+        ->select('compra_cabeceras.id','compra_cabeceras.numeracion','proveedors.nombre','proveedors.telefono','users.name','compra_cabeceras.fecha_compra','compra_cabeceras.hora_compra','compra_cabeceras.monto_total')
         ->where('compra_cabeceras.id','=',$id)->first();
         $entradas = Compra_detalle::where('id_compra','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();

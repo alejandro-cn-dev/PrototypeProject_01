@@ -7,6 +7,7 @@ use App\Models\Venta_cabecera;
 use App\Models\Venta_detalle;
 use App\Models\Producto;
 use App\Models\Cliente;
+use App\Models\Parametro;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\DB;
@@ -139,7 +140,7 @@ class VentaController extends Controller
         $ventas = Venta_detalle::where('id_venta','=',$id)->get();
         $cabecera = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
-        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.ap_paterno','users.ap_materno','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.ap_paterno','users.ap_materno','users.name','venta_cabeceras.fecha_venta as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
         $productos = Producto::all();
         return view('venta.detalle_venta')->with('cabecera',$cabecera)->with('salidas',$ventas)->with('productos',$productos);
@@ -212,7 +213,7 @@ class VentaController extends Controller
     public function nota_ind($id){
         $cabecera = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
-        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.ci','clientes.nombre','clientes.telefono','clientes.direccion','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.ci','clientes.nombre','clientes.telefono','clientes.direccion','clientes.ci','users.name','venta_cabeceras.fecha_venta','venta_cabeceras.hora_venta','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
         $salidas = Venta_detalle::where('id_venta','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();
@@ -226,8 +227,11 @@ class VentaController extends Controller
         $dia = $dias[$fecha->format('w')];
         $fecha_nota = $dia . ', '.$fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
 
-        $pdf = PDF::loadView('venta/pdf_nota_venta',compact('cabecera','salidas','productos','fecha_nota'));
-        return $pdf->download('nota_venta_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
+        // Rotulo de comprobante
+        $rotulo = Parametro::select('valor')->where('nombre','=','titulo_comprobante_venta')->first()->valor;
+
+        $pdf = PDF::loadView('venta/pdf_nota_venta',compact('cabecera','salidas','productos','fecha_nota','rotulo'));
+        return $pdf->download('comprobante_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){
         try {

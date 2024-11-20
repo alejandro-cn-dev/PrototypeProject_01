@@ -50,18 +50,18 @@
          <tbody>
             <tr>
                <td width="70%" width="50%">
-                  <img src="{{ public_path('img/logo.jpg') }}" alt="" width="80"/>
+                  <img src="{{ public_path(config('adminlte.logo_img')) }}" alt="" width="80"/>
                </td>
                <td width="30%">
-                  <h1 style="text-align: right; font-size: 20px;">NOTA DE VENTA</h1>
+                  <h1 style="text-align: right; font-size: 20px; text-transform: uppercase;">{{$rotulo}}</h1>
                   {{-- <h1 style="text-align: right; font-size: 20px;">FACTURA</h1> --}}
                </td>
             </tr>
             <tr>
                 <td>
-                    <h2 style="font-size: 20px;">Empresa Comercial "Presitex"</h2>
+                    <h2 style="font-size: 20px;">{{config('system_name_denomination').' "'.config('system_name').'" '}}</h2>
                     <p>Especializada en material textil</p>
-                    <p>Calle Isaac Tamayo, Galer&iacute;a "Centro Comercial Isaac Tamayo", 1er Piso (Local 103 - 104) La Paz, Bolivia, Bolivia</p>
+                    <p>{{config('system_address')}}</p>
                 </td>
                <td width="30%">
                   <p style="text-align: right;"><strong>NRO. {{str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT)}}</strong></p>
@@ -84,6 +84,9 @@
             <tr>
                <td colspan="2"><b>Direcci&oacute;n: </b>@if($cabecera->direccion == '') (Sin dirección) @else {{$cabecera->direccion}} @endif</td>
             </tr>
+            <tr>
+                <td><b>Fecha transacci&oacute;n: </b> {{$cabecera->fecha_venta .' '. $cabecera->hora_venta}} </td>
+             </tr>
             <tr>
                <td colspan="2">
                   <h3>&nbsp;</h3>
@@ -149,8 +152,8 @@
                   <p><strong>&iexcl; GRACIAS POR SU PREFERENCIA !</strong></p>
                   <p>&nbsp;</p>
                   <p>&nbsp;</p>
-                  <p><strong>EMPRESA COMERCIAL "PRESITEX"</strong></p>
-                  <p><strong>Tel&eacute;fono: </strong>2460674<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Facebook:&nbsp;</strong>facebook.com/telasbolivia</p>
+                  <p style="text-transform: uppercase;"><strong>{{config('system_name_denomination').' "'.config('system_name').'" '}}</strong></p>
+                  <p><strong>Tel&eacute;fono: </strong>{{ explode(',',config('system_phone_contact'))[1]}}<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Facebook:&nbsp;</strong>facebook.com/telasbolivia</p>
                </td>
             </tr>
          </tbody>
