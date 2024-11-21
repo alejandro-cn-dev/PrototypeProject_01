@@ -24,9 +24,12 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mb-3"><label for="fecha_compra" class="form-label">Fecha de compra</label><input id="fecha_compra"
-                    name="fecha_compra" type="date" class="form-control" max="{{ $fecha_actual }}" tabindex="7" />
+
+            <div class="mb-3" @if ($campo_fecha == 'false') { hidden } @endif>
+                <label for="fecha_compra" class="form-label">Fecha de compra</label>
+                <input id="fecha_compra" name="fecha_compra" type="date" class="form-control" max="{{ $fecha_actual }}" tabindex="7" />
             </div>
+
             <div class="border border-dark p-3">
                 <button type="button" id="open" class="btn btn-primary" data-toggle="modal"
                     data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>

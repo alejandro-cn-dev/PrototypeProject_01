@@ -47,11 +47,12 @@
                 <input id="direccion" name="direccion" type="text" class="form-control" placeholder="(Sin Dirección)"
                     tabindex="7" />
             </div>
-            <div class="mb-3">
+
+            <div class="mb-3" @if ($campo_fecha == 'false') { hidden } @endif>
                 <label for="fecha_venta" class="form-label">Fecha de venta</label>
-                <input id="fecha_venta" name="fecha_venta" type="date" class="form-control" max="{{ $fecha_actual }}"
-                    tabindex="7" />
+                <input id="fecha_venta" name="fecha_venta" type="date" class="form-control" max="{{ $fecha_actual }}" tabindex="7" />
             </div>
+
             <div class="border border-dark p-3">
                 <button type="button" id="open" class="btn btn-primary" data-toggle="modal"
                     data-target="#insert_form"><i class="fas fa-fw fa-plus"></i> Agregar producto</button>

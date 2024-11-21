@@ -8,6 +8,7 @@ use App\Models\Compra_detalle;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\User;
+use App\Models\Parametro;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Validator;
@@ -51,7 +52,8 @@ class CompraController extends Controller
         $proveedores = Proveedor::select('proveedors.id','proveedors.nombre','proveedors.telefono','marcas.detalle AS marca')
         ->join('marcas','proveedors.id_marca','=','marcas.id')->where('proveedors.isDeleted','=',0)->get();
         $fecha_actual = date('Y-m-d', strtotime(Carbon::now()));
-        return view('compra.create')->with('productos',$productos)->with('proveedores',$proveedores)->with("fecha_actual",$fecha_actual);
+        $campo_fecha = Parametro::select('valor')->where('nombre','=','fecha_compra_venta')->first()->valor;
+        return view('compra.create',['productos'=>$productos,'proveedores'=>$proveedores,'fecha_actual'=>$fecha_actual,'campo_fecha'=>$campo_fecha]);
     }
 
     /**

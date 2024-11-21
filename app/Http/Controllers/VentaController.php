@@ -52,7 +52,8 @@ class VentaController extends Controller
         $productos = Producto::select('productos.id','productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.precio_compra','productos.precio_venta','marcas.detalle AS marca')->join('marcas','productos.id_marca','=','marcas.id')->where('productos.isDeleted','=',0)->get();
         $clientes = Cliente::all();
         $fecha_actual = date('Y-m-d', strtotime(Carbon::now()));
-        return view('venta.create')->with("productos",$productos)->with("clientes",$clientes)->with("fecha_actual",$fecha_actual);
+        $campo_fecha = Parametro::select('valor')->where('nombre','=','fecha_compra_venta')->first()->valor;
+        return view('venta.create',['productos'=>$productos,'clientes'=>$clientes,'fecha_actual'=>$fecha_actual,'campo_fecha'=>$campo_fecha]);
     }
 
     /**
