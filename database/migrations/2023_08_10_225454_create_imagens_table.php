@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('id_registro');
             $table->string('nombre_imagen');
             $table->string('ubicacion');
+            $table->boolean('isDeleted')->default(0);
             $table->timestamps();
         });
     }

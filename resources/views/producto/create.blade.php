@@ -26,9 +26,10 @@
             <textarea id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required></textarea>
         </div>
         <div class="mb-3">
-            <label for="imagen" class="form-label">Imagen de producto</label>
+            <label for="imagen" class="form-label">Imagen de producto </label> <i>(opcional)</i>
             <input type="file" id="imagen" name="imagen" class="form-control" accept="image/png, image/gif, image/jpeg" tabindex="3">
         </div>
+
         <div class="mb-3">
             <label for="color" class="form-label">Color</label>
             <input id="color" name="color" type="text" class="form-control" tabindex="4" placeholder="(Sin color)"/>
