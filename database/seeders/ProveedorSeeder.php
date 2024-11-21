@@ -34,7 +34,7 @@ class ProveedorSeeder extends Seeder
             'id_marca' => '2'
         ]);
         Proveedor::create([
-            'nombre' => 'Juan Jose Arancibia - TEXTILON',
+            'nombre' => 'Juan Jose Arancibia',
             'telefono' => '67050121',
             'id_usuario' => '1',
             'id_marca' => '3'
