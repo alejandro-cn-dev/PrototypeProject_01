@@ -106,8 +106,8 @@ class HomeController extends Controller
 
     public function productosMasVendidos()
     {
-        $productosMasVendidos = Venta_detalle::select('venta_detalles.id_producto AS id_producto','productos.nombre AS nombre', DB::raw('SUM(venta_detalles.cantidad) as total_vendido'))
-            ->join('productos','venta_detalles.id_producto','=','productos.id')
+        $productosMasVendidos = Venta_detalle::select('venta_detalles.id_producto AS id_producto', 'productos.nombre AS nombre', DB::raw('SUM(venta_detalles.cantidad) as total_vendido'))
+            ->join('productos', 'venta_detalles.id_producto', '=', 'productos.id')
             ->groupBy('venta_detalles.id_producto')
             ->orderByDesc('total_vendido')
             ->limit(5)
@@ -123,5 +123,84 @@ class HomeController extends Controller
             ->get();
 
         return response()->json($ventasPorMes);
+    }
+    public function obtenerIngresosGastosMensuales()
+    {
+        $ingresos = DB::table('venta_cabeceras')
+            ->selectRaw('DATE_FORMAT(fecha_venta, "%Y-%m") as mes, SUM(monto_total) as total_ingresos')
+            ->groupBy('mes')
+            ->orderBy('mes')
+            ->get();
+
+        $gastos = DB::table('compra_cabeceras')
+            ->selectRaw('DATE_FORMAT(fecha_compra, "%Y-%m") as mes, SUM(monto_total) as total_gastos')
+            ->groupBy('mes')
+            ->orderBy('mes')
+            ->get();
+
+        return response()->json([
+            'ingresos' => $ingresos,
+            'gastos' => $gastos,
+        ]);
+    }
+    public function ventasPorCategoria()
+    {
+        $ventasPorCategoria = DB::table('venta_detalles')
+            ->join('productos', 'venta_detalles.id_producto', '=', 'productos.id')
+            ->join('categorias', 'productos.id_categoria', '=', 'categorias.id')
+            ->select('categorias.nombre as categoria', DB::raw('SUM(venta_detalles.precio_unitario * venta_detalles.cantidad) as total_ventas'))
+            ->groupBy('categorias.nombre')
+            ->orderBy('total_ventas', 'desc')
+            ->get();
+
+        return response()->json($ventasPorCategoria);
+    }
+    public function obtenerDatosParaProyecciones()
+    {
+        $ventas = DB::table('venta_cabeceras')
+            ->selectRaw('DATE_FORMAT(fecha_venta, "%Y-%m") as periodo, SUM(monto_total) as total_ventas')
+            ->groupBy('periodo')
+            ->orderBy('periodo')
+            ->get();
+
+        return response()->json($ventas);
+    }
+    public function calcularProyecciones()
+    {
+        $ventas = DB::table('venta_cabeceras')
+            ->selectRaw('DATE_FORMAT(fecha_venta, "%Y-%m") as periodo, SUM(monto_total) as total_ventas')
+            ->groupBy('periodo')
+            ->orderBy('periodo')
+            ->get();
+
+        $datos = $ventas->pluck('total_ventas')->toArray();
+
+        $tasaCrecimiento = 1.05; // Supongamos un crecimiento del 5% mensual
+        $proyecciones = [];
+        $ultimoMes = $ventas->last()->periodo;
+
+        for ($i = 1; $i <= 6; $i++) { // Proyectamos para los próximos 6 meses
+            $ultimoValor = end($datos) * $tasaCrecimiento;
+            $datos[] = $ultimoValor;
+            $proyecciones[] = [
+                'periodo' => date('Y-m', strtotime("+$i month", strtotime($ultimoMes))),
+                'total_ventas' => round($ultimoValor, 2),
+            ];
+        }
+
+        return response()->json([
+            'historico' => $ventas,
+            'proyecciones' => $proyecciones,
+        ]);
+    }
+    public function horasPicoVentas()
+    {
+        $ventasPorHora = DB::table('venta_cabeceras')
+            ->selectRaw('HOUR(hora_venta) as hora, COUNT(*) as total_ventas')
+            ->groupBy('hora')
+            ->orderBy('hora')
+            ->get();
+
+        return response()->json($ventasPorHora);
     }
 }

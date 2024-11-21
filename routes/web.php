@@ -42,9 +42,13 @@ Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('page_home');
 Route::resource('/home','App\Http\Controllers\HomeController');
+// Rutas para gráficos
 Route::get('/ventas-por-mes', [HomeController::class, 'ventasPorMes']);
 Route::get('/productos-mas-vendidos', [HomeController::class, 'productosMasVendidos']);
-
+Route::get('/ingresos-gastos', [HomeController::class, 'obtenerIngresosGastosMensuales']);
+Route::get('/ventas-por-categoria', [HomeController::class, 'ventasPorCategoria']);
+Route::get('/proyecciones-ventas', [HomeController::class, 'calcularProyecciones']);
+Route::get('/horas-pico', [HomeController::class, 'horasPicoVentas']);
 
 Route::get('/',[PageController::class,'index']);
 Route::get('inicio',[PageController::class,'index'])->name('inicio');

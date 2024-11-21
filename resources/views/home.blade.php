@@ -396,7 +396,7 @@
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Ventas por meses</h3>
                             {{-- <a href="/existencias">Ver existencias</a> --}}
-                            <a onclick="generarGraficoVentasPorMes(); generarGraficoProductosMasVendidos();">Probar 1</a>
+                            {{-- <a onclick="generarGraficoVentasPorMes(); generarGraficoProductosMasVendidos();">Probar 1</a> --}}
                         </div>
                     </div>
                     <div class="card-body">
@@ -448,12 +448,6 @@
                         </div>
                     </div>
                     <div class="d-flex flex-row justify-content-end">
-                        {{-- <span class="mr-2">
-                        <i class="fas fa-square text-primary"></i> This Week
-                    </span>
-                    <span>
-                        <i class="fas fa-square text-gray"></i> Last Week
-                    </span> --}}
                     </div>
                 </div>
             </div>
@@ -491,12 +485,6 @@
                         </div>
                     </div>
                     <div class="d-flex flex-row justify-content-end">
-                        {{-- <span class="mr-2">
-                        <i class="fas fa-square text-primary"></i> This Week
-                    </span>
-                    <span>
-                        <i class="fas fa-square text-gray"></i> Last Week
-                    </span> --}}
                     </div>
                 </div>
             </div>
@@ -526,12 +514,22 @@
 
 @section('js')
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            generarGraficoVentasPorMes();
+            generarGraficoProductosMasVendidos();
+            generarGraficoIngresosGastos();
+            GenerarGraficoCategoriaMasVendido();
+            GenerarGraficoProyeccionesVentas();
+            GenerarGraficoHorasPicoVentas();
+        });
         console.log("%c Bienvenido al dashboard! (mensaje para los devs)",
             "color:green; background-color: lightblue; border:solid");
 
         // Gráfico de Ventas por Mes
         async function generarGraficoVentasPorMes() {
-            let meses = [' ','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            let meses = [' ', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre',
+                'Octubre', 'Noviembre', 'Diciembre'
+            ];
             const response = await fetch('/ventas-por-mes');
             const data = await response.json();
 
@@ -571,7 +569,6 @@
 
             const labels = data.map(d => `${d.nombre}`);
             const cantidades = data.map(d => d.total_vendido);
-            console.log(data);
             const ctx = document.getElementById('graficoProductosMasVendidos').getContext('2d');
             new Chart(ctx, {
                 type: 'pie',
@@ -605,6 +602,247 @@
                     responsive: true
                 }
             });
+        }
+        // Gráfico de Ingresos vs Gastos
+        async function generarGraficoIngresosGastos() {
+            fetch('/ingresos-gastos')
+                .then(response => response.json())
+                .then(data => {
+                    const meses = data.ingresos.map(item => item.mes);
+                    const ingresos = data.ingresos.map(item => item.total_ingresos);
+                    const gastos = data.gastos.map(item => {
+                        const mes = item.mes;
+                        const gasto = item.total_gastos;
+                        // Asegurar que cada mes tenga un valor
+                        return meses.includes(mes) ? gasto : 0;
+                    });
+
+                    // Configuración del gráfico
+                    const ctx = document.getElementById('graficoIngresosGastos').getContext('2d');
+                    const ingresosGastosChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: meses,
+                            datasets: [{
+                                    label: 'Ingresos',
+                                    data: ingresos,
+                                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                },
+                                {
+                                    label: 'Gastos',
+                                    data: gastos,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    borderWidth: 1
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    stacked: false
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Montos ($)'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));
+        }
+        // Gráfico de Categorias de producto mas vendido
+        async function GenerarGraficoCategoriaMasVendido() {
+            fetch('/ventas-por-categoria')
+                .then(response => response.json())
+                .then(data => {
+                    const categorias = data.map(item => item.categoria);
+                    const totalVentas = data.map(item => item.total_ventas);
+
+                    // Configuración del gráfico
+                    const ctx = document.getElementById('graficoCategoriaMasVendido').getContext('2d');
+                    const ventasPorCategoriaChart = new Chart(ctx, {
+                        type: 'pie', // Puedes usar 'doughnut' o 'bar' también
+                        data: {
+                            labels: categorias,
+                            datasets: [{
+                                label: 'Ventas por Categoría',
+                                data: totalVentas,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.5)',
+                                    'rgba(54, 162, 235, 0.5)',
+                                    'rgba(255, 206, 86, 0.5)',
+                                    'rgba(75, 192, 192, 0.5)',
+                                    'rgba(153, 102, 255, 0.5)',
+                                    'rgba(255, 159, 64, 0.5)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));
+        }
+        // Gráfico de Proyeciones de ventas
+        async function GenerarGraficoProyeccionesVentas() {
+            fetch('/proyecciones-ventas')
+                .then(response => response.json())
+                .then(data => {
+                    const historico = data.historico.map(item => ({
+                        periodo: item.periodo,
+                        total_ventas: item.total_ventas
+                    }));
+                    const proyecciones = data.proyecciones.map(item => ({
+                        periodo: item.periodo,
+                        total_ventas: item.total_ventas
+                    }));
+
+                    const etiquetas = [...historico, ...proyecciones].map(item => item.periodo);
+                    const datosHistoricos = historico.map(item => item.total_ventas);
+                    const datosProyecciones = [
+                        ...Array(historico.length).fill(null),
+                        ...proyecciones.map(item => item.total_ventas)
+                    ];
+
+                    const ctx = document.getElementById('graficoProyeccionesVentas').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: etiquetas,
+                            datasets: [{
+                                    label: 'Ventas Históricas',
+                                    data: datosHistoricos,
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    tension: 0.4
+                                },
+                                {
+                                    label: 'Proyecciones',
+                                    data: datosProyecciones,
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    borderDash: [5, 5],
+                                    tension: 0.4
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Periodo'
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Monto ($)'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));
+        }
+        // Gráfico de Horas Pico de Ventas
+        async function GenerarGraficoHorasPicoVentas() {
+            fetch('/horas-pico')
+                .then(response => response.json())
+                .then(data => {
+                    const etiquetas = data.map(item => `${item.hora}:00`);
+                    const valores = data.map(item => item.total_ventas);
+
+                    const ctx = document.getElementById('graficoHorasPicoVentas').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: etiquetas,
+                            datasets: [{
+                                label: 'Total de Ventas',
+                                data: valores,
+                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Hora del Día'
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Ventas'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));
         }
     </script>
 @stop
