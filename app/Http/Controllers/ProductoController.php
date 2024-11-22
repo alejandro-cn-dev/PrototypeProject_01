@@ -40,7 +40,7 @@ class ProductoController extends Controller
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
         ->where('productos.isDeleted','=',0)->get();
-        $imagenes = Imagen::where('tabla','=','productos')->get();
+        $imagenes = Imagen::where('tabla','=','productos')->where('isDeleted','=',0)->get();
 
         return view('producto.index')->with('productos',$productos)->with('imagenes',$imagenes);
     }
@@ -171,11 +171,14 @@ class ProductoController extends Controller
         $marcas = Marca::select('id','detalle')->get();
         $almacenes = Almacen::select('id','nombre')->get();
         $producto = Producto::find($id);
-        return view('producto.edit')
-        ->with('categorias',$categorias)
-        ->with('marcas',$marcas)
-        ->with('almacenes',$almacenes)
-        ->with('producto',$producto);
+        $imagenes = Imagen::select('id_registro','nombre_imagen','ubicacion')->where('tabla','=','productos')->where('id_registro','=',$producto->id)->first();
+        return view('producto.edit',[
+        'categorias'=>$categorias,
+        'marcas'=>$marcas,
+        'almacenes'=>$almacenes,
+        'producto'=>$producto,
+        'imagenes'=>$imagenes
+        ]);
     }
 
     /**
@@ -189,7 +192,41 @@ class ProductoController extends Controller
     {
         try {
             $producto = Producto::find($id);
+            $imagenes = Imagen::where('tabla','=','productos')->where('id_registro','=',$id)->first();
             $producto->descripcion = $request->get('descripcion');
+            // Eliminar la imagen actual si se selecciona "eliminar"
+            if (($request->get('eliminar_imagen') == '1') && !empty($imagenes)) {
+                //Storage::delete('public/storage/img/' . $imagenes->nombre_imagen);
+                Storage::disk('images')->delete($imagenes->nombre_imagen);
+                $modicar_img = Imagen::find($imagenes->id);
+                $modicar_img->isDeleted = 1;
+                $modicar_img->save();
+            }
+            // Subir nueva imagen si se proporciona una
+            if(!empty($request->file('imagen'))){
+                // Eliminar la imagen anterior si existe
+                if (!empty($imagenes)) {
+                    //Storage::delete('public/storage/img/' . $imagenes->nombre_imagen);
+                    Storage::disk('images')->delete($imagenes->nombre_imagen);
+                }
+                //$rutaImagen = $request->file('imagen')->store('productos', 'public');
+
+                // subir imagen
+                $imagen = $request->file('imagen');
+                //obtenemos el nombre del archivo
+                $nombre =  time()."_"."producto_".$id.".".$imagen->extension();
+                //indicamos que queremos guardar un nuevo archivo en el disco local
+                Storage::disk('images')->put($nombre,  File::get($imagen));
+
+                // guardar referencias a imagen
+                $nueva_imagen = new Imagen();
+                $nueva_imagen->tabla = "productos";
+                $nueva_imagen->id_registro = $id;
+                $nueva_imagen->nombre_imagen = $nombre;
+                $nueva_imagen->ubicacion = storage_path('images');
+                $nueva_imagen->save();
+            }
+
             $producto->color = $request->get('color');
             //$producto->id_categoria = $request->get('id_categoria');
             $producto->id_almacen = $request->get('id_almacen');
