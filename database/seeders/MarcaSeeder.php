@@ -16,6 +16,11 @@ class MarcaSeeder extends Seeder
     public function run()
     {
         Marca::create([
+            'detalle' => 'Genérico',
+            'sufijo_marca' => 'GN',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
             'detalle' => 'ASATEX',
             'sufijo_marca' => 'AS',
             'id_usuario' => '1'
@@ -28,6 +33,36 @@ class MarcaSeeder extends Seeder
         Marca::create([
             'detalle' => 'TEXBOL',
             'sufijo_marca' => 'TB',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'TEXBOL',
+            'sufijo_marca' => 'TB',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'Lafayette',
+            'sufijo_marca' => 'LY',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'Lamtex',
+            'sufijo_marca' => 'LT',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'TEYCOT',
+            'sufijo_marca' => 'TC',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'Construex',
+            'sufijo_marca' => 'CT',
+            'id_usuario' => '1'
+        ]);
+        Marca::create([
+            'detalle' => 'SENATEX',
+            'sufijo_marca' => 'ST',
             'id_usuario' => '1'
         ]);
     }

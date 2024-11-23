@@ -15,7 +15,7 @@ class CategoriaSeeder extends Seeder
      */
     public function run()
     {
-        
+
         Categoria::create([
             'nombre' => 'Tela corriente',
             'detalle' => 'Tela de uso común',
@@ -26,6 +26,12 @@ class CategoriaSeeder extends Seeder
             'nombre' => 'Tela special',
             'detalle' => 'Tela de uso específico',
             'sufijo_categoria' => 'TS',
+            'id_usuario' => '1'
+        ]);
+        Categoria::create([
+            'nombre' => 'Accesorios',
+            'detalle' => 'Botones, tijeras, agujas, etc',
+            'sufijo_categoria' => 'AC',
             'id_usuario' => '1'
         ]);
         Categoria::create([

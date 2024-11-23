@@ -29,7 +29,7 @@ class ProductoSeeder extends Seeder
             'precio_venta'  =>  '5.00',
             'id_categoria'  =>  '7',
             'id_almacen'    =>  '2',
-            'id_marca'      =>  '1'
+            'id_marca'      =>  '2'
         ]);
         Producto::create([
             'item_producto' => 'TS-001',
@@ -44,7 +44,7 @@ class ProductoSeeder extends Seeder
             'precio_venta'  =>  '10.00',
             'id_categoria'  =>  '2',
             'id_almacen'    =>  '1',
-            'id_marca'      =>  '2'
+            'id_marca'      =>  '3'
         ]);
         Producto::create([
             'item_producto' => 'TP-001',
@@ -59,7 +59,7 @@ class ProductoSeeder extends Seeder
             'precio_venta'  =>  '13.00',
             'id_categoria'  =>  '6',
             'id_almacen'    =>  '3',
-            'id_marca'      =>  '1'
+            'id_marca'      =>  '2'
         ]);
         Producto::create([
             'item_producto' => 'TS-002',
@@ -74,7 +74,7 @@ class ProductoSeeder extends Seeder
             'precio_venta'  =>  '11.00',
             'id_categoria'  =>  '2',
             'id_almacen'    =>  '3',
-            'id_marca'      =>  '1'
+            'id_marca'      =>  '2'
         ]);
         Producto::create([
             'item_producto' => 'TC-001',
@@ -89,7 +89,7 @@ class ProductoSeeder extends Seeder
             'precio_venta'  =>  '11.00',
             'id_categoria'  =>  '1',
             'id_almacen'    =>  '2',
-            'id_marca'      =>  '1'
+            'id_marca'      =>  '2'
         ]);
     }
 }

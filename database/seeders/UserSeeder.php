@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'expedido' => 'LP',
             'telefono' => '69612471',
             'matricula' => 'GVP83610041LP',
-            'email' => 'gpalacios@admin.com',
+            'email' => 'gpalacios@gmail.com',
             'password' => 'admin_admin'
         ])->assignRole('administrador');
         User::create([
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'expedido' => 'LP',
             'telefono' => '61115903',
             'matricula' => 'ACP4889167LP',
-            'email' => 'aconde@admin.com',
+            'email' => 'raul.c.1996@gmail.com',
             'password' => 'admin_admin'
         ])->assignRole('desarrollador');
         User::create([
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'expedido' => 'LP',
             'telefono' => '1100100',
             'matricula' => 'ECV2969372LP',
-            'email' => 'vendedor1@admin.com',
+            'email' => 'vendedor1@gmail.com',
             'password' => 'admin_admin'
         ])->assignRole('vendedor');
         User::create([
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             'expedido' => 'CB',
             'telefono' => '6325222',
             'matricula' => 'OCL64973110CB',
-            'email' => 'acomodador1@admin.com',
+            'email' => 'acomodador1@gmail.com',
             'password' => 'admin_admin'
         ])->assignRole('acomodador');
         User::create([
@@ -67,7 +67,7 @@ class UserSeeder extends Seeder
             'expedido' => 'LP',
             'telefono' => '325236',
             'matricula' => 'BFH93462514LP',
-            'email' => 'cobrador1@admin.com',
+            'email' => 'cobrador1@gmail.com',
             'password' => 'admin_admin'
         ])->assignRole('cobrador');
     }

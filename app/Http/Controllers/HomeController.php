@@ -54,8 +54,8 @@ class HomeController extends Controller
         $clientes = Cliente::count();
         $total_compras = Compra_cabecera::where('isDeleted', '=', 0)->sum('monto_total');
         $total_ventas = Venta_cabecera::where('isDeleted', '=', 0)->sum('monto_total');
-        $costos_totales = Compra_detalle::select('costo_compra')->where('isDeleted', '=', 0)->sum('costo_compra');
-        $ingresos_totales = Venta_detalle::select('precio_unitario')->where('isDeleted', '=', 0)->sum('precio_unitario');
+        // $costos_totales = Compra_detalle::select('costo_compra')->where('isDeleted', '=', 0)->sum('costo_compra');
+        // $ingresos_totales = Venta_detalle::select('precio_unitario')->where('isDeleted', '=', 0)->sum('precio_unitario');
         //$ganancias_totales = (($ingresos_totales - $costos_totales) / $ingresos_totales) * 100;
         if ($total_ventas == 0) {
             $ganancias_totales = 0;
@@ -78,7 +78,7 @@ class HomeController extends Controller
         $max = $parametros[1]->valor;
 
         $aux = $agotados->where('existencias', '=', 0)->take(5);
-        $aux1 = $agotados->where('existencias', '<=', ((int)$min + 5))->take(5);
+        $aux1 = $agotados->where('existencias', '<=', ((int)$min + 5))->where('existencias','!=',0)->take(5);
         $aux2 = $agotados->where('existencias', '>=', ((int)$max - 5))->take(5);
 
         return view(
