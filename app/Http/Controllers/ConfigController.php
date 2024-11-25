@@ -7,7 +7,9 @@ use App\Models\Parametro;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ConfigController extends Controller
 {
@@ -40,6 +42,42 @@ class ConfigController extends Controller
         $parametro->save();
 
         return redirect('/config');
+    }
+    public function up_icon(Request $request) {
+        // return response()->json(['status'=>'empty','msg'=>$imagen]);
+        try {
+            // verificar si existe una imagen
+            if(!empty($request->file('icono'))){
+                //obtener nombre de icono actual
+                $icono_actual = Parametro::find(4)->valor;
+                //eliminar la imagen anterior
+                $image_path = public_path().'/'.$icono_actual;
+                //unlink($image_path);
+                //rename($image_path, public_path().'/'.$icono_actual.'.old');
+                //obtenemos el nombre del archivo
+                $imagen = $request->file('icono');
+
+                $nombre =   time()."_logo.".$imagen->extension();
+                // subir imagen
+                //$imagen->storeAs(public_path().'/img', $nombre); // aqui hay error
+                $imagen->move(public_path('img'), $nombre);
+
+                // guardar referencias a imagen
+                $nuevo_icono = Parametro::find(4);
+                $nuevo_icono->valor = 'img/'.$nombre;
+                $nuevo_icono->save();
+
+                // volviendo a cargar la config
+                Artisan::call("config:clear");
+                Artisan::call("config:cache");
+                $output = Artisan::output();
+                return response()->json(['status'=>'success','msg'=>'Icono cambiado correctamente']);
+            }
+
+            return response()->json(['status'=>'empty','msg'=>'No se cambió el icono']);
+        } catch (\Throwable $th) {
+            return response()->json(['status'=>'error','msg'=>'Ocurrió un error, vuelva a intentarlo mas tarde']);
+        }
     }
     public function dev_params()
     {

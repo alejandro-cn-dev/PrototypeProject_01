@@ -42,6 +42,7 @@ Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('page_home');
 Route::resource('/home','App\Http\Controllers\HomeController');
+Route::get('/solicitud-reposiciones',[HomeController::class, 'getPeticiones'])->name('solicitud-repocisiones');
 // Rutas para gráficos
 Route::get('/ventas-por-mes', [HomeController::class, 'ventasPorMes']);
 Route::get('/productos-mas-vendidos', [HomeController::class, 'productosMasVendidos']);
@@ -67,6 +68,7 @@ Route::get('reporte_test',[PageController::class,'reporte_test'])->name('reporte
 Route::get('config',[ConfigController::class,'get_params'])->name('params');
 Route::get('config/{id}',[ConfigController::class,'get_param'])->name('param');
 Route::post('update_params/{id}',[ConfigController::class,'up_params'])->name('update_params');
+Route::post('update_icon',[ConfigController::class,'up_icon'])->name('update_icon');
 Route::get('backup',[BackupController::class,'index'])->middleware('auth')->middleware('can:backup.create')->name('backup.index');
 Route::get('download_backup/{file_name}',[BackupController::class,'download'])->middleware('auth')->name('download_backup_a');
 Route::get('create_backup',[BackupController::class,'create'])->middleware('auth')->name('create_backup');
