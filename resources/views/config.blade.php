@@ -18,7 +18,7 @@
                 <img src="{{ $ruta_icono }}" alt="logo sistema" width="50px" height="50px">
             </div>
             {{-- <a class="btn btn-info form-control col-sm-2"><i class="fas fa-fw fa-edit"></i> Cambiar icono</a> --}}
-            <x-adminlte-button label="Cambiar icono" class="bg-info" data-toggle="modal" data-target="#iconModal"
+            <x-adminlte-button label="Cambiar icono" class="bg-info col-sm-2" data-toggle="modal" data-target="#iconModal"
                 icon="fas fa-fw fa-edit" />
         </div>
     </div>

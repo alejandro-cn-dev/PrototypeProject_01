@@ -52,7 +52,8 @@
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
-        <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
+        <link rel="shortcut icon" href="{{ asset(config('adminlte.logo_img')) }}" />
+        {{-- <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" /> --}}
         {{-- <link rel="shortcut icon" href="{{ asset('img/1732546013_logo.jpg') }}" /> --}}
     @elseif(config('adminlte.use_full_favicon'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
