@@ -51,7 +51,11 @@
                             <td>{{ $producto->item_producto }}</td>
                             <td>{{ $producto->id_categoria }}</td>
                             <!-- <td>{{ $producto->nombre }}</td> -->
-                            <td>{{ $producto->nombre }}</td>
+                            @if ($producto->material == '[N/A]')
+                                <td>{{ $producto->nombre }}</td>
+                            @else
+                                <td>{{ $producto->nombre.' '.$producto->material }}</td>
+                            @endif
                             <td>{{ $producto->color }}</td>
                             <td>{{ $producto->medida }}</td>
                             <td>{{ $producto->calidad }}</td>

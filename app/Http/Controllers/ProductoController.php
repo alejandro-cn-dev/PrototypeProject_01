@@ -35,7 +35,7 @@ class ProductoController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','productos.descripcion','productos.color','productos.medida','productos.calidad','productos.unidad',
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.descripcion','productos.color','productos.material','productos.medida','productos.calidad','productos.unidad',
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
@@ -79,6 +79,9 @@ class ProductoController extends Controller
                 $color = 'Sin color';
             }
             $productos->color = $color;
+            if(!empty($request->get('material'))){
+                $productos->material = $request->get('material');
+            }
             if(!empty($request->get('calidad'))){
                 $productos->calidad = $request->get('calidad');
             }
@@ -228,6 +231,9 @@ class ProductoController extends Controller
             }
 
             $producto->color = $request->get('color');
+            if(!empty($request->get('material'))){
+                $producto->material = $request->get('material');
+            }
             //$producto->id_categoria = $request->get('id_categoria');
             $producto->id_almacen = $request->get('id_almacen');
             //$producto->id_marca = $request->get('id_marca');

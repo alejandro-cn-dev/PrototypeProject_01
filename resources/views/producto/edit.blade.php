@@ -42,10 +42,21 @@
                 @endif
                 <input type="file" id="imagen" name="imagen" class="form-control" accept="image/png, image/gif, image/jpeg">
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Color</label>
-                <input id="color" name="color" type="text" class="form-control" value="{{ $producto->color }}"
-                    tabindex="3" required />
+            <div class="row g-2 mb-3">
+                <div class="col-md-6">
+                    <label for="" class="form-label">Color</label>
+                    <input id="color" name="color" type="text" class="form-control" value="{{ $producto->color }}" tabindex="3" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="material" class="form-label">Material</label>
+                    <select name="material" id="material" class="form-control" tabindex="4">
+                        <option value="" @if ($producto->material == '[N/A]') { selected } @endif>Sin material específico</option>
+                        <option value="Algodón" @if ($producto->material == 'Algodón') { selected } @endif>Algodón</option>
+                        <option value="Poliéster"  @if ($producto->material == 'Poliéster') { selected } @endif>Poliéster</option>
+                        <option value="Seda"  @if ($producto->material == 'Seda') { selected } @endif>Seda</option>
+                        <option value="Lino"  @if ($producto->material == 'Lino') { selected } @endif>Lino</option>
+                    </select>
+                </div>
             </div>
             <div class="row g-2 mb-3">
                 <div class="col-md-6">

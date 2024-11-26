@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('color',20)->nullable();
             $table->string('medida',30)->default('[N/A]');
             $table->string('calidad',15)->default('Estandar');
+            $table->string('material',20)->default('[N/A]');
             //$table->unsignedBigInteger('id_empleado');
             $table->unsignedBigInteger('id_usuario');
 

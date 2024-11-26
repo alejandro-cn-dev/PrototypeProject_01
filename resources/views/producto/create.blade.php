@@ -30,14 +30,26 @@
             <input type="file" id="imagen" name="imagen" class="form-control" accept="image/png, image/gif, image/jpeg" tabindex="3">
         </div>
 
-        <div class="mb-3">
-            <label for="color" class="form-label">Color</label>
-            <input id="color" name="color" type="text" class="form-control" tabindex="4" placeholder="(Sin color)"/>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label for="color" class="form-label">Color</label>
+                <input id="color" name="color" type="text" class="form-control" tabindex="4" placeholder="(Sin color)"/>
+            </div>
+            <div class="col-md-6">
+                <label for="material" class="form-label">Material</label>
+                <select name="material" id="material" class="form-control" tabindex="5">
+                    <option value="">Sin material específico</option>
+                    <option value="Algodón">Algodón</option>
+                    <option value="Poliéster">Poliéster</option>
+                    <option value="Seda">Seda</option>
+                    <option value="Lino">Lino</option>
+                </select>
+            </div>
         </div>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
                 <label for="medida" class="form-label">Medida</label>
-                <select id="medida" name="medida" class="form-control" tabindex="5">
+                <select id="medida" name="medida" class="form-control" tabindex="6">
                     <option value="" selected>Sin medida especifica</option>
                     <option value="1,15m x 1,10m">1,15m x 1,10m</option>
                     <option value="1,20 x 1,10m">1,20 x 1,10m</option>
@@ -45,7 +57,7 @@
             </div>
             <div class="col-md-6">
                 <label for="calidad" class="form-label">Calidad</label>
-                <select id="calidad" name="calidad" class="form-control" tabindex="6">
+                <select id="calidad" name="calidad" class="form-control" tabindex="7">
                     <option value="" selected>Sin calidad especifica</option>
                     <option value="primera">Primera calidad</option>
                     <option value="segunda">Segunda calidad</option>
@@ -56,7 +68,7 @@
         <div class="row g-3 mb-3">
             <div class="col-md-4">
                 <label for="id_categoria" class="form-label">Categoria</label>
-                <select class="form-control entidades" id="id_categoria" name="id_categoria" tabindex="7" required>
+                <select class="form-control entidades" id="id_categoria" name="id_categoria" tabindex="8" required>
                     <option value="" selected>Elegir categoria...</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
@@ -65,7 +77,7 @@
             </div>
             <div class="col-md-4">
                 <label for="id_almacen" class="form-label">Ubicación</label>
-                <select class="form-control entidades" id="id_almacen" name="id_almacen" tabindex="8" required>
+                <select class="form-control entidades" id="id_almacen" name="id_almacen" tabindex="9" required>
                     <option value="" selected>Elegir ubicación...</option>
                     @foreach ($almacenes as $almacen)
                         <option value="{{$almacen->id}}">{{$almacen->nombre}}</option>
@@ -74,7 +86,7 @@
             </div>
             <div class="col-md-4">
                 <label for="id_marca" class="form-label">Marca</label>
-                <select class="form-control entidades" id="id_marca" name="id_marca" tabindex="9" required>
+                <select class="form-control entidades" id="id_marca" name="id_marca" tabindex="10" required>
                     <option value="" selected>Elegir marca...</option>
                     @foreach ($marcas as $marca)
                         <option value="{{$marca->id}}">{{$marca->detalle}}</option>
@@ -84,7 +96,7 @@
         </div>
         <div class="mb-3">
             <label for="unidad" class="form-label">Unidad de medida</label>
-            <select class="form-control" name="unidad" id="unidad" tabindex="10" required>
+            <select class="form-control" name="unidad" id="unidad" tabindex="11" required>
                 <option value="0">Seleccione unidad</option>
                 <option value="unidad">Unidad</option>
                 <option value="metro">Metro</option>
@@ -97,14 +109,14 @@
                 <label for="precio_compra" class="form-label">Precio de Compra por unidad sugerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
-                    <input class="precio" type="text" id="precio_compra" name="precio_compra" tabindex="11" required/>
+                    <input class="precio" type="text" id="precio_compra" name="precio_compra" tabindex="12" required/>
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="precio_venta" class="form-label">Precio de Venta por unidad suguerido</label>
                 <div class="flex">
                     <span class="currency">Bs.</span>
-                    <input class="precio" type="text" id="precio_venta" name="precio_venta" tabindex="12" required/>
+                    <input class="precio" type="text" id="precio_venta" name="precio_venta" tabindex="13" required/>
                 </div>
             </div>
         </div>
