@@ -36,11 +36,6 @@ class MarcaSeeder extends Seeder
             'id_usuario' => '1'
         ]);
         Marca::create([
-            'detalle' => 'TEXBOL',
-            'sufijo_marca' => 'TB',
-            'id_usuario' => '1'
-        ]);
-        Marca::create([
             'detalle' => 'Lafayette',
             'sufijo_marca' => 'LY',
             'id_usuario' => '1'
