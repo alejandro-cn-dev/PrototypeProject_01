@@ -14,6 +14,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\HomeController;
+use App\Models\Inventario;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('page_home');
 Route::resource('/home','App\Http\Controllers\HomeController');
-Route::get('/solicitud-reposiciones',[HomeController::class, 'getPeticiones'])->name('solicitud-repocisiones');
+Route::get('/solicitud-reposiciones',[InventarioController::class, 'getPeticiones'])->name('solicitud-repocisiones');
 // Rutas para gráficos
 Route::get('/ventas-por-mes', [HomeController::class, 'ventasPorMes']);
 Route::get('/productos-mas-vendidos', [HomeController::class, 'productosMasVendidos']);

@@ -456,6 +456,12 @@ return [
                     'icon'    => 'fas fa-edit',
                     'url'  => 'existencias',
                     'can'   => 'ventas.existencias'
+                ],
+                [
+                    'text' => 'Solicitud de reposiciones',
+                    'icon'    => 'fas fa-comments',
+                    'url'  => 'solicitud-reposiciones',
+                    'can'   => 'inventario.solicitud_reposicion'
                 ]
             ],
         ],

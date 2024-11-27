@@ -1,29 +1,38 @@
 @extends('adminlte::page')
 
 @section('title')
-    Solicitud de reposición | {{ config('system_name') }} Panel Admin
+    Solicitudes de reposición | {{ config('system_name') }} Panel Admin
 @stop
 
 @section('content_header')
-    <h1>Solicitud de reposición de productos</h1>
+    <h1>Solicitudes de reposición de productos</h1>
 @stop
 
 @section('content')
-    <div class="shadow-none p-3 bg-white rounded">
-        <form action="/registrar_solicitud_repo" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="" class="form-label">Nombre</label>
-                <input id="nombre" name="nombre" type="text" class="form-control" tabindex="1" required />
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Detalle</label>
-                <input id="detalle" name="detalle" type="text" class="form-control" tabindex="2" required />
-            </div>
-            <a href="/categorias" class="btn btn-secondary" tabindex="3"><i class="fas fa-fw fa-ban"></i> Cancelar</a>
-            <button type="submit" class="btn btn-primary" tabindex="4"><i class="fas fa-fw fa-save"></i> Guardar</button>
-        </form>
-    </div>
+<div class="shadow-none p-3 bg-white rounded">
+    <table id="movimientos" class="table table-striped table-bordered mt-4" style="width: 100%;">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Tipo</th>
+                <th scope="col">Item</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio unitario</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="lista_solicitudes">
+            @foreach ($solicitudes as $solicitud)
+                <tr>
+                    {{-- <td>{{ $solicitud->item_producto }}</td>
+                    <td>{{ $solicitud->nombre }}</td>
+                    <td>{{ $solicitud->cantidad }}</td> --}}
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 @stop
 
 @section('css')

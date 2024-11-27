@@ -9,6 +9,7 @@ use App\Models\Compra_cabecera;
 use App\Models\Venta_cabecera;
 use App\Models\Producto;
 use App\Models\Parametro;
+use App\Models\Reposiciones_producto;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\DB;
@@ -368,5 +369,10 @@ class InventarioController extends Controller
     }
     public function guardar_solicitud_repo(Request $request){
         return dd($request);
+    }
+    public function getPeticiones(){
+        $solicitudes = Reposiciones_producto::all();
+        $stock = Producto::select('id','cantidad')->get();
+        return view('inventario.solicitud_repo',['solicitudes'=>$solicitudes,'stock'=>$stock]);
     }
 }

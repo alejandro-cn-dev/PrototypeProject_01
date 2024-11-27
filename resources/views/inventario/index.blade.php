@@ -10,10 +10,10 @@
 
 @section('content')
 <img src="{{ asset('img/inventory_logo.png') }}" style="witdh:150px;height:150px;" class="rounded p-3 mx-auto d-block" alt="logo movimientos inventario">
-<div class="shadow-none p-3 bg-white rounded mt-2 mb-2"> 
+<div class="shadow-none p-3 bg-white rounded mt-2 mb-2">
     <div class="row">
         <label for="criterio" class="col-sm-2 col-form-label">Seleccionar criterio: </label>
-        <div class="col-sm-10">            
+        <div class="col-sm-10">
             <select name="criterio" id="criterio" class="form-control" onchange="cargar_tabla();">
                 <option value="todo" selected>Mostrar todo</option>
                 <option value="compras">Solo compras</option>
@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<div class="shadow-none p-3 bg-white rounded">    
+<div class="shadow-none p-3 bg-white rounded">
     <table id="movimientos" class="table table-striped table-bordered mt-4" style="width: 100%;">
         <thead class="table-dark">
             <tr>
@@ -59,7 +59,7 @@
 
 @section('js')
 <script>
-    $(document).ready(function(){  
+    $(document).ready(function(){
         $('#movimientos').DataTable({
             dom: 'Bfrtip',
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -93,8 +93,8 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }
-        });  
-    });    
+        });
+    });
     function cargar_tabla(){
         let e = document.getElementById("criterio");
         let criterio = e.value;
@@ -119,15 +119,15 @@
     }
     function cargar_datos(resultado){
         $('#movimientos tbody tr').detach();
-        tbody = document.getElementById("lista_movimientos");        
+        tbody = document.getElementById("lista_movimientos");
         resultado.forEach(function(fila){
             let tr = document.createElement("tr");
             let fila_tabla = "";
             if(fila.tipo == 'entrada'){
-                fila_tabla = "<tr><td><span class='badge bg-primary'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.producto+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.fecha+"</td></tr>";    
+                fila_tabla = "<tr><td><span class='badge bg-primary'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.producto+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.fecha+"</td></tr>";
             }else{
                 fila_tabla = "<tr><td><span class='badge bg-success'>"+fila.tipo+"</span></td><td>"+fila.item_producto+"</td><td>"+fila.producto+"</td><td>"+fila.cantidad+"</td><td>"+fila.costo+"</td><td>"+(fila.costo * fila.cantidad)+"</td><td>"+fila.fecha+"</td></tr>";
-            }            
+            }
             tr.innerHTML = fila_tabla;
             tbody.appendChild(tr);
         });
