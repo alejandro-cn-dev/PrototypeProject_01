@@ -57,7 +57,7 @@ class ConfigController extends Controller
                 //obtenemos el nombre del archivo
                 $imagen = $request->file('icono');
 
-                $nombre =   time()."_logo.".$imagen->extension();
+                $nombre =   time()."_logo_icon.".$imagen->extension();
                 // subir imagen
                 //$imagen->storeAs(public_path().'/img', $nombre); // aqui hay error
                 $imagen->move(public_path('img'), $nombre);

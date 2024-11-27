@@ -82,7 +82,7 @@ class ProductoSeeder extends Seeder
         ]);
         Producto::create([
             'item_producto' => 'TC-002',
-            'nombre' => 'Tela Popelina 1,15m',
+            'nombre' => 'Tela Popelina',
             'descripcion' => 'Tela con relieve tipo alfombra y con un toque de terciopelo',
             'color' => 'rojo',
             'material' => 'Algodón',

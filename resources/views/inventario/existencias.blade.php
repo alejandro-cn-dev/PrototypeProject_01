@@ -55,8 +55,8 @@
                 </select>
             </div>
             <x-slot name="footerSlot">
-                <x-adminlte-button class="btn-flat" onclick="" label="Limpiar" theme="warning" icon="fas fa-trash"/>
-                <x-adminlte-button class="btn-flat" onclick="alert($('#productos').select2([]));" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
+                <x-adminlte-button class="btn-flat" onclick="vaciar_select();" label="Limpiar" theme="warning" icon="fas fa-trash"/>
+                <x-adminlte-button class="btn-flat" onclick="enviar_solicitud_repo();" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
                 <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" icon="fas fa-times-circle"/>
             </x-slot>
         {{-- </form> --}}
@@ -109,6 +109,11 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            color: black;
+        }
+    </style>
 @stop
 
 @section('js')
@@ -220,6 +225,14 @@
                 console.log(blob);
             }
         });
+    }
+    function vaciar_select(){
+        $("#productos").val(null).trigger('change');
+    }
+    function enviar_solicitud_repo(){
+        alert($('#productos').select2('val', ''));
+        //ruta
+        //guardar_solicitud_repo
     }
 </script>
 @stop
