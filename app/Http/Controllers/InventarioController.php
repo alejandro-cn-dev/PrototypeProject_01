@@ -9,7 +9,7 @@ use App\Models\Compra_cabecera;
 use App\Models\Venta_cabecera;
 use App\Models\Producto;
 use App\Models\Parametro;
-use App\Models\Reposiciones_producto;
+use App\Models\Reposiciones;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\DB;
@@ -364,15 +364,29 @@ class InventarioController extends Controller
 
         return $pdf->download();
     }
-    public function solicitud_repo(){
-        return view('inventario\solicitud_repo');
-    }
     public function guardar_solicitud_repo(Request $request){
-        return dd($request);
+        try {
+            $solicitud = new Reposiciones();
+            $solicitud->id_producto = $request->id_producto;
+            $solicitud->id_usuario = auth()->user()->id;
+            $solicitud->observacion = $request->observacion;
+            $solicitud->save();
+            return response()->json(['status'=>'success','msg'=>'Solicitud registrada correctamente']);
+        } catch (\Throwable $th) {
+            return response()->json(['status'=>'error','msg'=>'Ocurrió un error, vulca a intentarlo de nuevo']);
+        }
     }
     public function getPeticiones(){
-        $solicitudes = Reposiciones_producto::all();
-        $stock = Producto::select('id','cantidad')->get();
-        return view('inventario.solicitud_repo',['solicitudes'=>$solicitudes,'stock'=>$stock]);
+        //$solicitudes = Reposiciones::all();
+        $solicitudes = Reposiciones::join('users','id_usuario','=','users.id')
+        ->join('productos','id_producto','=','productos.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->join('categorias','productos.id_categoria','=','categorias.id')
+        //->leftjoin('almacens','productos.id_almacen','=','almacens.id')
+        ->select('users.name','users.ap_paterno','users.ap_materno','reposiciones.id_producto','productos.item_producto','productos.nombre AS producto_nombre','productos.color','productos.medida','productos.calidad','productos.material','productos.unidad','marcas.detalle AS marca','categorias.nombre AS categoria','reposiciones.observacion','reposiciones.created_at')
+        ->orderBy('reposiciones.created_at', 'DESC')
+        ->get();
+        //$stock = Producto::select('id','cantidad')->get();
+        return view('inventario\solicitud_repo',['solicitudes'=>$solicitudes]);
     }
 }

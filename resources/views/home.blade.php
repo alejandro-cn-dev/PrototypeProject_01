@@ -510,9 +510,24 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @stop
 
 @section('js')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    {{-- Notificaciones para admin --}}
+    @if (Session::has('NoExistencia'))
+        <script>
+            toastr.error("Hay {{ Session::get('NoExistencia') }} productos agotados. <a href='/existencias'><i>Haga click aqui para ver más</i></a>", "Urgente",10000);
+        </script>
+    @endif
+    @can('inventario.ver-solicitudes')
+        @if (Session::has('SolicitudesVig'))
+            <script>
+                toastr.info("Hay {{ Session::get('SolicitudesVig') }} solicitudes de reposiciones de productos vigentes. <a href='/solicitud-reposiciones'><i>Haga click aqui para ver más</i></a>","Aviso",10000);
+            </script>
+        @endif
+    @endcan
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             generarGraficoVentasPorMes();

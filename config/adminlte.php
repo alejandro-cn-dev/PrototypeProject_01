@@ -461,7 +461,7 @@ return [
                     'text' => 'Solicitud de reposiciones',
                     'icon'    => 'fas fa-comments',
                     'url'  => 'solicitud-reposiciones',
-                    'can'   => 'inventario.solicitud_reposicion'
+                    'can'   => 'inventario.ver-solicitudes'
                 ]
             ],
         ],

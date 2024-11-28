@@ -12,7 +12,9 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Parametro;
 use App\Models\Cliente;
+use App\Models\Reposiciones;
 use App\Models\Rol;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -77,9 +79,14 @@ class HomeController extends Controller
         $min = $parametros[0]->valor;
         $max = $parametros[1]->valor;
 
-        $aux = $agotados->where('existencias', '=', 0)->take(5);
-        $aux1 = $agotados->where('existencias', '<=', ((int)$min + 5))->where('existencias','!=',0)->take(5);
-        $aux2 = $agotados->where('existencias', '>=', ((int)$max - 5))->take(5);
+        $agotado = $agotados->where('existencias', '=', 0)->take(5);
+        $casi_agotado = $agotados->where('existencias', '<=', ((int)$min + 5))->where('existencias','!=',0)->take(5);
+        $casi_tope = $agotados->where('existencias', '>=', ((int)$max - 5))->take(5);
+
+        $solicitudes = Reposiciones::whereBetween('created_at', [
+            Carbon::now()->startOfWeek(), // Inicio de la semana actual
+            Carbon::now()->endOfWeek()    // Fin de la semana actual
+        ])->count();
 
         return view(
             'home',
@@ -96,12 +103,15 @@ class HomeController extends Controller
                 'total_ventas' => $total_ventas,
                 'ganancias' => $ganancias_totales,
                 'mas_vendidos' => $mas_vendidos,
-                'aux' => $aux,
-                'casi_agotado' => $aux1,
-                'casi_tope' => $aux2,
-                'parametros' => $parametros
+                'aux' => $agotado,
+                'casi_agotado' => $casi_agotado,
+                'casi_tope' => $casi_tope,
+                'parametros' => $parametros,
+                'SolicitudesVig' => $solicitudes,
+                'NoExistencia' => $agotado
             ]
         );
+        //)->with('SolicitudesVig',$solicitudes)->with('NoExistencia',$agotado);
     }
 
     public function productosMasVendidos()
