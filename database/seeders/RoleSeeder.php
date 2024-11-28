@@ -74,7 +74,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'compras.create'])->syncRoles([$dev,$vendedor]);
         Permission::create(['name' => 'compras.delete'])->syncRoles([$dev,$vendedor,$cobrador]);
 
-        Permission::create(['name' => 'inventario.solicitud_reposicion'])->syncRoles([$dev,$vendedor,$acomodador]);
+        Permission::create(['name' => 'inventario.solicitud-reposicion'])->syncRoles([$dev,$vendedor,$acomodador]);
+        Permission::create(['name' => 'inventario.ver-solicitudes'])->syncRoles([$dev,$admin]);
 
         Permission::create(['name' => 'reporte.control_stock'])->syncRoles([$dev,$admin,$cobrador]);
         Permission::create(['name' => 'reporte.valoracion'])->syncRoles([$dev,$admin,$cobrador]);

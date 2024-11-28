@@ -11,7 +11,7 @@
 @section('content')
     <div class="card m-3">
         <div class="p-3">
-            <a href="/productos" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>
+            <a href="javascript:history.back()" class="btn btn-primary" role="button"><i class="fas fa-fw fa-arrow-left"></i> Volver</a>
         </div>
         <div class="row no-gutters">
             <div class="col-md-4">
