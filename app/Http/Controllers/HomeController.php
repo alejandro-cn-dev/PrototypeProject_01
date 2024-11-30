@@ -87,6 +87,7 @@ class HomeController extends Controller
             Carbon::now()->startOfWeek(), // Inicio de la semana actual
             Carbon::now()->endOfWeek()    // Fin de la semana actual
         ])->count();
+        $num_agotados = $agotados->where('existencias', '=', 0)->count();
 
         return view(
             'home',
@@ -108,7 +109,7 @@ class HomeController extends Controller
                 'casi_tope' => $casi_tope,
                 'parametros' => $parametros,
                 'SolicitudesVig' => $solicitudes,
-                'NoExistencia' => $agotado
+                'NoExistencia' => $num_agotados
             ]
         );
         //)->with('SolicitudesVig',$solicitudes)->with('NoExistencia',$agotado);
