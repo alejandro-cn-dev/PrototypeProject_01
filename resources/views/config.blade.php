@@ -22,7 +22,7 @@
                 icon="fas fa-fw fa-edit" />
         </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal subir nuevo icono -->
     <div class="modal fade" id="iconModal" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-
+    <!-- FIN Modal subir nuevo icono -->
     <div class="shadow-none p-3 bg-white rounded">
         <div class="table-responsive">
             <table id="valores" class="table table-striped table-bordered mt-4" style="width: 100%;">
@@ -88,12 +88,10 @@
     <script>
         document.getElementById('iconModal').addEventListener('submit', async function(e) {
             e.preventDefault();
-            console.log('Paso 1');
             //const formData = new FormData(this); // Crear un objeto FormData con los datos del formulario
             const formData = new FormData(document.getElementById("iconForm"));
 
             try {
-                console.log('Paso 2');
                 const response = await fetch("{{ route('update_icon') }}", {
                     method: "POST",
                     headers: {
@@ -101,54 +99,22 @@
                     },
                     body: formData
                 });
-                console.log('Paso 1', formData);
                 const result = await response.json();
                 console.log(result);
                 if (result.status == 'success') {
-                    toastr.success(result.msg, 'Correcto!', 3000);
+                    toastr.success(result.msg, 'Correcto!');
+                    $('#iconModal').modal('hide');
                     setTimeout(() => {
                         location.reload();
                     }, 3000);
-                    console.log('Paso 4');
                 } else if (result.status == 'empty') {
-                    toastr.info(result.msg, 'Información', 3000);
-                    console.log('Paso 5r');
+                    toastr.info(result.msg, 'Información');
                 } else if (result.status == 'error') {
-                    toastr.error(result.msg, 'Información', 3000);
-                    console.log('Paso 5z');
+                    toastr.error(result.msg, 'Información');
                 }
             } catch (error) {
-                toastr.info(result.msg, 'Información', 3000);
-                console.log('Paso 6');
+                toastr.error(result.msg, 'Error');
             }
         });
-        // document.getElementById('iconForm').addEventListener('submit', async function(e) {
-        //     e.preventDefault();
-
-        //     const formData = new FormData(this); // Crear un objeto FormData con los datos del formulario
-
-        //     try {
-        //         const response = await fetch("{{ route('update_icon') }}", {
-        //             method: "POST",
-        //             headers: {
-        //                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        //             },
-        //             body: formData
-        //         });
-
-        //         const result = await response.json();
-        //         console.log(result);
-        //         if (result.success) {
-        //             alert("¡Ícono subido con éxito!");
-        //             // Opcional: Actualizar la vista del ícono si es necesario
-        //             document.getElementById('currentIcon').src = '/img/' + result.filename;
-        //         } else {
-        //             alert("Error al subir el ícono: " + result);
-        //         }
-        //     } catch (error) {
-        //         console.error("Error:", error);
-        //         alert("Ocurrió un error al subir el ícono.");
-        //     }
-        // });
     </script>
 @stop

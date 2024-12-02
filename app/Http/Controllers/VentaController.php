@@ -49,7 +49,7 @@ class VentaController extends Controller
     public function create()
     {
         //$ventas = Venta_cabecera::where('tipo','=','S')->get();
-        $productos = Producto::select('productos.id','productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.precio_compra','productos.precio_venta','marcas.detalle AS marca')->join('marcas','productos.id_marca','=','marcas.id')->where('productos.isDeleted','=',0)->get();
+        $productos = Producto::select('productos.id','productos.nombre','productos.color','productos.material','productos.medida','productos.calidad','productos.unidad','productos.precio_compra','productos.precio_venta','marcas.detalle AS marca')->join('marcas','productos.id_marca','=','marcas.id')->where('productos.isDeleted','=',0)->get();
         $clientes = Cliente::all();
         $fecha_actual = date('Y-m-d', strtotime(Carbon::now()));
         $campo_fecha = Parametro::select('valor')->where('nombre','=','fecha_compra_venta')->first()->valor;

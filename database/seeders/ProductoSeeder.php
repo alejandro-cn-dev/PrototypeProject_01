@@ -32,22 +32,22 @@ class ProductoSeeder extends Seeder
             'id_almacen'    =>  '2',
             'id_marca'      =>  '2'
         ]);
-        Producto::create([
-            'item_producto' => 'TS-001',
-            'nombre' => 'Tela piel de sirena',
-            'descripcion' => 'Tela que tiene relieves con forma de escamas y con tacto resbaloso',
-            'color' => 'estampado rojo',
-            'material' => 'Poliéster',
-            'id_usuario' => '1',
-            'unidad' =>  'metro',
-            'medida' => '1,11m x 1,15m',
-            'calidad' => 'primera',
-            'precio_compra' =>  '8.40',
-            'precio_venta'  =>  '10.00',
-            'id_categoria'  =>  '2',
-            'id_almacen'    =>  '1',
-            'id_marca'      =>  '3'
-        ]);
+        // Producto::create([
+        //     'item_producto' => 'TS-001',
+        //     'nombre' => 'Tela piel de sirena',
+        //     'descripcion' => 'Tela que tiene relieves con forma de escamas y con tacto resbaloso',
+        //     'color' => 'estampado rojo',
+        //     'material' => 'Poliéster',
+        //     'id_usuario' => '1',
+        //     'unidad' =>  'metro',
+        //     'medida' => '1,11m x 1,15m',
+        //     'calidad' => 'primera',
+        //     'precio_compra' =>  '8.40',
+        //     'precio_venta'  =>  '10.00',
+        //     'id_categoria'  =>  '2',
+        //     'id_almacen'    =>  '1',
+        //     'id_marca'      =>  '3'
+        // ]);
         Producto::create([
             'item_producto' => 'TC-001',
             'nombre' => 'Tela Cuadrile',
@@ -65,7 +65,7 @@ class ProductoSeeder extends Seeder
             'id_marca'      =>  '2'
         ]);
         Producto::create([
-            'item_producto' => 'TS-002',
+            'item_producto' => 'TS-001',
             'nombre' => 'Tela Gamuza',
             'descripcion' => 'Tela con relieve tipo alfombra y con un toque de terciopelo',
             'color' => 'rojo',

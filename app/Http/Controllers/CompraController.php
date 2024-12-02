@@ -47,7 +47,7 @@ class CompraController extends Controller
      */
     public function create()
     {
-        $productos = Producto::select('productos.id','productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.precio_compra','productos.precio_venta','marcas.detalle AS marca')->join('marcas','productos.id_marca','=','marcas.id')->where('productos.isDeleted','=',0)->get();
+        $productos = Producto::select('productos.id','productos.nombre','productos.color','productos.material','productos.medida','productos.calidad','productos.unidad','productos.precio_compra','productos.precio_venta','marcas.detalle AS marca')->join('marcas','productos.id_marca','=','marcas.id')->where('productos.isDeleted','=',0)->get();
         //$proveedores = Proveedor::where('isDeleted','=',1)->get();
         $proveedores = Proveedor::select('proveedors.id','proveedors.nombre','proveedors.telefono','marcas.detalle AS marca')
         ->join('marcas','proveedors.id_marca','=','marcas.id')->where('proveedors.isDeleted','=',0)->get();

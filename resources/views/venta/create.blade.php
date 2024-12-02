@@ -97,13 +97,13 @@
                     <div id="alert2" class="alert alert-danger" style="display:none"></div>
                     <div class="modal-body">
                         <div class="g-3 mb-3">
-                            <label for="producto" class="form-label">Producto</label>
+                            <label for="producto" class="form-label">Producto  (color,marca,calidad,material,medida)</label>
                             <!-- <select name="producto" id="producto" class="form-control" onchange="cargar_precio_unidad();"> -->
                             <select name="producto" id="producto" class="form-control" style="width: 100%;" required>
                                 <option value="">Seleccione un producto...</option>
                                 @foreach ($productos as $producto)
                                 <option  value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_venta }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
-                                    {{ $producto->nombre.' | '.$producto->marca.' | '.$producto->color.' | '.$producto->calidad.' | '.$producto->medida }}
+                                    {{ $producto->nombre.' — '.$producto->color.' — '.$producto->marca.' — '.$producto->calidad.' — '.$producto->material.' — '.$producto->medida }}
                                 </option>
                                 @endforeach
                             </select>

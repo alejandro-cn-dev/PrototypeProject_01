@@ -76,13 +76,13 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <div class="form-group">
-                                <label for="producto" class="form-label">Producto</label>
+                                <label for="producto" class="form-label">Producto  (color,marca,calidad,material,medida)</label>
                                 <!-- <select name="producto" id="producto" style="width: 100%;" class="form-control w-100 h-100" onchange="cargar_precio_unidad();"> -->
                                 <select name="producto" id="producto"  style="width: 100%; heigth:100%;" data-init-plugin="select2" required>
                                     <option value="">Seleccione un producto...</option>
                                     @foreach ($productos as $producto)
                                         <option  value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_compra }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
-                                            {{ $producto->nombre.' | '.$producto->marca.' | '.$producto->color.' | '.$producto->calidad.' | '.$producto->medida }}
+                                            {{ $producto->nombre.' — '.$producto->color.' — '.$producto->marca.' — '.$producto->calidad.' — '.$producto->material.' — '.$producto->medida }}
                                         </option>
                                     @endforeach
                                 </select>
