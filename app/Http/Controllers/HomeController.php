@@ -67,7 +67,22 @@ class HomeController extends Controller
         $ganancias_totales = number_format($ganancias_totales, 2, ',', ' ');
 
         // Para cargar la tabla de productos mas vendidos
-        $mas_vendidos = DB::select("SELECT productos.nombre, productos.item_producto, venta_detalles.precio_unitario, SUM(venta_detalles.cantidad) AS ventas_totales, (venta_detalles.precio_unitario * (SUM(venta_detalles.cantidad))) AS total FROM `venta_detalles` JOIN `venta_cabeceras` ON `venta_detalles`.`id_venta` = `venta_cabeceras`.`id` JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` WHERE venta_detalles.isDeleted = 0 GROUP BY productos.nombre,productos.item_producto,venta_detalles.precio_unitario ORDER BY ventas_totales DESC LIMIT 5");
+        //$mas_vendidos = DB::select("SELECT productos.nombre, productos.item_producto, venta_detalles.precio_unitario, SUM(venta_detalles.cantidad) AS ventas_totales, (venta_detalles.precio_unitario * (SUM(venta_detalles.cantidad))) AS total FROM `venta_detalles` JOIN `venta_cabeceras` ON `venta_detalles`.`id_venta` = `venta_cabeceras`.`id` JOIN `productos` ON `venta_detalles`.`id_producto` = `productos`.`id` WHERE venta_detalles.isDeleted = 0 GROUP BY productos.nombre,productos.item_producto,venta_detalles.precio_unitario ORDER BY ventas_totales DESC LIMIT 5");
+        $mas_vendidos = DB::table('productos')
+            ->join('venta_detalles', 'productos.id', '=', 'venta_detalles.id_producto')
+            ->select(
+                'productos.id',
+                'productos.nombre',
+                'productos.item_producto',
+                'productos.precio_venta AS precio_unitario',
+                DB::raw('SUM(venta_detalles.cantidad) as ventas_totales'),
+                DB::raw('(productos.precio_venta * (SUM(venta_detalles.cantidad))) AS total')
+            )
+            ->groupBy('productos.id', 'productos.nombre','productos.item_producto','productos.precio_venta')
+            ->orderByDesc('ventas_totales')
+            ->limit(5) // Opcional: limitar a los 10 más vendidos
+            ->get();
+
         // Para cargar la tabla de productos agotados
         $agotados = Producto::join('categorias', 'productos.id_categoria', '=', 'categorias.id')
             ->join('almacens', 'productos.id_almacen', '=', 'almacens.id')

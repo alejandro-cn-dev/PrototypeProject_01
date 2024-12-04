@@ -45,6 +45,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">Hora</th>
+                        <th scope="col">Fecha</th>
                         <th scope="col">Comprobante</th>
                         <th scope="col">Item</th>
                         <th scope="col">Producto</th>
@@ -66,6 +67,7 @@
                                     {{ $venta->hora_venta }}
                                 @endif
                             </td>
+                            <td>{{ $venta->fecha_venta }}</td>
                             <td>{{ str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT) }}</td>
                             <td>{{ $venta->item_producto }}</td>
                             <td>{{ $venta->nombre }}</td>
@@ -125,38 +127,42 @@
                     },
                     {
                         "targets": [1],
-                        "data": "numeracion"
+                        "data": "fecha_venta"
                     },
                     {
                         "targets": [2],
-                        "data": "item_producto"
+                        "data": "numeracion"
                     },
                     {
                         "targets": [3],
-                        "data": "nombre"
+                        "data": "item_producto"
                     },
                     {
                         "targets": [4],
-                        "data": "marca"
+                        "data": "nombre"
                     },
                     {
                         "targets": [5],
-                        "data": "medida"
+                        "data": "marca"
                     },
                     {
                         "targets": [6],
-                        "data": "calidad"
+                        "data": "medida"
                     },
                     {
                         "targets": [7],
-                        "data": "precio_unitario"
+                        "data": "calidad"
                     },
                     {
                         "targets": [8],
-                        "data": "cantidad"
+                        "data": "precio_unitario"
                     },
                     {
                         "targets": [9],
+                        "data": "cantidad"
+                    },
+                    {
+                        "targets": [10],
                         "data": "total"
                     },
                 ],
