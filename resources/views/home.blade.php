@@ -394,7 +394,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Ventas por meses</h3>
+                            <h3 class="card-title">Ventas por meses <i>(en Bs)</i></h3>
                             {{-- <a href="/existencias">Ver existencias</a> --}}
                             {{-- <a onclick="generarGraficoVentasPorMes(); generarGraficoProductosMasVendidos();">Probar 1</a> --}}
                         </div>
@@ -418,7 +418,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Productos mas vendidos</h3>
+                            <h3 class="card-title">Productos mas vendidos <i>(en cantidad)</i></h3>
                             {{-- <a href="/existencias">Ver existencias</a> --}}
                         </div>
                     </div>
@@ -438,7 +438,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Ingresos vs. Gastos Mensuales</h3>
+                            <h3 class="card-title">Ingresos vs. Gastos Mensuales <i>(en Bs)</i></h3>
                             {{-- <a href="/existencias">Ver existencias</a> --}}
                         </div>
                     </div>
@@ -455,7 +455,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Ventas por Categoría de Producto</h3>
+                            <h3 class="card-title">Ventas por Categoría de Producto <i>(en Bs)</i></h3>
                             {{-- <a href="/existencias">Ver existencias</a> --}}
                         </div>
                     </div>
@@ -475,7 +475,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Proyecciones de Ventas</h3>
+                            <h3 class="card-title">Proyecciones de Ventas <i>(en Bs)</i></h3>
                             {{-- <a href="/existencias">Ver existencias</a> --}}
                         </div>
                     </div>
@@ -617,12 +617,12 @@
                 .then(data => {
                     const meses = data.ingresos.map(item => item.mes);
                     const ingresos = data.ingresos.map(item => item.total_ingresos);
-                    const gastos = data.gastos.map(item => {
-                        const mes = item.mes;
-                        const gasto = item.total_gastos;
-                        // Asegurar que cada mes tenga un valor
-                        return meses.includes(mes) ? gasto : 0;
-                    });
+                    const gastos = data.gastos.map(item => item.total_gastos);
+                    // const gastos = data.gastos.map(item => {
+                    //     const mes = item.mes;
+                    //     const gasto = item.total_gastos;
+                    //     return meses.includes(mes) ? gasto : 0;
+                    // });
 
                     // Configuración del gráfico
                     const ctx = document.getElementById('graficoIngresosGastos').getContext('2d');
@@ -665,7 +665,7 @@
                                     beginAtZero: true,
                                     title: {
                                         display: true,
-                                        text: 'Montos ($)'
+                                        text: 'Montos (Bs)'
                                     }
                                 }
                             }
