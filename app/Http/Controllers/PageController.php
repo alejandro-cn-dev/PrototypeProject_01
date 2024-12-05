@@ -26,20 +26,23 @@ class PageController extends Controller
         ->select('productos.id','productos.nombre','productos.descripcion','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria')
         ->where('productos.isDeleted','=',0)
         ->get();
-        // $productos = DB::table('productos')
-        // ->join('venta_detalles', 'productos.id', '=', 'venta_detalles.id_producto')
-        // ->join('marcas','productos.id_marca','=','marcas.id')
-        // ->join('categorias','productos.id_categoria','=','categorias.id')
-        // ->select(
-        //     'productos.id','productos.nombre','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria',
-        //     DB::raw('SUM(venta_detalles.cantidad) as ventas_totales'),
-        //     DB::raw('(productos.precio_venta * (SUM(venta_detalles.cantidad))) AS total')
-        // )
-        // ->groupBy('productos.id','productos.nombre','productos.color','productos.precio_venta','productos.unidad','marcas.detalle','categorias.nombre')
-        // ->orderByDesc('ventas_totales')
-        // ->where('productos.isDeleted','=',0)
-        // ->limit(5)
-        // ->get();
+        $productos = DB::table('productos')
+        ->leftjoin('venta_detalles', 'productos.id', '=', 'venta_detalles.id_producto')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->join('categorias','productos.id_categoria','=','categorias.id')
+        ->leftjoin('compra_detalles','productos.id', '=', 'compra_detalles.id_producto')
+        ->select(
+            'productos.id','productos.nombre','productos.color','productos.precio_venta','productos.unidad','marcas.detalle as marca','categorias.nombre as categoria',
+            DB::raw('(COALESCE(SUM(compra_detalles.cantidad), 0) - COALESCE(SUM(venta_detalles.cantidad), 0)) AS existencia'),
+        )
+        ->groupBy('productos.id','productos.nombre','productos.color','productos.precio_venta','productos.unidad','marcas.detalle','categorias.nombre')
+        ->orderByDesc('existencia')
+        ->where('compra_detalles.isDeleted','=',0)
+        ->where('venta_detalles.isDeleted','=',0)
+        ->where('productos.isDeleted','=',0)
+        ->limit(5)
+        ->get();
+
         $imagenes = Imagen::where('tabla','=','productos')->get();
         return view('vitrina.index')->with('productos',$productos)->with('imagenes',$imagenes);
         //return view('vitrina.index', ['productos' => $productos]);
