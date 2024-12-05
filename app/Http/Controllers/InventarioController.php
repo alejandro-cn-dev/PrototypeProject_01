@@ -254,6 +254,7 @@ class InventarioController extends Controller
     {
         //$ventas = Venta_cabecera::where()->get();
         //$ventas = Venta_detalle::where('isDeleted','=',0)->get();
+        //DB::statement("SET SQL_MODE=''");
         $ventas = DB::select("CALL get_reporte_venta_by_arg ('all')");
         return view('inventario.ventas_producto')->with('ventas',$ventas);
         //return response()->json(['ventas'=>$ventas]);
