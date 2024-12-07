@@ -62,8 +62,11 @@
   <table id="contenido" width="100%" >
     <thead style="background-color: lightgray;">
       <tr>
-        <th>#</th>
         <th>Producto</th>
+        <th>Color</th>
+        <th>Medida</th>
+        <th>Calidad</th>
+        <th>Material</th>
         <th>Unidad</th>
         <th>Cantidad</th>
         <th>Precio</th>
@@ -73,14 +76,12 @@
     <tbody>
       @foreach($entradas as $entrada)
       <tr>
-        <th scope="row">{{$entrada->id}}</th>
-        {{-- {{$entrada->id_producto}} --}}
-                        @forEach($productos as $producto)
-                            @if($entrada->id_producto == $producto->id)
-                            <td>{{$producto->nombre}}</td>
-                            <td>{{$producto->unidad}}</td>
-                            @endif
-                        @endforeach
+        <td>{{$entrada->nombre}}</td>
+        <td>{{$entrada->color}}</td>
+        <td>{{$entrada->medida}}</td>
+        <td>{{$entrada->calidad}}</td>
+        <td>{{$entrada->material}}</td>
+        <td>{{$entrada->unidad}}</td>
         <td align="right">{{$entrada->cantidad}}</td>
         <td align="right">{{$entrada->costo_compra}}</td>
         <td align="right">{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}}</td>
@@ -89,7 +90,7 @@
     </tbody>
     <tfoot>
       <tr>
-          <td colspan="4"></td>
+          <td colspan="7"></td>
           <td class="total" align="right">Total Bs.</td>
           <td class="total" align="right" class="gray">{{$cabecera->monto_total}}</td>
       </tr>

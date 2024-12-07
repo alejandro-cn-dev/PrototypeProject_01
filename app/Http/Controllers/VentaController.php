@@ -195,7 +195,10 @@ class VentaController extends Controller
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
         ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
-        $salidas = Venta_detalle::where('id_venta','=',$id)->get();
+        //$salidas = Venta_detalle::where('id_venta','=',$id)->get();
+        $salidas = Venta_detalle::select('productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.material','venta_detalles.cantidad','venta_detalles.precio_unitario')
+        ->join('productos','venta_detalles.id_producto','=','productos.id')
+        ->where('venta_detalles.id_venta','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
 
@@ -216,7 +219,11 @@ class VentaController extends Controller
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
         ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.ci','clientes.nombre','clientes.telefono','clientes.direccion','clientes.ci','users.name','venta_cabeceras.fecha_venta','venta_cabeceras.hora_venta','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.id','=',$id)->first();
-        $salidas = Venta_detalle::where('id_venta','=',$id)->get();
+        //$salidas = Venta_detalle::where('id_venta','=',$id)->get();
+        $salidas = Venta_detalle::select('productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.material','marcas.detalle AS marca','venta_detalles.cantidad','venta_detalles.precio_unitario')
+        ->join('productos','venta_detalles.id_producto','=','productos.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->where('venta_detalles.id_venta','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();
         $fecha_actual = date_create(date('d-m-Y'));
 

@@ -207,7 +207,9 @@ class CompraController extends Controller
     }
     public function reporte_ind($id){
         $cabecera = Compra_cabecera::find($id);
-        $entradas = Compra_detalle::where('id_compra','=',$id)->get();
+        $entradas = Compra_detalle::select('productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.material','compra_detalles.cantidad','compra_detalles.costo_compra')
+        ->join('productos','compra_detalles.id_producto','=','productos.id')
+        ->where('compra_detalles.id_compra','=',$id)->get();
         $productos = Producto::where('isDeleted','=',0)->get();
         $proveedor = Proveedor::find($cabecera->id_proveedor);
         $usuario = User::find($cabecera->id_usuario);
@@ -223,8 +225,12 @@ class CompraController extends Controller
         ->join('users','compra_cabeceras.id_usuario','=','users.id')
         ->select('compra_cabeceras.id','compra_cabeceras.numeracion','proveedors.nombre','proveedors.telefono','users.name','compra_cabeceras.fecha_compra','compra_cabeceras.hora_compra','compra_cabeceras.monto_total')
         ->where('compra_cabeceras.id','=',$id)->first();
-        $entradas = Compra_detalle::where('id_compra','=',$id)->get();
-        $productos = Producto::where('isDeleted','=',0)->get();
+        //$entradas = Compra_detalle::where('id_compra','=',$id)->get();
+        // $productos = Producto::where('isDeleted','=',0)->get();
+        $entradas = Compra_detalle::select('productos.nombre','productos.color','productos.medida','productos.calidad','productos.unidad','productos.material','marcas.detalle AS marca','compra_detalles.cantidad','compra_detalles.costo_compra')
+        ->join('productos','compra_detalles.id_producto','=','productos.id')
+        ->join('marcas','productos.id_marca','=','marcas.id')
+        ->where('compra_detalles.id_compra','=',$id)->get();
         $fecha_actual = date_create(date('d-m-Y'));
 
         // Para conseguir fecha en español
@@ -239,7 +245,7 @@ class CompraController extends Controller
         $customPaper = array(0,0,567.00,450.00);
 
         //$pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'))->setPaper($customPaper, 'landscape');
-        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','productos','fecha_recibo'));
+        $pdf = PDF::loadView('compra/pdf_recibo',compact('cabecera','entradas','fecha_recibo'));
         return $pdf->download('recibo_nro_'.str_pad($cabecera->numeracion, 8, '0', STR_PAD_LEFT).'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
     }
     public function guardar(Request $request){

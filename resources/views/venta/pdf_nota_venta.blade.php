@@ -109,16 +109,22 @@
             <tbody>
                @foreach($salidas as $salida)
                 <tr>
-                  <td>{{$salida->cantidad}}</td>
-                  @forEach($productos as $producto)
-                     @if($salida->id_producto == $producto->id)
-                     <td colspan="2">
-                        {{$producto->nombre}}
-                     </td>
-                     @endif
-                  @endforeach
-                  <td>{{$salida->precio_unitario}}</td>
-                  <td>{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
+                  <td align="right">{{$salida->cantidad}}</td>
+                  <td colspan="2">
+                    {{
+                        strtr("@name @marca por @unidad @color @medida @calidad @material",
+                            ["@name" => $salida->nombre,
+                            "@marca" => $salida->marca,
+                            "@unidad" => $salida->unidad,
+                            "@color" => ((empty($salida->color) || str_contains($salida->color,"N/A")) ? "" : "color ".$salida->color),
+                            "@medida" => ((empty($salida->medida) || str_contains($salida->medida,"N/A")) ? "" : "de ".$salida->medida),
+                            "@calidad" => "calidad ".$salida->calidad,
+                            "@material" => ((empty($salida->material) || str_contains($salida->material,"N/A")) ? "" : "hecho de ".$salida->material)]
+                        )
+                    }}
+                  </td>
+                  <td align="right">{{$salida->precio_unitario}}</td>
+                  <td align="right">{{number_format((float) ($salida->precio_unitario * $salida->cantidad), 2, '.', '')}}</td>
               @endforeach
                 </tr>
             <tfoot>

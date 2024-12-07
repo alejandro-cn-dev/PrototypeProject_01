@@ -95,16 +95,22 @@
             <tbody>
                @foreach($entradas as $entrada)
                 <tr>
-                  <td>{{$entrada->cantidad}}</td>
-                  @forEach($productos as $producto)
-                     @if($entrada->id_producto == $producto->id)
-                     <td colspan="2">
-                        {{$producto->nombre}}
-                     </td>
-                     @endif
-                  @endforeach
-                  <td>{{$entrada->costo_compra}} Bs.</td>
-                  <td>{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}} Bs.</td>
+                  <td align="right">{{$entrada->cantidad}}</td>
+                  <td colspan="2">
+                    {{
+                        strtr("@name @marca por @unidad @color @medida @calidad @material",
+                            ["@name" => $entrada->nombre,
+                            "@marca" => $entrada->marca,
+                            "@unidad" => $entrada->unidad,
+                            "@color" => ((empty($entrada->color) || str_contains($entrada->color,"N/A")) ? "" : "color ".$entrada->color),
+                            "@medida" => ((empty($entrada->medida) || str_contains($entrada->medida,"N/A")) ? "" : "de ".$entrada->medida),
+                            "@calidad" => "calidad ".$entrada->calidad,
+                            "@material" => ((empty($entrada->material) || str_contains($entrada->material,"N/A")) ? "" : "hecho de ".$entrada->material)]
+                        )
+                    }}
+                  </td>
+                  <td align="right">{{$entrada->costo_compra}} Bs.</td>
+                  <td align="right">{{number_format((float) ($entrada->costo_compra * $entrada->cantidad), 2, '.', '')}} Bs.</td>
               @endforeach
                 </tr>
             <tfoot>
