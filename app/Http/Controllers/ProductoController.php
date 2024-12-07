@@ -289,7 +289,8 @@ class ProductoController extends Controller
         'categorias.nombre as id_categoria',
         'almacens.nombre as id_almacen',
         'marcas.detalle as id_marca')
-        ->where('productos.isDeleted','=',0)->get();
+        ->where('productos.isDeleted','=',0)
+        ->orderBy('productos.item_producto')->get();
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
         $pdf = PDF::loadView('producto/pdf_producto',compact('productos','fecha'));

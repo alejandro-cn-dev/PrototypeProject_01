@@ -134,7 +134,7 @@ class HomeController extends Controller
     {
         $productosMasVendidos = Venta_detalle::select('venta_detalles.id_producto AS id_producto', 'productos.nombre AS nombre', DB::raw('SUM(venta_detalles.cantidad) as total_vendido'))
             ->join('productos', 'venta_detalles.id_producto', '=', 'productos.id')
-            ->groupBy('venta_detalles.id_producto')
+            ->groupBy('venta_detalles.id_producto','productos.nombre')
             ->orderByDesc('total_vendido')
             ->limit(5)
             ->get();
