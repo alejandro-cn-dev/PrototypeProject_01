@@ -52,7 +52,7 @@
                 <select id="medida" name="medida" class="form-control" tabindex="6">
                     <option value="" selected>Sin medida especifica</option>
                     <option value="1,10m">1,10m</option>
-                    <option value="1,15m">1,55m</option>
+                    <option value="1,15m">1,15m</option>
                     <option value="1,50m">1,50m</option>
                     <option value="1,55m">1,55m</option>
                 </select>
