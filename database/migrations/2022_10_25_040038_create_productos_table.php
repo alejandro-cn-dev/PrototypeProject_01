@@ -27,7 +27,7 @@ return new class extends Migration
 
             // $table->string('unidad_compra')->nullable();
             // $table->string('unidad_venta')->nullable();
-            $table->string('unidad',10)->nullable();
+            $table->string('unidad',30)->nullable();
             $table->decimal('precio_compra',5,2)->nullable();
             $table->decimal('precio_venta',5,2)->nullable();
             // $table->integer('existencia')->default(0);

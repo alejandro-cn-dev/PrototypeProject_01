@@ -51,8 +51,10 @@
                 <label for="medida" class="form-label">Medida</label>
                 <select id="medida" name="medida" class="form-control" tabindex="6">
                     <option value="" selected>Sin medida especifica</option>
-                    <option value="1,15m x 1,10m">1,15m x 1,10m</option>
-                    <option value="1,20 x 1,10m">1,20 x 1,10m</option>
+                    <option value="1,10m">1,10m</option>
+                    <option value="1,15m">1,55m</option>
+                    <option value="1,50m">1,50m</option>
+                    <option value="1,55m">1,55m</option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -100,7 +102,8 @@
                 <option value="0">Seleccione unidad</option>
                 <option value="unidad">Unidad</option>
                 <option value="metro">Metro</option>
-                <option value="rollo">Rollo</option>
+                <option value="rollo de 50yd (46m)">Rollo de 50yd (46m)</option>
+                <option value="rollo de 60yd (55m)">Rollo de 60yd (55m)</option>
                 <!-- <option value="otro">Otro</option> -->
             </select>
         </div>
