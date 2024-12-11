@@ -41,6 +41,7 @@
                     <option value="">Sin material específico</option>
                     <option value="Algodón">Algodón</option>
                     <option value="Poliéster">Poliéster</option>
+                    <option value="Nylon">Nylon</option>
                     <option value="Seda">Seda</option>
                     <option value="Lino">Lino</option>
                 </select>

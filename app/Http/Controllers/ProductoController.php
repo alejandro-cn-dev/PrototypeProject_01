@@ -72,6 +72,7 @@ class ProductoController extends Controller
     {
         try {
             $productos = new Producto();
+            // Guardando datos de productos, validando algunos campos
             $productos->nombre = $request->get('nombre');
             $productos->descripcion = $request->get('descripcion');
             // $color = $request->get('color');
@@ -91,21 +92,15 @@ class ProductoController extends Controller
             }
 
             $productos->id_almacen = $request->get('id_almacen');
-
             $productos->precio_compra = $request->get('precio_compra');
             $productos->precio_venta = $request->get('precio_venta');
             $productos->unidad = $request->get('unidad');
-
             $productos->id_categoria = $id_categoria = $request->get('id_categoria');
             $categoria = Categoria::where('id','=',$id_categoria)->first();
-            $productos->id_marca = $id_marca = $request->get('id_marca');
-            // $marca = Marca::where('id','=',$id_marca)->first();
+            $productos->id_marca = $request->get('id_marca');
             $productos->id_usuario = auth()->user()->id;
-            //$prefijo_matricula = strtoupper(substr($categoria->nombre,0,2)).'-'.strtoupper(substr($marca->detalle,0,2));
-            //$last_id = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->sortByDesc()->get();
-            //$last_id = Producto::orderBy('id','DESC')->where('item_producto','LIKE',$prefijo_matricula.'%')->where('isDeleted','=',1)->first();
-            //$grupo_productos = Producto::where('item_producto','LIKE',$prefijo_matricula.'%')->get();
-            $num_item = Producto::where('id_categoria','=',$categoria->id)->where('isDeleted','=',0)->get();
+
+            $num_item = Producto::where('id_categoria','=',$categoria->id)->get();
             //$num_item = Producto::select('item_producto')->where('id_categoria','=',$categoria->id)->where('isDeleted','=',0)->orderBy('created_at','desc')->first();
             $productos->item_producto = $categoria->sufijo_categoria.'-'.str_pad(($num_item->count() + 1), 3, '0', STR_PAD_LEFT);
             $productos->save();

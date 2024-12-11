@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use Exception;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -56,19 +57,19 @@ class BackupController extends Controller
             // $output = Artisan::output();
 
             // Copia mediante libreria db-dump
-            $db_name = env('DB_DATABASE','wms_websystem_01');
+            $db_name = env('DB_DATABASE', 'wms_websystem_01');
             $fecha = Carbon::now()->format('Y-m-d-H-i-s');
             $output = MySql::create()
-            ->setDbName($db_name)
-            ->setUserName('root')
-            ->setPassword('')
-            ->addExtraOption('--routines')
-            ->useCompressor(new GzipCompressor())
-            ->dumpToFile(storage_path('app/Laravel').'/'.'backup-'.$fecha.'.sql.gz');
+                ->setDbName($db_name)
+                ->setUserName('root')
+                ->setPassword('')
+                ->addExtraOption('--routines')
+                ->useCompressor(new GzipCompressor())
+                ->dumpToFile(storage_path('app/Laravel') . '/' . 'backup-' . $fecha . '.sql.gz');
 
             return response()->json(['status' => 'success', 'msg' => $output]);
         } catch (Exception $e) {
-             return response()->json(['status' => 'error', 'msg' => $e]);
+            return response()->json(['status' => 'error', 'msg' => $e]);
         }
     }
 
@@ -81,7 +82,7 @@ class BackupController extends Controller
 
             return response()->json(['status' => 'success', 'msg' => $output]);
         } catch (Exception $e) {
-             return response()->json(['status' => 'error', 'msg' => $e]);
+            return response()->json(['status' => 'error', 'msg' => $e]);
         }
     }
 
@@ -97,13 +98,49 @@ class BackupController extends Controller
     }
 
     /**
+     * Restore a DB backup.
+     */
+    public function restore(Request $request)
+    {
+        // Verificar si existe el archivo SQL
+        $nombre_archivo =  $request->get('file_name');
+        //if()
+        $ruta_archivo = storage_path('app/Laravel') .'/'.$nombre_archivo;
+        // Credenciales de la base de datos
+        //$dbHost = env('DB_HOST');
+        //$dbName = env('DB_DATABASE');
+        //$dbUser = env('DB_USERNAME');
+        //$dbPass = env('DB_PASSWORD');
+        $dbHost = config('database.connections.mysql.host');
+        $dbPort = config('database.connections.mysql.port');
+        $dbName = config('database.connections.mysql.database');
+        $dbUser = config('database.connections.mysql.username');
+        $dbPass = config('database.connections.mysql.password');
+
+        try {
+            // Comando para restaurar la base de datos
+            //$command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < $ruta ";
+            $command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < '$ruta_archivo' ";
+            exec($command, $output, $result);
+
+            if ($result === 0) {
+                return response()->json(['status' => 'success', 'msg' => $result]);
+            } else {
+                //return response()->json(['status' => 'error', 'msg' => $result]);
+                return response()->json(['status' => 'error', 'msg' => $command]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'msg' => $e]);
+        }
+    }
+
+    /**
      * Deletes a backup file.
      */
     public function delete(Request $request)
     {
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-        if ($disk->exists(config('backup.backup.name') . '/' . $request->get('file_name')))
-        {
+        if ($disk->exists(config('backup.backup.name') . '/' . $request->get('file_name'))) {
             $disk->delete(config('backup.backup.name') . '/' . $request->get('file_name'));
             return response()->json(['msg' => 'Copia eliminada satisfactoriamente', 'status' => 'ok']);
         } else {

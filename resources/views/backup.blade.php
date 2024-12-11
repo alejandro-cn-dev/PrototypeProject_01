@@ -43,8 +43,8 @@
                         <td>{{$fila['create_date']}}</td>
                         <td>{{$fila['difference_date']}}</td>
                         <td>
+                            <a class="btn btn-success" id="restaurar" onclick="confirmar_restaurar({{strval('"'.$fila['file_name'].'"')}});"><i class="fas fa-fw fa-undo"></i> Restaurar</a>
                             <a class="btn btn-info" href="{{ url("download_backup/".$fila['file_name']) }}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
-                            <a class="btn btn-success" id="restaurar" onclick=""><i class="fas fa-fw fa-undo"></i> Restaurar</a>
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{strval('"'.$fila['file_name'].'"')}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                         </td>
                     </tr>
@@ -61,6 +61,57 @@
 
 @section('js')
     <script>
+        function confirmar_restaurar(nombre_archivo){
+            let ruta = "{{route('restore.database')}}";
+            swal({
+                    title: "¿Está seguro?",
+                    text: "Se perderán algunos registros no guardados",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+            })
+            .then((willRestore) => {
+                console.log(willRestore);
+                if (willRestore) {
+                    console.log('A');
+                    $.ajax({
+                        method: 'POST',
+                        url: ruta,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            file_name: nombre_archivo
+                        },
+                        success: function(data){
+                            console.log(data);
+                            if (data.status == 'success') {
+                                swal(data.msg, {
+                                    icon: "success",
+                                    timer: 1500,
+                                });
+                            } else {
+                                swal(data.msg, {
+                                    icon: "info",
+                                    timer: 1500,
+                                });
+                            }
+                        },
+                        error: function(response){
+                            swal(response.msg, {
+                                icon: "warning",
+                            });
+                            console.log(response);
+                        }
+                    });
+                } else {
+                    swal("Restauración cancelada",{
+                        icon: 'info',
+                        buttons: false,
+                        timer: 1500,
+                    });
+
+                }
+            });
+        }
         function confirma_anular(nombre_archivo){
             let ruta = "{{route('delete_backup')}}";
             swal({

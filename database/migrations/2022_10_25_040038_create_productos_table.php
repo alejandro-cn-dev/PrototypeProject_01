@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->string('item_producto',12);
+            $table->string('item_producto',12)->unique();
             $table->string('nombre',100);
             $table->mediumText('descripcion',150);
-            $table->string('color',20)->nullable();
+            $table->string('color',20)->default('[N/A]');
             $table->string('medida',30)->default('[N/A]');
             $table->string('calidad',15)->default('Estandar');
             $table->string('material',20)->default('[N/A]');
