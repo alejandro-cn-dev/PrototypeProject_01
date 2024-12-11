@@ -113,7 +113,7 @@
                     text: '<i class="fas fa-copy"></i> Copiar',
                     titleAttr: 'Copiar',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9]
                     }
                 },
                 {
@@ -121,7 +121,7 @@
                     text: '<i class="fas fa-file-excel"></i> Excel',
                     titleAttr: 'Excel',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9]
                     }
                 },
                 {
@@ -129,7 +129,7 @@
                     text: '<i class="fas fa-file-csv"></i> CSV',
                     titleAttr: 'CSV',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9]
                     }
                 },
                 {
@@ -137,7 +137,7 @@
                     text: '<i class="fas fa-file-pdf"></i> PDF',
                     titleAttr: 'PDF',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9]
                     }
                 },
                 {
@@ -145,7 +145,7 @@
                     text: '<i class="fas fa-print"></i> Imprimir',
                     titleAttr: 'Imprimir',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 7]
+                        columns: [0, 1, 2, 3, 4, 5, 7, 9]
                     }
                 }
             ],

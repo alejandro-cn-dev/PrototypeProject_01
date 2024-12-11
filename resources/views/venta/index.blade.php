@@ -26,6 +26,7 @@
                     <th scope="col">Numeracion</th>
                     <th scope="col">Cliente</th>
                     <th scope="col">Atendido por</th>
+                    <th scope="col">Fecha de emision</th>
                     <th scope="col">Total</th>
                     <th scope="col">Opciones</th>
                 </tr>
@@ -37,6 +38,7 @@
                     <td>{{str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
                     <td>{{$venta->nombre}}</td>
                     <td>{{$venta->usuario}}</td>
+                    <td>{{$venta->fecha_venta}}</td>
                     <td>{{$venta->monto_total}}</td>
                     <td>
                         <!-- <form action="{{route('ventas.destroy',$venta->id)}}" method="POST"> -->
@@ -78,7 +80,7 @@ $(document).ready(function(){
                     text: '<i class="fas fa-copy"></i> Copiar',
                     titleAttr: 'Copiar',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
                 {
@@ -86,7 +88,7 @@ $(document).ready(function(){
                     text: '<i class="fas fa-file-excel"></i> Excel',
                     titleAttr: 'Excel',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
                 {
@@ -94,7 +96,7 @@ $(document).ready(function(){
                     text: '<i class="fas fa-file-csv"></i> CSV',
                     titleAttr: 'CSV',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
                 {
@@ -102,7 +104,7 @@ $(document).ready(function(){
                     text: '<i class="fas fa-file-pdf"></i> PDF',
                     titleAttr: 'PDF',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
                 {
@@ -110,7 +112,7 @@ $(document).ready(function(){
                     text: '<i class="fas fa-print"></i> Imprimir',
                     titleAttr: 'Imprimir',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 }
             ],

@@ -9,7 +9,7 @@
     <thead style="background-color: lightgray;">
       <tr>
         <th>#</th>
-        <th>Nro. nota de venta</th>
+        <th>Nro. Comprobante</th>
         <th>Cliente</th>
         <th>Atendido por</th>
         <th>Fecha emision</th>

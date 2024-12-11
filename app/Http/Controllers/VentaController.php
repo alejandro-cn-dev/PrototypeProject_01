@@ -36,7 +36,7 @@ class VentaController extends Controller
         $ventas = Venta_cabecera::where('isDeleted','=',0)->get();
         $ventas = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
-        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre as nombre','users.name as usuario','venta_cabeceras.monto_total')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','venta_cabeceras.fecha_venta','clientes.nombre as nombre',DB::raw('CONCAT(users.name," ",users.ap_paterno) as usuario'),'venta_cabeceras.monto_total')
         ->where('venta_cabeceras.isDeleted','=',0)->get();
         return view('venta.index')->with('ventas',$ventas);
     }
@@ -173,7 +173,7 @@ class VentaController extends Controller
         //$salidas = Venta_cabecera::where('isDeleted','=',0)->get();
         $salidas = Venta_cabecera::join('clientes','venta_cabeceras.id_cliente','=','clientes.id')
         ->join('users','venta_cabeceras.id_usuario','=','users.id')
-        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci','users.name','venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
+        ->select('venta_cabeceras.id','venta_cabeceras.numeracion','clientes.nombre','clientes.ci',DB::raw('CONCAT(users.name," ",users.ap_paterno) as name'),'venta_cabeceras.created_at as fecha_emision','venta_cabeceras.monto_total')
         ->where('venta_cabeceras.isDeleted','=',0)
         ->get();
         $total = Venta_cabecera::where('isDeleted','=',0)->sum('monto_total');
@@ -209,6 +209,7 @@ class VentaController extends Controller
         $mes = $meses[($fecha_actual->format('n')) - 1];
         $dia = $dias[$fecha_actual->format('w')];
         $fecha = $dia . ', '.$fecha_actual->format('d') . ' de ' . $mes . ' de ' . $fecha_actual->format('Y');
+        $fecha = $fecha_actual;
 
         $pdf = PDF::loadView('venta/pdf_venta_ind',compact('cabecera','salidas','productos','fecha'));
         return $pdf->download('venta_nro_'.$id.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');

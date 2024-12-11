@@ -13,7 +13,9 @@
         <th>Nombre</th>
         <th>Color</th>
         <th>Medida</th>
+        <th>Unidad</th>
         <th>Calidad</th>
+        <th>Material</th>
         <th>Ubicación</th>
         <th>Categoria</th>
         <th>Marca</th>
@@ -26,8 +28,10 @@
         <td>{{$producto->item_producto}}</td>
         <td>{{$producto->nombre}}</td>
         <td>{{$producto->color}}</td>
-        <td>1,15m x 1,12m</td>
-        <td>Regular</td>
+        <td>{{$producto->medida}}</td>
+        <td>{{$producto->unidad}}</td>
+        <td>{{$producto->calidad}}</td>
+        <td>{{$producto->material}}</td>
         <td>{{$producto->id_almacen}}</td>
         <td>{{$producto->id_categoria}}</td>
         <td>{{$producto->id_marca}}</td>
