@@ -13,9 +13,12 @@
         <th>ITEM</th>
         <th>Nombre</th>
         <th>Marca</th>
-        <th>Medida</th>
         <th>Color</th>
+        <th>Medida</th>
         <th>Unidad</th>
+        <th>Material</th>
+        <th>Costo</th>
+        <th>Precio</th>
         <th>Existencias</th>
       </tr>
     </thead>
@@ -25,9 +28,12 @@
         <td>{{$producto->item_producto}}</td>
         <td>{{$producto->nombre}}</td>
         <td>{{$producto->marca}}</td>
-        <td>1.15m x 1.15m</td>
         <td>{{$producto->color}}</td>
+        <td>{{$producto->medida}}</td>
         <td>{{$producto->unidad}}</td>
+        <td>{{$producto->material}}</td>
+        <td style="text-align: right;">{{$producto->precio_compra}}</td>
+        <td style="text-align: right;">{{$producto->precio_venta}}</td>
         <td style="text-align: right;">{{$producto->existencias}}</td>
       </tr>
     @endforeach

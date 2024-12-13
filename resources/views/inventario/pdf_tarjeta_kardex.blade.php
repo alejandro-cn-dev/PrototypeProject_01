@@ -65,21 +65,27 @@
         <table id="tabla_producto">
             <tr>
                 <td>Producto: </td>
-                <td><input type="text" id="nombre" name="nombre" value="{{ $producto->nombre }}" disabled></td>
-                <td>Ubicacion: </td>
-                <td><input type="text" id="ubicacion" name="ubicacion" value="{{ $producto->ubicacion }}" disabled></td>
+                <td><input type="text" id="nombre" name="nombre" value="{{ $producto->nombre }}"  ></td>
+                <td>Color: </td>
+                <td><input type="text" id="color" name="color" value="{{ $producto->color }}"  ></td>
             </tr>
             <tr>
-                <td>Categoria: </td>
-                <td><input type="text" id="categoria" name="categoria" value="{{ $producto->categoria }}" disabled></td>
-                <td>Marca: </td>
-                <td><input type="text" id="marca" name="marca" value="{{ $producto->marca }}" disabled></td>
-            </tr>
-            <tr>
-                {{-- <td>Saldo: </td>
-                <td><input type="text" id="saldo" name="saldo" value="{{ $producto->marca }}" disabled></td> --}}
                 <td>Item: </td>
-                <td><input type="text" id="item" name="item" value="{{ $producto->item_producto }}" disabled></td>
+                <td><input type="text" id="item" name="item" value="{{ $producto->item_producto }}"  ></td>
+                <td>Marca: </td>
+                <td><input type="text" id="marca" name="marca" value="{{ $producto->marca }}"  ></td>
+            </tr>
+            <tr>
+                <td>Medida: </td>
+                <td><input type="text" id="medida" name="medida" value="{{ $producto->medida }}"  ></td>
+                <td>Ubicacion: </td>
+                <td><input type="text" id="ubicacion" name="ubicacion" value="{{ $producto->ubicacion }}"  ></td>
+            </tr>
+            <tr>
+                <td>Tipo de unidad: </td>
+                <td><input type="text" id="unidad" name="unidad" value="{{ $producto->unidad }}"  ></td>
+                <td>Saldo: </td>
+                <td><input type="text" id="saldo" name="saldo" value="{{ $saldo }}"  ></td>
             </tr>
         </table>
         <table id="ficha" style="width: 100%;">

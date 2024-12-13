@@ -87,12 +87,13 @@
                 <tr>
                     <th scope="col">Item</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Categoria</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Color</th>
+                    <th scope="col">Medida</th>
+                    <th scope="col">Unidad</th>
+                    <th scope="col">material</th>
                     <th scope="col">Costo</th>
                     <th scope="col">Precio</th>
-                    <th scope="col">U. Medida</th>
                     <th scope="col">Existencias</th>
                 </tr>
             </thead>
@@ -101,12 +102,13 @@
                     <tr>
                         <td>{{ $producto->item_producto }}</td>
                         <td>{{ $producto->nombre }}</td>
-                        <td>{{ $producto->categoria }}</td>
                         <td>{{ $producto->marca }}</td>
                         <td>{{ $producto->color }}</td>
+                        <td>{{ $producto->medida }}</td>
+                        <td>{{ $producto->unidad }}</td>
+                        <td>{{ $producto->material }}</td>
                         <td>{{ $producto->precio_compra }}</td>
                         <td>{{ $producto->precio_venta }}</td>
-                        <td>{{ $producto->unidad }}</td>
                         @if (empty($producto->existencias))
                             <td><span class="badge bg-danger">0</span></td>
                         @elseif($producto->existencias <= $min)
@@ -191,7 +193,7 @@
             function(settings, data, dataIndex) {
                 //var criterio = parseInt( $('#criterio').val(), 10 );
                 var criterio = $('#criterio').val();
-                var existencias = parseFloat(data[8]) || 0; // use data for the age column
+                var existencias = parseFloat(data[9]) || 0; // use data for the age column
                 if (verificar_criterio(criterio, existencias)) {
                     return true;
                 }

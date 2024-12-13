@@ -46,13 +46,13 @@ class ParametrosSeeder extends Seeder
         ]);
         Parametro::create([
             'nombre' => 'existencias_min',
-            'valor' => '50',
+            'valor' => '30',
             'descripcion' => 'Número de existencias minimas de productos',
             'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'existencias_max',
-            'valor' => '300',
+            'valor' => '250',
             'descripcion' => 'Número de existencias máximas de productos',
             'access_level' => 2
         ]);
@@ -112,7 +112,7 @@ class ParametrosSeeder extends Seeder
         ]);
         Parametro::create([
             'nombre' => 'fecha_compra_venta',
-            'valor' => 'true',
+            'valor' => 'false',
             'descripcion' => 'Campo Fecha para establecer manualmente en los forms de compra y venta',
             'access_level' => 1
         ]);

@@ -45,7 +45,7 @@ class InventarioController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','productos.calidad','productos.medida','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.medida','productos.material','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
         ->where('productos.isDeleted','=',0)->get();
         $parametros = Parametro::select('valor')->whereIn('nombre',['existencias_max','existencias_min'])->get();
         $min = $parametros[0]->valor;
@@ -57,7 +57,7 @@ class InventarioController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.medida','productos.material','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
         ->where('productos.isDeleted','=',0)->get();
 
         return response()->json(['response'=>$productos]);
@@ -72,7 +72,7 @@ class InventarioController extends Controller
         $productos = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.medida','productos.material','categorias.detalle AS categoria','marcas.detalle AS marca','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta',DB::raw("((SELECT COALESCE(SUM(cantidad),0) FROM compra_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0)) - (SELECT COALESCE(SUM(cantidad),0) FROM venta_detalles WHERE (id_producto = productos.id) AND (isDeleted = 0))) AS existencias"))
         ->where('productos.isDeleted','=',0)->get();
         // $repuesta = $productos->filter(function ($producto){
         //     return in_array($producto->existencias,'==',0);
@@ -159,7 +159,7 @@ class InventarioController extends Controller
         $producto = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.color','productos.medida','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
         ->where('productos.isDeleted','=',0)->where('productos.id','=',$request->producto)->first();
 
         $entradas = Compra_detalle::where('isDeleted','=',0)->where('id_producto','=',$request->producto)->sum('cantidad');
@@ -181,12 +181,16 @@ class InventarioController extends Controller
         $producto = Producto::join('categorias','productos.id_categoria','=','categorias.id')
         ->join('almacens','productos.id_almacen','=','almacens.id')
         ->join('marcas','productos.id_marca','=','marcas.id')
-        ->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
+        //->select('productos.id','productos.item_producto','productos.nombre','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
+        ->select('productos.id','productos.item_producto','productos.nombre','productos.color','productos.medida','categorias.detalle AS categoria','marcas.detalle AS marca','almacens.nombre AS ubicacion','productos.color','productos.unidad','productos.precio_compra','productos.precio_venta')
         ->where('productos.isDeleted','=',0)->where('productos.id','=',$id)->first();
+        $entradas = Compra_detalle::where('isDeleted','=',0)->where('id_producto','=',$id)->sum('cantidad');
+        $salidas = Venta_detalle::where('isDeleted','=',0)->where('id_producto','=',$id)->sum('cantidad');
+        $saldo = $entradas-$salidas;
         $detalle = DB::select("CALL sp_get_detalle_ficha_kardex (".$id.")");
         $fecha_actual = date_create(date('d-m-Y'));
         $fecha = date_format($fecha_actual,'d-m-Y');
-        $pdf = PDF::loadView('inventario/pdf_tarjeta_kardex',compact('producto','detalle','fecha'));
+        $pdf = PDF::loadView('inventario/pdf_tarjeta_kardex',compact('producto','detalle','fecha','saldo'));
         return $pdf->download();
         //return $pdf->download('tarjeta_kardex_'.$producto->item_producto.'_'.date_format($fecha_actual,"Y-m-d").'.pdf');
         //return response()->json(['test'=>'XDDDD']);

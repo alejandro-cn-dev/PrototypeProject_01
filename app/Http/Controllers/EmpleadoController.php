@@ -173,10 +173,6 @@ class EmpleadoController extends Controller
     }
     public function cambio(Request $request)
     {
-        // Verificar que coincida la contraseña antes de cambiar por una nueva
-        if (!(Hash::check($request->antigua, Auth::user()->password))) {
-            return response()->json(['errors' => ['La contraseña anterior no coincide']]);
-        }
         // reglas de validación
         $rules = [
             'antigua'     => 'required',
@@ -194,16 +190,32 @@ class EmpleadoController extends Controller
         // Validacion de Request
         $validator = $this->validate($request, $rules, $custom_messages);
 
+        // Buscar al usuario por ID
+        $user = User::find($request->id_usuario);
+
+        // Verificar que el usuario existe
+        if (!$user) {
+            return response()->json(['errors' => ['No se encontró al usuario']]);
+        }
+        // Verificar que coincida la contraseña antes de cambiar por una nueva
+        //if (!Hash::check($request->get('antigua'), Auth::user()->password)) {
+        if (!Hash::check($request->get('antigua'), $user->password)) {
+            return response()->json(['errors' => ['La contraseña anterior no coincide']]);
+        }
         // Inicio de procesos de actualización de contraseña nueva
-        $usuario = User::find($request->id_usuario);
-        $usuario->password = $request->get('nueva1');
-        $usuario->save();
+        // $usuario = User::find($request->id_usuario);
+        // $usuario->password = $request->get('nueva1');
+        // $usuario->save();
+        //$user->password = Hash::make($request->get('nueva1'));
+        $user->password = bcrypt($request->get('nueva1'));
+        $user->save();
 
         $response = array(
             'status' => 'success',
-            'msg' => 'listo',
+            'msg' => 'Contraseña actualizada correctamente',
         );
         return response()->json($response);
+        //return view('empleado.index')->with('status', 'success')->with('message', 'Contraseña cambiada correctamente');;
     }
     public function perfil()
     {

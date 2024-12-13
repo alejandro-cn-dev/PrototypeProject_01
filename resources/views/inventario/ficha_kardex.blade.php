@@ -49,15 +49,19 @@
             <div class="col-md-4">
                 <input type="text" class="form-control" id="nombre" name="nombre" disabled>
             </div>
-            <label for="ubicacion" class="col-md-2 col-form-label">Ubicacion: </label>
+            <label for="saldo" class="col-md-2 col-form-label">Color: </label>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="ubicacion" name="ubicacion" disabled>
+                <input type="text" class="form-control" id="color" name="color" disabled>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="categoria" class="col-md-2 col-form-label">Categoria: </label>
+            {{-- <label for="categoria" class="col-md-2 col-form-label">Categoria: </label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="categoria" name="categoria" disabled>
+            </div> --}}
+            <label for="item_producto" class="col-md-2 col-form-label">ITEM: </label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="item_producto" name="item_producto" disabled>
             </div>
             <label for="marca" class="col-md-2 col-form-label">Marca: </label>
             <div class="col-md-4">
@@ -65,17 +69,13 @@
             </div>
         </div>
         <div class="row mb-2">
-            {{-- <label for="saldo" class="col-md-2 col-form-label">Saldos: </label>
+            <label for="item_producto" class="col-md-2 col-form-label">Medida: </label>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="saldo" name="saldo" disabled>
-            </div> --}}
-            <label for="item_producto" class="col-md-2 col-form-label">ITEM: </label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="item_producto" name="item_producto" disabled>
+                <input type="text" class="form-control" id="medida" name="medida" disabled>
             </div>
-            <label for="saldo" class="col-md-2 col-form-label">Saldo: </label>
+            <label for="ubicacion" class="col-md-2 col-form-label">Ubicacion: </label>
             <div class="col-md-4">
-                <input type="text" class="form-control" style="background-color: blanchedalmond; text-align: right;" id="saldo" name="saldo" disabled>
+                <input type="text" class="form-control" id="ubicacion" name="ubicacion" disabled>
             </div>
         </div>
         <div class="row mb-2">
@@ -83,10 +83,10 @@
             <div class="col-md-4">
                 <input type="text" class="form-control" id="unidad" name="unidad" disabled>
             </div>
-            {{-- <label for="ubicacion" class="col-md-2 col-form-label">Ubicacion: </label>
+            <label for="saldo" class="col-md-2 col-form-label">Saldo: </label>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="ubicacion" name="ubicacion" disabled>
-            </div> --}}
+                <input type="text" class="form-control" style="background-color: blanchedalmond; text-align: right;" id="saldo" name="saldo" disabled>
+            </div>
         </div>
     </div>
     <table id="ficha" class="table table-striped table-bordered mt-2" style="width: 100%;">
@@ -172,8 +172,10 @@
         //resultado.producto.forEach(function(product_data){
         document.getElementById('id_producto').innerHTML = (resultado.producto.id).toString().padStart(4, '0');
         document.getElementById('nombre').value = resultado.producto.nombre;
+        document.getElementById('color').value = resultado.producto.color;
+        document.getElementById('medida').value = resultado.producto.medida;
         document.getElementById('ubicacion').value = resultado.producto.ubicacion;
-        document.getElementById('categoria').value = resultado.producto.categoria;
+        //document.getElementById('categoria').value = resultado.producto.categoria;
         document.getElementById('marca').value = resultado.producto.marca;
         document.getElementById('unidad').value = resultado.producto.unidad;
         document.getElementById('saldo').value = resultado.saldo;
