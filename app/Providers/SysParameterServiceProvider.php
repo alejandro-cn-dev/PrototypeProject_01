@@ -31,7 +31,7 @@ class SysParameterServiceProvider extends ServiceProvider
     public function boot()
     {
         if (Schema::hasTable('parametros')) {
-            $parametros = Parametro::select('valor')->whereIn('nombre',['nombre_sistema','razon_social','version_sistema','logo_sistema_path','localidad_empresa','direccion_empresa','correo_empresa','telefono_empresa','telefono_contacto'])->get();
+            $parametros = Parametro::select('valor')->whereIn('nombre',['nombre_sistema','razon_social','version_sistema','logo_sistema_path','localidad_empresa','direccion_empresa','correo_empresa','telefono_empresa','telefono_contacto','especializacion'])->get();
 
             $nombre = !empty($parametros[0]->valor)? $parametros[0]->valor: 'Default';
             $razon_social = !empty($parametros[1]->valor)? $parametros[1]->valor: 'Default';
@@ -42,6 +42,7 @@ class SysParameterServiceProvider extends ServiceProvider
             $correo = !empty($parametros[6]->valor)? $parametros[6]->valor: 'example@admin.com';
             $tel_empresa = !empty($parametros[7]->valor)? $parametros[7]->valor: '22000000';
             $tel_contacto = !empty($parametros[8]->valor)? $parametros[8]->valor: '22000000';
+            $especializacion = !empty($parametros[9]->valor)? $parametros[9]->valor: 'Empresa especializada';
 
             // Configs del sistema
             config(['adminlte.title' => 'Sistema Web | '.$nombre.' | '.$version]);
@@ -56,6 +57,7 @@ class SysParameterServiceProvider extends ServiceProvider
             config(['system_email' => $correo]);
             config(['system_phone_business' => $tel_empresa]);
             config(['system_phone_contact' => $tel_contacto]);
+            config(['system_specialization' => $especializacion]);
         }
     }
 }

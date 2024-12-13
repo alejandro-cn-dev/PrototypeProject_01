@@ -25,10 +25,10 @@
     <div class="row">
         <label for="producto" class="col-sm-2">Producto: </label>
         <div class="col-sm-8">
-            <select name="producto" id="producto" class="form-control">
+            <select name="producto" id="producto" class="form-control" data-init-plugin="select2">
                 <option value="">(Seleccione un producto)</option>
                 @foreach ($productos as $producto)
-                    <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                    <option value="{{ $producto->id }}">{{ $producto->item_producto.' '.$producto->nombre.' '.$producto->color.' '.$producto->medida }}</option>
                 @endforeach
             </select>
         </div>
@@ -117,10 +117,20 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .select2-container .select2-selection--single{
+            height: auto;
+        }
+    </style>
 @stop
 
 @section('js')
 <script>
+    $(document).ready(function() {
+        $("#producto").select2({
+            placeholder: 'Elija un producto'
+        });
+    });
     function recargar_tabla(){
         // let inicio = document.getElementById("fecha_inicio").value;
         // let final = document.getElementById("fecha_final").value;

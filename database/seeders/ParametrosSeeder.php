@@ -111,6 +111,12 @@ class ParametrosSeeder extends Seeder
             'access_level' => 2
         ]);
         Parametro::create([
+            'nombre' => 'especializacion',
+            'valor' => 'Especializada en material textil',
+            'descripcion' => 'Campo que denota la especialización de la empresa, esta información será visible en los reportes',
+            'access_level' => 2
+        ]);
+        Parametro::create([
             'nombre' => 'fecha_compra_venta',
             'valor' => 'false',
             'descripcion' => 'Campo Fecha para establecer manualmente en los forms de compra y venta',

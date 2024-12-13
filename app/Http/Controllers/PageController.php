@@ -43,9 +43,9 @@ class PageController extends Controller
         ->where('productos.isDeleted','=',0)
         ->limit(5)
         ->get();
-
+        $mensaje = Parametro::find(7);
         $imagenes = Imagen::where('tabla','=','productos')->get();
-        return view('vitrina.index')->with('productos',$productos)->with('imagenes',$imagenes);
+        return view('vitrina.index',['productos'=>$productos,'imagenes'=>$imagenes,'mensaje_bienvenida'=>$mensaje->valor]);
         //return view('vitrina.index', ['productos' => $productos]);
     }
 

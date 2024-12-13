@@ -8,7 +8,8 @@
         <div class="container px-4 px-lg-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Bienvenido</h1>
-                <p class="lead fw-normal text-white-50 mb-0">Somos una empresa comercial especializada en material textil, ¡Disfrute su estancia!</p>
+                {{-- <p class="lead fw-normal text-white-50 mb-0">Somos una empresa comercial especializada en material textil, ¡Disfrute su estancia!</p> --}}
+                <p class="lead fw-normal text-white-50 mb-0">{{ $mensaje_bienvenida }}</p>
             </div>
         </div>
     </header>
@@ -34,7 +35,7 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    
+
     <!-- Sección de productos-->
     @php
         $ruta1 = "img/product_generic_img_3.jpg";
@@ -44,12 +45,12 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <!-- Empezar el foreach desde aqui -->                
+                <!-- Empezar el foreach desde aqui -->
                 @foreach ($productos as $producto)
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Badge (opcional) (podria ser 'Disponible', 'Nuevo', 'agotado' o algo asi-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">                           
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
                             @if ($producto->existencia == 0)
                                 Agotado
                             @elseif ($producto->existencia < 5)
@@ -64,8 +65,8 @@
                             @foreach ($imagenes as $imagen)
                                 @if(($imagen->id_registro) == ($producto->id))
                                     @php($ruta_img = str_replace('name',$imagen->nombre_imagen,$ruta2))
-                                @endif                   
-                            @endforeach    
+                                @endif
+                            @endforeach
                             <img class="card-img-top" style="width: 100%; height: 136px;" src="{{ asset($ruta_img) }}" alt="Imagen de {{ $producto->nombre }}" />
                         </a>
                         <!-- Detalle del producto-->

@@ -41,13 +41,13 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Item</th>
                 <!-- <th scope="col">Descipción</th> -->
-                <th scope="col">Precio unitario</th>
+                <th scope="col">Precio compra</th>
                 <!-- <th scope="col"> % IVA </th> -->
-                <th scope="col">Precio final</th>
+                <th scope="col">Precio venta</th>
                 <th scope="col">Stock inicial</th>
                 <th scope="col">Entradas</th>
                 <th scope="col">Salidas</th>
-                <th scope="col">Stock actual</th>
+                <th scope="col">Stock final</th>
                 <!-- <th scope="col">Fecha</th> -->
             </tr>
         </thead>

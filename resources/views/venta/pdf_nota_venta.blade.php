@@ -60,7 +60,7 @@
             <tr>
                 <td>
                     <h2 style="font-size: 20px;">{{config('system_name_denomination').' "'.config('system_name').'" '}}</h2>
-                    <p>Especializada en material textil</p>
+                    <p>{{config('system_specialization')}}</p>
                     <p>{{config('system_address')}}</p>
                 </td>
                <td width="30%">

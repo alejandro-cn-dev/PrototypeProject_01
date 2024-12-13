@@ -43,7 +43,9 @@
                         <td>{{$fila['create_date']}}</td>
                         <td>{{$fila['difference_date']}}</td>
                         <td>
-                            <a class="btn btn-success" id="restaurar" onclick="confirmar_restaurar({{strval('"'.$fila['file_name'].'"')}});"><i class="fas fa-fw fa-undo"></i> Restaurar</a>
+                            @if ($fila['file_size'] <= 500000)
+                                <a class="btn btn-success" id="restaurar" onclick="confirmar_restaurar({{strval('"'.$fila['file_name'].'"')}});"><i class="fas fa-fw fa-undo"></i> Restaurar</a>
+                            @endif
                             <a class="btn btn-info" href="{{ url("download_backup/".$fila['file_name']) }}" ><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
                             <a class="btn btn-danger" id="anular" onclick="confirma_anular({{strval('"'.$fila['file_name'].'"')}});"><i class="fas fa-fw fa-trash"></i> Eliminar</a>
                         </td>
@@ -84,11 +86,13 @@
                         success: function(data){
                             console.log(data);
                             if (data.status == 'success') {
+                                console.log('B');
                                 swal(data.msg, {
                                     icon: "success",
                                     timer: 1500,
                                 });
                             } else {
+                                console.log('C');
                                 swal(data.msg, {
                                     icon: "info",
                                     timer: 1500,
@@ -96,10 +100,10 @@
                             }
                         },
                         error: function(response){
+                            console.log(response);
                             swal(response.msg, {
                                 icon: "warning",
                             });
-                            console.log(response);
                         }
                     });
                 } else {

@@ -207,7 +207,7 @@ class EmpleadoController extends Controller
         // $usuario->password = $request->get('nueva1');
         // $usuario->save();
         //$user->password = Hash::make($request->get('nueva1'));
-        $user->password = bcrypt($request->get('nueva1'));
+        $user->password = $request->get('nueva1');
         $user->save();
 
         $response = array(

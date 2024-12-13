@@ -30,7 +30,7 @@ class BackupController extends Controller
             $files = $disk->files(config('backup.backup.name'));
             foreach ($files as $k => $f) {
                 //if (substr($f, -4) == '.zip' && $disk->exists($f)) {
-                if ((substr($f, -4) == '.zip' || substr($f, -3) == '.gz') && $disk->exists($f)) {
+                if ((substr($f, -4) == '.zip' || substr($f, -4) == '.sql') && $disk->exists($f)) {
                     $date = Carbon::createFromTimestamp($disk->lastModified($f));
                     $respuesta[] = [
                         'id' => $backup_id,
@@ -64,8 +64,9 @@ class BackupController extends Controller
                 ->setUserName('root')
                 ->setPassword('')
                 ->addExtraOption('--routines')
-                ->useCompressor(new GzipCompressor())
-                ->dumpToFile(storage_path('app/Laravel') . '/' . 'backup-' . $fecha . '.sql.gz');
+                //->useCompressor(new GzipCompressor())
+                // ->dumpToFile(storage_path('app/Laravel') . '/' . 'backup-' . $fecha . '.sql.gz');
+                ->dumpToFile(storage_path('app/Laravel') . '/' . 'backup-' . $fecha . '.sql');
 
             return response()->json(['status' => 'success', 'msg' => $output]);
         } catch (Exception $e) {
@@ -121,16 +122,17 @@ class BackupController extends Controller
             // Comando para restaurar la base de datos
             //$command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < $ruta ";
             $command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < '$ruta_archivo' ";
+            //$command = 'mysql -h '.$dbHost.' -u'. $dbUser. (!empty($dbPass) ? '-p '.$dbPass : '') .$dbName < '"'.$ruta_archivo.'"';
             exec($command, $output, $result);
 
             if ($result === 0) {
-                return response()->json(['status' => 'success', 'msg' => $result]);
+                return response()->json(['status' => 'success', 'msg' => $command]);
             } else {
                 //return response()->json(['status' => 'error', 'msg' => $result]);
                 return response()->json(['status' => 'error', 'msg' => $command]);
             }
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'msg' => $e]);
+            return response()->json(['status' => 'error', 'msg' => 'Error del servidor']);
         }
     }
 

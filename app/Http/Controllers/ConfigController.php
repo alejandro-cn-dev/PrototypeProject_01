@@ -82,8 +82,8 @@ class ConfigController extends Controller
     public function dev_params()
     {
         //$parametros = Parametro::select('valor')->whereIn('nombre',['titulo_comprobante_venta','fecha_compra_venta'])->get();
-        $titulo_comprobante = Parametro::find(17);
-        $campo_fecha = Parametro::find(16);
+        $titulo_comprobante = Parametro::find(18);
+        $campo_fecha = Parametro::find(17);
         return view('dev_config',['titulo_comprobante'=>$titulo_comprobante->valor,'campo_fecha'=>$campo_fecha->valor]);
     }
     public function set_dev_params(Request $request)
@@ -97,7 +97,7 @@ class ConfigController extends Controller
                 //config()->set('dev_opt_venta_report_title',$request->value);
                 //Config::set('dev_opt_venta_report_title','AAAA');
                 //$titulo_param = Parametro::where('nombre','=','titulo_comprobante_venta')->first();
-                $titulo_param = Parametro::find(17);
+                $titulo_param = Parametro::find(18);
                 $titulo_param->valor = $request->value;
                 $titulo_param->save();
 
@@ -105,7 +105,7 @@ class ConfigController extends Controller
             }
             if ($request->name == 'campo_fecha') {
                 //config(['dev_opt_fecha_compra_venta' => $request->value]);
-                $campo = Parametro::find(16);
+                $campo = Parametro::find(17);
                 $campo->valor = strval($request->value);
                 $campo->save();
                 if($request->value == 'true'){
