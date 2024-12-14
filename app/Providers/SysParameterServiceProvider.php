@@ -31,18 +31,19 @@ class SysParameterServiceProvider extends ServiceProvider
     public function boot()
     {
         if (Schema::hasTable('parametros')) {
-            $parametros = Parametro::select('valor')->whereIn('nombre',['nombre_sistema','razon_social','version_sistema','logo_sistema_path','localidad_empresa','direccion_empresa','correo_empresa','telefono_empresa','telefono_contacto','especializacion'])->get();
+            //$parametros = Parametro::select('valor')->whereIn('nombre_sistema','razon_social','version_sistema','logo_sistema_path','localidad_empresa','direccion_empresa','correo_empresa','telefono_empresa','telefono_contacto','especializacion')->get();
+            $parametros = Parametro::all();
 
-            $nombre = !empty($parametros[0]->valor)? $parametros[0]->valor: 'Default';
-            $razon_social = !empty($parametros[1]->valor)? $parametros[1]->valor: 'Default';
-            $version = !empty($parametros[2]->valor)? $parametros[2]->valor: 'Default';
-            $logo = !empty($parametros[3]->valor)? $parametros[3]->valor: 'vendor/adminlte/dist/img/AdminLTELogo.png';
-            $localidad = !empty($parametros[4]->valor)? $parametros[4]->valor: 'Default';
-            $direccion = !empty($parametros[5]->valor)? $parametros[5]->valor: 'Default';
-            $correo = !empty($parametros[6]->valor)? $parametros[6]->valor: 'example@admin.com';
-            $tel_empresa = !empty($parametros[7]->valor)? $parametros[7]->valor: '22000000';
-            $tel_contacto = !empty($parametros[8]->valor)? $parametros[8]->valor: '22000000';
-            $especializacion = !empty($parametros[9]->valor)? $parametros[9]->valor: 'Empresa especializada';
+            $nombre = !empty($parametros->where('nombre','=','nombre_sistema')->first()->valor)? $parametros->where('nombre','=','nombre_sistema')->first()->valor: 'Default';
+            $razon_social = !empty($parametros->where('nombre','=','razon_social')->first()->valor)? $parametros->where('nombre','=','razon_social')->first()->valor: 'Default';
+            $version = !empty($parametros->where('nombre','=','version_sistema')->first()->valor)? $parametros->where('nombre','=','version_sistema')->first()->valor: 'Default';
+            $logo = !empty($parametros->where('nombre','=','logo_sistema_path')->first()->valor)? $parametros->where('nombre','=','logo_sistema_path')->first()->valor: 'vendor/adminlte/dist/img/AdminLTELogo.png';
+            $localidad = !empty($parametros->where('nombre','=','localidad_empresa')->first()->valor)? $parametros->where('nombre','=','localidad_empresa')->first()->valor: 'Default';
+            $direccion = !empty($parametros->where('nombre','=','direccion_empresa')->first()->valor)? $parametros->where('nombre','=','direccion_empresa')->first()->valor: 'Default';
+            $correo = !empty($parametros->where('nombre','=','correo_empresa')->first()->valor)? $parametros->where('nombre','=','correo_empresa')->first()->valor: 'example@admin.com';
+            $tel_empresa = !empty($parametros->where('nombre','=','telefono_empresa')->first()->valor)? $parametros->where('nombre','=','telefono_empresa')->first()->valor: '22000000';
+            $tel_contacto = !empty($parametros->where('nombre','=','telefono_contacto')->first()->valor)? $parametros->where('nombre','=','telefono_contacto')->first()->valor: '22000000';
+            $especializacion = !empty($parametros->where('nombre','=','especializacion')->first()->valor)? $parametros->where('nombre','=','especializacion')->first()->valor: 'Empresa especializada';
 
             // Configs del sistema
             config(['adminlte.title' => 'Sistema Web | '.$nombre.' | '.$version]);
