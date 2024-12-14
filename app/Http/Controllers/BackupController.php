@@ -121,15 +121,15 @@ class BackupController extends Controller
         try {
             // Comando para restaurar la base de datos
             //$command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < $ruta ";
-            $command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < '$ruta_archivo' ";
+            $command = "mysql -h $dbHost -u $dbUser" . (!empty($dbPass) ? " -p$dbPass" : "") . " $dbName < \"$ruta_archivo\" ";
             //$command = 'mysql -h '.$dbHost.' -u'. $dbUser. (!empty($dbPass) ? '-p '.$dbPass : '') .$dbName < '"'.$ruta_archivo.'"';
             exec($command, $output, $result);
 
             if ($result === 0) {
-                return response()->json(['status' => 'success', 'msg' => $command]);
+                return response()->json(['status' => 'success', 'msg' => 'Restauración completada!']);
             } else {
                 //return response()->json(['status' => 'error', 'msg' => $result]);
-                return response()->json(['status' => 'error', 'msg' => $command]);
+                return response()->json(['status' => 'error', 'msg' => 'Ocurrió un error, vuelva a intentarlo']);
             }
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'msg' => 'Error del servidor']);

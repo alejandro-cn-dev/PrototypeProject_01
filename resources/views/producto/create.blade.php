@@ -100,7 +100,7 @@
         <div class="mb-3">
             <label for="unidad" class="form-label">Unidad de medida</label>
             <select class="form-control" name="unidad" id="unidad" tabindex="11" required>
-                <option value="0">Seleccione unidad</option>
+                <option value="">Seleccione unidad</option>
                 <option value="unidad">Unidad</option>
                 <option value="metro">Metro</option>
                 <option value="rollo de 50yd (46m)">Rollo de 50yd (46m)</option>

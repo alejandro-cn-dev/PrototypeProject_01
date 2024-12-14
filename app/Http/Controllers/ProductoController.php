@@ -226,10 +226,27 @@ class ProductoController extends Controller
                 $nueva_imagen->ubicacion = storage_path('images');
                 $nueva_imagen->save();
             }
+            if(empty($request->get('color'))){
+                $producto->color = '[N/A]';
+            }else{
+                $producto->color = $request->get('color');
+            }
 
-            $producto->color = $request->get('color');
-            if(!empty($request->get('material'))){
+            if(empty($request->get('medida'))){
+                $producto->medida = '[N/A]';
+            }else{
+                $producto->medida = $request->get('medida');
+            }
+            if(empty($request->get('material'))){
+                $producto->material = '[N/A]';
+            }else{
                 $producto->material = $request->get('material');
+            }
+
+            if(empty($request->get('calidad'))){
+                $producto->calidad = 'Estandar';
+            }else{
+                $producto->calidad = $request->get('calidad');
             }
             //$producto->id_categoria = $request->get('id_categoria');
             $producto->id_almacen = $request->get('id_almacen');
@@ -237,17 +254,6 @@ class ProductoController extends Controller
             $producto->precio_compra = $request->get('precio_compra');
             $producto->precio_venta = $request->get('precio_venta');
             $producto->unidad = $request->get('unidad');
-            if(!empty($request->get('calidad'))){
-                $producto->calidad = $request->get('calidad');
-            }else{
-                $producto->calidad = 'Estandar';
-            }
-            if(!empty($request->get('medida'))){
-                $producto->medida = $request->get('medida');
-            }else{
-                $producto->medida = '[N/A]';
-            }
-
             $producto->save();
 
             return redirect('/productos')->with('status','success')->with('message','Producto actualizado correctamente');;

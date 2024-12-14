@@ -29,13 +29,13 @@
             @foreach ($valoraciones as $valoracion)
                 <tr>
                     <td>{{ $valoracion->item_producto }}</td>
-                    <td>{{ $valoracion->nombre }}</td>
+                    <td>{{ $valoracion->nombre.' '.$valoracion->marca.' '.$valoracion->color }}</td>
                     <td>{{ date('Y-m-d', strtotime($valoracion->created_at)) }}</td>
                     <td style="text-align: right;">{{ $valoracion->entradas }}</td>
                     <td style="text-align: right;">{{ $valoracion->precio_compra }}</td>
                     <td style="text-align: right;">{{ $valoracion->salidas }}</td>
                     <td style="text-align: right;">{{ $valoracion->entradas * $valoracion->precio_compra }}</td>
-                    <td style="text-align: right;">@if($valoracion->salidas == 0) 0 @else {{ ($valoracion->entradas * $valoracion->precio_compra) / $valoracion->salidas}} @endif</td>
+                    <td style="text-align: right;">@if($valoracion->salidas == 0) 0 @else {{ round((($valoracion->entradas * $valoracion->precio_compra) / $valoracion->salidas),2) }} @endif</td>
                 </tr>
             @endforeach
         </tbody>

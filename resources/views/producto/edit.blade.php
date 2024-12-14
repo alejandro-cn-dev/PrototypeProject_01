@@ -25,8 +25,7 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Descripcion</label>
-                <input id="descripcion" name="descripcion" type="text" class="form-control"
-                    value="{{ $producto->descripcion }}" tabindex="2" required />
+                <textarea id="descripcion" name="descripcion" type="text" class="form-control" tabindex="2" required>{{ $producto->descripcion }}</textarea>
             </div>
             <div class="mb-3">
                 <label for="imagen" class="form-label">Imagen de producto </label> <i>(opcional)</i>
@@ -45,7 +44,7 @@
             <div class="row g-2 mb-3">
                 <div class="col-md-6">
                     <label for="" class="form-label">Color</label>
-                    <input id="color" name="color" type="text" class="form-control" value="{{ $producto->color }}" tabindex="3" required />
+                    <input id="color" name="color" type="text" class="form-control" value="{{ $producto->color }}" tabindex="3" />
                 </div>
                 <div class="col-md-6">
                     <label for="material" class="form-label">Material</label>
@@ -53,6 +52,7 @@
                         <option value="" @if ($producto->material == '[N/A]') { selected } @endif>Sin material específico</option>
                         <option value="Algodón" @if ($producto->material == 'Algodón') { selected } @endif>Algodón</option>
                         <option value="Poliéster"  @if ($producto->material == 'Poliéster') { selected } @endif>Poliéster</option>
+                        <option value="Nylon" @if ($producto->material == 'Nylon') { selected } @endif>Nylon</option>
                         <option value="Seda"  @if ($producto->material == 'Seda') { selected } @endif>Seda</option>
                         <option value="Lino"  @if ($producto->material == 'Lino') { selected } @endif>Lino</option>
                     </select>
@@ -63,11 +63,10 @@
                     <label for="medida" class="form-label">Medida</label>
                     <select id="medida" name="medida" class="form-control" tabindex="5">
                         <option value="" @if ($producto->medida == '[N/A]') { selected } @endif>Sin medida especifica
-                        </option>
-                        <option value="1,15m x 1,10m" @if ($producto->medida == '1,15m x 1,10m') { selected } @endif>1,15m x 1,10m
-                        </option>
-                        <option value="1,20 x 1,10m" @if ($producto->medida == '1,20 x 1,10m') { selected } @endif>1,20 x 1,10m
-                        </option>
+                        <option value="1,10m" @if ($producto->medida == '1,10m') { selected } @endif>1,10m</option>
+                        <option value="1,15m" @if ($producto->medida == '1,15m') { selected } @endif>1,15m</option>
+                        <option value="1,50m" @if ($producto->medida == '1,50m') { selected } @endif>1,50m</option>
+                        <option value="1,55m" @if ($producto->medida == '1,55m') { selected } @endif>1,55m</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -96,7 +95,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="" class="form-label">Almacen</label>
-                    <select class="form-control" id="id_almacen" name="id_almacen" tabindex="4">
+                    <select class="form-control" id="id_almacen" name="id_almacen" tabindex="4" required>
                         <option value="">Elegir almacen...</option>
                         @foreach ($almacenes as $almacen)
                             <option @if ($producto->id_almacen == $almacen->id) { selected } @endif value="{{ $almacen->id }}">
@@ -118,10 +117,11 @@
             <div class="mb-3">
                 <label for="" class="form-label">Tipo de Unidad</label>
                 <select class="form-control" name="unidad" id="unidad" tabindex="5" required>
-                    <option value="0">Seleccione unidad</option>
+                    <option value="">Seleccione unidad</option>
                     <option value="unidad" @if ($producto->unidad == 'unidad') { selected } @endif>Unidad</option>
                     <option value="metro" @if ($producto->unidad == 'metro') { selected } @endif>Metro</option>
-                    <option value="rollo" @if ($producto->unidad == 'rollo') { selected } @endif>Rollo</option>
+                    <option value="rollo de 50yd (46m)" @if ($producto->unidad == 'rollo de 50yd (46m)') { selected } @endif>Rollo de 50yd (46m)</option>
+                    <option value="rollo de 60yd (55m)" @if ($producto->unidad == 'rollo de 60yd (55m)') { selected } @endif>Rollo de 60yd (55m)</option>
                     <!-- <option value="otro">Otro</option> -->
                 </select>
             </div>
