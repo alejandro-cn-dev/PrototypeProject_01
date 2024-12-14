@@ -23,7 +23,7 @@ class ProductoSeeder extends Seeder
             'color' => 'Verde',
             'material' => 'Nylon',
             'id_usuario' => '1',
-            'unidad' => 'Unidad',
+            'unidad' => 'unidad',
             'medida' => '[N/A]',
             'calidad' => 'estandar',
             'precio_compra' =>  '4.00',
