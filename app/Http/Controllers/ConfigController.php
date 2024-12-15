@@ -16,7 +16,7 @@ class ConfigController extends Controller
     public function __construct(){
         $this->middleware('auth');
         $this->middleware('can:panel-config-admin')->only('get_params','get_param','up_params');
-        $this->middleware('can:panel-config-dev')->only('dev_params');
+        $this->middleware('can:panel-config-dev')->only('dev_params','set_dev_params','vaciar_db');
     }
     public function get_params()
     {

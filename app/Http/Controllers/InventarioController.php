@@ -18,6 +18,16 @@ use Svg\Tag\Rect;
 
 class InventarioController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:ventas.existencias')->only('existencias');
+        $this->middleware('can:ventas.movimientos')->only('index');
+        $this->middleware('can:reporte.control_stock')->only('stock','ficha_kardex','reporte_stock');
+        $this->middleware('can:reporte.valoracion')->only('reporte_valoracion');
+        $this->middleware('can:reporte.ventas')->only('reporte_ventas','reporte_ventas_detalle');
+        $this->middleware('can:inventario.solicitud-reposicions')->only('guardar_solicitud_repo');
+        $this->middleware('can:inventario.ver-solicitudes')->only('getPeticiones');
+    }
     /**
      * Display a listing of the resource.
      *

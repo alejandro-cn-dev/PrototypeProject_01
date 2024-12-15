@@ -18,6 +18,12 @@ use JeroenNoten\LaravelAdminLte\View\Components\Widget\Alert as WidgetAlert;
 
 class BackupController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:panel-backup-admin')->only('index','restore','delete');
+        $this->middleware('can:backup.create')->only('create');
+        $this->middleware('can:panel-config-dev')->only('create_all');
+    }
     public function index()
     {
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);

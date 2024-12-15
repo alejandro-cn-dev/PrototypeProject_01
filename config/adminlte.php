@@ -498,13 +498,13 @@ return [
                     'text' => 'Ventas por productos',
                     'icon'    => 'fas fa-fw fa-file-alt',
                     'url'  => 'reporte_ventas',
-                    'can'   => ''
+                    'can'   => 'reporte.ventas'
                 ],
                 [
                     'text' => 'Todas las ventas',
                     'icon'    => 'fas fa-fw fa-file-alt',
                     'url'  => 'reporte_ventas_detalle',
-                    'can'   => ''
+                    'can'   => 'reporte.ventas'
                 ]
             ],
         ],

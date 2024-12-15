@@ -387,6 +387,7 @@
     </div>
     <!-- FIN SEGUNDA SECCION -->
     <!-- TERCERA SECCION -->
+    @can('stadistics')
     {{-- PRIMERA FILA --}}
     <div class="container-fluid">
         <div class="row">
@@ -505,6 +506,7 @@
             </div>
         </div>
     </div>
+    @endcan
     <!-- FIN TERCERA SECCION -->
 @stop
 
@@ -520,15 +522,20 @@
 
 @section('js')
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @can('stadistics')
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                generarGraficoVentasPorMes();
+                generarGraficoProductosMasVendidos();
+                generarGraficoIngresosGastos();
+                GenerarGraficoCategoriaMasVendido();
+                GenerarGraficoProyeccionesVentas();
+                GenerarGraficoHorasPicoVentas();
+            });
+        </script>
+    @endcan
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            generarGraficoVentasPorMes();
-            generarGraficoProductosMasVendidos();
-            generarGraficoIngresosGastos();
-            GenerarGraficoCategoriaMasVendido();
-            GenerarGraficoProyeccionesVentas();
-            GenerarGraficoHorasPicoVentas();
-        });
         console.log("%c Bienvenido al dashboard! (mensaje para los devs)",
             "color:green; background-color: lightblue; border:solid");
 
