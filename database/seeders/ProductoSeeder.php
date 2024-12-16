@@ -74,8 +74,8 @@ class ProductoSeeder extends Seeder
             'unidad'  =>  'rollo de 50yd (46m)',
             'medida' => '1,50m',
             'calidad' => 'primera',
-            'precio_compra' =>  '340.00',
-            'precio_venta'  =>  '370.00',
+            'precio_compra' =>  '240.00',
+            'precio_venta'  =>  '270.00',
             'id_categoria'  =>  '2',
             'id_almacen'    =>  '3',
             'id_marca'      =>  '2'
@@ -90,8 +90,8 @@ class ProductoSeeder extends Seeder
             'unidad'  =>  'rollo de 50yd (46m)',
             'medida' => '1,15m',
             'calidad' => 'segunda',
-            'precio_compra' =>  '310.00',
-            'precio_venta'  =>  '340.00',
+            'precio_compra' =>  '210.00',
+            'precio_venta'  =>  '240.00',
             'id_categoria'  =>  '1',
             'id_almacen'    =>  '2',
             'id_marca'      =>  '2'

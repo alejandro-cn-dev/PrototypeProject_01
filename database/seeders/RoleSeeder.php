@@ -66,14 +66,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'proveedores.delete'])->syncRoles([$dev, $admin]);
 
         Permission::create(['name' => 'ventas.index'])->syncRoles([$dev, $admin, $vendedor, $acomodador, $cobrador]);
-        Permission::create(['name' => 'ventas.create'])->syncRoles([$dev, $vendedor]);
-        Permission::create(['name' => 'ventas.delete'])->syncRoles([$dev, $vendedor, $cobrador]);
+        Permission::create(['name' => 'ventas.create'])->syncRoles([$dev, $admin, $vendedor]);
+        Permission::create(['name' => 'ventas.delete'])->syncRoles([$dev, $admin, $vendedor, $cobrador]);
         Permission::create(['name' => 'ventas.movimientos'])->syncRoles([$dev, $admin, $acomodador, $vendedor]);
         Permission::create(['name' => 'ventas.existencias'])->syncRoles([$dev, $admin, $acomodador, $vendedor]);
 
         Permission::create(['name' => 'compras.index'])->syncRoles([$dev, $admin, $vendedor, $cobrador, $acomodador]);
-        Permission::create(['name' => 'compras.create'])->syncRoles([$dev, $vendedor]);
-        Permission::create(['name' => 'compras.delete'])->syncRoles([$dev, $vendedor, $cobrador]);
+        Permission::create(['name' => 'compras.create'])->syncRoles([$dev, $admin, $vendedor]);
+        Permission::create(['name' => 'compras.delete'])->syncRoles([$dev, $admin, $vendedor, $cobrador]);
 
         Permission::create(['name' => 'inventario.solicitud-reposicion'])->syncRoles([$dev, $vendedor, $acomodador, $cobrador]);
         Permission::create(['name' => 'inventario.ver-solicitudes'])->syncRoles([$dev, $admin]);

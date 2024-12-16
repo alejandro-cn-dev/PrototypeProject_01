@@ -46,13 +46,13 @@ class ParametrosSeeder extends Seeder
         ]);
         Parametro::create([
             'nombre' => 'existencias_min',
-            'valor' => '30',
+            'valor' => '3',
             'descripcion' => 'Número de existencias minimas de productos',
             'access_level' => 2
         ]);
         Parametro::create([
             'nombre' => 'existencias_max',
-            'valor' => '250',
+            'valor' => '130',
             'descripcion' => 'Número de existencias máximas de productos',
             'access_level' => 2
         ]);
