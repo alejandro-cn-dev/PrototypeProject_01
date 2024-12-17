@@ -19,7 +19,7 @@
                         <img src="{{ asset('img/default_user.png') }}" alt="avatar" class="rounded-circle img-fluid"
                             style="width: 150px;">
                         <h5 class="my-3">{{ $usuario->name }} {{ $usuario->ap_paterno }}</h5>
-                        <p class="text-muted mb-1">{{ $usuario->getRoleNames()[0] }}</p>
+                        <p class="text-muted mb-1">{{ implode(",", auth()->user()->getRoleNames()->toArray()) }}</p>
                     </div>
                 </div>
             </div>

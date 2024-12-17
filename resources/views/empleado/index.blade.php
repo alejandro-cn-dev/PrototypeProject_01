@@ -38,7 +38,7 @@
                         <td>{{$empleado->matricula}}</td>
                         <td>{{$empleado->telefono}}</td>
                         <td>{{$empleado->email}}</td>
-                        <td>{{$empleado->getRoleNames()[0]}}</td>
+                        <td>{{implode(",", $empleado->getRoleNames()->toArray())}}</td>
                         <td>
                             <!-- <form action="{{route('empleados.destroy',$empleado->id)}}" method="POST"> -->
                                 @can('empleados.edit')
