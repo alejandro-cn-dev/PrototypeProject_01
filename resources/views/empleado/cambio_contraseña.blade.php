@@ -5,7 +5,7 @@
 @stop
 
 @section('content_header')
-    <h1>Cambio de contraseña de Empleado</h1>
+    <h1>Cambio de contraseña de usuario</h1>
 @stop
 @section('plugins.Toastr', true)
 @section('content')
@@ -18,10 +18,10 @@
                 <input id="id_usuario" name="id_usuario" type="text" class="form-control" value="{{ $empleado->id }}"
                     disabled />
             </div>
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="" class="form-label">Contraseña antigua</label>
                 <input id="antigua" name="antigua" type="password" class="form-control" />
-            </div>
+            </div> --}}
             <div class="mb-3">
                 <label for="" class="form-label">Nueva contraseña</label>
                 <input id="nueva1" name="nueva1" type="password" class="form-control" />
@@ -96,7 +96,7 @@
             });
         });
         document.addEventListener('DOMContentLoaded', () => {
-            const antiguaInput = document.getElementById('antigua');
+            //const antiguaInput = document.getElementById('antigua');
             const nueva1Input = document.getElementById('nueva1');
             const nueva2Input = document.getElementById('nueva2');
             const toggleButton = document.getElementById('togglePassword');
@@ -104,10 +104,10 @@
 
             toggleButton.addEventListener('click', () => {
                 // Cambiar entre tipo "password" y "text"
-                const isAntigua = antiguaInput.type === 'password';
+                //const isAntigua = antiguaInput.type === 'password';
                 const isNueva1 = nueva1Input.type === 'password';
                 const isNueva2 = nueva2Input.type === 'password';
-                antiguaInput.type = isAntigua ? 'text' : 'password';
+                //antiguaInput.type = isAntigua ? 'text' : 'password';
                 nueva1Input.type = isNueva1 ? 'text' : 'password';
                 nueva2Input.type = isNueva2 ? 'text' : 'password';
 

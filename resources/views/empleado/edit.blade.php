@@ -5,7 +5,7 @@
 @stop
 
 @section('content_header')
-    <h1>Editar Registro de Empleado</h1>
+    <h1>Editar Registro de Usuario</h1>
 @stop
 
 @section('content')
@@ -75,6 +75,21 @@
             </div>
             @endforeach
         </div> --}}
+        @if (in_array("acomodador", $empleado->getRoleNames()->toArray()) || in_array("cobrador", $empleado->getRoleNames()->toArray()) || in_array("vendedor", $empleado->getRoleNames()->toArray()))
+            <div class="mb-3 mt-4">
+                <label for="" class="form-label">Rol</label>
+                <div class="form-control btn-group btn-group-toggle h-100" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="rotulo" id="option1" value="admin"
+                            @if (in_array('administrador',$empleado->getRoleNames()->toArray())) checked @endif> Admin
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="rotulo" id="option2" value="no_admin"
+                        @if (!(in_array('administrador',$empleado->getRoleNames()->toArray()))) checked @endif> No Admin
+                    </label>
+                </div>
+            </div>
+        @endif
         <a href="/empleados" class="btn btn-secondary" tabindex="5">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="6">Guardar</button>
     </form>

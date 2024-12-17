@@ -6,7 +6,7 @@
 
 @section('content_header')
     <div style="background-color: #343a40; color: white; text-align: center; padding: 10px; border-radius: 10px;">
-        <h2>Dashboard de {{ auth()->user()->getRoleNames()[0] }}</h2>
+        <h2>Dashboard de {{ implode(",", auth()->user()->getRoleNames()->toArray()) }}</h2>
         <h1>Bienvenido {{ auth()->user()->name }}</h1>
     </div>
 @stop

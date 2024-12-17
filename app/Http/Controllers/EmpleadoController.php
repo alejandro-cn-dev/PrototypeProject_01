@@ -10,6 +10,7 @@ use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Svg\Tag\Rect;
+use Illuminate\Validation\Rules\Password;
 
 class EmpleadoController extends Controller
 {
@@ -125,7 +126,12 @@ class EmpleadoController extends Controller
             // $usuario->email = $request->get('email');
             // $usuario->password = $request->get('password');
             $usuario->save();
-            $usuario->assignRole($request->get('role'));
+            // $usuario->assignRole($request->get('role'));
+            // verificar para asignar roles
+
+            if($request->get('rotulo') == 'no_admin'){
+
+            }
 
             //return redirect('/empleados');
             return redirect('/empleados')->with('status', 'success')->with('message', 'Usuario actualizado correctamente');
@@ -175,15 +181,20 @@ class EmpleadoController extends Controller
     {
         // reglas de validación
         $rules = [
-            'antigua'     => 'required',
-            'nueva1'      => 'required|different:antigua',
+            //'antigua'     => 'required',
+            //'nueva1'      => 'required|different:antigua',
+            'nueva1'      => ['required', Password::min(8)->numbers()->letters()->mixedCase()->symbols()],
             'nueva2'      => 'required|same:nueva1'
         ];
         // Mensajes de error personalizados
         $custom_messages = [
-            'antigua.required' => 'Debe escribir la contraseña',
+            //'antigua.required' => 'Debe escribir la contraseña',
             'nueva1.required' => 'Debe escribir una nueva contraseña',
-            'nueva1.different' => 'La nueva contraseña debe ser diferente a la antigua',
+            'nueva1.numbers' => 'la nueva contraseña debe tener por lo menos una letra, un número y un caracter especial',
+            'nueva1.letters' => 'la nueva contraseña debe tener por lo menos una letra, un número y un caracter especial',
+            'nueva1.mixedCase' => 'la nueva contraseña debe tener por lo menos una letra, un número y un caracter especial',
+            'nueva1.symbols' => 'la nueva contraseña debe tener por lo menos una letra, un número y un caracter especial',
+            //'nueva1.different' => 'La nueva contraseña debe ser diferente a la antigua',
             'nueva2.required' => 'Debe repetir la nueva contraseña',
             'nueva2.same' => 'No coincide con la nueva contraseña'
         ];
@@ -199,14 +210,10 @@ class EmpleadoController extends Controller
         }
         // Verificar que coincida la contraseña antes de cambiar por una nueva
         //if (!Hash::check($request->get('antigua'), Auth::user()->password)) {
-        if (!Hash::check($request->get('antigua'), $user->password)) {
-            return response()->json(['errors' => ['La contraseña anterior no coincide']]);
-        }
+        // if (!Hash::check($request->get('antigua'), $user->password)) {
+        //     return response()->json(['errors' => ['La contraseña anterior no coincide']]);
+        // }
         // Inicio de procesos de actualización de contraseña nueva
-        // $usuario = User::find($request->id_usuario);
-        // $usuario->password = $request->get('nueva1');
-        // $usuario->save();
-        //$user->password = Hash::make($request->get('nueva1'));
         $user->password = $request->get('nueva1');
         $user->save();
 
@@ -244,5 +251,8 @@ class EmpleadoController extends Controller
         } catch (\Throwable $th) {
             return redirect('/usuario/perfil')->with('status', 'error')->with('message', $th);
         }
+    }
+    public function edit_roles(Request $request){
+
     }
 }

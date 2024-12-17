@@ -62,7 +62,7 @@
                 <div class="col-md-6">
                     <label for="medida" class="form-label">Medida</label>
                     <select id="medida" name="medida" class="form-control" tabindex="5">
-                        <option value="" @if ($producto->medida == '[N/A]') { selected } @endif>Sin medida especifica
+                        <option value="" @if ($producto->medida == '[N/A]' || $producto->medida == '') { selected } @endif>Sin medida especifica
                         <option value="1,10m" @if ($producto->medida == '1,10m') { selected } @endif>1,10m</option>
                         <option value="1,15m" @if ($producto->medida == '1,15m') { selected } @endif>1,15m</option>
                         <option value="1,50m" @if ($producto->medida == '1,50m') { selected } @endif>1,50m</option>
@@ -74,11 +74,12 @@
                     <select id="calidad" name="calidad" class="form-control" tabindex="6">
                         <option value="" @if ($producto->calidad == 'Estandar') { selected } @endif>Sin calidad especifica
                         </option>
-                        <option value="primera" @if ($producto->calidad == 'primera') { selected } @endif>Primera calidad
+                        <option value="primera" @if ($producto->calidad == 'primera' || $producto->calidad == 'Primera') { selected } @endif>Primera calidad
                         </option>
-                        <option value="segunda" @if ($producto->calidad == 'segunda') { selected } @endif>Segunda calidad
+                        <option value="segunda" @if ($producto->calidad == 'segunda' || $producto->calidad == 'Segunda') { selected } @endif>Segunda calidad
                         </option>
-                        <option value="comun" @if ($producto->calidad == 'comun') { selected } @endif>Común</option>
+                        <option value="Estándar" @if ($producto->calidad == 'Estándar' || $producto->calidad == 'Estandar') { selected } @endif>Estándar</option>
+                        <option value="comun" @if ($producto->calidad == 'comun' || $producto->calidad == 'Común' || $producto->calidad == 'Comun') { selected } @endif>Común</option>
                     </select>
                 </div>
             </div>
@@ -118,8 +119,8 @@
                 <label for="" class="form-label">Tipo de Unidad</label>
                 <select class="form-control" name="unidad" id="unidad" tabindex="5" required>
                     <option value="">Seleccione unidad</option>
-                    <option value="unidad" @if ($producto->unidad == 'unidad') { selected } @endif>Unidad</option>
-                    <option value="metro" @if ($producto->unidad == 'metro') { selected } @endif>Metro</option>
+                    <option value="unidad" @if ($producto->unidad == 'unidad' || $producto->unidad == 'Unidad') { selected } @endif>Unidad</option>
+                    <option value="metro" @if ($producto->unidad == 'metro' || $producto->unidad == 'Metro') { selected } @endif>Metro</option>
                     <option value="rollo de 50yd (46m)" @if ($producto->unidad == 'rollo de 50yd (46m)') { selected } @endif>Rollo de 50yd (46m)</option>
                     <option value="rollo de 60yd (55m)" @if ($producto->unidad == 'rollo de 60yd (55m)') { selected } @endif>Rollo de 60yd (55m)</option>
                     <!-- <option value="otro">Otro</option> -->
