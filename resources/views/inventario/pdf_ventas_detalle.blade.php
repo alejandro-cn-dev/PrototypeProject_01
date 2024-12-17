@@ -31,7 +31,7 @@
                     <td>@if($venta->hora_venta == '') 00:00 am @else {{$venta->hora_venta}} @endif</td>
                     <td>{{str_pad($venta->numeracion, 8, '0', STR_PAD_LEFT)}}</td>
                     <td>{{ $venta->item_producto }}</td>
-                    <td>{{ $venta->nombre }}</td>
+                    <td>{{ $venta->nombre.' '.$venta->color }}</td>
                     <td>{{ $venta->marca }}</td>
                     <td>{{ $venta->medida }}</td>
                     <td>{{ $venta->calidad }}</td>

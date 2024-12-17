@@ -102,7 +102,7 @@
                             <select name="producto" id="producto" class="form-control" style="width: 100%;" required>
                                 <option value="">Seleccione un producto...</option>
                                 @foreach ($productos as $producto)
-                                <option  value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_venta }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}"}'>
+                                <option  value='{"id":{{ $producto->id }},"precio":{{ $producto->precio_compra }},"unidad":"{{ $producto->unidad }}","producto":"{{ $producto->nombre }}","color":"{{$producto->color}}","medida":"{{$producto->medida}}","material":"{{$producto->material}}"}'>
                                     {{ $producto->nombre.' — '.$producto->color.' — '.$producto->marca.' — '.$producto->calidad.' — '.$producto->material.' — '.$producto->medida }}
                                 </option>
                                 @endforeach
@@ -257,7 +257,7 @@
                     case "producto":
                         const valores = parsear_objeto("producto");
                         let producto = document.createElement("div");
-                        producto.innerHTML = valores['producto'];
+                        producto.innerHTML = valores['producto'] +" "+valores['color']+" "+valores['medida']+" "+valores['material'];
                         producto.id = valores['id'];
                         celda = producto;
                         break;

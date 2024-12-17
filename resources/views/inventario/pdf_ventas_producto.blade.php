@@ -28,7 +28,7 @@
             @foreach ($respuesta as $venta)
                 <tr>
                     <td>{{ $venta->item_producto }}</td>
-                    <td>{{ $venta->nombre }}</td>
+                    <td>{{ $venta->nombre.' '.$venta->color }}</td>
                     <td>{{ $venta->marca }}</td>
                     <td>{{ $venta->medida }}</td>
                     <td>{{ $venta->calidad }}</td>
