@@ -193,6 +193,7 @@ class ProductoController extends Controller
         try {
             $producto = Producto::find($id);
             $imagenes = Imagen::where('tabla','=','productos')->where('id_registro','=',$id)->first();
+            $producto->nombre = $request->get('nombre');
             $producto->descripcion = $request->get('descripcion');
             // Eliminar la imagen actual si se selecciona "eliminar"
             if (($request->get('eliminar_imagen') == '1') && !empty($imagenes)) {

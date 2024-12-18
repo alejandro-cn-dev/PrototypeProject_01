@@ -64,7 +64,8 @@ class User extends Authenticatable
         return asset('img/default_user.png');
     }
     public function adminlte_desc(){
-        return auth()->user()->roles->pluck('name')[0];
+        //return auth()->user()->roles->pluck('name')[0];
+        return implode(",", auth()->user()->getRoleNames()->toArray());
     }
     public function adminlte_profile_url(){
         return "usuario/perfil";

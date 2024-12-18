@@ -125,14 +125,18 @@ class EmpleadoController extends Controller
             $usuario->matricula = strtoupper(substr($ap_paterno, 0, 1)) . strtoupper(substr($ap_materno, 0, 1)) . strtoupper(substr($nombre, 0, 1)) . $ci . $exp;
             // $usuario->email = $request->get('email');
             // $usuario->password = $request->get('password');
-            $usuario->save();
             // $usuario->assignRole($request->get('role'));
+
             // verificar para asignar roles
-
-            if($request->get('rotulo') == 'no_admin'){
-
+            if($request->has('rotulo')){
+                if($request->get('rotulo') == 'no_admin'){
+                    $usuario->removeRole('administrador');
+                }else if($request->get('rotulo') == 'admin'){
+                    $usuario->assignRole('administrador');
+                }
             }
 
+            $usuario->save();
             //return redirect('/empleados');
             return redirect('/empleados')->with('status', 'success')->with('message', 'Usuario actualizado correctamente');
         } catch (\Throwable $th) {
@@ -251,8 +255,5 @@ class EmpleadoController extends Controller
         } catch (\Throwable $th) {
             return redirect('/usuario/perfil')->with('status', 'error')->with('message', $th);
         }
-    }
-    public function edit_roles(Request $request){
-
     }
 }

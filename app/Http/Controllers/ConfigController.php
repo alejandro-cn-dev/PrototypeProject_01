@@ -21,10 +21,17 @@ class ConfigController extends Controller
     public function get_params()
     {
         //$valores = Parametro::all();
-        $valores = DB::table('parametros')
+        if(in_array('desarrollador', auth()->user()->getRoleNames()->toArray())){
+            $valores = DB::table('parametros')
+            ->select('id', 'nombre', DB::raw('LEFT(valor, 20) AS valor_mini'), 'descripcion')
+            ->get();
+        }else{
+            $valores = DB::table('parametros')
             ->select('id', 'nombre', DB::raw('LEFT(valor, 20) AS valor_mini'), 'descripcion')
             ->where('parametros.access_level','=',2)
             ->get();
+        }
+
         $ruta_icono = Parametro::where('nombre','=','logo_sistema_path')->get()[0]->valor;
         return view('config')->with('valores',$valores)->with('ruta_icono',$ruta_icono);
     }
