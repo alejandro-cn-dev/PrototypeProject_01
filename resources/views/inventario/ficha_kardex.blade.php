@@ -41,7 +41,8 @@
     </div>
     <div class="row bg-danger bg-gradient pt-2">
         <h2 class="col-md-10 text-center">TARJETA KARDEX</h2>
-        <h2 class="col-md-2 bg-warning text-center"> N° <label id="id_producto">0000</label></h2>
+        {{-- <h2 class="col-md-2 bg-warning text-center"> N° <label id="id_producto">0000</label></h2> --}}
+        <h2 class="col-md-2 bg-warning text-center"><label id="show_item" name="show_item">0000</label></h2>
     </div>
     <div id="producto" class="p-3">
         <div class="row mb-2">
@@ -180,7 +181,7 @@
     function cargar_datos(resultado){
         //$('#ficha tbody tr').detach();
         //resultado.producto.forEach(function(product_data){
-        document.getElementById('id_producto').innerHTML = (resultado.producto.id).toString().padStart(4, '0');
+        //document.getElementById('id_producto').innerHTML = (resultado.producto.id).toString().padStart(4, '0');
         document.getElementById('nombre').value = resultado.producto.nombre;
         document.getElementById('color').value = resultado.producto.color;
         document.getElementById('medida').value = resultado.producto.medida;
@@ -190,6 +191,7 @@
         document.getElementById('unidad').value = resultado.producto.unidad;
         document.getElementById('saldo').value = resultado.saldo;
         document.getElementById('item_producto').value = resultado.producto.item_producto;
+        document.getElementById('show_item').innerHTML = resultado.producto.item_producto;
 
         $('#ficha tbody tr').detach();
         tbody = document.getElementById("datos_ficha");
